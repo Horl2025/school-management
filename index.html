@@ -360,30 +360,78 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 <body class="bg-gray-100 text-gray-800">
 
 <!-- LOGIN SCREEN -->
-<div id="loginScreen" class="fixed inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center z-[100]">
-  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8">
+<div id="loginScreen" class="fixed inset-0 bg-slate-950 flex items-center justify-center z-[100] px-4 overflow-hidden select-none">
+  <!-- Glowing Background Orbs -->
+  <div class="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/25 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+  <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-600/25 rounded-full blur-3xl pointer-events-none animate-pulse" style="animation-duration: 6s;"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[32rem] h-[32rem] bg-sky-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <!-- Main Card Container -->
+  <div class="relative w-full max-w-[420px] bg-white/95 backdrop-blur-xl rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] border border-white/60 p-7 sm:p-9 transition-all duration-300">
+    
+    <!-- Top Header & Branding -->
     <div class="text-center mb-6">
-      <img id="loginLogo" src="" alt="" class="h-16 mx-auto mb-3 hidden object-contain">
-      <h1 class="text-2xl font-bold text-gray-800" id="loginSchoolName">សាលារៀន</h1>
-      <p class="text-sm text-gray-500 mt-1">ប្រព័ន្ធគ្រប់គ្រងសាលា (SMS v2.5)</p>
-    </div>
-    <form onsubmit="doLogin(event)" class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">អ៊ីមែល ឬ ឈ្មោះអ្នកប្រើ (Email / Username)</label>
-        <input type="text" id="loginUser" required class="w-full border border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-sm" placeholder="បញ្ចូលអ៊ីមែល ឬ ឈ្មោះអ្នកប្រើ..." autocomplete="username">
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">ពាក្យសម្ងាត់ (Password)</label>
-        <div class="relative">
-          <input type="password" id="loginPass" required class="w-full border border-gray-300 rounded-xl px-4 py-2.5 pr-10 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-sm" placeholder="បញ្ចូលពាក្យសម្ងាត់..." autocomplete="current-password">
-          <button type="button" onclick="toggleLoginPassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none text-base" title="បង្ហាញ/លាក់ពាក្យសម្ងាត់" id="togglePassBtn">👁️</button>
+      <!-- School Logo or Academic Crest Icon -->
+      <div class="relative inline-flex items-center justify-center mb-3">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 ring-4 ring-blue-50">
+          <img id="loginLogo" src="" alt="School Logo" class="w-full h-full object-contain rounded-2xl p-1.5 hidden">
+          <span id="loginLogoDefault" class="text-3xl">🏛️</span>
         </div>
       </div>
-      <p id="loginError" class="text-red-600 text-sm hidden font-medium text-center">ឈ្មោះអ្នកប្រើ ឬ ពាក្យសម្ងាត់មិនត្រឹមត្រូវ</p>
-      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl transition shadow-md hover:shadow-lg active:scale-[0.99] text-sm">ចូលប្រើប្រព័ន្ធ</button>
+      
+      <h1 class="text-xl sm:text-2xl font-bold font-moul text-slate-900 tracking-wide" id="loginSchoolName">សាលារៀន</h1>
+      <p class="text-xs sm:text-sm text-slate-500 font-medium mt-1">ប្រព័ន្ធគ្រប់គ្រងសាលារៀនឌីជីថល</p>
+      <div class="inline-flex items-center gap-1 px-2.5 py-0.5 mt-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-[11px] font-semibold">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping"></span>
+        <span>School Management System</span>
+      </div>
+    </div>
+
+    <!-- Login Form -->
+    <form onsubmit="doLogin(event)" class="space-y-4">
+      <!-- Username / Email Field -->
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206"/></svg>
+          <span>អ៊ីមែល ឬ ឈ្មោះអ្នកប្រើ</span>
+        </label>
+        <div class="relative">
+          <input type="text" id="loginUser" required class="w-full bg-slate-50/70 border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 outline-none focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 transition-all font-medium" placeholder="ឧ. owner@gmail.com ឬ admin" autocomplete="username">
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <span>ពាក្យសម្ងាត់</span>
+        </label>
+        <div class="relative">
+          <input type="password" id="loginPass" required class="w-full bg-slate-50/70 border border-slate-200 rounded-2xl px-4 py-3 pr-12 text-sm text-slate-800 placeholder-slate-400 outline-none focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 transition-all font-medium tracking-wide" placeholder="បញ្ចូលពាក្យសម្ងាត់..." autocomplete="current-password">
+          <button type="button" onclick="toggleLoginPassword()" class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-blue-600 rounded-lg hover:bg-slate-100 transition focus:outline-none" title="បង្ហាញ/លាក់ពាក្យសម្ងាត់" id="togglePassBtn">
+            <svg id="eyeOpenIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <svg id="eyeClosedIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Error Notice -->
+      <div id="loginError" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium flex items-center gap-2 animate-shake">
+        <svg class="w-4 h-4 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>ឈ្មោះអ្នកប្រើ ឬ ពាក្យសម្ងាត់មិនត្រឹមត្រូវឡើយ</span>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="w-full mt-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:via-indigo-700 hover:to-blue-800 text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-blue-600/30 hover:shadow-blue-600/40 active:scale-[0.98] flex items-center justify-center gap-2 text-sm tracking-wide">
+        <span>ចូលប្រើប្រព័ន្ធ</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </button>
     </form>
-    <div class="mt-5 pt-4 border-t border-gray-100 text-center">
-      <p class="text-[11px] text-gray-400">ប្រព័ន្ធគ្រប់គ្រងសាលារៀនឌីជីថល • រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
+
+    <!-- Footer Security Note -->
+    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-center gap-1.5 text-slate-400 text-[11px] font-medium">
+      <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      <span>ប្រព័ន្ធសុវត្ថិភាពខ្ពស់ • រក្សាសិទ្ធិគ្រប់យ៉ាង</span>
     </div>
   </div>
 </div>
@@ -3074,14 +3122,17 @@ function doLogout(){
 }
 function toggleLoginPassword(){
   const passEl = document.getElementById('loginPass');
-  const btn = document.getElementById('togglePassBtn');
+  const eyeOpen = document.getElementById('eyeOpenIcon');
+  const eyeClosed = document.getElementById('eyeClosedIcon');
   if(!passEl) return;
   if(passEl.type === 'password'){
     passEl.type = 'text';
-    if(btn) btn.textContent = '🙈';
+    if(eyeOpen) eyeOpen.classList.add('hidden');
+    if(eyeClosed) eyeClosed.classList.remove('hidden');
   } else {
     passEl.type = 'password';
-    if(btn) btn.textContent = '👁️';
+    if(eyeOpen) eyeOpen.classList.remove('hidden');
+    if(eyeClosed) eyeClosed.classList.add('hidden');
   }
 }
 function updateUserHeader(){
@@ -8842,10 +8893,12 @@ function applyLogo(){
       el.src = logo;
       el.classList.remove('hidden');
       document.getElementById('logoPlaceholder')?.classList.add('hidden');
+      document.getElementById('loginLogoDefault')?.classList.add('hidden');
     } else {
       el.src = '';
       el.classList.add('hidden');
       document.getElementById('logoPlaceholder')?.classList.remove('hidden');
+      document.getElementById('loginLogoDefault')?.classList.remove('hidden');
     }
   });
 }
