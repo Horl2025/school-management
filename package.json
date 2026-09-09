@@ -1,0 +1,17 @@
+{
+  "name": "school-management-system",
+  "version": "1.0.0",
+  "description": "ប្រព័ន្ធគ្រប់គ្រងសាលារៀន (School Management System)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'Static build complete'"
+  },
+  "keywords": [
+    "school-management",
+    "cambodia",
+    "education"
+  ],
+  "author": "",
+  "license": "ISC"
+}
