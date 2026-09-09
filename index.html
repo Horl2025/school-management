@@ -369,17 +369,20 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
     </div>
     <form onsubmit="doLogin(event)" class="space-y-4">
       <div>
-        <label class="block text-sm text-gray-600 mb-1">ឈ្មោះអ្នកប្រើ (Username)</label>
-        <input type="text" id="loginUser" required class="w-full border rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500" placeholder="admin" autocomplete="username">
+        <label class="block text-sm text-gray-600 mb-1">អ៊ីមែល ឬ ឈ្មោះអ្នកប្រើ (Gmail / Username)</label>
+        <input type="text" id="loginUser" required class="w-full border rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500" placeholder="owner@gmail.com ឬ admin@gmail.com" autocomplete="username">
       </div>
       <div>
         <label class="block text-sm text-gray-600 mb-1">ពាក្យសម្ងាត់ (Password)</label>
-        <input type="password" id="loginPass" required class="w-full border rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••" autocomplete="current-password">
+        <input type="password" id="loginPass" required class="w-full border rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••••••••" autocomplete="current-password">
       </div>
-      <p id="loginError" class="text-red-600 text-sm hidden">ឈ្មោះ ឬ ពាក្យសម្ងាត់មិនត្រឹមត្រូវ</p>
+      <p id="loginError" class="text-red-600 text-sm hidden">អ៊ីមែល/ឈ្មោះ ឬ ពាក្យសម្ងាត់មិនត្រឹមត្រូវ</p>
       <button type="submit" class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 font-medium transition shadow-md hover:shadow-lg">ចូលប្រើ</button>
     </form>
-    <p class="text-xs text-gray-400 text-center mt-4">លំនាំដើម៖ admin / admin123</p>
+    <div class="mt-4 p-3 bg-blue-50/70 border border-blue-100 rounded-xl text-xs text-gray-600 space-y-1">
+      <div class="flex justify-between items-center"><span class="font-bold text-blue-900">👑 Owner:</span> <code class="text-blue-700 font-mono">owner@gmail.com</code> / <code class="text-gray-700 font-mono">OwnerHorl141020</code></div>
+      <div class="flex justify-between items-center"><span class="font-bold text-indigo-900">🛡️ Admin:</span> <code class="text-indigo-700 font-mono">admin@gmail.com</code> / <code class="text-gray-700 font-mono">AdminHorl2026</code></div>
+    </div>
   </div>
 </div>
 
@@ -2632,9 +2635,14 @@ STU-002	វណ្ណា ដារ៉ា	ប្រុស	អ្នកស្រី
   <form onsubmit="saveUser(event)" class="space-y-3">
     <input type="hidden" id="userId">
     <input type="text" id="userName" required placeholder="ឈ្មោះពេញ *" class="w-full border rounded-lg px-3 py-2 text-sm">
-    <input type="text" id="userUsername" required placeholder="Username *" class="w-full border rounded-lg px-3 py-2 text-sm">
+    <input type="text" id="userUsername" required placeholder="Gmail / Username *" class="w-full border rounded-lg px-3 py-2 text-sm">
     <input type="password" id="userPassword" placeholder="ពាក្យសម្ងាត់ (ទុកទទេបើមិនផ្លាស់)" class="w-full border rounded-lg px-3 py-2 text-sm">
-    <select id="userRoleSelect" class="w-full border rounded-lg px-3 py-2 text-sm"><option value="Admin">Admin</option><option value="គ្រូ">គ្រូ</option><option value="មន្ត្រី">មន្ត្រី</option></select>
+    <select id="userRoleSelect" class="w-full border rounded-lg px-3 py-2 text-sm">
+      <option value="Owner">👑 Owner</option>
+      <option value="Admin">🛡️ Admin</option>
+      <option value="គ្រូ">👨‍🏫 គ្រូ</option>
+      <option value="មន្ត្រី">💼 មន្ត្រី</option>
+    </select>
     <div class="flex gap-3 pt-2"><button type="button" onclick="closeModal('userModal')" class="flex-1 border rounded-lg py-2">បោះបង់</button><button type="submit" class="flex-1 bg-blue-600 text-white rounded-lg py-2">រក្សាទុក</button></div>
   </form>
 </div></div>
@@ -2990,7 +2998,37 @@ let scores = JSON.parse(localStorage.getItem('sms_scores')) || [
 ];
 let salaryMap = JSON.parse(localStorage.getItem('sms_salary_map') || '{}');
 let payrollSettings = JSON.parse(localStorage.getItem('sms_payroll_settings') || '{"latePerMin":500,"absentPerDay":50000}');
-let users = JSON.parse(localStorage.getItem('sms_users')) || [{ id: 1, name: 'Admin', username: 'admin', password: 'admin123', role: 'Admin' }];
+let defaultUsers = [
+  { id: 1, name: 'Owner (ម្ចាស់សាលា)', username: 'owner@gmail.com', password: 'OwnerHorl141020', role: 'Owner' },
+  { id: 2, name: 'Admin (រដ្ឋបាល)', username: 'admin@gmail.com', password: 'AdminHorl2026', role: 'Admin' }
+];
+let users = JSON.parse(localStorage.getItem('sms_users')) || [];
+// Ensure owner and admin accounts exist or update their credentials
+if(!Array.isArray(users) || users.length === 0){
+  users = JSON.parse(JSON.stringify(defaultUsers));
+  localStorage.setItem('sms_users', JSON.stringify(users));
+} else {
+  // Guarantee owner account exists with new credentials
+  let ownerUser = users.find(u => u.role === 'Owner' || u.username === 'owner@gmail.com' || u.username === 'owner');
+  if(ownerUser){
+    ownerUser.username = 'owner@gmail.com';
+    ownerUser.password = 'OwnerHorl141020';
+    ownerUser.role = 'Owner';
+  } else {
+    users.unshift({ id: 1, name: 'Owner (ម្ចាស់សាលា)', username: 'owner@gmail.com', password: 'OwnerHorl141020', role: 'Owner' });
+  }
+
+  // Guarantee admin account exists with new credentials
+  let adminUser = users.find(u => (u.role === 'Admin' || u.username === 'admin@gmail.com' || u.username === 'admin') && u !== ownerUser);
+  if(adminUser){
+    adminUser.username = 'admin@gmail.com';
+    adminUser.password = 'AdminHorl2026';
+    adminUser.role = 'Admin';
+  } else {
+    users.push({ id: 2, name: 'Admin (រដ្ឋបាល)', username: 'admin@gmail.com', password: 'AdminHorl2026', role: 'Admin' });
+  }
+  localStorage.setItem('sms_users', JSON.stringify(users));
+}
 let appSettings = JSON.parse(localStorage.getItem('sms_settings') || '{}');
 let customPhotos = JSON.parse(localStorage.getItem('sms_custom_photos') || '{}'); // Keyed by code or id
 let currentUser = JSON.parse(sessionStorage.getItem('sms_current_user') || 'null');
@@ -3016,9 +3054,9 @@ function checkAuth(){
 }
 function doLogin(e){
   e.preventDefault();
-  const u = document.getElementById('loginUser').value.trim();
+  const u = document.getElementById('loginUser').value.trim().toLowerCase();
   const p = document.getElementById('loginPass').value;
-  const found = users.find(x => x.username === u && x.password === p);
+  const found = users.find(x => (x.username.toLowerCase() === u || (u === 'owner' && x.username === 'owner@gmail.com') || (u === 'admin' && x.username === 'admin@gmail.com')) && x.password === p);
   if(!found){ document.getElementById('loginError').classList.remove('hidden'); return; }
   currentUser = { id: found.id, name: found.name, username: found.username, role: found.role };
   sessionStorage.setItem('sms_current_user', JSON.stringify(currentUser));
@@ -8856,12 +8894,12 @@ function renderUsers(){
   box.innerHTML = users.map(u => `
     <div class="flex items-center justify-between py-2 border-b border-gray-100">
       <div class="flex items-center gap-2">
-        <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-bold">${(u.name||'?')[0]}</span>
-        <div><p class="text-sm font-medium">${u.name}</p><p class="text-xs text-gray-400">@${u.username} • ${u.role}</p></div>
+        <span class="w-8 h-8 rounded-full ${u.role === 'Owner' ? 'bg-amber-100 text-amber-800' : u.role === 'Admin' ? 'bg-indigo-100 text-indigo-800' : 'bg-blue-100 text-blue-700'} flex items-center justify-center text-sm font-bold">${u.role === 'Owner' ? '👑' : (u.name||'?')[0]}</span>
+        <div><p class="text-sm font-medium">${u.name}</p><p class="text-xs text-gray-400">@${u.username} • <span class="font-bold text-blue-700">${u.role}</span></p></div>
       </div>
       <div class="flex gap-2">
         <button onclick="editUser(${u.id})" class="text-blue-600 text-xs hover:underline">កែ</button>
-        ${u.username !== 'admin' ? `<button onclick="delUser(${u.id})" class="text-red-600 text-xs hover:underline">លុប</button>` : ''}
+        ${(u.username !== 'admin@gmail.com' && u.username !== 'owner@gmail.com' && u.role !== 'Owner') ? `<button onclick="delUser(${u.id})" class="text-red-600 text-xs hover:underline">លុប</button>` : ''}
       </div>
     </div>
   `).join('') || '<p class="text-gray-400 text-sm">មិនមានអ្នកប្រើ</p>';
