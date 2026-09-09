@@ -474,7 +474,13 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
     <a href="#" onclick="showPage('payroll')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">របាយការណ៍ប្រាក់ខែ</a>
     <a href="#" onclick="showPage('settings')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">ការកំណត់</a>
   </nav>
-  <div class="p-3 border-t border-blue-800 text-xs text-blue-200">Admin • localStorage • v2.5</div>
+  <div class="p-3 border-t border-blue-800/80 bg-blue-950/40 flex items-center justify-between text-xs text-blue-200">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span id="sideFooterRole" class="font-semibold text-white">Owner</span>
+    </div>
+    <span class="text-[11px] font-mono text-blue-300/80 bg-blue-900/60 px-2 py-0.5 rounded-full border border-blue-700/50">SMS v2.5</span>
+  </div>
 </aside>
 
 <main class="flex-1 overflow-y-auto">
@@ -3181,6 +3187,8 @@ function updateUserHeader(){
       avatarEl.className = 'w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs ring-2 ring-white';
     }
   }
+  const sideFooterRole = document.getElementById('sideFooterRole');
+  if(sideFooterRole) sideFooterRole.textContent = currentUser.role || 'Admin';
 }
 
 /* ===== HELPERS ===== */
