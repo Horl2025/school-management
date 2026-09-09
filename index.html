@@ -3066,7 +3066,7 @@ function doLogin(e){
   checkAuth(); fillHeaderYearButtons(); updateDashboard();
 }
 function doLogout(){
-  if(!confirm('ចាកចេញពីប្រព័ន្ធ?')) return;
+  if(!confirm('តើលោកអ្នកពិតជាចង់ចាកចេញមែនទេ?')) return;
   currentUser = null; sessionStorage.removeItem('sms_current_user');
   checkAuth();
   document.getElementById('loginUser').value = '';
