@@ -4,8 +4,7 @@
   "description": "ប្រព័ន្ធគ្រប់គ្រងសាលារៀន (School Management System)",
   "main": "index.html",
   "scripts": {
-    "start": "npx serve .",
-    "build": "echo 'Static build complete'"
+    "start": "npx serve ."
   },
   "keywords": [
     "school-management",
