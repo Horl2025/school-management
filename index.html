@@ -496,8 +496,14 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
     </div>
   </div>
 
-  <!-- Right: Academic Year Pill Buttons + User Profile + Date -->
+  <!-- Right: Date + Academic Year Pill Buttons + User Profile -->
   <div class="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+    <!-- Live Date Badge -->
+    <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-600 text-xs font-semibold shadow-2xs">
+      <span class="text-blue-600">📅</span>
+      <span id="currentDate"></span>
+    </div>
+
     <!-- Academic Year Buttons Container -->
     <div class="flex items-center gap-1.5 bg-slate-100/90 p-1 rounded-full border border-slate-200/70" id="headerYearButtons"></div>
 
@@ -512,12 +518,6 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
         <span>🚪</span>
         <span>ចាកចេញ</span>
       </button>
-    </div>
-
-    <!-- Live Date Badge -->
-    <div class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-600 text-xs font-semibold">
-      <span class="text-blue-600">📅</span>
-      <span id="currentDate"></span>
     </div>
   </div>
 </header>
