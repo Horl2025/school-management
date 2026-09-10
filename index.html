@@ -719,21 +719,41 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 <div id="page-classes" class="page space-y-4">
   <!-- Top Stat Cards -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
-    <div class="stat-card blue">
-      <p class="text-xs text-gray-500 font-medium">ចំនួនថ្នាក់សរុប</p>
-      <p class="text-2xl font-bold mt-1 text-blue-900" id="classCountStat">0</p>
+    <div class="bg-gradient-to-br from-blue-50/90 via-white to-sky-50/40 border-2 border-blue-200/80 rounded-2xl p-4 shadow-xs flex items-center justify-between transition hover:shadow-sm">
+      <div>
+        <p class="text-xs text-blue-900 font-bold">ចំនួនថ្នាក់សរុប</p>
+        <p class="text-2xl font-black mt-1 text-blue-900" id="classCountStat">0</p>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">
+        🏫
+      </div>
     </div>
-    <div class="stat-card green">
-      <p class="text-xs text-gray-500 font-medium">សិស្សក្នុងថ្នាក់សរុប</p>
-      <p class="text-2xl font-bold mt-1 text-emerald-800" id="classTotalStudentsStat">0</p>
+    <div class="bg-gradient-to-br from-emerald-50/90 via-white to-teal-50/40 border-2 border-emerald-200/80 rounded-2xl p-4 shadow-xs flex items-center justify-between transition hover:shadow-sm">
+      <div>
+        <p class="text-xs text-emerald-900 font-bold">សិស្សក្នុងថ្នាក់សរុប</p>
+        <p class="text-2xl font-black mt-1 text-emerald-800" id="classTotalStudentsStat">0</p>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">
+        👥
+      </div>
     </div>
-    <div class="stat-card purple">
-      <p class="text-xs text-gray-500 font-medium">គ្រូបន្ទុកថ្នាក់</p>
-      <p class="text-2xl font-bold mt-1 text-purple-900" id="classTeacherCountStat">0</p>
+    <div class="bg-gradient-to-br from-purple-50/90 via-white to-indigo-50/40 border-2 border-purple-200/80 rounded-2xl p-4 shadow-xs flex items-center justify-between transition hover:shadow-sm">
+      <div>
+        <p class="text-xs text-purple-900 font-bold">គ្រូបន្ទុកថ្នាក់</p>
+        <p class="text-2xl font-black mt-1 text-purple-900" id="classTeacherCountStat">0</p>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">
+        👨‍🏫
+      </div>
     </div>
-    <div class="stat-card orange">
-      <p class="text-xs text-gray-500 font-medium">បន្ទប់រៀនសរុប</p>
-      <p class="text-2xl font-bold mt-1 text-orange-900" id="classRoomCountStat">0</p>
+    <div class="bg-gradient-to-br from-amber-50/90 via-white to-orange-50/40 border-2 border-amber-200/80 rounded-2xl p-4 shadow-xs flex items-center justify-between transition hover:shadow-sm">
+      <div>
+        <p class="text-xs text-amber-900 font-bold">បន្ទប់រៀនសរុប</p>
+        <p class="text-2xl font-black mt-1 text-orange-900" id="classRoomCountStat">0</p>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">
+        🚪
+      </div>
     </div>
   </div>
 
@@ -4061,67 +4081,74 @@ function delYear(id){
 /* ===== CLASSES MODULE ===== */
 const classColorThemes = {
   blue: {
-    gradient: 'from-blue-600 to-indigo-600',
-    lightBg: 'bg-blue-50/50',
-    border: 'border-blue-100',
+    gradient: 'from-blue-600 via-indigo-600 to-blue-700',
+    lightBg: 'from-blue-50/70',
+    border: 'border-blue-200/90 hover:border-blue-300',
     accentText: 'text-blue-700',
     headerBadge: 'bg-blue-800/80 text-white',
-    progressBar: 'bg-blue-600',
-    rosterBtn: 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200'
+    iconBg: 'from-blue-500 to-indigo-600',
+    progressBar: 'bg-gradient-to-r from-blue-500 to-indigo-600',
+    rosterBtn: 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
   },
   emerald: {
-    gradient: 'from-emerald-600 to-teal-700',
-    lightBg: 'bg-emerald-50/50',
-    border: 'border-emerald-100',
+    gradient: 'from-emerald-600 via-teal-600 to-emerald-700',
+    lightBg: 'from-emerald-50/70',
+    border: 'border-emerald-200/90 hover:border-emerald-300',
     accentText: 'text-emerald-700',
     headerBadge: 'bg-emerald-800/80 text-white',
-    progressBar: 'bg-emerald-600',
-    rosterBtn: 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'
+    iconBg: 'from-emerald-500 to-teal-600',
+    progressBar: 'bg-gradient-to-r from-emerald-500 to-teal-600',
+    rosterBtn: 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs'
   },
   purple: {
-    gradient: 'from-purple-600 to-indigo-700',
-    lightBg: 'bg-purple-50/50',
-    border: 'border-purple-100',
+    gradient: 'from-purple-600 via-violet-600 to-indigo-700',
+    lightBg: 'from-purple-50/70',
+    border: 'border-purple-200/90 hover:border-purple-300',
     accentText: 'text-purple-700',
     headerBadge: 'bg-purple-800/80 text-white',
-    progressBar: 'bg-purple-600',
-    rosterBtn: 'bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200'
+    iconBg: 'from-purple-500 to-indigo-600',
+    progressBar: 'bg-gradient-to-r from-purple-500 to-indigo-600',
+    rosterBtn: 'bg-purple-600 hover:bg-purple-700 text-white shadow-xs'
   },
   amber: {
-    gradient: 'from-amber-500 to-orange-600',
-    lightBg: 'bg-amber-50/50',
-    border: 'border-amber-100',
-    accentText: 'text-amber-700',
+    gradient: 'from-amber-500 via-orange-500 to-amber-600',
+    lightBg: 'from-amber-50/70',
+    border: 'border-amber-200/90 hover:border-amber-300',
+    accentText: 'text-amber-800',
     headerBadge: 'bg-amber-800/80 text-white',
-    progressBar: 'bg-amber-500',
-    rosterBtn: 'bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200'
+    iconBg: 'from-amber-500 to-orange-500',
+    progressBar: 'bg-gradient-to-r from-amber-500 to-orange-500',
+    rosterBtn: 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs'
   },
   rose: {
-    gradient: 'from-rose-500 to-pink-600',
-    lightBg: 'bg-rose-50/50',
-    border: 'border-rose-100',
+    gradient: 'from-rose-500 via-pink-600 to-rose-600',
+    lightBg: 'from-rose-50/70',
+    border: 'border-rose-200/90 hover:border-rose-300',
     accentText: 'text-rose-700',
     headerBadge: 'bg-rose-800/80 text-white',
-    progressBar: 'bg-rose-500',
-    rosterBtn: 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'
+    iconBg: 'from-rose-500 to-pink-600',
+    progressBar: 'bg-gradient-to-r from-rose-500 to-pink-600',
+    rosterBtn: 'bg-rose-600 hover:bg-rose-700 text-white shadow-xs'
   },
   cyan: {
-    gradient: 'from-cyan-600 to-blue-600',
-    lightBg: 'bg-cyan-50/50',
-    border: 'border-cyan-100',
-    accentText: 'text-cyan-700',
+    gradient: 'from-cyan-600 via-teal-600 to-blue-600',
+    lightBg: 'from-cyan-50/70',
+    border: 'border-cyan-200/90 hover:border-cyan-300',
+    accentText: 'text-cyan-800',
     headerBadge: 'bg-cyan-800/80 text-white',
-    progressBar: 'bg-cyan-600',
-    rosterBtn: 'bg-cyan-50 text-cyan-700 hover:bg-cyan-100 border border-cyan-200'
+    iconBg: 'from-cyan-500 to-teal-600',
+    progressBar: 'bg-gradient-to-r from-cyan-500 to-teal-600',
+    rosterBtn: 'bg-cyan-600 hover:bg-cyan-700 text-white shadow-xs'
   },
   indigo: {
-    gradient: 'from-indigo-700 to-purple-800',
-    lightBg: 'bg-indigo-50/50',
-    border: 'border-indigo-100',
+    gradient: 'from-indigo-600 via-blue-700 to-purple-700',
+    lightBg: 'from-indigo-50/70',
+    border: 'border-indigo-200/90 hover:border-indigo-300',
     accentText: 'text-indigo-700',
     headerBadge: 'bg-indigo-900/80 text-white',
-    progressBar: 'bg-indigo-600',
-    rosterBtn: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200'
+    iconBg: 'from-indigo-500 to-purple-600',
+    progressBar: 'bg-gradient-to-r from-indigo-500 to-purple-600',
+    rosterBtn: 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs'
   }
 };
 
@@ -4257,7 +4284,9 @@ function renderClasses(){
     return;
   }
 
-  container.innerHTML = filtered.map(c => {
+  const themePalette = ['blue', 'emerald', 'purple', 'rose', 'amber', 'cyan', 'indigo'];
+
+  container.innerHTML = filtered.map((c, idx) => {
     // Find enrolled students in this class
     const classStudents = currentYearStudents.filter(s => s.className === c.name);
     const studentCount = classStudents.length;
@@ -4266,9 +4295,21 @@ function renderClasses(){
     const capacity = Number(c.capacity) || 40;
     const percent = Math.min(100, Math.round((studentCount / capacity) * 100));
     
-    // Theme color
-    const themeKey = c.color && classColorThemes[c.color] ? c.color : 'blue';
-    const theme = classColorThemes[themeKey];
+    // Determine dynamic theme if not set explicitly
+    let themeKey = c.color && classColorThemes[c.color] ? c.color : null;
+    if(!themeKey){
+      const name = c.name || '';
+      if(name.includes('៧') || name.includes('7')) themeKey = 'blue';
+      else if(name.includes('៨') || name.includes('8')) themeKey = 'emerald';
+      else if(name.includes('៩') || name.includes('9')) themeKey = 'purple';
+      else if(name.includes('១០') || name.includes('10')) themeKey = 'rose';
+      else if(name.includes('១១') || name.includes('11')) themeKey = 'amber';
+      else if(name.includes('១២') || name.includes('12')) themeKey = 'cyan';
+      else {
+        themeKey = themePalette[idx % themePalette.length];
+      }
+    }
+    const theme = classColorThemes[themeKey] || classColorThemes.blue;
 
     // Year name for this class
     const classYear = academicYears.find(y => y.id === (c.yearId || currentYearId));
@@ -4276,10 +4317,10 @@ function renderClasses(){
 
     // Shift Badge
     let shiftBadge = '';
-    if(c.shift === 'ព្រឹក') shiftBadge = '<span class="bg-white/20 backdrop-blur-md text-white border border-white/30 px-2.5 py-0.5 rounded-full text-[10px] font-semibold">🌅 ព្រឹក</span>';
-    else if(c.shift === 'រសៀល') shiftBadge = '<span class="bg-white/20 backdrop-blur-md text-white border border-white/30 px-2.5 py-0.5 rounded-full text-[10px] font-semibold">☀️ រសៀល</span>';
-    else if(c.shift === 'យប់') shiftBadge = '<span class="bg-white/20 backdrop-blur-md text-white border border-white/30 px-2.5 py-0.5 rounded-full text-[10px] font-semibold">🌙 យប់</span>';
-    else shiftBadge = `<span class="bg-white/20 backdrop-blur-md text-white border border-white/30 px-2.5 py-0.5 rounded-full text-[10px] font-semibold">${escapeHtml(c.shift || 'ពេញមួយថ្ងៃ')}</span>`;
+    if(c.shift === 'ព្រឹក') shiftBadge = '<span class="bg-amber-400/95 text-amber-950 font-bold px-2.5 py-0.5 rounded-full text-[10px] shadow-xs border border-amber-300 flex items-center gap-1">🌅 ព្រឹក</span>';
+    else if(c.shift === 'រសៀល') shiftBadge = '<span class="bg-orange-500/95 text-white font-bold px-2.5 py-0.5 rounded-full text-[10px] shadow-xs border border-orange-400 flex items-center gap-1">🌇 រសៀល</span>';
+    else if(c.shift === 'យប់') shiftBadge = '<span class="bg-indigo-900/90 text-indigo-100 font-bold px-2.5 py-0.5 rounded-full text-[10px] shadow-xs border border-indigo-700 flex items-center gap-1">🌙 យប់</span>';
+    else shiftBadge = `<span class="bg-white/25 backdrop-blur-xs text-white font-bold px-2.5 py-0.5 rounded-full text-[10px] border border-white/30">${escapeHtml(c.shift || 'ពេញមួយថ្ងៃ')}</span>`;
 
     // Find teacher info
     const teacherObj = teachers.find(t => t.name === c.teacher);
@@ -4290,10 +4331,10 @@ function renderClasses(){
     const teacher2Sub = teacher2Obj ? (teacher2Obj.subject || teacher2Obj.role || 'គ្រូជំនួយ') : 'គ្រូជំនួយ';
 
     return `
-      <div class="bg-white rounded-3xl border ${theme.border} shadow-sm hover:shadow-xl transform transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group">
+      <div class="bg-gradient-to-b ${theme.lightBg} via-white to-white rounded-3xl border-2 ${theme.border} shadow-xs hover:shadow-xl transform transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group">
         <div>
           <!-- Top Gradient Header Banner -->
-          <div class="bg-gradient-to-r ${theme.gradient} p-4 text-white relative overflow-hidden">
+          <div class="bg-gradient-to-r ${theme.gradient} p-4 text-white relative overflow-hidden shadow-xs">
             <!-- Decorative circle shape -->
             <div class="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-white/10 pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
             
@@ -4311,7 +4352,7 @@ function renderClasses(){
               </div>
               <div class="flex flex-col items-end gap-1">
                 ${shiftBadge}
-                <span class="text-[10px] bg-black/20 text-white/95 px-2 py-0.5 rounded-md font-mono font-medium">
+                <span class="text-[10px] bg-black/25 backdrop-blur-xs text-white px-2 py-0.5 rounded-md font-mono font-medium border border-white/10">
                   📅 ${escapeHtml(yearName)}
                 </span>
               </div>
@@ -4321,33 +4362,33 @@ function renderClasses(){
           <!-- Card Body Content -->
           <div class="p-4 space-y-3.5">
             <!-- Homeroom Teacher Box -->
-            <div class="bg-gray-50/90 rounded-2xl p-2.5 border border-gray-100 space-y-2 group-hover:bg-blue-50/30 transition-colors">
+            <div class="bg-white rounded-2xl p-3 border border-slate-200/80 shadow-2xs space-y-2 group-hover:border-slate-300 transition-colors">
               <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5 overflow-hidden">
-                  <div class="w-8 h-8 rounded-xl bg-gradient-to-tr ${theme.gradient} text-white flex items-center justify-center font-bold text-xs shadow-xs flex-shrink-0">
+                  <div class="w-8 h-8 rounded-xl bg-gradient-to-tr ${theme.iconBg} text-white flex items-center justify-center font-bold text-xs shadow-xs flex-shrink-0">
                     👨‍🏫
                   </div>
                   <div class="overflow-hidden">
-                    <p class="text-[9px] text-gray-400 font-medium leading-none">គ្រូបន្ទុកថ្នាក់ទី១</p>
-                    <p class="text-xs font-bold text-gray-800 truncate mt-0.5">${escapeHtml(c.teacher || 'មិនទាន់ចាត់តាំង')}</p>
+                    <p class="text-[9px] text-slate-400 font-bold leading-none">គ្រូបន្ទុកថ្នាក់ទី១</p>
+                    <p class="text-xs font-bold text-slate-800 truncate mt-0.5">${escapeHtml(c.teacher || 'មិនទាន់ចាត់តាំង')}</p>
                   </div>
                 </div>
-                <span class="text-[10px] bg-white border px-2 py-0.5 rounded-full text-gray-500 font-medium flex-shrink-0">
+                <span class="text-[10px] bg-slate-50 border border-slate-200 px-2.5 py-0.5 rounded-full text-slate-600 font-semibold flex-shrink-0">
                   ${escapeHtml(teacherSub)}
                 </span>
               </div>
               ${c.teacher2 ? `
-                <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-dashed border-gray-200">
+                <div class="flex items-center justify-between gap-2 pt-2 border-t border-dashed border-slate-200">
                   <div class="flex items-center gap-2.5 overflow-hidden">
                     <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-pink-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-xs flex-shrink-0">
                       👩‍🏫
                     </div>
                     <div class="overflow-hidden">
-                      <p class="text-[9px] text-gray-400 font-medium leading-none">គ្រូបន្ទុកទី២ / ជំនួយ</p>
-                      <p class="text-xs font-bold text-gray-800 truncate mt-0.5">${escapeHtml(c.teacher2)}</p>
+                      <p class="text-[9px] text-slate-400 font-bold leading-none">គ្រូបន្ទុកទី២ / ជំនួយ</p>
+                      <p class="text-xs font-bold text-slate-800 truncate mt-0.5">${escapeHtml(c.teacher2)}</p>
                     </div>
                   </div>
-                  <span class="text-[10px] bg-white border px-2 py-0.5 rounded-full text-pink-700 font-medium flex-shrink-0">
+                  <span class="text-[10px] bg-pink-50 border border-pink-200 px-2.5 py-0.5 rounded-full text-pink-700 font-semibold flex-shrink-0">
                     ${escapeHtml(teacher2Sub)}
                   </span>
                 </div>
@@ -4355,22 +4396,22 @@ function renderClasses(){
             </div>
 
             <!-- Student Capacity Progress Bar -->
-            <div class="space-y-1.5 bg-gray-50/50 p-2.5 rounded-2xl border border-gray-100">
+            <div class="space-y-1.5 bg-white p-3 rounded-2xl border border-slate-200/80 shadow-2xs">
               <div class="flex justify-between text-xs font-semibold">
-                <span class="text-gray-600">ចំនួនសិស្ស៖ <strong class="text-gray-900">${studentCount}</strong> / ${capacity} នាក់</span>
+                <span class="text-slate-600">ចំនួនសិស្ស៖ <strong class="text-slate-900 font-bold">${studentCount}</strong> / ${capacity} នាក់</span>
                 <span class="${percent >= 100 ? 'text-red-600' : theme.accentText} font-bold">${percent}%</span>
               </div>
-              <div class="w-full bg-gray-200/80 rounded-full h-2 overflow-hidden">
-                <div class="h-2 rounded-full ${percent >= 100 ? 'bg-red-500' : theme.progressBar} transition-all duration-500" style="width: ${percent}%"></div>
+              <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden p-0.5">
+                <div class="h-1.5 rounded-full ${percent >= 100 ? 'bg-red-500' : theme.progressBar} transition-all duration-500" style="width: ${percent}%"></div>
               </div>
-              <div class="flex justify-between text-[11px] text-gray-500 pt-0.5">
-                <span class="flex items-center gap-1">👩 ស្រី៖ <strong class="text-pink-600 font-semibold">${femaleCount}</strong> នាក់</span>
-                <span class="flex items-center gap-1">👨 ប្រុស៖ <strong class="text-blue-600 font-semibold">${maleCount}</strong> នាក់</span>
+              <div class="flex justify-between text-[11px] text-slate-500 pt-0.5 font-medium">
+                <span class="flex items-center gap-1">👩 ស្រី៖ <strong class="text-pink-600 font-bold">${femaleCount}</strong> នាក់</span>
+                <span class="flex items-center gap-1">👨 ប្រុស៖ <strong class="text-blue-600 font-bold">${maleCount}</strong> នាក់</span>
               </div>
             </div>
 
             ${c.note ? `
-              <p class="text-[11px] text-gray-500 italic bg-gray-50 px-2.5 py-1.5 rounded-xl border border-gray-100 truncate" title="${escapeHtml(c.note)}">
+              <p class="text-[11px] text-slate-500 italic bg-white px-3 py-1.5 rounded-xl border border-slate-200 truncate" title="${escapeHtml(c.note)}">
                 📝 ${escapeHtml(c.note)}
               </p>
             ` : ''}
@@ -4378,16 +4419,16 @@ function renderClasses(){
         </div>
 
         <!-- Action Footer -->
-        <div class="px-4 py-3 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between gap-2">
-          <button onclick="previewClassRoster(${c.id})" class="text-xs font-semibold ${theme.rosterBtn} px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 shadow-2xs">
+        <div class="px-4 py-3 bg-white/90 border-t border-slate-100 flex items-center justify-between gap-2">
+          <button onclick="previewClassRoster(${c.id})" class="text-xs font-bold ${theme.rosterBtn} px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 active:scale-95 shadow-xs">
             <span>👥 បញ្ជីសិស្ស</span>
-            <span class="bg-white/80 px-1.5 py-0.2 rounded-full text-[10px] font-bold">${studentCount}</span>
+            <span class="bg-white/30 text-white px-2 py-0.5 rounded-full text-[10px] font-black">${studentCount}</span>
           </button>
           <div class="flex items-center gap-1">
-            <button onclick="editClass(${c.id})" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition" title="កែប្រែថ្នាក់">
+            <button onclick="editClass(${c.id})" class="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition active:scale-95" title="កែប្រែថ្នាក់">
               ✏️
             </button>
-            <button onclick="delClass(${c.id})" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition" title="លុបថ្នាក់">
+            <button onclick="delClass(${c.id})" class="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition active:scale-95" title="លុបថ្នាក់">
               🗑️
             </button>
           </div>
