@@ -209,7 +209,8 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 /* ===== ID CARD STYLES ===== */
 .id-card-portrait{
   width:260px;
-  height:415px;
+  height:440px;
+  min-height:440px;
   background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);
   border-radius:20px;
   box-shadow:0 12px 28px -6px rgba(15,23,42,.12),0 4px 10px -2px rgba(15,23,42,.06);
@@ -229,7 +230,8 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 
 .id-card-landscape{
   width:380px;
-  height:245px;
+  height:250px;
+  min-height:250px;
   background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);
   border-radius:20px;
   box-shadow:0 12px 28px -6px rgba(15,23,42,.12),0 4px 10px -2px rgba(15,23,42,.06);
@@ -1062,12 +1064,12 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
   <div class="bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/30 rounded-3xl border-2 border-blue-200/80 shadow-xs p-5 mb-6 no-print space-y-4">
     <div class="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center">
       <!-- Tabs: Student / Teacher -->
-      <div class="flex items-center bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/80 shadow-inner">
-        <button id="idCardTabStudent" onclick="switchIdCardType('student')" class="px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-1.5">
+      <div class="flex items-center bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/80 shadow-inner flex-shrink-0">
+        <button id="idCardTabStudent" onclick="switchIdCardType('student')" class="px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-2 whitespace-nowrap flex-shrink-0">
           <span>🎓</span>
           <span>កាតសិស្ស</span>
         </button>
-        <button id="idCardTabTeacher" onclick="switchIdCardType('teacher')" class="px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-1.5">
+        <button id="idCardTabTeacher" onclick="switchIdCardType('teacher')" class="px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-2 whitespace-nowrap flex-shrink-0">
           <span>👨‍🏫</span>
           <span>កាតគ្រូ & បុគ្គលិក</span>
         </button>
@@ -6330,12 +6332,12 @@ function switchIdCardType(type){
   const classFilter = document.getElementById('idCardClassFilter');
   
   if(type === 'student'){
-    btnStu.className = 'px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-1.5';
-    btnTch.className = 'px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-1.5';
+    btnStu.className = 'px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-2 whitespace-nowrap flex-shrink-0';
+    btnTch.className = 'px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-2 whitespace-nowrap flex-shrink-0';
     classFilter.classList.remove('hidden');
   } else {
-    btnTch.className = 'px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-1.5';
-    btnStu.className = 'px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-1.5';
+    btnTch.className = 'px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-2 whitespace-nowrap flex-shrink-0';
+    btnStu.className = 'px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-2 whitespace-nowrap flex-shrink-0';
     classFilter.classList.add('hidden');
   }
   renderIdCards();
@@ -6426,8 +6428,8 @@ function generateQRCodeForCard(item, containerId){
   try {
     new QRCode(box, {
       text: qrData,
-      width: 68,
-      height: 68,
+      width: 54,
+      height: 54,
       colorDark: "#0f172a",
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.M
@@ -6521,33 +6523,35 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
     return `
       <div class="card-theme-${cardTheme} flex flex-col items-center ${isPrintMode ? 'card-cut-container' : ''}">
         ${!isPrintMode ? `
-          <div class="flex justify-between items-center w-full px-2 mb-2 no-print text-xs">
-            <label class="inline-flex items-center gap-1.5 font-medium cursor-pointer text-slate-700 bg-white/90 backdrop-blur px-2.5 py-1 rounded-full border border-slate-200 shadow-2xs hover:bg-slate-50 transition">
+          <div class="flex justify-between items-center w-full px-1 mb-2 no-print text-xs">
+            <label class="inline-flex items-center gap-1.5 font-medium cursor-pointer text-slate-700 bg-white/95 backdrop-blur px-2.5 py-1 rounded-full border border-slate-200 shadow-2xs hover:bg-slate-50 transition flex-shrink-0">
               <input type="checkbox" class="card-item-checkbox rounded text-blue-600 focus:ring-blue-500" ${isSelected?'checked':''} onchange="toggleCardItemSelection(${item.id}, this.checked)">
-              <span class="text-[11px] font-semibold">ជ្រើស</span>
+              <span class="text-[11px] font-semibold whitespace-nowrap">ជ្រើស</span>
             </label>
-            <div class="flex items-center gap-1.5">
-              <label class="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 px-2.5 py-1 rounded-full cursor-pointer transition shadow-2xs" title="ប្តូររូបថត">
-                <span>📷 រូប</span>
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <label class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 px-2.5 py-1 rounded-full cursor-pointer transition shadow-2xs whitespace-nowrap" title="ប្តូររូបថត">
+                <svg class="w-3.5 h-3.5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span>រូបថត</span>
                 <input type="file" accept="image/*" class="hidden" onchange="uploadCardPhoto('${item.code}', event)">
               </label>
-              <button onclick="previewSingleIdCardModal('${isStudent?'student':'teacher'}', ${item.id})" class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full transition shadow-2xs">
-                <span>👁️ មើល</span>
+              <button onclick="previewSingleIdCardModal('${isStudent?'student':'teacher'}', ${item.id})" class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full transition shadow-2xs whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 text-slate-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                <span>មើល</span>
               </button>
             </div>
           </div>
         ` : ''}
         <div class="id-card-portrait border" id="card-${item.id}">
           <!-- Header -->
-          <div class="id-card-header p-3 text-center relative shadow-xs">
+          <div class="id-card-header px-3 py-2 text-center relative shadow-xs flex-shrink-0">
             <div class="flex items-center justify-center gap-2">
-              ${schLogo ? `<img src="${schLogo}" class="h-8 w-8 object-contain rounded-lg bg-white/90 p-0.5 shadow-2xs">` : ''}
+              ${schLogo ? `<img src="${schLogo}" class="h-8 w-8 object-contain rounded-lg bg-white/90 p-0.5 shadow-2xs flex-shrink-0">` : ''}
               <div class="text-left">
-                <h4 class="font-bold text-xs leading-tight tracking-wide font-moul">${schName}</h4>
-                <p class="text-[8.5px] tracking-wider opacity-90 uppercase mt-0.5 font-sans font-semibold">KINGDOM OF CAMBODIA</p>
+                <h4 class="font-bold text-xs leading-normal tracking-wide font-moul m-0">${schName}</h4>
+                <p class="text-[8px] tracking-wider opacity-90 uppercase mt-0.5 font-sans font-semibold">KINGDOM OF CAMBODIA</p>
               </div>
             </div>
-            <div class="mt-2 inline-block id-card-badge px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-2xs border border-white/20">
+            <div class="mt-1.5 inline-block id-card-badge px-2.5 py-0.5 rounded-full text-[9.5px] font-bold shadow-2xs border border-white/20">
               ${cardBadge}
             </div>
           </div>
@@ -6555,7 +6559,7 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
           <!-- Body -->
           <div class="p-3 flex-1 flex flex-col justify-between items-center text-center">
             <!-- Photo & Avatar -->
-            <div class="relative mt-1">
+            <div class="relative mt-0.5 flex-shrink-0">
               <div class="w-20 h-24 rounded-2xl border-2 border-white shadow-md overflow-hidden bg-slate-100 flex items-center justify-center ring-2 ring-slate-200/80">
                 ${photo ? `<img src="${photo}" class="w-full h-full object-cover">` : `
                   <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-blue-900">
@@ -6567,35 +6571,35 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
             </div>
 
             <!-- Name & ID -->
-            <div class="mt-1.5 w-full">
-              <h3 class="font-bold text-base text-slate-900 leading-tight font-sans">${item.name}</h3>
-              <div class="inline-flex items-center gap-1 font-mono font-bold text-xs id-accent bg-slate-100 px-2.5 py-0.5 rounded-full mt-1 border border-slate-200/80 shadow-2xs">
+            <div class="mt-1 w-full flex-shrink-0">
+              <h3 class="font-bold text-sm text-slate-900 leading-normal font-sans">${item.name}</h3>
+              <div class="inline-flex items-center gap-1 font-mono font-bold text-xs id-accent bg-slate-100 px-2.5 py-0.5 rounded-full mt-0.5 border border-slate-200/80 shadow-2xs">
                 <span>🆔</span> <span>${item.code}</span>
               </div>
             </div>
 
             <!-- Info Grid -->
-            <div class="w-full text-left text-[11px] space-y-1 bg-gradient-to-br from-slate-50 to-slate-100/60 p-2.5 rounded-xl border border-slate-200/70 mt-1.5 shadow-2xs">
+            <div class="w-full text-left text-[10px] space-y-1.5 bg-gradient-to-br from-slate-50 to-slate-100/60 p-2 rounded-xl border border-slate-200/70 mt-1 shadow-2xs flex-shrink-0 leading-normal">
               <div class="flex justify-between items-center"><span class="text-slate-500 font-medium">${isStudent?'ថ្នាក់រៀន':'មុខវិជ្ជា/តួនាទី'}៖</span> <strong class="text-slate-900 font-bold bg-white px-2 py-0.5 rounded border border-slate-200/60 shadow-2xs">${item.className || item.subject || item.position || '—'}</strong></div>
               <div class="flex justify-between items-center"><span class="text-slate-500 font-medium">ភេទ៖</span> <strong class="text-slate-800 font-semibold">${item.gender || '—'}</strong></div>
               <div class="flex justify-between items-center"><span class="text-slate-500 font-medium">ឆ្នាំសិក្សា៖</span> <strong class="text-slate-800 font-semibold">${getCurrentYearName()}</strong></div>
             </div>
 
             <!-- QR Code -->
-            <div class="flex items-center justify-center gap-2.5 w-full mt-1.5 pt-1.5 border-t border-dashed border-slate-200">
-              <div id="qr-canvas-${item.id}" class="qr-box p-1 bg-white rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center flex-shrink-0">
-                ${qrImageSrc ? `<img src="${qrImageSrc}" class="w-[64px] h-[64px] object-contain rounded">` : ''}
+            <div class="flex items-center justify-center gap-2.5 w-full mt-1.5 pt-1.5 border-t border-dashed border-slate-200 flex-shrink-0">
+              <div id="qr-canvas-${item.id}" class="qr-box p-1 bg-white rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center flex-shrink-0 min-w-[58px] min-h-[58px]">
+                ${qrImageSrc ? `<img src="${qrImageSrc}" class="w-[54px] h-[54px] object-contain rounded">` : ''}
               </div>
-              <div class="text-left text-[9px] text-slate-500 leading-tight">
-                <p class="font-bold text-slate-800 flex items-center gap-1"><span>✨</span> ស្កេនពិនិត្យទិន្នន័យ</p>
-                <p class="text-[8.5px] text-slate-600 mt-0.5">Verifiable Official Card</p>
-                <p class="text-[8px] text-slate-400 mt-0.5">Valid: ${getCurrentYear()?.end || '2026'}</p>
+              <div class="text-left text-[8.5px] text-slate-500 leading-snug">
+                <p class="font-bold text-slate-800 flex items-center gap-1"><span>✨</span> <span>ស្កេនពិនិត្យទិន្នន័យ</span></p>
+                <p class="text-[8px] text-slate-600 mt-0.5">Verifiable Official Card</p>
+                <p class="text-[7.5px] text-slate-400 mt-0.5">Valid: ${getCurrentYear()?.end || '2026'}</p>
               </div>
             </div>
           </div>
 
           <!-- Footer Bar -->
-          <div class="id-card-footer py-1 px-3 text-center text-[9px] font-semibold tracking-wider uppercase">
+          <div class="id-card-footer py-1.5 px-3 text-center text-[9px] font-semibold tracking-wider uppercase flex-shrink-0">
             ${cardBadgeEn} • SMS v2.5
           </div>
         </div>
@@ -6606,29 +6610,31 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
     return `
       <div class="card-theme-${cardTheme} flex flex-col items-center ${isPrintMode ? 'card-cut-container' : ''}">
         ${!isPrintMode ? `
-          <div class="flex justify-between items-center w-full px-2 mb-2 no-print text-xs">
-            <label class="inline-flex items-center gap-1.5 font-medium cursor-pointer text-slate-700 bg-white/90 backdrop-blur px-2.5 py-1 rounded-full border border-slate-200 shadow-2xs hover:bg-slate-50 transition">
+          <div class="flex justify-between items-center w-full px-1 mb-2 no-print text-xs">
+            <label class="inline-flex items-center gap-1.5 font-medium cursor-pointer text-slate-700 bg-white/95 backdrop-blur px-2.5 py-1 rounded-full border border-slate-200 shadow-2xs hover:bg-slate-50 transition flex-shrink-0">
               <input type="checkbox" class="card-item-checkbox rounded text-blue-600 focus:ring-blue-500" ${isSelected?'checked':''} onchange="toggleCardItemSelection(${item.id}, this.checked)">
-              <span class="text-[11px] font-semibold">ជ្រើស</span>
+              <span class="text-[11px] font-semibold whitespace-nowrap">ជ្រើស</span>
             </label>
-            <div class="flex items-center gap-1.5">
-              <label class="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 px-2.5 py-1 rounded-full cursor-pointer transition shadow-2xs" title="ប្តូររូបថត">
-                <span>📷 រូប</span>
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <label class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 px-2.5 py-1 rounded-full cursor-pointer transition shadow-2xs whitespace-nowrap" title="ប្តូររូបថត">
+                <svg class="w-3.5 h-3.5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span>រូបថត</span>
                 <input type="file" accept="image/*" class="hidden" onchange="uploadCardPhoto('${item.code}', event)">
               </label>
-              <button onclick="previewSingleIdCardModal('${isStudent?'student':'teacher'}', ${item.id})" class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full transition shadow-2xs">
-                <span>👁️ មើល</span>
+              <button onclick="previewSingleIdCardModal('${isStudent?'student':'teacher'}', ${item.id})" class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full transition shadow-2xs whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 text-slate-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                <span>មើល</span>
               </button>
             </div>
           </div>
         ` : ''}
         <div class="id-card-landscape border" id="card-${item.id}">
           <!-- Header -->
-          <div class="id-card-header px-4 py-2 flex justify-between items-center shadow-xs">
+          <div class="id-card-header px-4 py-2 flex justify-between items-center shadow-xs flex-shrink-0">
             <div class="flex items-center gap-2">
-              ${schLogo ? `<img src="${schLogo}" class="h-6 w-6 object-contain rounded-lg bg-white/90 p-0.5 shadow-2xs">` : ''}
+              ${schLogo ? `<img src="${schLogo}" class="h-6 w-6 object-contain rounded-lg bg-white/90 p-0.5 shadow-2xs flex-shrink-0">` : ''}
               <div>
-                <h4 class="font-bold text-xs leading-tight font-moul">${schName}</h4>
+                <h4 class="font-bold text-xs leading-normal font-moul m-0">${schName}</h4>
               </div>
             </div>
             <span class="id-card-badge px-2.5 py-0.5 rounded-full text-[9px] font-bold border border-white/20 shadow-2xs">${cardBadge}</span>
@@ -6648,11 +6654,11 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
 
             <!-- Middle: Details -->
             <div class="flex-1 text-left text-xs space-y-1">
-              <h3 class="font-bold text-sm text-slate-900 leading-tight font-sans">${item.name}</h3>
+              <h3 class="font-bold text-sm text-slate-900 leading-normal font-sans">${item.name}</h3>
               <div class="inline-flex items-center gap-1 font-mono font-bold text-[11px] id-accent bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200/80 shadow-2xs">
                 <span>🆔</span> <span>${item.code}</span>
               </div>
-              <div class="text-[10px] text-slate-600 pt-1 space-y-0.5 border-t border-slate-100">
+              <div class="text-[10px] text-slate-600 pt-1 space-y-0.5 border-t border-slate-100 leading-normal">
                 <p><span class="text-slate-400 font-medium">${isStudent?'ថ្នាក់':'មុខវិជ្ជា'}៖</span> <strong class="text-slate-800 font-bold">${item.className || item.subject || item.position || '—'}</strong></p>
                 <p><span class="text-slate-400 font-medium">ភេទ៖</span> <strong class="text-slate-800 font-semibold">${item.gender || '—'}</strong> • ឆ្នាំ៖ <strong class="text-slate-800 font-semibold">${getCurrentYearName()}</strong></p>
               </div>
@@ -6660,15 +6666,15 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
 
             <!-- Right: QR Code -->
             <div class="flex flex-col items-center justify-center flex-shrink-0">
-              <div id="qr-canvas-${item.id}" class="qr-box p-1 bg-white rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center">
-                ${qrImageSrc ? `<img src="${qrImageSrc}" class="w-[64px] h-[64px] object-contain rounded">` : ''}
+              <div id="qr-canvas-${item.id}" class="qr-box p-1 bg-white rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center min-w-[58px] min-h-[58px]">
+                ${qrImageSrc ? `<img src="${qrImageSrc}" class="w-[54px] h-[54px] object-contain rounded">` : ''}
               </div>
               <span class="text-[8px] font-semibold text-slate-400 mt-1 uppercase tracking-wider">Official QR</span>
             </div>
           </div>
 
           <!-- Footer -->
-          <div class="id-card-footer py-1 px-4 text-center text-[8.5px] font-semibold uppercase tracking-wider">
+          <div class="id-card-footer py-1 px-4 text-center text-[8.5px] font-semibold uppercase tracking-wider flex-shrink-0">
             ${cardBadgeEn} • ព្រះរាជាណាចក្រកម្ពុជា
           </div>
         </div>
@@ -6773,7 +6779,7 @@ function getCardPrintDocumentHTML(cardsHtmlList){
         }
         .id-card-portrait {
           width: 250px;
-          height: 395px;
+          height: 435px;
           background: #fff!important;
           border-radius: 16px;
           border: 1.5px solid #cbd5e1;
@@ -6786,7 +6792,7 @@ function getCardPrintDocumentHTML(cardsHtmlList){
         }
         .id-card-landscape {
           width: 360px;
-          height: 230px;
+          height: 245px;
           background: #fff!important;
           border-radius: 14px;
           border: 1.5px solid #cbd5e1;
