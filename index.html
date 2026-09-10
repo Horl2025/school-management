@@ -209,40 +209,42 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 /* ===== ID CARD STYLES ===== */
 .id-card-portrait{
   width:260px;
-  height:410px;
-  background:#fff;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
-  border:1px solid #e2e8f0;
+  height:415px;
+  background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);
+  border-radius:20px;
+  box-shadow:0 12px 28px -6px rgba(15,23,42,.12),0 4px 10px -2px rgba(15,23,42,.06);
+  border:1.5px solid #cbd5e1;
   position:relative;
   overflow:hidden;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  transition:all .3s ease;
+  transition:all .3s cubic-bezier(0.4,0,0.2,1);
 }
 .id-card-portrait:hover{
-  transform:translateY(-5px);
-  box-shadow:0 18px 36px rgba(0,0,0,.14);
+  transform:translateY(-6px);
+  box-shadow:0 22px 40px -8px rgba(15,23,42,.2);
+  border-color:#94a3b8;
 }
 
 .id-card-landscape{
   width:380px;
-  height:240px;
-  background:#fff;
-  border-radius:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
-  border:1px solid #e2e8f0;
+  height:245px;
+  background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);
+  border-radius:20px;
+  box-shadow:0 12px 28px -6px rgba(15,23,42,.12),0 4px 10px -2px rgba(15,23,42,.06);
+  border:1.5px solid #cbd5e1;
   position:relative;
   overflow:hidden;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  transition:all .3s ease;
+  transition:all .3s cubic-bezier(0.4,0,0.2,1);
 }
 .id-card-landscape:hover{
-  transform:translateY(-5px);
-  box-shadow:0 18px 36px rgba(0,0,0,.14);
+  transform:translateY(-6px);
+  box-shadow:0 22px 40px -8px rgba(15,23,42,.2);
+  border-color:#94a3b8;
 }
 
 /* Card Themes */
@@ -270,6 +272,11 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 .card-theme-purple .id-card-badge{background:#6d28d9;color:#fff}
 .card-theme-purple .id-accent{color:#6d28d9}
 .card-theme-purple .id-card-footer{background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff}
+
+.card-theme-amber .id-card-header{background:linear-gradient(135deg,#b45309,#d97706);color:#fff}
+.card-theme-amber .id-card-badge{background:#92400e;color:#fff}
+.card-theme-amber .id-accent{color:#b45309}
+.card-theme-amber .id-card-footer{background:linear-gradient(135deg,#b45309,#d97706);color:#fff}
 
 .qr-box canvas, .qr-box img{
   display:block!important;
@@ -1052,24 +1059,26 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 <!-- ID CARDS MODULE (STUDENT & TEACHER ID CARDS WITH QR CODE) -->
 <div id="page-idcards" class="page">
   <!-- CONTROL BAR -->
-  <div class="bg-white rounded-2xl shadow-sm p-4 sm:p-5 mb-5 no-print border">
+  <div class="bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/30 rounded-3xl border-2 border-blue-200/80 shadow-xs p-5 mb-6 no-print space-y-4">
     <div class="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center">
       <!-- Tabs: Student / Teacher -->
-      <div class="flex items-center bg-gray-100 p-1 rounded-xl">
-        <button id="idCardTabStudent" onclick="switchIdCardType('student')" class="px-4 py-2 rounded-lg text-sm font-medium transition bg-white text-blue-800 shadow-sm">
-          កាតសិស្ស
+      <div class="flex items-center bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/80 shadow-inner">
+        <button id="idCardTabStudent" onclick="switchIdCardType('student')" class="px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-1.5">
+          <span>🎓</span>
+          <span>កាតសិស្ស</span>
         </button>
-        <button id="idCardTabTeacher" onclick="switchIdCardType('teacher')" class="px-4 py-2 rounded-lg text-sm font-medium transition text-gray-600 hover:text-gray-900">
-          កាតគ្រូ & បុគ្គលិក
+        <button id="idCardTabTeacher" onclick="switchIdCardType('teacher')" class="px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-1.5">
+          <span>👨‍🏫</span>
+          <span>កាតគ្រូ & បុគ្គលិក</span>
         </button>
       </div>
 
       <!-- Filters & Options -->
       <div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
-        <input type="text" id="idCardSearch" placeholder="ស្វែងរកតាមឈ្មោះ/លេខកូដ..." oninput="renderIdCards()" class="border rounded-lg px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-48">
+        <input type="text" id="idCardSearch" placeholder="🔍 ស្វែងរកតាមឈ្មោះ/លេខកូដ..." oninput="renderIdCards()" class="rounded-xl border border-blue-200 bg-white px-3.5 py-2 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-2xs font-medium w-full sm:w-52">
         
-        <select id="idCardClassFilter" onchange="renderIdCards()" class="border rounded-lg px-3 py-1.5 text-sm bg-white outline-none">
-          <option value="">គ្រប់ថ្នាក់ / ទាំងអស់</option>
+        <select id="idCardClassFilter" onchange="renderIdCards()" class="rounded-xl border border-blue-200 bg-white px-3.5 py-2 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-2xs font-bold cursor-pointer">
+          <option value="">🏫 គ្រប់ថ្នាក់ / ទាំងអស់</option>
           <option value="ថ្នាក់ទី៧">ថ្នាក់ទី៧</option>
           <option value="ថ្នាក់ទី៨">ថ្នាក់ទី៨</option>
           <option value="ថ្នាក់ទី៩">ថ្នាក់ទី៩</option>
@@ -1079,41 +1088,42 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
         </select>
 
         <!-- Theme Color -->
-        <select id="idCardTheme" onchange="renderIdCards()" class="border rounded-lg px-3 py-1.5 text-sm bg-white outline-none">
-          <option value="blue">ពណ៍ខៀវ (Royal Blue)</option>
-          <option value="green">ពណ៌បៃតង (Emerald)</option>
-          <option value="red">ពណ៌ក្រហម (Burgundy)</option>
-          <option value="navy">ពណ៌ទឹកប៊ិចចាស់ (Navy Gold)</option>
-          <option value="purple">ពណ៌ស្វាយ (Purple)</option>
+        <select id="idCardTheme" onchange="renderIdCards()" class="rounded-xl border border-blue-200 bg-white px-3.5 py-2 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-2xs font-bold cursor-pointer">
+          <option value="auto">🌈 ពណ៌ចម្រុះស្វ័យប្រវត្តិ (Auto)</option>
+          <option value="blue">🔷 ពណ៌ខៀវ (Royal Blue)</option>
+          <option value="green">🟢 ពណ៌បៃតង (Emerald)</option>
+          <option value="purple">🟣 ពណ៌ស្វាយ (Purple)</option>
+          <option value="red">🔴 ពណ៌ក្រហម (Burgundy)</option>
+          <option value="navy">🟡 ពណ៌ទឹកប៊ិចចាស់ (Navy Gold)</option>
+          <option value="amber">🟠 ពណ៌មាសលឿងទុំ (Warm Amber)</option>
         </select>
 
         <!-- Orientation -->
-        <select id="idCardLayout" onchange="renderIdCards()" class="border rounded-lg px-3 py-1.5 text-sm bg-white outline-none">
-          <option value="portrait">ទម្រង់បញ្ឈរ (Portrait)</option>
-          <option value="landscape">ទម្រង់ផ្ដេក (Landscape)</option>
+        <select id="idCardLayout" onchange="renderIdCards()" class="rounded-xl border border-blue-200 bg-white px-3.5 py-2 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-2xs font-bold cursor-pointer">
+          <option value="portrait">📱 ទម្រង់បញ្ឈរ (Portrait)</option>
+          <option value="landscape">💳 ទម្រង់ផ្ដេក (Landscape)</option>
         </select>
       </div>
     </div>
 
     <!-- Toolbar Actions -->
-    <div class="flex flex-wrap justify-between items-center gap-3 mt-4 pt-3 border-t">
-      <div class="flex items-center gap-2">
-        <label class="flex items-center gap-2 text-xs font-medium text-gray-700 cursor-pointer">
-          <input type="checkbox" id="selectAllIdCards" onchange="toggleSelectAllCards(this.checked)" class="rounded text-blue-600 focus:ring-blue-500">
-          <span>ជ្រើសរើសទាំងអស់ (<span id="idCardSelectedCount">0</span> បានជ្រើស)</span>
+    <div class="flex flex-wrap justify-between items-center gap-3 pt-3 border-t border-blue-100">
+      <div class="flex items-center gap-2.5">
+        <label class="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-xl border border-blue-200 shadow-2xs text-xs font-bold text-slate-700 cursor-pointer hover:border-blue-300 transition">
+          <input type="checkbox" id="selectAllIdCards" onchange="toggleSelectAllCards(this.checked)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+          <span>ជ្រើសរើសទាំងអស់ (<span id="idCardSelectedCount" class="text-blue-600 font-bold">0</span> បានជ្រើស)</span>
         </label>
-        <span class="text-xs text-gray-400">|</span>
-        <span class="text-xs text-gray-500" id="idCardTotalBadge">សរុប៖ 0</span>
+        <span class="text-xs font-bold text-slate-500 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs" id="idCardTotalBadge">សរុប៖ 0</span>
       </div>
 
       <div class="flex items-center gap-2 flex-wrap">
-        <button onclick="previewSelectedIdCardsPDF()" class="btn-pdf">
+        <button onclick="previewSelectedIdCardsPDF()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-4 py-2 rounded-xl text-xs font-bold transition shadow-xs flex items-center gap-1.5 active:scale-95">
           <span>📄 មើលជា PDF</span>
         </button>
-        <button onclick="printSelectedIdCards()" class="bg-gray-800 text-white px-3.5 py-1.5 rounded-lg text-xs font-medium hover:bg-gray-900 transition flex items-center gap-1.5 shadow-sm">
+        <button onclick="printSelectedIdCards()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-xs flex items-center gap-1.5 active:scale-95">
           <span>🖨️ បោះពុម្ពកាត (A4 Grid)</span>
         </button>
-        <button onclick="downloadSelectedIdCardsPDF()" class="bg-blue-600 text-white px-3.5 py-1.5 rounded-lg text-xs font-medium hover:bg-blue-700 transition flex items-center gap-1.5 shadow-sm">
+        <button onclick="downloadSelectedIdCardsPDF()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-xs flex items-center gap-1.5 active:scale-95">
           <span>💾 ទាញយក PDF</span>
         </button>
       </div>
@@ -6320,12 +6330,12 @@ function switchIdCardType(type){
   const classFilter = document.getElementById('idCardClassFilter');
   
   if(type === 'student'){
-    btnStu.className = 'px-4 py-2 rounded-lg text-sm font-medium transition bg-white text-blue-800 shadow-sm';
-    btnTch.className = 'px-4 py-2 rounded-lg text-sm font-medium transition text-gray-600 hover:text-gray-900';
+    btnStu.className = 'px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-1.5';
+    btnTch.className = 'px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-1.5';
     classFilter.classList.remove('hidden');
   } else {
-    btnTch.className = 'px-4 py-2 rounded-lg text-sm font-medium transition bg-white text-blue-800 shadow-sm';
-    btnStu.className = 'px-4 py-2 rounded-lg text-sm font-medium transition text-gray-600 hover:text-gray-900';
+    btnTch.className = 'px-4 py-2 rounded-xl text-sm font-bold transition bg-blue-600 text-white shadow-xs flex items-center gap-1.5';
+    btnStu.className = 'px-4 py-2 rounded-xl text-sm font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 flex items-center gap-1.5';
     classFilter.classList.add('hidden');
   }
   renderIdCards();
@@ -6484,36 +6494,60 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
   const photo = customPhotos[item.code] || customPhotos[item.id] || '';
   const isSelected = selectedIdCardIds.has(item.id);
 
+  // Auto-assign distinct theme colors per grade or staff role
+  let cardTheme = theme;
+  if(!cardTheme || cardTheme === 'auto'){
+    if(isStudent){
+      const cls = String(item.className || '');
+      if(cls.includes('7')) cardTheme = 'blue';
+      else if(cls.includes('8')) cardTheme = 'green';
+      else if(cls.includes('9')) cardTheme = 'purple';
+      else if(cls.includes('10')) cardTheme = 'amber';
+      else if(cls.includes('11')) cardTheme = 'red';
+      else if(cls.includes('12')) cardTheme = 'navy';
+      else {
+        const themes = ['blue', 'green', 'purple', 'amber', 'red', 'navy'];
+        const num = Math.abs(Number(item.id) || 0) % themes.length;
+        cardTheme = themes[num];
+      }
+    } else {
+      cardTheme = 'navy';
+    }
+  }
+
   const qrImageSrc = directQrUrl || (isPrintMode ? getCardQRCodeDataUrl(item) : '');
 
   if(layout === 'portrait'){
     return `
-      <div class="card-theme-${theme} flex flex-col items-center ${isPrintMode ? 'card-cut-container' : ''}">
+      <div class="card-theme-${cardTheme} flex flex-col items-center ${isPrintMode ? 'card-cut-container' : ''}">
         ${!isPrintMode ? `
           <div class="flex justify-between items-center w-full px-2 mb-2 no-print text-xs">
-            <label class="flex items-center gap-1.5 font-medium cursor-pointer">
-              <input type="checkbox" class="card-item-checkbox rounded text-blue-600" ${isSelected?'checked':''} onchange="toggleCardItemSelection(${item.id}, this.checked)">
-              <span>ជ្រើស</span>
+            <label class="inline-flex items-center gap-1.5 font-medium cursor-pointer text-slate-700 bg-white/90 backdrop-blur px-2.5 py-1 rounded-full border border-slate-200 shadow-2xs hover:bg-slate-50 transition">
+              <input type="checkbox" class="card-item-checkbox rounded text-blue-600 focus:ring-blue-500" ${isSelected?'checked':''} onchange="toggleCardItemSelection(${item.id}, this.checked)">
+              <span class="text-[11px] font-semibold">ជ្រើស</span>
             </label>
-            <div class="flex gap-2">
-              <label class="text-blue-600 hover:underline cursor-pointer" title="ប្តូររូបថត">
-                📷 រូប<input type="file" accept="image/*" class="hidden" onchange="uploadCardPhoto('${item.code}', event)">
+            <div class="flex items-center gap-1.5">
+              <label class="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 px-2.5 py-1 rounded-full cursor-pointer transition shadow-2xs" title="ប្តូររូបថត">
+                <span>📷 រូប</span>
+                <input type="file" accept="image/*" class="hidden" onchange="uploadCardPhoto('${item.code}', event)">
               </label>
-              <button onclick="previewSingleIdCardModal('${isStudent?'student':'teacher'}', ${item.id})" class="text-gray-700 hover:underline">👁️ មើល</button>
+              <button onclick="previewSingleIdCardModal('${isStudent?'student':'teacher'}', ${item.id})" class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full transition shadow-2xs">
+                <span>👁️ មើល</span>
+              </button>
             </div>
           </div>
         ` : ''}
         <div class="id-card-portrait border" id="card-${item.id}">
           <!-- Header -->
-          <div class="id-card-header p-3 text-center relative">
+          <div class="id-card-header p-3 text-center relative shadow-xs">
             <div class="flex items-center justify-center gap-2">
-              ${schLogo ? `<img src="${schLogo}" class="h-8 w-8 object-contain rounded bg-white/20 p-0.5">` : ''}
-              <div>
+              ${schLogo ? `<img src="${schLogo}" class="h-8 w-8 object-contain rounded-lg bg-white/90 p-0.5 shadow-2xs">` : ''}
+              <div class="text-left">
                 <h4 class="font-bold text-xs leading-tight tracking-wide font-moul">${schName}</h4>
-                <p class="text-[9px] tracking-wider text-blue-100 uppercase mt-0.5 font-sans">KINGDOM OF CAMBODIA</p>
+                <p class="text-[8.5px] tracking-wider opacity-90 uppercase mt-0.5 font-sans font-semibold">KINGDOM OF CAMBODIA</p>
               </div>
             </div>
-            <div class="mt-2 inline-block id-card-badge px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-inner">
+            <div class="mt-2 inline-block id-card-badge px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-2xs border border-white/20">
               ${cardBadge}
             </div>
           </div>
@@ -6522,46 +6556,46 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
           <div class="p-3 flex-1 flex flex-col justify-between items-center text-center">
             <!-- Photo & Avatar -->
             <div class="relative mt-1">
-              <div class="w-20 h-24 rounded-xl border-2 border-gray-200 shadow-sm overflow-hidden bg-gray-100 flex items-center justify-center">
+              <div class="w-20 h-24 rounded-2xl border-2 border-white shadow-md overflow-hidden bg-slate-100 flex items-center justify-center ring-2 ring-slate-200/80">
                 ${photo ? `<img src="${photo}" class="w-full h-full object-cover">` : `
-                  <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 text-blue-800">
-                    <span class="text-xl font-bold">${(item.name||'?')[0]}</span>
-                    <span class="text-[9px] text-gray-500 mt-1">រូបថត 3x4</span>
+                  <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-blue-900">
+                    <span class="text-2xl font-black">${(item.name||'?')[0]}</span>
+                    <span class="text-[9px] font-medium text-slate-500 mt-0.5">រូបថត 3x4</span>
                   </div>
                 `}
               </div>
             </div>
 
             <!-- Name & ID -->
-            <div class="mt-2 w-full">
-              <h3 class="font-bold text-base text-gray-900 leading-tight">${item.name}</h3>
-              <div class="inline-block font-mono font-bold text-xs id-accent bg-gray-100 px-2.5 py-0.5 rounded-md mt-1 border border-gray-200">
-                ${item.code}
+            <div class="mt-1.5 w-full">
+              <h3 class="font-bold text-base text-slate-900 leading-tight font-sans">${item.name}</h3>
+              <div class="inline-flex items-center gap-1 font-mono font-bold text-xs id-accent bg-slate-100 px-2.5 py-0.5 rounded-full mt-1 border border-slate-200/80 shadow-2xs">
+                <span>🆔</span> <span>${item.code}</span>
               </div>
             </div>
 
             <!-- Info Grid -->
-            <div class="w-full text-left text-[11px] space-y-1 bg-gray-50 p-2 rounded-lg border border-gray-100 mt-2">
-              <div class="flex justify-between"><span class="text-gray-500">${isStudent?'ថ្នាក់រៀន':'មុខវិជ្ជា/តួនាទី'}៖</span> <strong class="text-gray-800">${item.className || item.subject || item.position || '—'}</strong></div>
-              <div class="flex justify-between"><span class="text-gray-500">ភេទ៖</span> <strong class="text-gray-800">${item.gender || '—'}</strong></div>
-              <div class="flex justify-between"><span class="text-gray-500">ឆ្នាំសិក្សា៖</span> <strong class="text-gray-800">${getCurrentYearName()}</strong></div>
+            <div class="w-full text-left text-[11px] space-y-1 bg-gradient-to-br from-slate-50 to-slate-100/60 p-2.5 rounded-xl border border-slate-200/70 mt-1.5 shadow-2xs">
+              <div class="flex justify-between items-center"><span class="text-slate-500 font-medium">${isStudent?'ថ្នាក់រៀន':'មុខវិជ្ជា/តួនាទី'}៖</span> <strong class="text-slate-900 font-bold bg-white px-2 py-0.5 rounded border border-slate-200/60 shadow-2xs">${item.className || item.subject || item.position || '—'}</strong></div>
+              <div class="flex justify-between items-center"><span class="text-slate-500 font-medium">ភេទ៖</span> <strong class="text-slate-800 font-semibold">${item.gender || '—'}</strong></div>
+              <div class="flex justify-between items-center"><span class="text-slate-500 font-medium">ឆ្នាំសិក្សា៖</span> <strong class="text-slate-800 font-semibold">${getCurrentYearName()}</strong></div>
             </div>
 
             <!-- QR Code -->
-            <div class="flex items-center justify-center gap-3 w-full mt-2 pt-1 border-t border-dashed border-gray-200">
-              <div id="qr-canvas-${item.id}" class="qr-box p-1 bg-white rounded border flex items-center justify-center">
-                ${qrImageSrc ? `<img src="${qrImageSrc}" class="w-[68px] h-[68px] object-contain rounded">` : ''}
+            <div class="flex items-center justify-center gap-2.5 w-full mt-1.5 pt-1.5 border-t border-dashed border-slate-200">
+              <div id="qr-canvas-${item.id}" class="qr-box p-1 bg-white rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center flex-shrink-0">
+                ${qrImageSrc ? `<img src="${qrImageSrc}" class="w-[64px] h-[64px] object-contain rounded">` : ''}
               </div>
-              <div class="text-left text-[9px] text-gray-500 leading-tight">
-                <p class="font-bold text-gray-700">ស្កេនពិនិត្យទិន្នន័យ</p>
-                <p>Verifiable Official Card</p>
-                <p class="text-[8px] text-gray-400 mt-0.5">Valid: ${getCurrentYear()?.end || '2026'}</p>
+              <div class="text-left text-[9px] text-slate-500 leading-tight">
+                <p class="font-bold text-slate-800 flex items-center gap-1"><span>✨</span> ស្កេនពិនិត្យទិន្នន័យ</p>
+                <p class="text-[8.5px] text-slate-600 mt-0.5">Verifiable Official Card</p>
+                <p class="text-[8px] text-slate-400 mt-0.5">Valid: ${getCurrentYear()?.end || '2026'}</p>
               </div>
             </div>
           </div>
 
           <!-- Footer Bar -->
-          <div class="id-card-footer py-1 px-3 text-center text-[9px] font-medium tracking-wide">
+          <div class="id-card-footer py-1 px-3 text-center text-[9px] font-semibold tracking-wider uppercase">
             ${cardBadgeEn} • SMS v2.5
           </div>
         </div>
@@ -6570,66 +6604,71 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
   } else {
     // Landscape Card
     return `
-      <div class="card-theme-${theme} flex flex-col items-center ${isPrintMode ? 'card-cut-container' : ''}">
+      <div class="card-theme-${cardTheme} flex flex-col items-center ${isPrintMode ? 'card-cut-container' : ''}">
         ${!isPrintMode ? `
           <div class="flex justify-between items-center w-full px-2 mb-2 no-print text-xs">
-            <label class="flex items-center gap-1.5 font-medium cursor-pointer">
-              <input type="checkbox" class="card-item-checkbox rounded text-blue-600" ${isSelected?'checked':''} onchange="toggleCardItemSelection(${item.id}, this.checked)">
-              <span>ជ្រើស</span>
+            <label class="inline-flex items-center gap-1.5 font-medium cursor-pointer text-slate-700 bg-white/90 backdrop-blur px-2.5 py-1 rounded-full border border-slate-200 shadow-2xs hover:bg-slate-50 transition">
+              <input type="checkbox" class="card-item-checkbox rounded text-blue-600 focus:ring-blue-500" ${isSelected?'checked':''} onchange="toggleCardItemSelection(${item.id}, this.checked)">
+              <span class="text-[11px] font-semibold">ជ្រើស</span>
             </label>
-            <div class="flex gap-2">
-              <label class="text-blue-600 hover:underline cursor-pointer" title="ប្តូររូបថត">
-                📷 រូប<input type="file" accept="image/*" class="hidden" onchange="uploadCardPhoto('${item.code}', event)">
+            <div class="flex items-center gap-1.5">
+              <label class="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 px-2.5 py-1 rounded-full cursor-pointer transition shadow-2xs" title="ប្តូររូបថត">
+                <span>📷 រូប</span>
+                <input type="file" accept="image/*" class="hidden" onchange="uploadCardPhoto('${item.code}', event)">
               </label>
-              <button onclick="previewSingleIdCardModal('${isStudent?'student':'teacher'}', ${item.id})" class="text-gray-700 hover:underline">👁️ មើល</button>
+              <button onclick="previewSingleIdCardModal('${isStudent?'student':'teacher'}', ${item.id})" class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full transition shadow-2xs">
+                <span>👁️ មើល</span>
+              </button>
             </div>
           </div>
         ` : ''}
         <div class="id-card-landscape border" id="card-${item.id}">
           <!-- Header -->
-          <div class="id-card-header px-4 py-2 flex justify-between items-center">
+          <div class="id-card-header px-4 py-2 flex justify-between items-center shadow-xs">
             <div class="flex items-center gap-2">
-              ${schLogo ? `<img src="${schLogo}" class="h-6 w-6 object-contain rounded bg-white/20 p-0.5">` : ''}
+              ${schLogo ? `<img src="${schLogo}" class="h-6 w-6 object-contain rounded-lg bg-white/90 p-0.5 shadow-2xs">` : ''}
               <div>
                 <h4 class="font-bold text-xs leading-tight font-moul">${schName}</h4>
               </div>
             </div>
-            <span class="id-card-badge px-2 py-0.5 rounded-full text-[9px] font-bold">${cardBadge}</span>
+            <span class="id-card-badge px-2.5 py-0.5 rounded-full text-[9px] font-bold border border-white/20 shadow-2xs">${cardBadge}</span>
           </div>
 
           <!-- Body -->
-          <div class="p-3 flex-1 flex items-center justify-between gap-3">
+          <div class="p-3.5 flex-1 flex items-center justify-between gap-3.5">
             <!-- Left: Photo -->
-            <div class="w-20 h-24 rounded-xl border border-gray-200 overflow-hidden bg-gray-100 flex-shrink-0 flex items-center justify-center shadow-inner">
+            <div class="w-20 h-24 rounded-2xl border-2 border-white overflow-hidden bg-slate-100 flex-shrink-0 flex items-center justify-center shadow-md ring-2 ring-slate-200/80">
               ${photo ? `<img src="${photo}" class="w-full h-full object-cover">` : `
-                <div class="w-full h-full flex flex-col items-center justify-center bg-blue-50 text-blue-800">
+                <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 text-blue-900">
                   <span class="text-xl font-bold">${(item.name||'?')[0]}</span>
-                  <span class="text-[8px] text-gray-400">3x4</span>
+                  <span class="text-[8px] font-medium text-slate-500">3x4</span>
                 </div>
               `}
             </div>
 
             <!-- Middle: Details -->
             <div class="flex-1 text-left text-xs space-y-1">
-              <h3 class="font-bold text-sm text-gray-900 leading-tight">${item.name}</h3>
-              <p class="font-mono font-bold text-[11px] id-accent">${item.code}</p>
-              <div class="text-[10px] text-gray-600 pt-1 space-y-0.5 border-t">
-                <p><span class="text-gray-400">${isStudent?'ថ្នាក់':'មុខវិជ្ជា'}៖</span> <strong>${item.className || item.subject || item.position || '—'}</strong></p>
-                <p><span class="text-gray-400">ភេទ៖</span> <strong>${item.gender || '—'}</strong> • ឆ្នាំ៖ <strong>${getCurrentYearName()}</strong></p>
+              <h3 class="font-bold text-sm text-slate-900 leading-tight font-sans">${item.name}</h3>
+              <div class="inline-flex items-center gap-1 font-mono font-bold text-[11px] id-accent bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200/80 shadow-2xs">
+                <span>🆔</span> <span>${item.code}</span>
+              </div>
+              <div class="text-[10px] text-slate-600 pt-1 space-y-0.5 border-t border-slate-100">
+                <p><span class="text-slate-400 font-medium">${isStudent?'ថ្នាក់':'មុខវិជ្ជា'}៖</span> <strong class="text-slate-800 font-bold">${item.className || item.subject || item.position || '—'}</strong></p>
+                <p><span class="text-slate-400 font-medium">ភេទ៖</span> <strong class="text-slate-800 font-semibold">${item.gender || '—'}</strong> • ឆ្នាំ៖ <strong class="text-slate-800 font-semibold">${getCurrentYearName()}</strong></p>
               </div>
             </div>
 
             <!-- Right: QR Code -->
             <div class="flex flex-col items-center justify-center flex-shrink-0">
-              <div id="qr-canvas-${item.id}" class="qr-box p-1 bg-white rounded border flex items-center justify-center">
-                ${qrImageSrc ? `<img src="${qrImageSrc}" class="w-[68px] h-[68px] object-contain rounded">` : ''}
+              <div id="qr-canvas-${item.id}" class="qr-box p-1 bg-white rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center">
+                ${qrImageSrc ? `<img src="${qrImageSrc}" class="w-[64px] h-[64px] object-contain rounded">` : ''}
               </div>
-              <span class="text-[8px] text-gray-400 mt-1">Official QR</span>
+              <span class="text-[8px] font-semibold text-slate-400 mt-1 uppercase tracking-wider">Official QR</span>
             </div>
           </div>
 
           <!-- Footer -->
-          <div class="id-card-footer py-1 px-4 text-center text-[8px] font-medium">
+          <div class="id-card-footer py-1 px-4 text-center text-[8.5px] font-semibold uppercase tracking-wider">
             ${cardBadgeEn} • ព្រះរាជាណាចក្រកម្ពុជា
           </div>
         </div>
@@ -6785,6 +6824,11 @@ function getCardPrintDocumentHTML(cardsHtmlList){
         .card-theme-purple .id-card-badge{background:#6d28d9!important;color:#fff!important}
         .card-theme-purple .id-accent{color:#6d28d9!important}
         .card-theme-purple .id-card-footer{background:linear-gradient(135deg,#4c1d95,#7c3aed)!important;color:#fff!important}
+        
+        .card-theme-amber .id-card-header{background:linear-gradient(135deg,#b45309,#d97706)!important;color:#fff!important}
+        .card-theme-amber .id-card-badge{background:#92400e!important;color:#fff!important}
+        .card-theme-amber .id-accent{color:#b45309!important}
+        .card-theme-amber .id-card-footer{background:linear-gradient(135deg,#b45309,#d97706)!important;color:#fff!important}
       </style>
     </head>
     <body>
