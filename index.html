@@ -446,40 +446,123 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 <div id="sidebarBackdrop" onclick="closeMobileSidebar()" class="fixed inset-0 bg-black/60 z-40 hidden md:hidden transition-opacity backdrop-blur-xs"></div>
 
 <!-- SIDEBAR (RESPONSIVE DRAWER ON MOBILE, STATIC ON DESKTOP) -->
-<aside id="mainSidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-blue-900 text-white flex-shrink-0 flex flex-col no-print transition-transform duration-300 ease-in-out -translate-x-full md:relative md:translate-x-0 md:w-60 md:z-auto shadow-2xl md:shadow-none">
-  <div class="p-4 border-b border-blue-800 flex items-center justify-between gap-3">
-    <div class="flex items-center gap-3">
-      <img id="sideLogo" src="" class="h-8 w-8 rounded object-contain bg-white/10 hidden">
-      <div>
-        <h1 class="text-lg font-bold truncate max-w-[150px]" id="sideSchoolName">សាលារៀន</h1>
-        <p class="text-blue-200 text-xs mt-0.5">ប្រព័ន្ធគ្រប់គ្រង</p>
+<aside id="mainSidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-[#1b357d] text-slate-200 flex-shrink-0 flex flex-col justify-between no-print transition-transform duration-300 ease-in-out -translate-x-full md:relative md:translate-x-0 md:w-64 md:z-auto shadow-2xl md:shadow-none h-screen text-sm font-sans">
+  <div class="flex flex-col flex-1 min-h-0">
+    <!-- Logo / Brand Header -->
+    <div class="p-4 pb-3 border-b border-white/10 flex items-center justify-between gap-3 flex-shrink-0">
+      <div class="flex items-center gap-3">
+        <img id="sideLogo" src="" class="h-9 w-9 rounded-xl object-contain bg-white/10 p-0.5 hidden">
+        <div>
+          <h1 class="text-xl font-bold text-white tracking-wide truncate max-w-[160px]" id="sideSchoolName">សាលារៀន</h1>
+          <p class="text-xs text-blue-300 font-medium">ប្រព័ន្ធគ្រប់គ្រង</p>
+        </div>
       </div>
+      <button onclick="closeMobileSidebar()" class="md:hidden text-blue-300 hover:text-white p-1 text-2xl font-bold leading-none" aria-label="បិទម៉ឺនុយ">&times;</button>
     </div>
-    <button onclick="closeMobileSidebar()" class="md:hidden text-blue-200 hover:text-white p-1 text-2xl font-bold leading-none" aria-label="បិទម៉ឺនុយ">&times;</button>
+
+    <!-- Navigation List -->
+    <nav class="flex-1 p-3 space-y-4 overflow-y-auto">
+      
+      <!-- ក្រុម៖ ទូទៅ -->
+      <div>
+        <a href="#" onclick="showPage('dashboard')" class="sidebar-link active flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-600 text-white font-medium">
+          <!-- Icon Dashboard -->
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span>ផ្ទាំងគ្រប់គ្រង</span>
+        </a>
+      </div>
+
+      <!-- ក្រុម៖ បុគ្គលិក & សិស្ស (ការគ្រប់គ្រងទូទៅ) -->
+      <div>
+        <p class="px-3 text-[11px] font-semibold text-blue-300/70 uppercase tracking-wider mb-1">ការគ្រប់គ្រងទូទៅ</p>
+        <div class="space-y-1">
+          <a href="#" onclick="showPage('years')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>
+            <span>ឆ្នាំសិក្សា</span>
+          </a>
+          <a href="#" onclick="showPage('classes')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>
+            <span>គ្រប់គ្រងថ្នាក់</span>
+          </a>
+          <a href="#" onclick="showPage('students')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>
+            <span>គ្រប់គ្រងសិស្ស</span>
+          </a>
+          <a href="#" onclick="showPage('teachers')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>
+            <span>គ្រប់គ្រងគ្រូ</span>
+          </a>
+          <a href="#" onclick="showPage('staff')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>
+            <span>គ្រប់គ្រងមន្ត្រី</span>
+          </a>
+          <a href="#" onclick="showPage('idcards')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>
+            <span>កាតសិស្ស/គ្រូ</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ក្រុម៖ ការសិក្សា & វត្តមាន -->
+      <div>
+        <p class="px-3 text-[11px] font-semibold text-blue-300/70 uppercase tracking-wider mb-1">ការសិក្សា & វត្តមាន</p>
+        <div class="space-y-1">
+          <a href="#" onclick="showPage('attendance')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+            <span>វត្តមាន & ច្បាប់</span>
+          </a>
+          <a href="#" onclick="showPage('scores')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+            <span>ពិន្ទុសិស្ស</span>
+          </a>
+          <a href="#" onclick="showPage('honor')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+            <span>តារាងកិត្តិយស</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ក្រុម៖ របាយការណ៍ & ហិរញ្ញវត្ថុ -->
+      <div>
+        <p class="px-3 text-[11px] font-semibold text-blue-300/70 uppercase tracking-wider mb-1">របាយការណ៍ & ហិរញ្ញវត្ថុ</p>
+        <div class="space-y-1">
+          <a href="#" onclick="showPage('reports')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+            <span>របាយការណ៍ពិន្ទុ</span>
+          </a>
+          <a href="#" onclick="showPage('attReport')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+            <span>របាយការណ៍វត្តមាន</span>
+          </a>
+          <a href="#" onclick="showPage('fees')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+            <span>ថ្លៃសិក្សា</span>
+          </a>
+          <a href="#" onclick="showPage('payroll')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+            <span>របាយការណ៍ប្រាក់ខែ</span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
   </div>
-  <nav class="flex-1 p-2 space-y-0.5 text-sm overflow-y-auto">
-    <a href="#" onclick="showPage('dashboard')" class="sidebar-link active flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">ផ្ទាំងគ្រប់គ្រង</a>
-    <a href="#" onclick="showPage('years')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">ឆ្នាំសិក្សា</a>
-    <a href="#" onclick="showPage('classes')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">គ្រប់គ្រងថ្នាក់</a>
-    <a href="#" onclick="showPage('students')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">គ្រប់គ្រងសិស្ស</a>
-    <a href="#" onclick="showPage('teachers')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">គ្រប់គ្រងគ្រូ</a>
-    <a href="#" onclick="showPage('staff')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">គ្រប់គ្រងមន្ត្រី</a>
-    <a href="#" onclick="showPage('idcards')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">កាតសិស្ស/គ្រូ</a>
-    <a href="#" onclick="showPage('attendance')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">ស្កេន & វត្តមាន</a>
-    <a href="#" onclick="showPage('fees')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">ថ្លៃសិក្សា</a>
-    <a href="#" onclick="showPage('scores')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">ពិន្ទុសិស្ស</a>
-    <a href="#" onclick="showPage('reports')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">របាយការណ៍ពិន្ទុ</a>
-    <a href="#" onclick="showPage('honor')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">តារាងកិត្តិយស</a>
-    <a href="#" onclick="showPage('attReport')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">របាយការណ៍វត្តមាន</a>
-    <a href="#" onclick="showPage('payroll')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">របាយការណ៍ប្រាក់ខែ</a>
-    <a href="#" onclick="showPage('settings')" class="sidebar-link flex items-center px-3 py-2 rounded-lg hover:bg-blue-800">ការកំណត់</a>
-  </nav>
-  <div class="p-3 border-t border-blue-800/80 bg-blue-950/40 flex items-center justify-between text-xs text-blue-200">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span id="sideFooterRole" class="font-semibold text-white">Owner</span>
+
+  <!-- Bottom System Settings & Profile -->
+  <div class="pt-3 p-4 border-t border-white/10 space-y-2 flex-shrink-0">
+    <a href="#" onclick="showPage('settings')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-300">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      <span>ការកំណត់</span>
+    </a>
+
+    <!-- Footer Profile Info -->
+    <div class="flex items-center justify-between px-3 pt-2 text-xs text-blue-300/80">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="sideFooterRole" class="font-semibold text-white">Owner</span>
+      </div>
+      <span class="bg-white/10 px-2 py-0.5 rounded text-[10px] font-mono text-blue-200">SMS v2.5</span>
     </div>
-    <span class="text-[11px] font-mono text-blue-300/80 bg-blue-900/60 px-2 py-0.5 rounded-full border border-blue-700/50">SMS v2.5</span>
   </div>
 </aside>
 
