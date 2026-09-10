@@ -6415,25 +6415,20 @@ function generateQRCodeForCard(item, containerId){
   if(!box) return;
   box.innerHTML = '';
   
-  const isStudent = activeIdCardType === 'student' || (!item.subject && !item.position);
-  const qrData = JSON.stringify({
-    school: appSettings.schoolName || 'សាលារៀន',
-    code: item.code,
-    name: item.name,
-    type: isStudent ? 'Student' : (item.role || item.position || 'Staff'),
-    info: isStudent ? item.className : (item.subject || item.position),
-    year: getCurrentYearName()
-  });
+  const qrData = item.code || '';
+  if(!qrData) return;
 
   try {
-    new QRCode(box, {
-      text: qrData,
-      width: 54,
-      height: 54,
-      colorDark: "#0f172a",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M
-    });
+    if(typeof QRCode !== 'undefined'){
+      new QRCode(box, {
+        text: qrData,
+        width: 54,
+        height: 54,
+        colorDark: "#0f172a",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
   } catch(e){
     console.error('QR code generation failed:', e);
   }
@@ -6441,49 +6436,52 @@ function generateQRCodeForCard(item, containerId){
 
 /* Synchronously or pre-rendered QR Code DataURL extractor */
 function getCardQRCodeDataUrl(item){
-  const existingCanvas = document.querySelector(`#qr-canvas-${item.id} canvas`);
-  if(existingCanvas){
-    try { return existingCanvas.toDataURL('image/png'); } catch(e){}
-  }
-  
-  const isStudent = activeIdCardType === 'student' || (!item.subject && !item.position);
-  const qrData = JSON.stringify({
-    school: appSettings.schoolName || 'សាលារៀន',
-    code: item.code,
-    name: item.name,
-    type: isStudent ? 'Student' : (item.role || item.position || 'Staff'),
-    info: isStudent ? item.className : (item.subject || item.position),
-    year: getCurrentYearName()
-  });
-
-  const tempDiv = document.createElement('div');
-  tempDiv.style.display = 'none';
-  document.body.appendChild(tempDiv);
   try {
-    new QRCode(tempDiv, {
-      text: qrData,
-      width: 100,
-      height: 100,
-      colorDark: "#0f172a",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M
-    });
-    const c = tempDiv.querySelector('canvas');
-    if(c){
-      const dataUrl = c.toDataURL('image/png');
-      document.body.removeChild(tempDiv);
-      return dataUrl;
+    const existingCanvas = document.querySelector(`#qr-canvas-${item.id} canvas`);
+    if(existingCanvas){
+      try {
+        const u = existingCanvas.toDataURL('image/png');
+        if(u && u.length > 50) return u;
+      } catch(e){}
     }
-    const img = tempDiv.querySelector('img');
-    if(img && img.src){
-      const src = img.src;
-      document.body.removeChild(tempDiv);
-      return src;
+    
+    const qrData = item.code || '';
+    if(!qrData) return '';
+
+    const tempDiv = document.createElement('div');
+    tempDiv.style.position = 'fixed';
+    tempDiv.style.left = '-9999px';
+    tempDiv.style.top = '-9999px';
+    tempDiv.style.width = '60px';
+    tempDiv.style.height = '60px';
+    document.body.appendChild(tempDiv);
+
+    if(typeof QRCode !== 'undefined'){
+      new QRCode(tempDiv, {
+        text: qrData,
+        width: 60,
+        height: 60,
+        colorDark: "#0f172a",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      const c = tempDiv.querySelector('canvas');
+      if(c){
+        const dataUrl = c.toDataURL('image/png');
+        if(tempDiv.parentNode) document.body.removeChild(tempDiv);
+        return dataUrl;
+      }
+      const img = tempDiv.querySelector('img');
+      if(img && img.src && img.src.startsWith('data:')){
+        const src = img.src;
+        if(tempDiv.parentNode) document.body.removeChild(tempDiv);
+        return src;
+      }
     }
+    if(tempDiv.parentNode) document.body.removeChild(tempDiv);
   } catch(e){
     console.error('Error generating card QR:', e);
   }
-  if(tempDiv.parentNode) document.body.removeChild(tempDiv);
   return '';
 }
 
@@ -6517,7 +6515,7 @@ function generateCardHTML(item, theme, layout, isPrintMode = false, directQrUrl 
     }
   }
 
-  const qrImageSrc = directQrUrl || (isPrintMode ? getCardQRCodeDataUrl(item) : '');
+  const qrImageSrc = (directQrUrl !== null && directQrUrl !== undefined) ? directQrUrl : (isPrintMode ? getCardQRCodeDataUrl(item) : '');
 
   if(layout === 'portrait'){
     return `
@@ -6841,51 +6839,56 @@ function getCardPrintDocumentHTML(cardsHtmlList){
       <div class="print-grid">
         ${cardsHtmlList.join('')}
       </div>
-      <script>
+      <` + `script>
         window.onload = () => {
           setTimeout(() => {
             window.print();
             window.close();
           }, 300);
         };
-      <\/script>
+      <` + `/script>
     </body>
     </html>
   `;
 }
 
 function previewSelectedIdCardsPDF(){
-  const list = getCardList().filter(item => selectedIdCardIds.size === 0 || selectedIdCardIds.has(item.id));
-  if(!list.length){ alert('មិនមានកាតសម្រាប់មើលជា PDF ទេ'); return; }
+  try {
+    const list = getCardList().filter(item => selectedIdCardIds.size === 0 || selectedIdCardIds.has(item.id));
+    if(!list.length){ alert('មិនមានកាតសម្រាប់មើលជា PDF ទេ'); return; }
 
-  const theme = document.getElementById('idCardTheme')?.value || 'blue';
-  const layout = document.getElementById('idCardLayout')?.value || 'portrait';
+    const theme = document.getElementById('idCardTheme')?.value || 'auto';
+    const layout = document.getElementById('idCardLayout')?.value || 'portrait';
 
-  const cardsHtmlList = list.map(item => {
-    const qrUrl = getCardQRCodeDataUrl(item);
-    return generateCardHTML(item, theme, layout, true, qrUrl);
-  });
+    const cardsHtmlList = list.map(item => {
+      const qrUrl = getCardQRCodeDataUrl(item);
+      return generateCardHTML(item, theme, layout, true, qrUrl);
+    });
 
-  const fullPdfHtml = `
-    <div class="p-6">
-      <div class="text-center mb-6 pb-3 border-b">
-        <h2 class="text-xl font-bold font-moul text-blue-900">${appSettings.schoolName || 'សាលារៀន'}</h2>
-        <p class="text-xs text-gray-500 mt-1">ប័ណ្ណសម្គាល់ខ្លួនផ្លូវការ • ឆ្នាំសិក្សា ${getCurrentYearName()} (ចំនួនសរុប៖ ${list.length} សន្លឹក)</p>
+    const fullPdfHtml = `
+      <div class="p-6">
+        <div class="text-center mb-6 pb-3 border-b">
+          <h2 class="text-xl font-bold font-moul text-blue-900">${appSettings.schoolName || 'សាលារៀន'}</h2>
+          <p class="text-xs text-gray-500 mt-1">ប័ណ្ណសម្គាល់ខ្លួនផ្លូវការ • ឆ្នាំសិក្សា ${getCurrentYearName()} (ចំនួនសរុប៖ ${list.length} សន្លឹក)</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center">
+          ${cardsHtmlList.join('')}
+        </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center">
-        ${cardsHtmlList.join('')}
-      </div>
-    </div>
-  `;
+    `;
 
-  openPdfModal('ប័ណ្ណសម្គាល់ខ្លួន (ID Cards PDF)', `ID_Cards_${getCurrentYearName()}`, fullPdfHtml);
+    openPdfModal('ប័ណ្ណសម្គាល់ខ្លួន (ID Cards PDF)', `ID_Cards_${getCurrentYearName()}`, fullPdfHtml);
+  } catch(err) {
+    console.error('Error in previewSelectedIdCardsPDF:', err);
+    alert('កំហុសពេលមើលជា PDF៖ ' + err.message);
+  }
 }
 
 function printSelectedIdCards(){
   const list = getCardList().filter(item => selectedIdCardIds.size === 0 || selectedIdCardIds.has(item.id));
   if(!list.length){ alert('សូមជ្រើសរើសកាតដែលត្រូវបោះពុម្ព'); return; }
 
-  const theme = document.getElementById('idCardTheme')?.value || 'blue';
+  const theme = document.getElementById('idCardTheme')?.value || 'auto';
   const layout = document.getElementById('idCardLayout')?.value || 'portrait';
 
   const cardsHtmlList = list.map(item => {
@@ -6904,7 +6907,7 @@ function downloadSelectedIdCardsPDF(){
 
   previewSelectedIdCardsPDF();
   setTimeout(() => {
-    downloadCurrentPdfDoc();
+    downloadCurrentPDF();
   }, 350);
 }
 
