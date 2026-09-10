@@ -508,9 +508,9 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
     <div class="flex items-center gap-1.5 bg-slate-100/90 p-1 rounded-full border border-slate-200/70" id="headerYearButtons"></div>
 
     <!-- User Profile Badge & Logout -->
-    <div class="flex items-center gap-2.5 bg-slate-50/90 hover:bg-slate-100/80 p-1.5 pr-3 rounded-2xl border border-slate-200/80 transition shadow-2xs">
-      <span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs ring-2 ring-white" id="userAvatar">O</span>
-      <div class="hidden sm:block text-left">
+    <div class="flex items-center gap-2.5 bg-slate-50/90 hover:bg-slate-100/80 px-3 py-1.5 rounded-2xl border border-slate-200/80 transition shadow-2xs">
+      <span class="hidden" style="display:none" id="userAvatar"></span>
+      <div class="text-left">
         <p class="font-bold text-slate-800 leading-tight text-xs" id="userDisplayName">Owner (ម្ចាស់សាលា)</p>
         <span class="inline-block px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-800 font-bold text-[10px] tracking-wide mt-0.5" id="userRole">Owner</span>
       </div>
@@ -3336,13 +3336,7 @@ function updateUserHeader(){
     }
   }
   if(avatarEl){
-    if(currentUser.role === 'Owner'){
-      avatarEl.textContent = '👑';
-      avatarEl.className = 'w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-500 text-white flex items-center justify-center font-bold text-sm shadow-xs ring-2 ring-white';
-    } else {
-      avatarEl.textContent = (currentUser.name || 'A')[0].toUpperCase();
-      avatarEl.className = 'w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs ring-2 ring-white';
-    }
+    avatarEl.style.display = 'none';
   }
   const sideFooterRole = document.getElementById('sideFooterRole');
   if(sideFooterRole) sideFooterRole.textContent = currentUser.role || 'Admin';
