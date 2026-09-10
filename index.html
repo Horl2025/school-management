@@ -1703,185 +1703,230 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 <div id="page-settings" class="page">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
     
-    <!-- CARD 1: ព័ត៌មានសាលា & Logo -->
-    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-5 transition hover:shadow-sm">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-          <span class="w-2 h-5 bg-blue-600 rounded-full"></span>
-          ព័ត៌មានសាលា & Logo
-        </h2>
+    <!-- CARD 1: ព័ត៌មានសាលា & Logo (Blue Theme) -->
+    <div class="bg-gradient-to-br from-blue-50/80 via-white to-sky-50/30 rounded-2xl border-2 border-blue-200 shadow-xs p-6 space-y-5 transition hover:shadow-md hover:border-blue-300">
+      <div class="flex items-center justify-between pb-3.5 border-b border-blue-200/80">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">🏫</div>
+          <div>
+            <h2 class="text-base font-bold text-blue-950 flex items-center gap-2">
+              ព័ត៌មានសាលា & Logo
+              <span class="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full border border-blue-200">School</span>
+            </h2>
+            <p class="text-xs text-slate-500 font-medium">កំណត់ឈ្មោះ អាសយដ្ឋាន និងនិមិត្តសញ្ញាសាលា</p>
+          </div>
+        </div>
       </div>
 
       <!-- Logo Upload Section -->
-      <div class="flex items-center gap-4 bg-slate-50/70 p-3.5 rounded-xl border border-slate-100">
-        <div class="w-20 h-20 rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden bg-white shadow-2xs flex-shrink-0">
+      <div class="flex items-center gap-4 bg-white/90 p-4 rounded-xl border border-blue-200/80 shadow-2xs">
+        <div class="w-20 h-20 rounded-xl border-2 border-dashed border-blue-300 flex items-center justify-center overflow-hidden bg-blue-50/40 shadow-inner flex-shrink-0">
           <img id="logoPreview" src="" class="max-h-full max-w-full object-contain hidden">
-          <span id="logoPlaceholder" class="text-xs text-slate-400 font-medium">Logo</span>
+          <span id="logoPlaceholder" class="text-xs text-blue-400 font-medium">Logo</span>
         </div>
         <div class="flex-1 space-y-1.5">
           <div class="flex items-center gap-2">
-            <label class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 cursor-pointer inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition active:scale-95 shadow-2xs">
+            <label class="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-1.5 rounded-xl transition active:scale-95 shadow-xs">
               <span>📷 ជ្រើស Logo</span>
               <input type="file" accept="image/*" class="hidden" onchange="uploadLogo(event)">
             </label>
-            <button type="button" onclick="removeLogo()" class="text-xs text-red-500 hover:text-red-700 font-medium hover:underline">លុប Logo</button>
+            <button type="button" onclick="removeLogo()" class="text-xs text-red-500 hover:text-red-700 font-semibold hover:underline px-2 py-1">លុប Logo</button>
           </div>
           <p class="text-[11px] text-slate-500 leading-tight">✓ គាំទ្ររូបភាពទំហំក្រោម 1MB និង 1MB ឡើង (ប្រព័ន្ធ Compress ស្វ័យប្រវត្តិ)</p>
-          <div id="logoSizeBadge" class="text-[10px] text-emerald-700 font-medium mt-1 hidden"></div>
+          <div id="logoSizeBadge" class="text-[10px] text-emerald-700 font-bold mt-1 hidden"></div>
         </div>
       </div>
 
       <!-- Inputs Form -->
       <div class="space-y-3.5">
         <div class="space-y-1.5">
-          <label class="text-xs font-medium text-slate-600">ឈ្មោះសាលារៀន</label>
-          <input type="text" id="setSchoolName" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition" placeholder="ឈ្មោះសាលា">
+          <label class="text-xs font-bold text-slate-700">ឈ្មោះសាលារៀន</label>
+          <input type="text" id="setSchoolName" class="w-full rounded-xl border border-blue-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition shadow-2xs font-medium" placeholder="ឈ្មោះសាលា">
         </div>
         <div class="space-y-1.5">
-          <label class="text-xs font-medium text-slate-600">អាសយដ្ឋាន</label>
-          <input type="text" id="setSchoolAddress" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition" placeholder="អាសយដ្ឋាន">
+          <label class="text-xs font-bold text-slate-700">អាសយដ្ឋាន</label>
+          <input type="text" id="setSchoolAddress" class="w-full rounded-xl border border-blue-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition shadow-2xs font-medium" placeholder="អាសយដ្ឋាន">
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div class="space-y-1.5">
-            <label class="text-xs font-medium text-slate-600">ទូរស័ព្ទ</label>
-            <input type="text" id="setSchoolPhone" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition" placeholder="ទូរស័ព្ទ">
+            <label class="text-xs font-bold text-slate-700">ទូរស័ព្ទ</label>
+            <input type="text" id="setSchoolPhone" class="w-full rounded-xl border border-blue-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition shadow-2xs font-medium" placeholder="ទូរស័ព្ទ">
           </div>
           <div class="space-y-1.5">
-            <label class="text-xs font-medium text-slate-600">អ៊ីមែល</label>
-            <input type="email" id="setSchoolEmail" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition" placeholder="អ៊ីមែល">
+            <label class="text-xs font-bold text-slate-700">អ៊ីមែល</label>
+            <input type="email" id="setSchoolEmail" class="w-full rounded-xl border border-blue-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition shadow-2xs font-medium" placeholder="អ៊ីមែល">
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CARD 2: ម៉ោង & ប្រាក់ខែ -->
-    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-5 transition hover:shadow-sm">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-          <span class="w-2 h-5 bg-emerald-600 rounded-full"></span>
-          ម៉ោង & ប្រាក់ខែ
-        </h2>
+    <!-- CARD 2: ម៉ោង & ប្រាក់ខែ (Emerald Theme) -->
+    <div class="bg-gradient-to-br from-emerald-50/80 via-white to-teal-50/30 rounded-2xl border-2 border-emerald-200 shadow-xs p-6 space-y-5 transition hover:shadow-md hover:border-emerald-300">
+      <div class="flex items-center justify-between pb-3.5 border-b border-emerald-200/80">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">⏰</div>
+          <div>
+            <h2 class="text-base font-bold text-emerald-950 flex items-center gap-2">
+              ម៉ោង & ប្រាក់ខែ
+              <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-200">Payroll</span>
+            </h2>
+            <p class="text-xs text-slate-500 font-medium">កំណត់ម៉ោងចូល ពេលអត់ធ្មត់ និងអត្រាកាត់ប្រាក់ខែ</p>
+          </div>
+        </div>
       </div>
       <div class="space-y-3.5">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div class="space-y-1.5">
-            <label class="text-xs font-medium text-slate-600">ម៉ោងចូល</label>
-            <input type="time" id="setStdIn" value="07:00" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+            <label class="text-xs font-bold text-slate-700">ម៉ោងចូល</label>
+            <input type="time" id="setStdIn" value="07:00" class="w-full rounded-xl border border-emerald-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 font-semibold outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition shadow-2xs">
           </div>
           <div class="space-y-1.5">
-            <label class="text-xs font-medium text-slate-600">អត់ធ្មត់ (នាទី)</label>
+            <label class="text-xs font-bold text-slate-700">អត់ធ្មត់ (នាទី)</label>
             <div class="relative rounded-xl shadow-2xs">
-              <input type="number" id="setGrace" value="10" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 pr-12 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5">
-                <span class="text-xs text-slate-400 font-medium">នាទី</span>
+              <input type="number" id="setGrace" value="10" class="w-full rounded-xl border border-emerald-200 bg-white px-3.5 py-2.5 pr-16 text-sm text-slate-800 font-semibold outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition">
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <span class="text-[11px] bg-emerald-100 text-emerald-800 font-bold px-2 py-1 rounded-lg border border-emerald-200">នាទី</span>
               </div>
             </div>
           </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div class="space-y-1.5">
-            <label class="text-xs font-medium text-slate-600">កាត់យឺត/នាទី</label>
+            <label class="text-xs font-bold text-slate-700">កាត់យឺត/នាទី</label>
             <div class="relative rounded-xl shadow-2xs">
-              <input type="number" id="setLatePerMin" value="500" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5">
-                <span class="text-xs text-slate-400 font-medium">៛</span>
+              <input type="number" id="setLatePerMin" value="500" class="w-full rounded-xl border border-emerald-200 bg-white px-3.5 py-2.5 pr-12 text-sm text-slate-800 font-semibold outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition">
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-1 rounded-lg border border-emerald-200">៛</span>
               </div>
             </div>
           </div>
           <div class="space-y-1.5">
-            <label class="text-xs font-medium text-slate-600">កាត់អវត្តមាន/ថ្ងៃ</label>
+            <label class="text-xs font-bold text-slate-700">កាត់អវត្តមាន/ថ្ងៃ</label>
             <div class="relative rounded-xl shadow-2xs">
-              <input type="number" id="setAbsentPerDay" value="50000" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5">
-                <span class="text-xs text-slate-400 font-medium">៛</span>
+              <input type="number" id="setAbsentPerDay" value="50000" class="w-full rounded-xl border border-emerald-200 bg-white px-3.5 py-2.5 pr-12 text-sm text-slate-800 font-semibold outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition">
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-1 rounded-lg border border-emerald-200">៛</span>
               </div>
             </div>
           </div>
         </div>
-        <div class="space-y-1.5">
-          <label class="text-xs font-medium text-slate-600">ប្រាក់ខែប្រចាំខែដើម</label>
+        <div class="space-y-1.5 bg-white/90 p-3.5 rounded-xl border border-emerald-200/80 shadow-2xs">
+          <label class="text-xs font-bold text-slate-700">ប្រាក់ខែប្រចាំខែដើម (Default Salary)</label>
           <div class="relative rounded-xl shadow-2xs">
-            <input type="number" id="setDefaultSalary" value="1000000" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition" placeholder="1000000">
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5">
-              <span class="text-xs text-slate-400 font-medium">៛</span>
+            <input type="number" id="setDefaultSalary" value="1000000" class="w-full rounded-xl border border-emerald-200 bg-white px-3.5 py-2.5 pr-12 text-sm text-slate-800 font-bold outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition" placeholder="1000000">
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+              <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-1 rounded-lg border border-emerald-200">៛</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CARD 3: និទ្ទេសពិន្ទុ -->
-    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-5 transition hover:shadow-sm">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-          <span class="w-2 h-5 bg-amber-500 rounded-full"></span>
-          និទ្ទេសពិន្ទុ
-        </h2>
+    <!-- CARD 3: និទ្ទេសពិន្ទុ (Amber Theme) -->
+    <div class="bg-gradient-to-br from-amber-50/80 via-white to-orange-50/30 rounded-2xl border-2 border-amber-200 shadow-xs p-6 space-y-5 transition hover:shadow-md hover:border-amber-300">
+      <div class="flex items-center justify-between pb-3.5 border-b border-amber-200/80">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">🏆</div>
+          <div>
+            <h2 class="text-base font-bold text-amber-950 flex items-center gap-2">
+              និទ្ទេសពិន្ទុ
+              <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full border border-amber-200">Grades</span>
+            </h2>
+            <p class="text-xs text-slate-500 font-medium">កំណត់កម្រិតពិន្ទុអប្បបរមាសម្រាប់និទ្ទេសនីមួយៗ</p>
+          </div>
+        </div>
       </div>
       <div class="space-y-3 text-sm">
-        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50/70 border border-slate-100">
-          <span class="w-8 font-bold text-emerald-600 text-base">A</span>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-white border border-emerald-200 shadow-2xs">
+          <div class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-black text-base flex items-center justify-center shadow-xs">A</span>
+            <span class="text-xs font-bold text-emerald-800">និទ្ទេសល្អប្រសើរ</span>
+          </div>
           <div class="flex items-center gap-2">
-            <input type="number" id="setGradeA" value="90" class="rounded-lg border border-slate-200 px-3 py-1.5 w-24 text-center font-bold text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-            <span class="text-xs text-slate-500 font-medium">≥ ពិន្ទុ</span>
+            <input type="number" id="setGradeA" value="90" class="rounded-xl border border-emerald-200 bg-white px-3 py-1.5 w-24 text-center font-bold text-slate-800 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition shadow-2xs">
+            <span class="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold px-2.5 py-1.5 rounded-lg">≥ ពិន្ទុ</span>
           </div>
         </div>
-        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50/70 border border-slate-100">
-          <span class="w-8 font-bold text-blue-600 text-base">B</span>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-white border border-blue-200 shadow-2xs">
+          <div class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-xl bg-blue-600 text-white font-black text-base flex items-center justify-center shadow-xs">B</span>
+            <span class="text-xs font-bold text-blue-800">និទ្ទេសល្អណាស់</span>
+          </div>
           <div class="flex items-center gap-2">
-            <input type="number" id="setGradeB" value="80" class="rounded-lg border border-slate-200 px-3 py-1.5 w-24 text-center font-bold text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-            <span class="text-xs text-slate-500 font-medium">≥ ពិន្ទុ</span>
+            <input type="number" id="setGradeB" value="80" class="rounded-xl border border-blue-200 bg-white px-3 py-1.5 w-24 text-center font-bold text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition shadow-2xs">
+            <span class="text-xs bg-blue-50 text-blue-700 border border-blue-200 font-bold px-2.5 py-1.5 rounded-lg">≥ ពិន្ទុ</span>
           </div>
         </div>
-        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50/70 border border-slate-100">
-          <span class="w-8 font-bold text-amber-500 text-base">C</span>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-white border border-amber-200 shadow-2xs">
+          <div class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-xl bg-amber-500 text-white font-black text-base flex items-center justify-center shadow-xs">C</span>
+            <span class="text-xs font-bold text-amber-800">និទ្ទេសល្អ</span>
+          </div>
           <div class="flex items-center gap-2">
-            <input type="number" id="setGradeC" value="70" class="rounded-lg border border-slate-200 px-3 py-1.5 w-24 text-center font-bold text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-            <span class="text-xs text-slate-500 font-medium">≥ ពិន្ទុ</span>
+            <input type="number" id="setGradeC" value="70" class="rounded-xl border border-amber-200 bg-white px-3 py-1.5 w-24 text-center font-bold text-slate-800 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition shadow-2xs">
+            <span class="text-xs bg-amber-50 text-amber-700 border border-amber-200 font-bold px-2.5 py-1.5 rounded-lg">≥ ពិន្ទុ</span>
           </div>
         </div>
-        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50/70 border border-slate-100">
-          <span class="w-8 font-bold text-orange-600 text-base">D</span>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-white border border-orange-200 shadow-2xs">
+          <div class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-xl bg-orange-500 text-white font-black text-base flex items-center justify-center shadow-xs">D</span>
+            <span class="text-xs font-bold text-orange-800">និទ្ទេសមធ្យម</span>
+          </div>
           <div class="flex items-center gap-2">
-            <input type="number" id="setGradeD" value="60" class="rounded-lg border border-slate-200 px-3 py-1.5 w-24 text-center font-bold text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-            <span class="text-xs text-slate-500 font-medium">≥ ពិន្ទុ</span>
+            <input type="number" id="setGradeD" value="60" class="rounded-xl border border-orange-200 bg-white px-3 py-1.5 w-24 text-center font-bold text-slate-800 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition shadow-2xs">
+            <span class="text-xs bg-orange-50 text-orange-700 border border-orange-200 font-bold px-2.5 py-1.5 rounded-lg">≥ ពិន្ទុ</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CARD 4: អ្នកប្រើប្រាស់ (Users) -->
-    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-5 transition hover:shadow-sm">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-          <span class="w-2 h-5 bg-indigo-600 rounded-full"></span>
-          អ្នកប្រើប្រាស់ (Users)
-        </h2>
-        <button onclick="openUserModal()" class="text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-xl shadow-2xs hover:shadow-xs transition active:scale-95 flex items-center gap-1">
+    <!-- CARD 4: អ្នកប្រើប្រាស់ (Indigo Theme) -->
+    <div class="bg-gradient-to-br from-indigo-50/80 via-white to-purple-50/30 rounded-2xl border-2 border-indigo-200 shadow-xs p-6 space-y-5 transition hover:shadow-md hover:border-indigo-300">
+      <div class="flex items-center justify-between pb-3.5 border-b border-indigo-200/80">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">👥</div>
+          <div>
+            <h2 class="text-base font-bold text-indigo-950 flex items-center gap-2">
+              អ្នកប្រើប្រាស់ (Users)
+              <span class="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full border border-indigo-200">Roles</span>
+            </h2>
+            <p class="text-xs text-slate-500 font-medium">គ្រប់គ្រងគណនីមេ Owner និងគណនី Admin/គ្រូ</p>
+          </div>
+        </div>
+        <button onclick="openUserModal()" class="text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-xl shadow-xs transition active:scale-95 flex items-center gap-1.5">
           <span>+ បន្ថែម</span>
         </button>
       </div>
-      <div id="userList" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
+      <div id="userList" class="space-y-2.5 max-h-64 overflow-y-auto pr-1"></div>
     </div>
 
-    <!-- CARD 5: ទិន្នន័យ (Backup & Restore) -->
-    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4 lg:col-span-2 transition hover:shadow-sm">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-          <span class="w-2 h-5 bg-purple-600 rounded-full"></span>
-          ទិន្នន័យ (Backup & Restore)
-        </h2>
+    <!-- CARD 5: ទិន្នន័យ (Backup & Restore - Purple Theme) -->
+    <div class="bg-gradient-to-br from-purple-50/80 via-white to-pink-50/30 rounded-2xl border-2 border-purple-200 shadow-xs p-6 space-y-4 lg:col-span-2 transition hover:shadow-md hover:border-purple-300">
+      <div class="flex items-center justify-between pb-3.5 border-b border-purple-200/80">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">💾</div>
+          <div>
+            <h2 class="text-base font-bold text-purple-950 flex items-center gap-2">
+              ទិន្នន័យ (Backup & Restore)
+              <span class="text-[10px] bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded-full border border-purple-200">Database</span>
+            </h2>
+            <p class="text-xs text-slate-500 font-medium">ទាញយកឯកសារបម្រុងទុក (Export) ឬបញ្ចូលទិន្នន័យចាស់មកវិញ (Restore)</p>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-wrap items-center gap-3">
-        <button onclick="exportAllData()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-2xs flex items-center gap-1.5 active:scale-95">
-          <span>📥 Export JSON Backup</span>
+      <div class="flex flex-wrap items-center gap-3 pt-1">
+        <button onclick="exportAllData()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition shadow-xs flex items-center gap-2 active:scale-95">
+          <span>📥</span>
+          <span>Export JSON Backup</span>
         </button>
-        <label class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-2xs flex items-center gap-1.5 cursor-pointer active:scale-95">
-          <span>📤 Import JSON Backup</span>
+        <label class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition shadow-xs flex items-center gap-2 cursor-pointer active:scale-95">
+          <span>📤</span>
+          <span>Import JSON Backup</span>
           <input type="file" accept=".json" class="hidden" onchange="importAllData(event)">
         </label>
-        <button onclick="clearAllData()" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-2xs flex items-center gap-1.5 active:scale-95">
-          <span>🗑️ លុបទិន្នន័យទាំងអស់</span>
+        <button onclick="clearAllData()" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold px-5 py-2.5 rounded-xl text-xs transition active:scale-95 flex items-center gap-2">
+          <span>🗑️</span>
+          <span>លុបទិន្នន័យទាំងអស់</span>
         </button>
       </div>
     </div>
@@ -1889,8 +1934,8 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 
   <!-- Save Button Floating Action -->
   <div class="max-w-7xl mx-auto mt-6 flex justify-end no-print">
-    <button onclick="saveSettings()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-7 py-3 rounded-2xl font-bold text-sm shadow-md hover:shadow-lg transition active:scale-95 flex items-center gap-2">
-      <span>💾</span>
+    <button onclick="saveSettings()" class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3.5 rounded-2xl font-bold text-sm shadow-md hover:shadow-xl transition active:scale-95 flex items-center gap-2.5">
+      <span class="text-lg">💾</span>
       <span>រក្សាទុកការកំណត់</span>
     </button>
   </div>
@@ -9120,17 +9165,20 @@ function renderUsers(){
   const box = document.getElementById('userList');
   if(!box) return;
   box.innerHTML = users.map(u => `
-    <div class="flex items-center justify-between py-2 border-b border-gray-100">
-      <div class="flex items-center gap-2">
-        <span class="w-8 h-8 rounded-full ${u.role === 'Owner' ? 'bg-amber-100 text-amber-800' : u.role === 'Admin' ? 'bg-indigo-100 text-indigo-800' : 'bg-blue-100 text-blue-700'} flex items-center justify-center text-sm font-bold">${u.role === 'Owner' ? '👑' : (u.name||'?')[0]}</span>
-        <div><p class="text-sm font-medium">${u.name}</p><p class="text-xs text-gray-400">@${u.username} • <span class="font-bold text-blue-700">${u.role}</span></p></div>
+    <div class="flex items-center justify-between p-3 rounded-xl bg-white border border-indigo-100 shadow-2xs hover:border-indigo-200 transition">
+      <div class="flex items-center gap-3">
+        <span class="w-9 h-9 rounded-xl ${u.role === 'Owner' ? 'bg-amber-100 text-amber-800 border border-amber-200' : u.role === 'Admin' ? 'bg-indigo-100 text-indigo-800 border border-indigo-200' : 'bg-blue-100 text-blue-700 border border-blue-200'} flex items-center justify-center text-sm font-bold shadow-2xs">${u.role === 'Owner' ? '👑' : (u.name||'?')[0]}</span>
+        <div>
+          <p class="text-xs font-bold text-slate-800">${u.name}</p>
+          <p class="text-[11px] text-slate-500">@${u.username} • <span class="font-bold ${u.role === 'Owner' ? 'text-amber-700' : u.role === 'Admin' ? 'text-indigo-700' : 'text-blue-700'}">${u.role}</span></p>
+        </div>
       </div>
-      <div class="flex gap-2">
-        <button onclick="editUser(${u.id})" class="text-blue-600 text-xs hover:underline">កែ</button>
-        ${(u.username !== 'admin@gmail.com' && u.username !== 'owner@gmail.com' && u.role !== 'Owner') ? `<button onclick="delUser(${u.id})" class="text-red-600 text-xs hover:underline">លុប</button>` : ''}
+      <div class="flex items-center gap-1.5">
+        <button onclick="editUser(${u.id})" class="text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition active:scale-95">កែ</button>
+        ${(u.username !== 'admin@gmail.com' && u.username !== 'owner@gmail.com' && u.role !== 'Owner') ? `<button onclick="delUser(${u.id})" class="text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-lg transition active:scale-95">លុប</button>` : ''}
       </div>
     </div>
-  `).join('') || '<p class="text-gray-400 text-sm">មិនមានអ្នកប្រើ</p>';
+  `).join('') || '<p class="text-slate-400 text-xs py-2 text-center">មិនមានអ្នកប្រើ</p>';
 }
 function openUserModal(){
   document.getElementById('userId').value = '';
