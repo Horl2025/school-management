@@ -826,119 +826,215 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 </div>
 
 <!-- STUDENTS -->
-<!-- STUDENTS -->
 <div id="page-students" class="page space-y-4">
-  <!-- Top Control Bar (Search, Filters: ថ្នាក់, ឆ្នាំសិក្សា, ឆមាស, ស្ថានភាព + Buttons) -->
-  <div class="bg-white rounded-2xl shadow-sm p-4 border flex flex-col gap-3 no-print">
-    <div class="flex flex-wrap gap-2.5 items-center justify-between">
-      <!-- Left Filters Group -->
-      <div class="flex flex-wrap gap-2 items-center flex-1">
-        <!-- Search Input -->
-        <div class="relative flex-1 min-w-[200px] max-w-xs">
-          <input type="text" id="stuSearch" placeholder="🔍 ស្វែងរកសិស្ស (ឈ្មោះ, កូដ, ទូរស័ព្ទ...)" class="w-full border rounded-xl pl-3 pr-8 py-2 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-blue-500 font-medium" oninput="renderStudents()">
-          <button type="button" onclick="document.getElementById('stuSearch').value=''; renderStudents();" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">✕</button>
-        </div>
-
-        <!-- Class Filter -->
-        <div class="flex items-center gap-1 bg-gray-50 border rounded-xl px-2.5 py-1">
-          <span class="text-xs text-gray-500 font-semibold whitespace-nowrap">🏫 ថ្នាក់៖</span>
-          <select id="stuClassFilter" onchange="renderStudents()" class="bg-transparent text-xs sm:text-sm font-bold text-gray-800 outline-none cursor-pointer">
-            <option value="">គ្រប់ថ្នាក់ទាំងអស់</option>
-            <!-- Populated dynamically -->
-          </select>
-        </div>
-
-        <!-- Academic Year Filter -->
-        <div class="flex items-center gap-1 bg-gray-50 border rounded-xl px-2.5 py-1">
-          <span class="text-xs text-gray-500 font-semibold whitespace-nowrap">📅 ឆ្នាំសិក្សា៖</span>
-          <select id="stuYearFilter" onchange="onStudentYearFilterChange()" class="bg-transparent text-xs sm:text-sm font-bold text-blue-900 outline-none cursor-pointer">
-            <!-- Populated dynamically -->
-          </select>
-        </div>
-
-        <!-- Semester Filter -->
-        <div class="flex items-center gap-1 bg-gray-50 border rounded-xl px-2.5 py-1">
-          <span class="text-xs text-gray-500 font-semibold whitespace-nowrap">🔖 ឆមាស៖</span>
-          <select id="stuSemesterFilter" onchange="renderStudents()" class="bg-transparent text-xs sm:text-sm font-bold text-indigo-900 outline-none cursor-pointer">
-            <option value="">គ្រប់ឆមាស</option>
-            <option value="ឆមាសទី១">ឆមាសទី១</option>
-            <option value="ឆមាសទី២">ឆមាសទី២</option>
-          </select>
-        </div>
-
-        <!-- Status Filter -->
-        <div class="flex items-center gap-1 bg-gray-50 border rounded-xl px-2.5 py-1">
-          <span class="text-xs text-gray-500 font-semibold whitespace-nowrap">⚡ ស្ថានភាព៖</span>
-          <select id="stuStatusFilter" onchange="renderStudents()" class="bg-transparent text-xs sm:text-sm font-bold text-emerald-900 outline-none cursor-pointer">
-            <option value="">ទាំងអស់</option>
-            <option value="កំពុងរៀន">🟢 កំពុងរៀន</option>
-            <option value="ផ្អាក">🟡 ផ្អាក</option>
-            <option value="ឈប់រៀន">🔴 ឈប់រៀន</option>
-          </select>
-        </div>
+  <!-- Top Header Banner matching Image 2 -->
+  <div class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 sm:p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <!-- Left: Icon & Title -->
+    <div class="flex items-center gap-3.5">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-md shadow-indigo-500/20 flex items-center justify-center text-white text-2xl flex-shrink-0">
+        🎓
       </div>
-
-      <!-- Right Action Buttons -->
-      <div class="flex gap-2 flex-wrap items-center justify-end">
-        <button onclick="previewStudentsListPDF()" class="btn-pdf text-xs sm:text-sm shadow-xs flex items-center gap-1.5">
-          <span>📄 មើលជា PDF</span>
-        </button>
-        <button onclick="exportStudents()" class="btn-export text-xs sm:text-sm shadow-xs flex items-center gap-1.5">
-          <span>📥 Export Excel</span>
-        </button>
-        <button onclick="openStudentModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition shadow-sm flex items-center gap-1.5 active:scale-95">
-          <span>+ បន្ថែមសិស្ស</span>
-        </button>
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
+          <span>Student Management</span>
+          <span class="text-sm font-semibold text-slate-400 font-sans hidden sm:inline">(គ្រប់គ្រងសិស្ស)</span>
+        </h1>
+        <p class="text-xs text-slate-500 mt-0.5">Manage students organized by grade / class • គ្រប់គ្រងទិន្នន័យសិស្សតាមកម្រិតថ្នាក់</p>
       </div>
     </div>
 
-    <!-- Live Statistics Badges Bar -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2.5 pt-2 border-t border-gray-100 text-xs">
-      <div class="bg-blue-50/70 border border-blue-100 rounded-xl p-2.5 flex items-center justify-between">
-        <span class="text-gray-600 font-medium">👥 សិស្សសរុប</span>
-        <strong id="stuStatTotal" class="text-blue-900 font-bold text-sm">0</strong>
+    <!-- Right: Pill Badges -->
+    <div class="flex items-center gap-2 flex-wrap self-stretch md:self-auto justify-end">
+      <!-- Grades Pill -->
+      <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-100 text-indigo-700 text-xs font-semibold">
+        <span class="text-sm">🏫</span>
+        <span id="stuHeaderGradeCount">0 Grades</span>
       </div>
-      <div class="bg-pink-50/70 border border-pink-100 rounded-xl p-2.5 flex items-center justify-between">
-        <span class="text-gray-600 font-medium">👩 សិស្សស្រី</span>
-        <strong id="stuStatFemale" class="text-pink-700 font-bold text-sm">0</strong>
+      <!-- Students Pill -->
+      <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-50/90 border border-purple-100 text-purple-700 text-xs font-semibold">
+        <span class="text-sm">👥</span>
+        <span id="stuHeaderStudentCount">0 Students</span>
       </div>
-      <div class="bg-indigo-50/70 border border-indigo-100 rounded-xl p-2.5 flex items-center justify-between">
-        <span class="text-gray-600 font-medium">👨 សិស្សប្រុស</span>
-        <strong id="stuStatMale" class="text-indigo-700 font-bold text-sm">0</strong>
+      <!-- Male Pill -->
+      <div class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold font-mono">
+        <span class="text-[10px] text-blue-500">M</span>
+        <span id="stuHeaderMaleCount">0</span>
       </div>
-      <div class="bg-green-50/70 border border-green-100 rounded-xl p-2.5 flex items-center justify-between">
-        <span class="text-gray-600 font-medium">🟢 កំពុងរៀន</span>
-        <strong id="stuStatActive" class="text-green-700 font-bold text-sm">0</strong>
-      </div>
-      <div class="bg-amber-50/70 border border-amber-100 rounded-xl p-2.5 flex items-center justify-between col-span-2 sm:col-span-1">
-        <span class="text-gray-600 font-medium">🟡 ផ្អាក / ឈប់</span>
-        <strong id="stuStatInactive" class="text-amber-700 font-bold text-sm">0</strong>
+      <!-- Female Pill -->
+      <div class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-pink-50 border border-pink-100 text-pink-700 text-xs font-bold font-mono">
+        <span class="text-[10px] text-pink-500">F</span>
+        <span id="stuHeaderFemaleCount">0</span>
       </div>
     </div>
   </div>
 
-  <!-- Students Data Table -->
-  <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
-    <div class="px-4 py-2.5 border-b text-xs text-gray-500 flex flex-wrap gap-2 justify-between items-center bg-gray-50/70">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-gray-800">📋 បញ្ជីឈ្មោះសិស្សានុសិស្ស</span>
-        <span id="stuTableFilterSummary" class="text-[11px] bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full font-semibold">គ្រប់ថ្នាក់</span>
+  <!-- Main 2-Column Section -->
+  <div class="flex flex-col lg:flex-row gap-5 items-start">
+    <!-- LEFT SIDEBAR: Grade / Class Navigator -->
+    <div class="w-full lg:w-72 flex-shrink-0 space-y-3">
+      <!-- Academic Year Select -->
+      <div class="relative">
+        <select id="stuYearFilter" onchange="onStudentYearFilterChange()" class="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-700 shadow-2xs outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer">
+          <!-- Populated dynamically -->
+        </select>
       </div>
-      <div class="flex items-center gap-3">
-        <span>ឆ្នាំសិក្សា៖ <strong id="stuYearLabel" class="text-blue-900 font-bold">—</strong></span>
+
+      <!-- Search Grade Input -->
+      <div class="relative">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
+        <input type="text" id="stuGradeSearch" placeholder="Search grade..." class="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs sm:text-sm text-slate-700 placeholder-slate-400 outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs" oninput="renderStudentGradeList()">
       </div>
+
+      <!-- Grade List Cards Container -->
+      <div id="stuGradeListContainer" class="space-y-1.5 max-h-[580px] overflow-y-auto pr-0.5">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Left Sidebar Footer Summary -->
+      <p class="text-xs text-slate-400 text-center py-2" id="stuGradeListFooter">0 grades / 0 total students</p>
     </div>
-    <div class="overflow-x-auto">
-      <table class="w-full text-sm whitespace-nowrap"><thead class="bg-gray-50 text-gray-600"><tr>
-        <th class="text-center px-3 py-3 font-semibold w-12">ល.រ</th>
-        <th class="text-left px-4 py-3 font-semibold">លេខសិស្ស</th>
-        <th class="text-left px-4 py-3 font-semibold">គោត្តនាម-នាម</th>
-        <th class="text-center px-3 py-3 font-semibold">ភេទ</th>
-        <th class="text-center px-4 py-3 font-semibold">ថ្នាក់រៀន</th>
-        <th class="text-center px-3 py-3 font-semibold">ស្ថានភាព</th>
-        <th class="text-left px-3 py-3 font-semibold">អាណាព្យាបាល / ទូរស័ព្ទ</th>
-        <th class="text-center px-4 py-3 no-print font-semibold">សកម្មភាព</th>
-      </tr></thead><tbody id="studentBody" class="divide-y"></tbody></table>
+
+    <!-- RIGHT MAIN CONTENT -->
+    <div class="flex-1 min-w-0 space-y-4 w-full">
+      <!-- Grade Banner Card (Purple) -->
+      <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 rounded-2xl p-4 sm:p-5 text-white flex flex-wrap items-center justify-between gap-3 shadow-md shadow-indigo-500/15">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-xl flex-shrink-0">
+            🏫
+          </div>
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-2" id="selectedGradeTitle">
+              ថ្នាក់ទាំងអស់
+            </h2>
+            <p class="text-xs text-indigo-100/90 mt-0.5" id="selectedGradeSubtitle">
+              គ្រប់វេនសិក្សា • គ្រប់កម្រិត
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="bg-white/20 backdrop-blur-xs px-3.5 py-1.5 rounded-full text-xs font-bold" id="selectedGradeStudentCount">0 students</span>
+          <span class="bg-white/20 backdrop-blur-xs px-3 py-1.5 rounded-full text-xs font-bold font-mono" id="selectedGradeMaleCount">M 0</span>
+          <span class="bg-white/20 backdrop-blur-xs px-3 py-1.5 rounded-full text-xs font-bold font-mono" id="selectedGradeFemaleCount">F 0</span>
+        </div>
+      </div>
+
+      <!-- Controls & Filter Row -->
+      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-2xs p-3.5 space-y-3 no-print">
+        <!-- Search Input -->
+        <div class="relative w-full">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
+          <input type="text" id="stuSearch" placeholder="Search by name, ID, email, phone... (ស្វែងរកសិស្ស...)" class="w-full bg-slate-50/70 border border-slate-200/80 rounded-xl pl-9 pr-9 py-2 text-xs sm:text-sm text-slate-700 placeholder-slate-400 outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500 transition" oninput="renderStudents()">
+          <button type="button" onclick="document.getElementById('stuSearch').value=''; renderStudents();" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs font-bold">✕</button>
+        </div>
+
+        <!-- Filter Row: Status Pills + View Mode + Action Buttons -->
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <!-- Hidden inputs for compatibility -->
+          <select id="stuStatusFilter" onchange="renderStudents()" class="hidden">
+            <option value="">ទាំងអស់</option>
+            <option value="កំពុងរៀន">កំពុងរៀន</option>
+            <option value="ឈប់រៀន">ឈប់រៀន</option>
+            <option value="ផ្អាក">ផ្អាក</option>
+          </select>
+          <select id="stuClassFilter" onchange="renderStudents()" class="hidden"></select>
+          <select id="stuSemesterFilter" onchange="renderStudents()" class="hidden">
+            <option value="">គ្រប់ឆមាស</option>
+            <option value="ឆមាសទី១">ឆមាសទី១</option>
+            <option value="ឆមាសទី២">ឆមាសទី២</option>
+          </select>
+
+          <!-- Left Controls: Status Filter Pills + View Switcher -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Status Buttons -->
+            <button type="button" onclick="setStudentStatusFilter('កំពុងរៀន')" id="stuStatusBtnActive" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-indigo-600 text-white">
+              សកម្ម
+            </button>
+            <button type="button" onclick="setStudentStatusFilter('ឈប់រៀន')" id="stuStatusBtnInactive" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-slate-100 hover:bg-slate-200 text-slate-700">
+              បញ្ឈប់ចេញ/ដកឈ្មោះ
+            </button>
+            <button type="button" onclick="setStudentStatusFilter('')" id="stuStatusBtnAll" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-slate-100 hover:bg-slate-200 text-slate-700">
+              ទាំងអស់
+            </button>
+
+            <!-- View Switcher -->
+            <div class="flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200/80 ml-1">
+              <button type="button" onclick="setStudentViewMode('grid')" id="stuViewBtnGrid" class="p-1.5 rounded-lg text-xs font-bold transition bg-white text-indigo-700 shadow-2xs" title="Grid View">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+              </button>
+              <button type="button" onclick="setStudentViewMode('table')" id="stuViewBtnTable" class="p-1.5 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-700" title="Table View">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Action Buttons -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Hidden file input for import -->
+            <input type="file" id="stuImportFileInput" accept=".xlsx,.xls,.csv" class="hidden" onchange="handleStudentDirectImport(event)">
+            
+            <button type="button" onclick="triggerStudentImport()" class="bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition shadow-2xs flex items-center gap-1.5">
+              <span>📥</span>
+              <span>Import CSV</span>
+            </button>
+            <button type="button" onclick="exportStudents()" class="bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition shadow-2xs flex items-center gap-1.5">
+              <span>📤</span>
+              <span>Export CSV</span>
+            </button>
+            <button type="button" onclick="previewStudentsListPDF()" class="bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition shadow-2xs flex items-center gap-1.5">
+              <span>📄</span>
+              <span>មើលជា PDF</span>
+            </button>
+            <button type="button" onclick="openStudentModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm transition shadow-sm flex items-center gap-1.5 active:scale-95">
+              <span>+ Add Student</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUDENTS GRID VIEW -->
+      <div id="stuCardsGrid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- STUDENTS TABLE VIEW (Hidden by default unless table mode selected) -->
+      <div id="stuTableWrapper" class="hidden bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200/90">
+        <div class="px-4 py-2.5 border-b text-xs text-slate-500 flex flex-wrap gap-2 justify-between items-center bg-slate-50/70">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-slate-800">📋 បញ្ជីឈ្មោះសិស្សានុសិស្ស</span>
+            <span id="stuTableFilterSummary" class="text-[11px] bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-full font-semibold">គ្រប់ថ្នាក់</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span>ឆ្នាំសិក្សា៖ <strong id="stuYearLabel" class="text-indigo-900 font-bold">—</strong></span>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm whitespace-nowrap">
+            <thead class="bg-slate-50 text-slate-600">
+              <tr>
+                <th class="text-center px-3 py-3 font-semibold w-12">ល.រ</th>
+                <th class="text-left px-4 py-3 font-semibold">លេខសិស្ស</th>
+                <th class="text-left px-4 py-3 font-semibold">គោត្តនាម-នាម</th>
+                <th class="text-center px-3 py-3 font-semibold">ភេទ</th>
+                <th class="text-center px-4 py-3 font-semibold">ថ្នាក់រៀន</th>
+                <th class="text-center px-3 py-3 font-semibold">ស្ថានភាព</th>
+                <th class="text-left px-3 py-3 font-semibold">អាណាព្យាបាល / ទូរស័ព្ទ</th>
+                <th class="text-center px-4 py-3 no-print font-semibold">សកម្មភាព</th>
+              </tr>
+            </thead>
+            <tbody id="studentBody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Hidden compatibility elements so existing code never encounters null -->
+      <div class="hidden" style="display:none;">
+        <span id="stuStatTotal">0</span>
+        <span id="stuStatFemale">0</span>
+        <span id="stuStatMale">0</span>
+        <span id="stuStatActive">0</span>
+        <span id="stuStatInactive">0</span>
+      </div>
     </div>
   </div>
 </div>
@@ -5583,21 +5679,197 @@ function exportClasses(){
 }
 
 /* ===== STUDENTS CRUD ===== */
+let selectedStudentClass = '';
+let studentViewMode = 'grid';
+let studentStatusFilterValue = 'កំពុងរៀន';
+
 function onStudentYearFilterChange(){
+  renderStudentGradeList();
   renderStudents();
+}
+
+function setStudentStatusFilter(status){
+  studentStatusFilterValue = status;
+  const statusEl = document.getElementById('stuStatusFilter');
+  if(statusEl) statusEl.value = status;
+
+  const btnActive = document.getElementById('stuStatusBtnActive');
+  const btnInactive = document.getElementById('stuStatusBtnInactive');
+  const btnAll = document.getElementById('stuStatusBtnAll');
+
+  if(btnActive){
+    if(status === 'កំពុងរៀន'){
+      btnActive.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-indigo-600 text-white';
+    } else {
+      btnActive.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-slate-100 hover:bg-slate-200 text-slate-700';
+    }
+  }
+  if(btnInactive){
+    if(status === 'ឈប់រៀន'){
+      btnInactive.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-indigo-600 text-white';
+    } else {
+      btnInactive.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-slate-100 hover:bg-slate-200 text-slate-700';
+    }
+  }
+  if(btnAll){
+    if(status === ''){
+      btnAll.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-indigo-600 text-white';
+    } else {
+      btnAll.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs bg-slate-100 hover:bg-slate-200 text-slate-700';
+    }
+  }
+
+  renderStudents();
+}
+
+function setStudentViewMode(mode){
+  studentViewMode = mode;
+  const btnGrid = document.getElementById('stuViewBtnGrid');
+  const btnTable = document.getElementById('stuViewBtnTable');
+  const gridContainer = document.getElementById('stuCardsGrid');
+  const tableWrapper = document.getElementById('stuTableWrapper');
+
+  if(mode === 'grid'){
+    if(btnGrid) btnGrid.className = 'p-1.5 rounded-lg text-xs font-bold transition bg-white text-indigo-700 shadow-2xs';
+    if(btnTable) btnTable.className = 'p-1.5 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-700';
+    if(gridContainer) gridContainer.classList.remove('hidden');
+    if(tableWrapper) tableWrapper.classList.add('hidden');
+  } else {
+    if(btnGrid) btnGrid.className = 'p-1.5 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-700';
+    if(btnTable) btnTable.className = 'p-1.5 rounded-lg text-xs font-bold transition bg-white text-indigo-700 shadow-2xs';
+    if(gridContainer) gridContainer.classList.add('hidden');
+    if(tableWrapper) tableWrapper.classList.remove('hidden');
+  }
+}
+
+function selectStudentClass(className){
+  selectedStudentClass = className;
+  const classFilterEl = document.getElementById('stuClassFilter');
+  if(classFilterEl) classFilterEl.value = className;
+  renderStudentGradeList();
+  renderStudents();
+}
+
+function renderStudentGradeList(){
+  const container = document.getElementById('stuGradeListContainer');
+  if(!container) return;
+
+  const yFilter = document.getElementById('stuYearFilter')?.value;
+  const selectedYearId = yFilter ? Number(yFilter) : currentYearId;
+  const activeClasses = classes.filter(c => !c.yearId || c.yearId === selectedYearId);
+  const activeStudents = students.filter(s => !s.yearId || s.yearId === selectedYearId);
+  const searchQ = (document.getElementById('stuGradeSearch')?.value || '').toLowerCase().trim();
+
+  let filteredClasses = activeClasses;
+  if(searchQ){
+    filteredClasses = filteredClasses.filter(c => 
+      (c.name || '').toLowerCase().includes(searchQ) ||
+      (c.teacher || '').toLowerCase().includes(searchQ) ||
+      (c.room || '').toLowerCase().includes(searchQ)
+    );
+  }
+
+  // All classes option at top
+  const allCount = activeStudents.length;
+  const isAllActive = !selectedStudentClass;
+
+  let html = `
+    <div onclick="selectStudentClass('')" class="p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${isAllActive ? 'bg-indigo-50/80 border-indigo-300 shadow-xs ring-1 ring-indigo-500/20' : 'bg-white hover:bg-slate-50 border-slate-200/80'}">
+      <div>
+        <p class="font-bold text-sm ${isAllActive ? 'text-indigo-900' : 'text-slate-800'}">គ្រប់ថ្នាក់ទាំងអស់</p>
+        <p class="text-xs ${isAllActive ? 'text-indigo-600/80' : 'text-slate-400'} mt-0.5">សិស្សទាំងអស់ក្នុងឆ្នាំសិក្សា</p>
+      </div>
+      <span class="rounded-full px-2.5 py-0.5 text-xs font-bold ${isAllActive ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'}">
+        ${allCount}
+      </span>
+    </div>
+  `;
+
+  filteredClasses.forEach(c => {
+    const classCount = activeStudents.filter(s => s.className === c.name).length;
+    const isSelected = selectedStudentClass === c.name;
+    const subtitle = [c.room, c.teacher].filter(Boolean).join(' / ') || (c.shift ? 'វេន' + c.shift : 'ថ្នាក់រៀន');
+
+    html += `
+      <div onclick="selectStudentClass('${escapeHtml(c.name)}')" class="p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${isSelected ? 'bg-indigo-50/80 border-indigo-300 shadow-xs ring-1 ring-indigo-500/20' : 'bg-white hover:bg-slate-50 border-slate-200/80'}">
+        <div class="min-w-0 pr-2">
+          <p class="font-bold text-sm truncate ${isSelected ? 'text-indigo-900' : 'text-slate-800'}">${escapeHtml(c.name)}</p>
+          <p class="text-xs truncate ${isSelected ? 'text-indigo-600/80' : 'text-slate-400'} mt-0.5">${escapeHtml(subtitle)}</p>
+        </div>
+        <span class="rounded-full px-2.5 py-0.5 text-xs font-bold flex-shrink-0 ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'}">
+          ${classCount}
+        </span>
+      </div>
+    `;
+  });
+
+  if(!filteredClasses.length && searchQ){
+    html += `<p class="text-center text-xs text-slate-400 py-4">រកមិនឃើញថ្នាក់ "${escapeHtml(searchQ)}"</p>`;
+  }
+
+  container.innerHTML = html;
+
+  const footerEl = document.getElementById('stuGradeListFooter');
+  if(footerEl){
+    footerEl.textContent = `${activeClasses.length} grades / ${activeStudents.length} total students`;
+  }
+}
+
+function triggerStudentImport(){
+  const input = document.getElementById('stuImportFileInput');
+  if(input) input.click();
+}
+
+function handleStudentDirectImport(event){
+  const file = event.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheet = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[firstSheet];
+      const rawRows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+      
+      if(!rawRows || rawRows.length < 2){
+        alert('ឯកសារ Excel/CSV គ្មានទិន្នន័យគ្រប់គ្រាន់!');
+        return;
+      }
+
+      const targetClass = selectedStudentClass ? classes.find(c => c.name === selectedStudentClass) : (classes[0] || null);
+      if(typeof processImportedRows === 'function'){
+        processImportedRows(rawRows, targetClass || { name: 'ថ្នាក់ទូទៅ' });
+      } else {
+        alert('ឯកសារត្រូវបានអានជោគជ័យ។');
+      }
+      event.target.value = '';
+    } catch(err){
+      alert('មានបញ្ហាក្នុងការអានឯកសារ៖ ' + err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
 }
 
 function getFilteredStudentsList(){
   const q = (document.getElementById('stuSearch')?.value || '').toLowerCase().trim();
-  const cFilter = document.getElementById('stuClassFilter')?.value || '';
+  const cFilter = selectedStudentClass || document.getElementById('stuClassFilter')?.value || '';
   const yFilter = document.getElementById('stuYearFilter')?.value;
   const selectedYearId = yFilter ? Number(yFilter) : currentYearId;
   const semFilter = document.getElementById('stuSemesterFilter')?.value || '';
-  const statusFilter = document.getElementById('stuStatusFilter')?.value || '';
+  const statusFilter = studentStatusFilterValue || document.getElementById('stuStatusFilter')?.value || '';
 
   let list = students.filter(s => !s.yearId || s.yearId === selectedYearId);
   if(cFilter) list = list.filter(s => s.className === cFilter);
-  if(statusFilter) list = list.filter(s => s.status === statusFilter);
+  if(statusFilter === 'កំពុងរៀន') {
+    list = list.filter(s => s.status === 'កំពុងរៀន' || !s.status);
+  } else if(statusFilter === 'ឈប់រៀន') {
+    list = list.filter(s => s.status === 'ឈប់រៀន' || s.status === 'ផ្អាក' || s.status === 'ព្យួរការសិក្សា');
+  } else if(statusFilter) {
+    list = list.filter(s => s.status === statusFilter);
+  }
+
   if(q) {
     list = list.filter(s => 
       (s.name || '').toLowerCase().includes(q) ||
@@ -5612,12 +5884,30 @@ function getFilteredStudentsList(){
 
 function renderStudents(){
   populateClassDropdowns();
-  const { list, selectedYearId, cFilter, semFilter, statusFilter } = getFilteredStudentsList();
-  
-  // Update stats badges
+  renderStudentGradeList();
+
+  const yFilter = document.getElementById('stuYearFilter')?.value;
+  const selectedYearId = yFilter ? Number(yFilter) : currentYearId;
+  const activeStudentsInYear = students.filter(s => !s.yearId || s.yearId === selectedYearId);
+  const activeClassesInYear = classes.filter(c => !c.yearId || c.yearId === selectedYearId);
+
+  // Update Top Header Badges (matching Image 2)
+  const totalGrades = activeClassesInYear.length;
+  const totalStudentsInYear = activeStudentsInYear.length;
+  const totalMaleInYear = activeStudentsInYear.filter(s => s.gender === 'ប្រុស' || s.gender === 'បព្វជិត').length;
+  const totalFemaleInYear = activeStudentsInYear.filter(s => s.gender === 'ស្រី').length;
+
+  if(document.getElementById('stuHeaderGradeCount')) document.getElementById('stuHeaderGradeCount').textContent = `${totalGrades} Grades`;
+  if(document.getElementById('stuHeaderStudentCount')) document.getElementById('stuHeaderStudentCount').textContent = `${totalStudentsInYear} Students`;
+  if(document.getElementById('stuHeaderMaleCount')) document.getElementById('stuHeaderMaleCount').textContent = `${totalMaleInYear}`;
+  if(document.getElementById('stuHeaderFemaleCount')) document.getElementById('stuHeaderFemaleCount').textContent = `${totalFemaleInYear}`;
+
+  const { list, cFilter, semFilter, statusFilter } = getFilteredStudentsList();
+
+  // Update stats badges (for backward compatibility)
   const total = list.length;
-  const female = list.filter(s => s.gender === 'ស្រី' || s.gender === 'បព្វជិត').length;
-  const male = list.filter(s => s.gender === 'ប្រុស').length;
+  const female = list.filter(s => s.gender === 'ស្រី').length;
+  const male = list.filter(s => s.gender === 'ប្រុស' || s.gender === 'បព្វជិត').length;
   const active = list.filter(s => s.status === 'កំពុងរៀន' || !s.status).length;
   const inactive = total - active;
 
@@ -5626,6 +5916,28 @@ function renderStudents(){
   if(document.getElementById('stuStatMale')) document.getElementById('stuStatMale').textContent = toKhmerNum(male);
   if(document.getElementById('stuStatActive')) document.getElementById('stuStatActive').textContent = toKhmerNum(active);
   if(document.getElementById('stuStatInactive')) document.getElementById('stuStatInactive').textContent = toKhmerNum(inactive);
+
+  // Update Purple Banner Card
+  const bannerTitle = document.getElementById('selectedGradeTitle');
+  const bannerSubtitle = document.getElementById('selectedGradeSubtitle');
+  const bannerStudentCount = document.getElementById('selectedGradeStudentCount');
+  const bannerMaleCount = document.getElementById('selectedGradeMaleCount');
+  const bannerFemaleCount = document.getElementById('selectedGradeFemaleCount');
+
+  if(selectedStudentClass){
+    const clsObj = activeClassesInYear.find(c => c.name === selectedStudentClass);
+    if(bannerTitle) bannerTitle.textContent = selectedStudentClass;
+    if(bannerSubtitle) bannerSubtitle.textContent = [clsObj?.room, clsObj?.teacher].filter(Boolean).join(' / ') || (clsObj?.shift ? 'វេន ' + clsObj.shift : 'ថ្នាក់រៀន');
+    if(bannerStudentCount) bannerStudentCount.textContent = `${list.length} students`;
+    if(bannerMaleCount) bannerMaleCount.textContent = `M ${male}`;
+    if(bannerFemaleCount) bannerFemaleCount.textContent = `F ${female}`;
+  } else {
+    if(bannerTitle) bannerTitle.textContent = 'គ្រប់ថ្នាក់ទាំងអស់';
+    if(bannerSubtitle) bannerSubtitle.textContent = 'គ្រប់កម្រិតថ្នាក់ • គ្រប់វេនសិក្សា';
+    if(bannerStudentCount) bannerStudentCount.textContent = `${totalStudentsInYear} students`;
+    if(bannerMaleCount) bannerMaleCount.textContent = `M ${totalMaleInYear}`;
+    if(bannerFemaleCount) bannerFemaleCount.textContent = `F ${totalFemaleInYear}`;
+  }
 
   const yearObj = academicYears.find(y => y.id === selectedYearId);
   const yearName = yearObj?.name || getCurrentYearName();
@@ -5641,73 +5953,160 @@ function renderStudents(){
     summaryBadge.textContent = parts.join(' • ');
   }
 
-  const tbody = document.getElementById('studentBody');
-  if(!tbody) return;
+  // 1. RENDER GRID CARDS
+  const gridContainer = document.getElementById('stuCardsGrid');
+  if(gridContainer){
+    if(!list.length){
+      gridContainer.innerHTML = `
+        <div class="col-span-full py-16 px-4 text-center bg-white rounded-2xl border border-dashed border-slate-200">
+          <div class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-500 mx-auto flex items-center justify-center text-3xl mb-3 shadow-xs">
+            👥
+          </div>
+          <p class="font-bold text-slate-700 text-base">មិនមានទិន្នន័យសិស្សតាមលក្ខខណ្ឌដែលបានជ្រើសរើស</p>
+          <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto">អ្នកអាចចុចប៊ូតុង <strong>"+ Add Student"</strong> ដើម្បីបន្ថែមសិស្ស ឬជ្រើសរើសថ្នាក់ផ្សេងទៀត</p>
+        </div>
+      `;
+    } else {
+      gridContainer.innerHTML = list.map(s => {
+        const photo = (s.photo || customPhotos[s.code] || customPhotos[s.id] || '');
+        const photoHtml = photo 
+          ? `<img src="${photo}" alt="${escapeHtml(s.name)}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">`
+          : `<div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-50 to-slate-100 text-indigo-400 group-hover:scale-105 transition duration-300">
+               <span class="text-3xl font-black">${escapeHtml((s.name || '?')[0])}</span>
+             </div>`;
 
-  if(!list.length){
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="8" class="text-center py-10 text-gray-400 bg-gray-50/50">
-          <p class="text-3xl mb-1.5">👥</p>
-          <p class="font-bold text-gray-700">មិនមានទិន្នន័យសិស្សតាមលក្ខខណ្ឌដែលបានជ្រើសរើស</p>
-          <p class="text-xs text-gray-400 mt-1">អ្នកអាចចុច <strong>"+ បន្ថែមសិស្ស"</strong> ឬប្តូរជម្រើសចម្រាញ់ (Filter) ខាងលើ</p>
-        </td>
-      </tr>
-    `;
-    return;
+        const genderLetter = s.gender === 'ស្រី' ? 'F' : 'M';
+        const genderBg = s.gender === 'ស្រី' ? 'bg-pink-500' : (s.gender === 'បព្វជិត' ? 'bg-amber-500' : 'bg-blue-600');
+        const emailText = s.email || (s.code ? s.code.toLowerCase().replace(/[^a-z0-9]/g, '') + '@school.local' : 'student@school.local');
+
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition duration-200 overflow-hidden flex flex-col group relative">
+            <!-- Top Image Box -->
+            <div class="relative aspect-[4/3] w-full bg-slate-100 overflow-hidden flex items-center justify-center">
+              ${photoHtml}
+              
+              <!-- Student Code Badge on Bottom-Left -->
+              <span class="absolute bottom-2 left-2 bg-black/65 backdrop-blur-xs text-white text-[11px] font-mono font-bold px-2 py-0.5 rounded shadow-xs">
+                ${escapeHtml(s.code || ('STU-' + s.id))}
+              </span>
+              
+              <!-- Gender Badge on Top-Right -->
+              <span class="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shadow-xs text-white ${genderBg}">
+                ${genderLetter}
+              </span>
+              
+              ${s.status && s.status !== 'កំពុងរៀន' ? `
+                <span class="absolute top-2 left-2 bg-amber-500/90 backdrop-blur-xs text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-xs">
+                  ${escapeHtml(s.status)}
+                </span>
+              ` : ''}
+            </div>
+
+            <!-- Bottom Info Area -->
+            <div class="p-3 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 class="font-bold text-sm text-slate-800 tracking-tight truncate" title="${escapeHtml(s.name)}">
+                  ${escapeHtml(s.name)}
+                </h4>
+                <p class="text-[11px] text-slate-400 truncate mt-0.5 font-mono" title="${escapeHtml(emailText)}">
+                  ${escapeHtml(emailText)}
+                </p>
+              </div>
+
+              <!-- Quick Action Toolbar -->
+              <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between gap-1 text-xs">
+                <button onclick="previewSingleIdCardModal('student', ${s.id})" class="p-1.5 rounded-lg text-indigo-600 hover:bg-indigo-50 transition" title="មើលកាតសិស្ស">
+                  🪪
+                </button>
+                <button onclick="previewStudentReportCard(${s.id})" class="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 transition" title="មើលពិន្ទុ">
+                  📄
+                </button>
+                <button onclick="editStudent(${s.id})" class="p-1.5 rounded-lg text-blue-600 hover:bg-blue-50 transition" title="កែប្រែ">
+                  ✏️
+                </button>
+                <button onclick="delStudent(${s.id})" class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 transition" title="លុប">
+                  🗑️
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
   }
 
-  tbody.innerHTML = list.map((s, i) => {
-    const genderTag = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${s.gender === 'បព្វជិត' ? 'bg-amber-100 text-amber-900 border border-amber-300' : s.gender === 'ស្រី' ? 'bg-pink-100 text-pink-700 border border-pink-200' : 'bg-blue-100 text-blue-700 border border-blue-200'}">${escapeHtml(s.gender || 'ប្រុស')}</span>`;
-    const statusTag = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${s.status === 'កំពុងរៀន' || !s.status ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}">${escapeHtml(s.status || 'កំពុងរៀន')}</span>`;
+  // 2. RENDER TABLE ROWS (for Table View)
+  const tbody = document.getElementById('studentBody');
+  if(tbody){
+    if(!list.length){
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="8" class="text-center py-10 text-slate-400 bg-slate-50/50">
+            <p class="text-3xl mb-1.5">👥</p>
+            <p class="font-bold text-slate-700">មិនមានទិន្នន័យសិស្សតាមលក្ខខណ្ឌដែលបានជ្រើសរើស</p>
+            <p class="text-xs text-slate-400 mt-1">អ្នកអាចចុច <strong>"+ Add Student"</strong> ឬប្តូរជម្រើសចម្រាញ់ (Filter)</p>
+          </td>
+        </tr>
+      `;
+    } else {
+      tbody.innerHTML = list.map((s, i) => {
+        const genderTag = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${s.gender === 'បព្វជិត' ? 'bg-amber-100 text-amber-900 border border-amber-300' : s.gender === 'ស្រី' ? 'bg-pink-100 text-pink-700 border border-pink-200' : 'bg-blue-100 text-blue-700 border border-blue-200'}">${escapeHtml(s.gender || 'ប្រុស')}</span>`;
+        const statusTag = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${s.status === 'កំពុងរៀន' || !s.status ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}">${escapeHtml(s.status || 'កំពុងរៀន')}</span>`;
 
-    return `
-      <tr class="hover:bg-blue-50/40 transition-colors">
-        <td class="px-3 py-3 text-center font-bold text-gray-600">${toKhmerNum(i + 1)}</td>
-        <td class="px-4 py-3 font-mono font-bold text-blue-700">${escapeHtml(s.code)}</td>
-        <td class="px-4 py-3 font-bold text-gray-900">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center font-bold text-xs">
-              ${(s.name || '?')[0]}
-            </div>
-            <span>${escapeHtml(s.name)}</span>
-          </div>
-        </td>
-        <td class="px-3 py-3 text-center">${genderTag}</td>
-        <td class="px-4 py-3 text-center">
-          <span class="bg-gray-100 text-gray-800 font-bold px-2.5 py-1 rounded-lg border text-xs">
-            ${escapeHtml(s.className || '—')}
-          </span>
-        </td>
-        <td class="px-3 py-3 text-center">${statusTag}</td>
-        <td class="px-3 py-3 text-gray-600 text-xs">
-          <span class="font-medium text-gray-800">${escapeHtml(s.parentName || '—')}</span>
-          ${s.parentPhone ? `<br><span class="text-[10px] text-gray-500 font-mono">📞 ${escapeHtml(s.parentPhone)}</span>` : ''}
-        </td>
-        <td class="px-4 py-3 text-center space-x-1 whitespace-nowrap no-print">
-          <button onclick="previewSingleIdCardModal('student', ${s.id})" class="inline-flex items-center gap-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="មើលកាតសិស្ស">
-            <span>🪪 កាត</span>
-          </button>
-          <button onclick="previewStudentReportCard(${s.id})" class="inline-flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="មើលពិន្ទុ">
-            <span>📄 ពិន្ទុ</span>
-          </button>
-          <button onclick="editStudent(${s.id})" class="inline-flex items-center gap-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="កែប្រែ">
-            <span>✏️</span>
-          </button>
-          <button onclick="delStudent(${s.id})" class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="លុប">
-            <span>🗑️</span>
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join('');
+        return `
+          <tr class="hover:bg-indigo-50/30 transition-colors">
+            <td class="px-3 py-3 text-center font-bold text-slate-600">${toKhmerNum(i + 1)}</td>
+            <td class="px-4 py-3 font-mono font-bold text-indigo-700">${escapeHtml(s.code)}</td>
+            <td class="px-4 py-3 font-bold text-slate-900">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold text-xs">
+                  ${(s.name || '?')[0]}
+                </div>
+                <span>${escapeHtml(s.name)}</span>
+              </div>
+            </td>
+            <td class="px-3 py-3 text-center">${genderTag}</td>
+            <td class="px-4 py-3 text-center">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded-lg border text-xs">
+                ${escapeHtml(s.className || '—')}
+              </span>
+            </td>
+            <td class="px-3 py-3 text-center">${statusTag}</td>
+            <td class="px-3 py-3 text-slate-600 text-xs">
+              <span class="font-medium text-slate-800">${escapeHtml(s.parentName || '—')}</span>
+              ${s.parentPhone ? `<br><span class="text-[10px] text-slate-500 font-mono">📞 ${escapeHtml(s.parentPhone)}</span>` : ''}
+            </td>
+            <td class="px-4 py-3 text-center space-x-1 whitespace-nowrap no-print">
+              <button onclick="previewSingleIdCardModal('student', ${s.id})" class="inline-flex items-center gap-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="មើលកាតសិស្ស">
+                <span>🪪 កាត</span>
+              </button>
+              <button onclick="previewStudentReportCard(${s.id})" class="inline-flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="មើលពិន្ទុ">
+                <span>📄 ពិន្ទុ</span>
+              </button>
+              <button onclick="editStudent(${s.id})" class="inline-flex items-center gap-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="កែប្រែ">
+                <span>✏️</span>
+              </button>
+              <button onclick="delStudent(${s.id})" class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="លុប">
+                <span>🗑️</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
 }
+
 function openStudentModal(){
   populateClassDropdowns();
   document.getElementById('stuId').value = '';
   document.getElementById('stuCode').value = 'STU-' + String(students.length + 1).padStart(3, '0');
   document.getElementById('stuName').value = '';
   document.getElementById('stuGender').value = 'ប្រុស';
+  if(selectedStudentClass){
+    const sc = document.getElementById('stuClass');
+    if(sc) sc.value = selectedStudentClass;
+  }
   document.getElementById('stuDob').value = '';
   document.getElementById('stuAge').value = '';
   document.getElementById('stuPobCommune').value = '';
