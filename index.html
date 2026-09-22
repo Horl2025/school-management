@@ -970,8 +970,9 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 
           <!-- Right Action Buttons -->
           <div class="flex flex-wrap items-center gap-2">
-            <!-- Hidden file input for import -->
+            <!-- Hidden file inputs -->
             <input type="file" id="stuImportFileInput" accept=".xlsx,.xls,.csv" class="hidden" onchange="handleStudentDirectImport(event)">
+            <input type="file" id="stuQuickPhotoInput" accept="image/*" class="hidden" onchange="handleQuickPhotoSelect(event)">
             
             <button type="button" onclick="triggerStudentImport()" class="bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition shadow-2xs flex items-center gap-1.5">
               <span>📥</span>
@@ -2740,9 +2741,44 @@ STU-002	វណ្ណា ដារ៉ា	ប្រុស	អ្នកស្រី
       <button onclick="closeModal('studentModal')" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
     </div>
     
-    <form onsubmit="saveStudent(event)" class="space-y-3 text-xs overflow-y-auto flex-1 pr-1">
+    <form onsubmit="saveStudent(event)" class="space-y-3.5 text-xs overflow-y-auto flex-1 pr-1">
       <input type="hidden" id="stuId">
       
+      <!-- Student Photo Upload Card -->
+      <div class="flex items-center gap-3.5 p-3.5 bg-gradient-to-r from-indigo-50/70 via-purple-50/40 to-slate-50/80 rounded-2xl border border-indigo-100/90 shadow-2xs">
+        <div class="relative w-24 h-28 sm:w-28 sm:h-32 rounded-2xl border-2 border-dashed border-indigo-300 hover:border-indigo-600 bg-white flex flex-col items-center justify-center cursor-pointer overflow-hidden group shadow-2xs transition flex-shrink-0" onclick="document.getElementById('stuPhotoInput').click()">
+          <img id="stuPhotoPreview" class="w-full h-full object-cover hidden" alt="Student Photo">
+          <div id="stuPhotoPlaceholder" class="flex flex-col items-center justify-center p-2 text-center text-indigo-400">
+            <span class="text-3xl group-hover:scale-110 transition">📷</span>
+            <span class="text-[11px] font-bold text-indigo-700 mt-1">រូបថតសិស្ស</span>
+            <span class="text-[9px] text-slate-400">ចុចដើម្បីជ្រើស</span>
+          </div>
+          <!-- Hover change badge -->
+          <div id="stuPhotoHoverOverlay" class="absolute inset-0 bg-black/40 backdrop-blur-2xs text-white text-[10px] font-bold hidden group-hover:flex items-center justify-center transition">
+            ប្តូររូប
+          </div>
+          <button type="button" id="stuPhotoRemoveBtn" onclick="event.stopPropagation(); removeStudentPhoto();" class="hidden absolute top-1.5 right-1.5 w-6 h-6 bg-red-600/90 hover:bg-red-700 text-white rounded-full text-xs font-bold items-center justify-center shadow-xs" title="លុបរូប">
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-1.5 flex-1">
+          <p class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-1.5">
+            <span>📸 រូបថតសិស្សានុសិស្ស / សមណសិស្ស</span>
+          </p>
+          <p class="text-[11px] text-slate-500 leading-relaxed">
+            ជ្រើសរើសរូបថតផ្ទាល់ខ្លួន ឬរូបថតសញ្ញាបត្រ (ទំហំ 3x4 ឬ 4x6)។ ប្រព័ន្ធនឹងបង្រួមទំហំស្វ័យប្រវត្តិកុំឱ្យធ្ងន់ និងរក្សាទុកក្នុងកាតសិស្ស។
+          </p>
+          <div class="flex items-center gap-2 pt-1">
+            <button type="button" onclick="document.getElementById('stuPhotoInput').click()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition shadow-2xs flex items-center gap-1.5 active:scale-95">
+              <span>📁 ជ្រើសរូបភាព</span>
+            </button>
+            <input type="file" id="stuPhotoInput" accept="image/*" class="hidden" onchange="handleStudentPhotoSelect(event)">
+            <input type="hidden" id="stuPhotoData">
+          </div>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label class="block font-semibold text-gray-700 mb-1">លេខកូដសិស្ស *</label>
@@ -5971,9 +6007,7 @@ function renderStudents(){
         const photo = (s.photo || customPhotos[s.code] || customPhotos[s.id] || '');
         const photoHtml = photo 
           ? `<img src="${photo}" alt="${escapeHtml(s.name)}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">`
-          : `<div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-50 to-slate-100 text-indigo-400 group-hover:scale-105 transition duration-300">
-               <span class="text-3xl font-black">${escapeHtml((s.name || '?')[0])}</span>
-             </div>`;
+          : getStudentAvatarHtml(s);
 
         const genderLetter = s.gender === 'ស្រី' ? 'F' : 'M';
         const genderBg = s.gender === 'ស្រី' ? 'bg-pink-500' : (s.gender === 'បព្វជិត' ? 'bg-amber-500' : 'bg-blue-600');
@@ -5982,7 +6016,7 @@ function renderStudents(){
         return `
           <div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition duration-200 overflow-hidden flex flex-col group relative">
             <!-- Top Image Box -->
-            <div class="relative aspect-[4/3] w-full bg-slate-100 overflow-hidden flex items-center justify-center">
+            <div class="relative aspect-[4/3] w-full bg-slate-100 overflow-hidden flex items-center justify-center cursor-pointer" onclick="quickUploadStudentPhoto(${s.id})" title="ចុចដើម្បីប្តូររូបថតសិស្ស">
               ${photoHtml}
               
               <!-- Student Code Badge on Bottom-Left -->
@@ -5990,6 +6024,11 @@ function renderStudents(){
                 ${escapeHtml(s.code || ('STU-' + s.id))}
               </span>
               
+              <!-- Quick Photo Change Camera Icon on Bottom-Right -->
+              <button type="button" onclick="event.stopPropagation(); quickUploadStudentPhoto(${s.id})" class="absolute bottom-2 right-2 w-6 h-6 rounded-md bg-black/55 hover:bg-indigo-600 text-white flex items-center justify-center text-[10px] shadow-xs backdrop-blur-xs transition" title="ប្តូររូបថត">
+                📷
+              </button>
+
               <!-- Gender Badge on Top-Right -->
               <span class="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shadow-xs text-white ${genderBg}">
                 ${genderLetter}
@@ -6059,8 +6098,8 @@ function renderStudents(){
             <td class="px-4 py-3 font-mono font-bold text-indigo-700">${escapeHtml(s.code)}</td>
             <td class="px-4 py-3 font-bold text-slate-900">
               <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold text-xs">
-                  ${(s.name || '?')[0]}
+                <div class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold text-xs overflow-hidden">
+                  ${(s.photo || customPhotos[s.code] || customPhotos[s.id]) ? `<img src="${s.photo || customPhotos[s.code] || customPhotos[s.id]}" class="w-full h-full object-cover">` : escapeHtml((s.name || '?')[0])}
                 </div>
                 <span>${escapeHtml(s.name)}</span>
               </div>
@@ -6097,6 +6136,184 @@ function renderStudents(){
   }
 }
 
+// Student Avatar Illustration for Monks & Students
+function getStudentAvatarHtml(s){
+  if(s.gender === 'បព្វជិត'){
+    return `
+      <svg class="w-full h-full p-2.5 text-amber-600 group-hover:scale-105 transition duration-300" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="120" fill="#FEF3C7"/>
+        <circle cx="60" cy="44" r="23" fill="#FDE68A" stroke="#D97706" stroke-width="2"/>
+        <circle cx="35" cy="46" r="5" fill="#FDE68A"/>
+        <circle cx="85" cy="46" r="5" fill="#FDE68A"/>
+        <circle cx="53" cy="44" r="2.5" fill="#92400E"/>
+        <circle cx="67" cy="44" r="2.5" fill="#92400E"/>
+        <path d="M55 54 Q60 58 65 54" stroke="#92400E" stroke-width="2" stroke-linecap="round"/>
+        <path d="M26 112 C28 80 44 68 60 68 C76 68 92 80 94 112 Z" fill="#D97706"/>
+        <path d="M42 70 L60 96 L78 70 Z" fill="#B45309" opacity="0.35"/>
+        <path d="M36 76 Q60 100 84 76" stroke="#F59E0B" stroke-width="3" fill="none"/>
+      </svg>
+    `;
+  }
+  if(s.gender === 'ស្រី'){
+    return `
+      <svg class="w-full h-full p-2.5 text-pink-600 group-hover:scale-105 transition duration-300" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="120" fill="#FDF2F8"/>
+        <path d="M30 46 C28 72 32 88 38 94 C40 88 38 72 38 52 Z" fill="#1E293B"/>
+        <path d="M90 46 C92 72 88 88 82 94 C80 88 82 72 82 52 Z" fill="#1E293B"/>
+        <circle cx="60" cy="46" r="22" fill="#FDE68A" stroke="#CBD5E1" stroke-width="2"/>
+        <path d="M36 42 C36 24 84 24 84 42 C76 32 44 32 36 42 Z" fill="#0F172A"/>
+        <circle cx="53" cy="46" r="2.5" fill="#1E293B"/>
+        <circle cx="67" cy="46" r="2.5" fill="#1E293B"/>
+        <path d="M55 56 Q60 60 65 56" stroke="#BE185D" stroke-width="2" stroke-linecap="round"/>
+        <path d="M26 112 C28 82 44 70 60 70 C76 70 92 82 94 112 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+        <path d="M48 70 L60 88 L72 70 Z" fill="#DB2777"/>
+        <circle cx="60" cy="76" r="3" fill="#BE185D"/>
+      </svg>
+    `;
+  }
+  return `
+    <svg class="w-full h-full p-2.5 text-blue-600 group-hover:scale-105 transition duration-300" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="120" fill="#EFF6FF"/>
+      <path d="M36 40 C36 22 84 22 84 40 C84 28 36 28 36 40 Z" fill="#1E293B"/>
+      <circle cx="60" cy="46" r="22" fill="#FDE68A" stroke="#CBD5E1" stroke-width="2"/>
+      <path d="M38 38 C38 25 82 25 82 38 C75 32 45 32 38 38 Z" fill="#0F172A"/>
+      <circle cx="53" cy="46" r="2.5" fill="#1E293B"/>
+      <circle cx="67" cy="46" r="2.5" fill="#1E293B"/>
+      <path d="M55 56 Q60 60 65 56" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+      <path d="M26 112 C28 82 44 70 60 70 C76 70 92 82 94 112 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+      <path d="M48 70 L60 88 L72 70 Z" fill="#2563EB"/>
+      <polygon points="60,86 56,108 60,112 64,108" fill="#1D4ED8"/>
+    </svg>
+  `;
+}
+
+// Photo Uploading Handlers
+function handleStudentPhotoSelect(event){
+  const file = event.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+      const maxDim = 450;
+      if(width > height){
+        if(width > maxDim){
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        }
+      } else {
+        if(height > maxDim){
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+      setStudentPhotoPreview(dataUrl);
+      event.target.value = '';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function setStudentPhotoPreview(dataUrl){
+  const preview = document.getElementById('stuPhotoPreview');
+  const placeholder = document.getElementById('stuPhotoPlaceholder');
+  const removeBtn = document.getElementById('stuPhotoRemoveBtn');
+  const hiddenData = document.getElementById('stuPhotoData');
+
+  if(dataUrl){
+    if(preview){
+      preview.src = dataUrl;
+      preview.classList.remove('hidden');
+    }
+    if(placeholder) placeholder.classList.add('hidden');
+    if(removeBtn){
+      removeBtn.classList.remove('hidden');
+      removeBtn.classList.add('flex');
+    }
+    if(hiddenData) hiddenData.value = dataUrl;
+  } else {
+    if(preview){
+      preview.src = '';
+      preview.classList.add('hidden');
+    }
+    if(placeholder) placeholder.classList.remove('hidden');
+    if(removeBtn){
+      removeBtn.classList.add('hidden');
+      removeBtn.classList.remove('flex');
+    }
+    if(hiddenData) hiddenData.value = '';
+  }
+}
+
+function removeStudentPhoto(){
+  setStudentPhotoPreview('');
+}
+
+let pendingQuickPhotoStudentId = null;
+
+function quickUploadStudentPhoto(studentId){
+  pendingQuickPhotoStudentId = studentId;
+  const input = document.getElementById('stuQuickPhotoInput');
+  if(input) input.click();
+}
+
+function handleQuickPhotoSelect(event){
+  const file = event.target.files[0];
+  if(!file || !pendingQuickPhotoStudentId) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+      const maxDim = 450;
+      if(width > height){
+        if(width > maxDim){
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        }
+      } else {
+        if(height > maxDim){
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+      const s = students.find(x => x.id === pendingQuickPhotoStudentId);
+      if(s){
+        s.photo = dataUrl;
+        customPhotos[s.code] = dataUrl;
+        customPhotos[s.id] = dataUrl;
+        localStorage.setItem('sms_students', JSON.stringify(students));
+        localStorage.setItem('sms_custom_photos', JSON.stringify(customPhotos));
+        renderStudents();
+      }
+      pendingQuickPhotoStudentId = null;
+      event.target.value = '';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 function openStudentModal(){
   populateClassDropdowns();
   document.getElementById('stuId').value = '';
@@ -6116,9 +6333,11 @@ function openStudentModal(){
   document.getElementById('stuParentName').value = '';
   document.getElementById('stuParentPhone').value = '';
   document.getElementById('stuNote').value = '';
+  setStudentPhotoPreview('');
   document.getElementById('stuModalTitle').textContent = 'បន្ថែមសិស្ស';
   openModal('studentModal');
 }
+
 function editStudent(id){
   populateClassDropdowns();
   const s = students.find(x => x.id === id);
@@ -6137,12 +6356,18 @@ function editStudent(id){
   document.getElementById('stuParentName').value = s.parentName || '';
   document.getElementById('stuParentPhone').value = s.parentPhone || '';
   document.getElementById('stuNote').value = s.note || '';
+  
+  const existingPhoto = s.photo || customPhotos[s.code] || customPhotos[s.id] || '';
+  setStudentPhotoPreview(existingPhoto);
+  
   document.getElementById('stuModalTitle').textContent = 'កែប្រែព័ត៌មានសិស្ស';
   openModal('studentModal');
 }
+
 function saveStudent(e){
   e.preventDefault();
   const id = document.getElementById('stuId').value;
+  const photoVal = document.getElementById('stuPhotoData').value || '';
   const data = {
     code: document.getElementById('stuCode').value.trim(),
     name: document.getElementById('stuName').value.trim(),
@@ -6157,15 +6382,30 @@ function saveStudent(e){
     parentName: document.getElementById('stuParentName').value.trim(),
     parentPhone: document.getElementById('stuParentPhone').value.trim(),
     note: document.getElementById('stuNote').value.trim(),
+    photo: photoVal,
     yearId: currentYearId
   };
+
   if(id){
     const i = students.findIndex(x => x.id == id);
-    students[i] = { ...students[i], ...data };
+    if(i !== -1){
+      students[i] = { ...students[i], ...data };
+      if(data.photo){
+        customPhotos[data.code] = data.photo;
+        customPhotos[students[i].id] = data.photo;
+      }
+    }
   } else {
-    students.push({ id: Date.now(), ...data });
+    const newId = Date.now();
+    students.push({ id: newId, ...data });
+    if(data.photo){
+      customPhotos[data.code] = data.photo;
+      customPhotos[newId] = data.photo;
+    }
   }
+
   localStorage.setItem('sms_students', JSON.stringify(students));
+  localStorage.setItem('sms_custom_photos', JSON.stringify(customPhotos));
   closeModal('studentModal');
   renderStudents();
   renderClasses();
