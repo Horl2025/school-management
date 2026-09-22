@@ -3049,7 +3049,7 @@ STU-002	វណ្ណា ដារ៉ា	ប្រុស	អ្នកស្រី
     <div class="flex justify-between items-center mb-4 pb-3 border-b flex-shrink-0">
       <div>
         <h3 id="monthlyScoreModalTitle" class="text-base font-bold text-gray-900">បញ្ចូលពិន្ទុប្រឡង</h3>
-        <p class="text-xs text-gray-500 mt-0.5" id="monthlyScoreModalSubtitle">ខែ... • ឆមាស...</p>
+        <p class="text-xs text-gray-500 mt-0.5" id="mscoreModalSubtitle">ខែ... • ឆមាស...</p>
       </div>
       <button onclick="closeModal('monthlyScoreEntryModal')" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
     </div>
@@ -9263,8 +9263,10 @@ function openMonthlyScoreEntryModal(scoreId = null){
   const sel = document.getElementById('mscoreStudent');
   sel.innerHTML = curYearStudents.map(s => `<option value="${s.id}">${escapeHtml(s.name)} (${escapeHtml(s.code)} - ${escapeHtml(s.className)})</option>`).join('');
 
-  document.getElementById('mscoreMonth').value = currentScoreMonth;
-  document.getElementById('mscoreModalSubtitle').textContent = `${currentScoreMonth} • ${currentScoreSemester}`;
+  const mMonthEl = document.getElementById('mscoreMonth');
+  if(mMonthEl) mMonthEl.value = currentScoreMonth;
+  const subEl = document.getElementById('mscoreModalSubtitle') || document.getElementById('monthlyScoreModalSubtitle');
+  if(subEl) subEl.textContent = `${currentScoreMonth} • ${currentScoreSemester}`;
 
   if(scoreId){
     const sc = monthlyExamScores.find(x => x.id === scoreId);
@@ -9381,6 +9383,63 @@ function deleteMonthlyScore(id){
   renderMonthlyScoreTable();
   updateMonthBadgeCounts();
   updateDashboard();
+}
+
+function openScoreModal(scoreId){
+  const curYearStudents = filterByYear(students);
+  const sel = document.getElementById('scoreStudent');
+  if(sel){
+    sel.innerHTML = curYearStudents.map(s => `<option value="${s.id}">${escapeHtml(s.name)} (${escapeHtml(s.className)})</option>`).join('');
+  }
+  if(scoreId){
+    const sc = scores.find(s => s.id === scoreId);
+    if(sc){
+      if(document.getElementById('scoreId')) document.getElementById('scoreId').value = sc.id;
+      if(sel) sel.value = sc.studentId;
+      if(document.getElementById('scoreSubject')) document.getElementById('scoreSubject').value = sc.subject;
+      if(document.getElementById('scoreSemester')) document.getElementById('scoreSemester').value = sc.semester;
+      if(document.getElementById('scoreValue')) document.getElementById('scoreValue').value = sc.score;
+      if(document.getElementById('scoreModalTitle')) document.getElementById('scoreModalTitle').textContent = 'កែប្រែពិន្ទុ';
+    }
+  } else {
+    if(document.getElementById('scoreId')) document.getElementById('scoreId').value = '';
+    if(document.getElementById('scoreValue')) document.getElementById('scoreValue').value = '';
+    if(document.getElementById('scoreModalTitle')) document.getElementById('scoreModalTitle').textContent = 'បញ្ចូលពិន្ទុ';
+  }
+  openModal('scoreModal');
+}
+
+function saveScore(e){
+  if(e) e.preventDefault();
+  const id = document.getElementById('scoreId')?.value;
+  const stuId = Number(document.getElementById('scoreStudent')?.value);
+  const student = students.find(s => s.id === stuId);
+  const subject = document.getElementById('scoreSubject')?.value || 'គណិតវិទ្យា';
+  const semester = document.getElementById('scoreSemester')?.value || 'ឆមាសទី១';
+  const scoreVal = Number(document.getElementById('scoreValue')?.value) || 0;
+  if(!student){
+    showToast('សូមជ្រើសរើសសិស្ស!', 'warning');
+    return;
+  }
+  const data = {
+    studentId: stuId,
+    studentName: student.name,
+    className: student.className,
+    subject: subject,
+    semester: semester,
+    score: scoreVal,
+    yearId: currentYearId
+  };
+  if(id){
+    const i = scores.findIndex(x => x.id == id);
+    if(i !== -1) scores[i] = { ...scores[i], ...data };
+  } else {
+    scores.push({ id: Date.now(), ...data });
+  }
+  localStorage.setItem('sms_scores', JSON.stringify(scores));
+  closeModal('scoreModal');
+  if(typeof renderScores === 'function') renderScores();
+  showToast('បានរក្សាទុកពិន្ទុ!', 'success');
 }
 
 function exportMonthlyScoreExcel(){
@@ -10153,7 +10212,7 @@ function exportFees(){
   });
   downloadExcel(list, 'ថ្លៃសិក្សា', 'ថ្លៃសិក្សា_' + getCurrentYearName());
 }
-function exportHonor(){
+function exportLegacyHonor(){
   const sem = document.getElementById('honorSemester')?.value || 'ឆមាសទី១';
   const map = {};
   filterByYear(scores).forEach(s => {
