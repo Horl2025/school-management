@@ -67,23 +67,84 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
   transform:translateY(-6px) scale(1.015);
   box-shadow:0 14px 28px rgba(0,0,0,.09);
 }
+.stat-card.blue{
+  background: linear-gradient(145deg, #eff6ff 0%, #ffffff 60%, #f0f7ff 100%);
+  border-color: #bfdbfe;
+}
 .stat-card.blue::before{background:linear-gradient(90deg,#2563eb,#60a5fa,#2563eb)}
+.stat-card.blue .stat-icon-bg{ background:#dbeafe; color:#1d4ed8; }
+.stat-card.blue .stat-val{ color:#1d4ed8; }
+
+.stat-card.green{
+  background: linear-gradient(145deg, #ecfdf5 0%, #ffffff 60%, #f0fdf4 100%);
+  border-color: #a7f3d0;
+}
 .stat-card.green::before{background:linear-gradient(90deg,#059669,#34d399,#059669)}
+.stat-card.green .stat-icon-bg{ background:#d1fae5; color:#047857; }
+.stat-card.green .stat-val{ color:#047857; }
+
+.stat-card.purple{
+  background: linear-gradient(145deg, #f5f3ff 0%, #ffffff 60%, #faf5ff 100%);
+  border-color: #ddd6fe;
+}
 .stat-card.purple::before{background:linear-gradient(90deg,#7c3aed,#a78bfa,#7c3aed)}
+.stat-card.purple .stat-icon-bg{ background:#ede9fe; color:#6d28d9; }
+.stat-card.purple .stat-val{ color:#6d28d9; }
+
+.stat-card.red{
+  background: linear-gradient(145deg, #fff1f2 0%, #ffffff 60%, #fef2f2 100%);
+  border-color: #fecdd3;
+}
 .stat-card.red::before{background:linear-gradient(90deg,#dc2626,#f87171,#dc2626)}
+.stat-card.red .stat-icon-bg{ background:#ffe4e6; color:#be123c; }
+.stat-card.red .stat-val{ color:#e11d48; }
+
+.stat-card.orange{
+  background: linear-gradient(145deg, #fff7ed 0%, #ffffff 60%, #fffbeb 100%);
+  border-color: #fed7aa;
+}
 .stat-card.orange::before{background:linear-gradient(90deg,#ea580c,#fb923c,#ea580c)}
+.stat-card.orange .stat-icon-bg{ background:#ffedd5; color:#c2410c; }
+.stat-card.orange .stat-val{ color:#ea580c; }
+
+.stat-card.yellow{
+  background: linear-gradient(145deg, #fefce8 0%, #ffffff 60%, #fef9c3 100%);
+  border-color: #fef08a;
+}
 .stat-card.yellow::before{background:linear-gradient(90deg,#ca8a04,#facc15,#ca8a04)}
+.stat-card.yellow .stat-icon-bg{ background:#fef9c3; color:#a16207; }
+.stat-card.yellow .stat-val{ color:#854d0e; }
 
 .chart-card{
   background:#fff;
   border-radius:18px;
   padding:1.25rem;
   box-shadow:0 4px 18px rgba(0,0,0,.05);
-  border:1px solid rgba(226,232,240,0.8);
+  border:1.5px solid rgba(226,232,240,0.8);
   transition:transform .3s ease, box-shadow .3s ease;
 }
 .chart-card:hover{
   box-shadow:0 10px 24px rgba(0,0,0,.08);
+}
+.chart-card.section-students{
+  border-color: #bfdbfe;
+  background: linear-gradient(180deg, rgba(239,246,255,0.45) 0%, #ffffff 35%, #ffffff 100%);
+}
+.chart-card.section-finance{
+  border-color: #a7f3d0;
+  background: linear-gradient(180deg, rgba(236,253,245,0.45) 0%, #ffffff 35%, #ffffff 100%);
+}
+.chart-card.section-attendance{
+  border-color: #fecdd3;
+  background: linear-gradient(180deg, rgba(255,241,242,0.45) 0%, #ffffff 35%, #ffffff 100%);
+}
+.chart-card.section-income{
+  border-color: #c7d2fe;
+  background: linear-gradient(180deg, rgba(238,242,255,0.45) 0%, #ffffff 35%, #ffffff 100%);
+}
+.chart-card.section-teachers{
+  border-color: #99f6e4;
+  background: linear-gradient(180deg, rgba(204,251,241,0.45) 0%, #ffffff 35%, #ffffff 100%);
 }
 
 .welcome-box{
@@ -627,33 +688,166 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
     <h3 class="font-semibold text-gray-800 text-base">សូមស្វាគមន៍ • <span id="dashYearName" class="text-blue-700 font-bold"></span></h3>
   </div>
 
-  <!-- STAT CARDS -->
+  <!-- STAT CARDS (បង្ហាញពណ៌តាមផ្នែក ងាយស្រួលមើល) -->
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
-    <div class="stat-card blue anim-d1"><p class="text-xs text-gray-500 font-medium">សិស្ស</p><p class="text-2xl font-bold mt-1" id="dashStudents">0</p></div>
-    <div class="stat-card green anim-d2"><p class="text-xs text-gray-500 font-medium">គ្រូ</p><p class="text-2xl font-bold mt-1" id="dashTeachers">0</p></div>
-    <div class="stat-card purple anim-d3"><p class="text-xs text-gray-500 font-medium">មន្ត្រី</p><p class="text-2xl font-bold mt-1" id="dashStaff">0</p></div>
-    <div class="stat-card red anim-d4"><p class="text-xs text-gray-500 font-medium">ជំពាក់ថ្លៃ</p><p class="text-2xl font-bold mt-1" id="dashPendingFees">0</p></div>
-    <div class="stat-card orange anim-d5"><p class="text-xs text-gray-500 font-medium">ពិន្ទុ</p><p class="text-2xl font-bold mt-1" id="dashScores">0</p></div>
-    <div class="stat-card yellow anim-d6"><p class="text-xs text-gray-500 font-medium">ថ្ងៃនេះ</p><p class="text-lg font-bold mt-1" id="dashDate">—</p></div>
+    <!-- 1. សិស្ស (Blue - ផ្នែកសិស្ស) -->
+    <div class="stat-card blue anim-d1 flex flex-col justify-between">
+      <div class="flex justify-between items-start">
+        <span class="text-xs font-semibold text-blue-700">សិស្សសរុប</span>
+        <span class="stat-icon-bg w-7 h-7 rounded-lg flex items-center justify-center text-xs">👨‍🎓</span>
+      </div>
+      <div>
+        <p class="text-2xl font-black stat-val mt-1" id="dashStudents">0</p>
+        <div class="flex items-center gap-1 mt-1 text-[10px] text-blue-600 font-medium">
+          <span>📘</span>
+          <span>ផ្នែកសិស្ស</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. គ្រូ (Green - ផ្នែកគ្រូបង្រៀន) -->
+    <div class="stat-card green anim-d2 flex flex-col justify-between">
+      <div class="flex justify-between items-start">
+        <span class="text-xs font-semibold text-emerald-700">គ្រូបង្រៀន</span>
+        <span class="stat-icon-bg w-7 h-7 rounded-lg flex items-center justify-center text-xs">👨‍🏫</span>
+      </div>
+      <div>
+        <p class="text-2xl font-black stat-val mt-1" id="dashTeachers">0</p>
+        <div class="flex items-center gap-1 mt-1 text-[10px] text-emerald-600 font-medium">
+          <span>👨‍🏫</span>
+          <span>ផ្នែកគ្រូ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. មន្ត្រី (Purple - ផ្នែករដ្ឋបាល) -->
+    <div class="stat-card purple anim-d3 flex flex-col justify-between">
+      <div class="flex justify-between items-start">
+        <span class="text-xs font-semibold text-purple-700">បុគ្គលិក-មន្ត្រី</span>
+        <span class="stat-icon-bg w-7 h-7 rounded-lg flex items-center justify-center text-xs">💼</span>
+      </div>
+      <div>
+        <p class="text-2xl font-black stat-val mt-1" id="dashStaff">0</p>
+        <div class="flex items-center gap-1 mt-1 text-[10px] text-purple-600 font-medium">
+          <span>🏢</span>
+          <span>ផ្នែករដ្ឋបាល</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ជំពាក់ថ្លៃ (Red - ផ្នែកហិរញ្ញវត្ថុ) -->
+    <div class="stat-card red anim-d4 flex flex-col justify-between">
+      <div class="flex justify-between items-start">
+        <span class="text-xs font-semibold text-rose-700">ជំពាក់ថ្លៃសិក្សា</span>
+        <span class="stat-icon-bg w-7 h-7 rounded-lg flex items-center justify-center text-xs">💳</span>
+      </div>
+      <div>
+        <p class="text-2xl font-black stat-val mt-1" id="dashPendingFees">0</p>
+        <div class="flex items-center gap-1 mt-1 text-[10px] text-rose-600 font-medium">
+          <span>💰</span>
+          <span>ផ្នែកហិរញ្ញវត្ថុ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. ពិន្ទុ (Orange - ផ្នែកសិក្សា & ពិន្ទុ) -->
+    <div class="stat-card orange anim-d5 flex flex-col justify-between">
+      <div class="flex justify-between items-start">
+        <span class="text-xs font-semibold text-amber-700">បញ្ជីពិន្ទុ</span>
+        <span class="stat-icon-bg w-7 h-7 rounded-lg flex items-center justify-center text-xs">⭐</span>
+      </div>
+      <div>
+        <p class="text-2xl font-black stat-val mt-1" id="dashScores">0</p>
+        <div class="flex items-center gap-1 mt-1 text-[10px] text-amber-600 font-medium">
+          <span>📝</span>
+          <span>ផ្នែកពិន្ទុ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ថ្ងៃនេះ (Yellow / Indigo - ផ្នែកប្រតិទិន) -->
+    <div class="stat-card yellow anim-d6 flex flex-col justify-between">
+      <div class="flex justify-between items-start">
+        <span class="text-xs font-semibold text-amber-800">កាលបរិច្ឆេទ</span>
+        <span class="stat-icon-bg w-7 h-7 rounded-lg flex items-center justify-center text-xs">📅</span>
+      </div>
+      <div>
+        <p class="text-base font-bold stat-val mt-1" id="dashDate">—</p>
+        <div class="flex items-center gap-1 mt-1 text-[10px] text-amber-700 font-medium">
+          <span>🕒</span>
+          <span>ប្រចាំថ្ងៃ</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- CHARTS ROW 1 -->
+  <!-- CHARTS ROW 1 (បង្ហាញពណ៌តាមផ្នែក ៣ ធំៗ) -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
-    <div class="chart-card anim-d3"><h4 class="font-semibold mb-2 text-sm text-gray-700">សិស្សតាមថ្នាក់</h4><div style="height:200px"><canvas id="classChart"></canvas></div></div>
-    <div class="chart-card anim-d4"><h4 class="font-semibold mb-2 text-sm text-gray-700">ស្ថានភាពថ្លៃសិក្សា</h4><div style="height:200px"><canvas id="feeChart"></canvas></div></div>
+    <!-- SECTION 1: ផ្នែកសិស្ស (Student Class Distribution) -->
+    <div class="chart-card section-students anim-d3 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center pb-2 border-b border-blue-100 mb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-sm shadow-sm">🎓</span>
+            <div>
+              <h4 class="font-bold text-gray-800 text-sm">សិស្សតាមថ្នាក់</h4>
+              <p class="text-[11px] text-gray-500">ការបែងចែកសិស្សតាមកម្រិត</p>
+            </div>
+          </div>
+          <span class="text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-blue-100 text-blue-700 border border-blue-200 shadow-sm">📘 ផ្នែកសិស្ស</span>
+        </div>
+        <div style="height:200px" class="relative">
+          <canvas id="classChart"></canvas>
+        </div>
+      </div>
+      <div class="pt-2 mt-1 border-t border-blue-50 flex justify-between items-center text-xs text-gray-500">
+        <span>សិស្សសរុប៖ <b id="dashClassTotalCount" class="text-blue-700 font-bold">0 នាក់</b></span>
+        <a href="javascript:void(0)" onclick="showPage('students')" class="text-blue-600 hover:underline font-semibold flex items-center gap-0.5"><span>គ្រប់គ្រងសិស្ស</span> ➔</a>
+      </div>
+    </div>
+
+    <!-- SECTION 2: ផ្នែកហិរញ្ញវត្ថុ (Fee Payment Status) -->
+    <div class="chart-card section-finance anim-d4 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center pb-2 border-b border-emerald-100 mb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm shadow-sm">💰</span>
+            <div>
+              <h4 class="font-bold text-gray-800 text-sm">ស្ថានភាពថ្លៃសិក្សា</h4>
+              <p class="text-[11px] text-gray-500">តាមដានការបង់ថ្លៃសិក្សា</p>
+            </div>
+          </div>
+          <span class="text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">💰 ផ្នែកហិរញ្ញវត្ថុ</span>
+        </div>
+        <div style="height:200px" class="relative">
+          <canvas id="feeChart"></canvas>
+        </div>
+      </div>
+      <div class="pt-2 mt-1 border-t border-emerald-50 flex justify-between items-center text-[11px]">
+        <div class="flex gap-1.5">
+          <span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">បង់រួច: <b id="dashFeePaidCount">0</b></span>
+          <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200 font-medium">ខ្លះ: <b id="dashFeePartialCount">0</b></span>
+          <span class="px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200 font-medium">ជំពាក់: <b id="dashFeePendingCount">0</b></span>
+        </div>
+        <a href="javascript:void(0)" onclick="showPage('fees')" class="text-emerald-700 hover:underline font-semibold"><span>លម្អិត</span> ➔</a>
+      </div>
+    </div>
     
-    <!-- TODAY STUDENT ATTENDANCE COUNT CARD (Replaced Activity Feed) -->
-    <div class="chart-card anim-d5 flex flex-col justify-between p-4 bg-white rounded-2xl shadow-sm border">
+    <!-- SECTION 3: ផ្នែកវត្តមានសិស្ស (Today Student Attendance) -->
+    <div class="chart-card section-attendance anim-d5 flex flex-col justify-between">
       <!-- Card Header -->
-      <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+      <div class="flex justify-between items-center pb-2 border-b border-rose-100">
         <div class="flex items-center gap-2">
-          <span class="p-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm">📋</span>
+          <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-sm shadow-sm">📋</span>
           <div>
             <h4 class="font-bold text-gray-800 text-sm">វត្តមានសិស្សថ្ងៃនេះ</h4>
             <p class="text-[11px] text-gray-500" id="dashAttDateSubtitle">ថ្ងៃនេះ</p>
           </div>
         </div>
-        <span id="dashAttRateBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">100% វត្តមាន</span>
+        <div class="flex items-center gap-1.5">
+          <span class="text-[11px] px-2 py-0.5 rounded-full font-bold bg-rose-100 text-rose-700 border border-rose-200 shadow-sm hidden sm:inline-block">🚨 ផ្នែកវត្តមាន</span>
+          <span id="dashAttRateBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">100% វត្តមាន</span>
+        </div>
       </div>
 
       <!-- Attendance Rate Mini Progress Bar -->
@@ -705,7 +899,7 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
       </div>
 
       <!-- Action Button & Summary Footer -->
-      <div class="mt-2 pt-2 border-t border-gray-100 flex flex-col gap-1.5">
+      <div class="mt-2 pt-2 border-t border-rose-100 flex flex-col gap-1.5">
         <button onclick="openAbsentStudentsModal('all')" class="w-full bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white font-semibold py-1.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
           <span>មើលសិស្សអវត្តមាន (<span id="dashAttBtnCount">0</span>) & ទាញយក</span>
@@ -718,18 +912,54 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
     </div>
   </div>
 
-  <!-- CHARTS ROW 2 -->
+  <!-- CHARTS ROW 2 (បង្ហាញពណ៌តាមផ្នែក ២ ធំៗ) -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <div class="chart-card anim-d5"><h4 class="font-semibold mb-2 text-sm text-gray-700">ចំណូលគំរូ</h4><div style="height:200px"><canvas id="incomeChart"></canvas></div></div>
-    <div class="chart-card anim-d6">
-      <div class="flex justify-between items-center mb-2">
-        <h4 class="font-semibold text-sm text-gray-700">វត្តមានគ្រូថ្ងៃនេះ</h4>
-        <div class="flex gap-1.5 text-[11px]">
-          <span class="px-2 py-0.5 rounded-full bg-green-50 text-green-700 font-semibold border border-green-200">មកដល់៖ <b id="dashTchPresentCount">0</b></span>
-          <span class="px-2 py-0.5 rounded-full bg-red-50 text-red-700 font-semibold border border-red-200">មិនទាន់៖ <b id="dashTchAbsentCount">0</b></span>
+    <!-- SECTION 4: ផ្នែករបាយការណ៍ចំណូល (Income Chart) -->
+    <div class="chart-card section-income anim-d5 flex flex-col justify-between">
+      <div class="flex justify-between items-center pb-2 border-b border-indigo-100 mb-2">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-sm shadow-sm">📊</span>
+          <div>
+            <h4 class="font-bold text-gray-800 text-sm">ចំណូលគំរូប្រចាំខែ</h4>
+            <p class="text-[11px] text-gray-500">គិតជាលានរៀល (៛)</p>
+          </div>
         </div>
+        <span class="text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-sm">📈 ផ្នែកចំណូល</span>
       </div>
-      <div id="todayAttSummary" class="max-h-[200px] overflow-y-auto text-sm space-y-1"></div>
+      <div style="height:200px">
+        <canvas id="incomeChart"></canvas>
+      </div>
+      <div class="pt-2 mt-1 border-t border-indigo-50 flex justify-between items-center text-xs text-gray-500">
+        <span>ប្រភពទិន្នន័យ៖ <b>ការបង់ប្រាក់ថ្លៃសិក្សា</b></span>
+        <a href="javascript:void(0)" onclick="showPage('fees')" class="text-indigo-600 hover:underline font-semibold"><span>របាយការណ៍ពេញលេញ</span> ➔</a>
+      </div>
+    </div>
+
+    <!-- SECTION 5: ផ្នែកគ្រូបង្រៀន និងបុគ្គលិក (Teacher Attendance) -->
+    <div class="chart-card section-teachers anim-d6 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center pb-2 border-b border-teal-100 mb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-sm shadow-sm">👨‍🏫</span>
+            <div>
+              <h4 class="font-bold text-gray-800 text-sm">វត្តមានគ្រូថ្ងៃនេះ</h4>
+              <p class="text-[11px] text-gray-500">ស្ថានភាព Check-in បង្រៀន</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-teal-100 text-teal-800 border border-teal-200 shadow-sm hidden sm:inline-block">👨‍🏫 ផ្នែកគ្រូ</span>
+            <div class="flex gap-1 text-[11px]">
+              <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">មកដល់: <b id="dashTchPresentCount">0</b></span>
+              <span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold border border-rose-200">មិនទាន់: <b id="dashTchAbsentCount">0</b></span>
+            </div>
+          </div>
+        </div>
+        <div id="todayAttSummary" class="max-h-[190px] overflow-y-auto text-sm space-y-1 pr-1"></div>
+      </div>
+      <div class="pt-2 mt-1 border-t border-teal-50 flex justify-between items-center text-xs text-gray-500">
+        <span>គ្រូសរុប៖ <b id="dashTchTotalSummary">0 នាក់</b></span>
+        <a href="javascript:void(0)" onclick="showPage('attendance'); switchAttTab('teacher');" class="text-teal-700 hover:underline font-semibold"><span>កត់ត្រាវត្តមានគ្រូ</span> ➔</a>
+      </div>
     </div>
   </div>
 </div>
@@ -4381,19 +4611,34 @@ function buildDashboardExtras(){
   const attBox = document.getElementById('todayAttSummary');
   if(attBox) attBox.innerHTML = teachers.map((t, idx) => {
     const rec = todayAtt[t.id] || {};
-    const status = !rec.checkIn ? '<span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700">មិនទាន់</span>' : rec.checkOut ? '<span class="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">រួច</span>' : '<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700">នៅសាលា</span>';
-    return `<div class="feed-item flex justify-between py-1.5 px-2 rounded-lg border-b border-gray-50" style="animation-delay:${idx*0.06}s"><span>${t.name}</span><div class="flex gap-2 items-center"><span class="font-mono text-xs text-gray-500">${rec.checkIn||'--:--'}</span>${status}</div></div>`;
-  }).join('') || '<p class="text-gray-400">មិនមានគ្រូ</p>';
+    const status = !rec.checkIn ? '<span class="text-xs px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 font-semibold border border-red-200">មិនទាន់</span>' : rec.checkOut ? '<span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-semibold border border-blue-200">រួច</span>' : '<span class="text-xs px-2.5 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold border border-green-200">នៅសាលា</span>';
+    return `<div class="feed-item flex justify-between py-2 px-2 rounded-lg border-b border-gray-100 hover:bg-gray-50/70 transition-colors" style="animation-delay:${idx*0.06}s"><div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center text-[10px] font-bold">${idx+1}</span><span class="font-medium text-gray-800 text-xs sm:text-sm">${t.name}</span></div><div class="flex gap-2 items-center"><span class="font-mono text-xs text-gray-500">${rec.checkIn||'--:--'}</span>${status}</div></div>`;
+  }).join('') || '<p class="text-gray-400 py-3 text-center">មិនមានគ្រូ</p>';
+
+  const st = filterByYear(students);
+  const inv = filterByYear(invoices);
 
   const classCount = {};
   st.forEach(s => { classCount[s.className] = (classCount[s.className] || 0) + 1; });
   let labels = Object.keys(classCount), data = Object.values(classCount);
-  if(!labels.length){ labels = ['មិនមាន']; data = [1]; }
+  if(!labels.length){ labels = ['មិនទាន់មានសិស្ស']; data = [0]; }
 
   let paid = 0, partial = 0, pending = 0;
   inv.forEach(i => { if(i.paid >= i.total) paid++; else if(i.paid > 0) partial++; else pending++; });
   const feeData = [paid, partial, pending];
   if(feeData.every(x => x === 0)) feeData[0] = 1;
+
+  // Update Section quick counters
+  const elClassTotal = document.getElementById('dashClassTotalCount');
+  if(elClassTotal) elClassTotal.textContent = toKhmerNum(st.length) + ' នាក់';
+  const elFeePaid = document.getElementById('dashFeePaidCount');
+  if(elFeePaid) elFeePaid.textContent = toKhmerNum(paid);
+  const elFeePartial = document.getElementById('dashFeePartialCount');
+  if(elFeePartial) elFeePartial.textContent = toKhmerNum(partial);
+  const elFeePending = document.getElementById('dashFeePendingCount');
+  if(elFeePending) elFeePending.textContent = toKhmerNum(pending);
+  const elTchTotal = document.getElementById('dashTchTotalSummary');
+  if(elTchTotal) elTchTotal.textContent = toKhmerNum(teachers.length) + ' នាក់';
 
   if(classChartInst){ try{ classChartInst.destroy(); }catch(e){} classChartInst = null; }
   if(feeChartInst){ try{ feeChartInst.destroy(); }catch(e){} feeChartInst = null; }
@@ -4406,18 +4651,86 @@ function buildDashboardExtras(){
   try {
     classChartInst = new Chart(c1, {
       type: 'doughnut',
-      data: { labels, datasets: [{ data, backgroundColor: ['#3b82f6','#10b981','#8b5cf6','#f97316','#ef4444'], borderWidth: 0, hoverOffset: 8 }] },
-      options: { responsive: true, maintainAspectRatio: false, cutout: '62%', animation: { duration: 900, easing: 'easeOutQuart' }, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { family: 'Kantumruy Pro', size: 11 } } } } }
+      data: {
+        labels,
+        datasets: [{
+          data,
+          backgroundColor: ['#3b82f6','#10b981','#8b5cf6','#f59e0b','#ef4444','#06b6d4','#ec4899','#6366f1'],
+          borderWidth: 2,
+          borderColor: '#ffffff',
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '62%',
+        animation: { duration: 900, easing: 'easeOutQuart' },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { usePointStyle: true, padding: 10, font: { family: 'Kantumruy Pro', size: 11 } }
+          }
+        }
+      }
     });
+
     feeChartInst = new Chart(c2, {
       type: 'pie',
-      data: { labels: ['បានបង់', 'បង់ខ្លះ', 'ជំពាក់'], datasets: [{ data: feeData, backgroundColor: ['#10b981', '#f59e0b', '#ef4444'], borderWidth: 0, hoverOffset: 10 }] },
-      options: { responsive: true, maintainAspectRatio: false, animation: { duration: 900, easing: 'easeOutQuart' }, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { family: 'Kantumruy Pro', size: 11 } } } } }
+      data: {
+        labels: ['បានបង់រួច', 'បង់ខ្លះ', 'នៅជំពាក់'],
+        datasets: [{
+          data: feeData,
+          backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
+          borderWidth: 2,
+          borderColor: '#ffffff',
+          hoverOffset: 10
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 900, easing: 'easeOutQuart' },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { usePointStyle: true, padding: 10, font: { family: 'Kantumruy Pro', size: 11 } }
+          }
+        }
+      }
     });
+
     incomeChartInst = new Chart(c3, {
       type: 'bar',
-      data: { labels: ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា'], datasets: [{ data: [2.5, 2.8, 3.2, 2.9, 3.6, 4.1, 4.8], backgroundColor: 'rgba(59,130,246,.75)', hoverBackgroundColor: '#2563eb', borderRadius: 6, barPercentage: .65 }] },
-      options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1000, easing: 'easeOutQuart' }, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => v + 'លាន', font: { family: 'Kantumruy Pro', size: 10 } } }, x: { ticks: { font: { family: 'Kantumruy Pro', size: 10 } } } } }
+      data: {
+        labels: ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា'],
+        datasets: [{
+          data: [2.5, 2.8, 3.2, 2.9, 3.6, 4.1, 4.8, 5.2, 4.9],
+          backgroundColor: 'rgba(99, 102, 241, 0.75)',
+          hoverBackgroundColor: '#4f46e5',
+          borderRadius: 8,
+          barPercentage: 0.6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 1000, easing: 'easeOutQuart' },
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { callback: v => v + ' លាន', font: { family: 'Kantumruy Pro', size: 10 } },
+            grid: { color: 'rgba(0,0,0,0.04)' }
+          },
+          x: {
+            ticks: { font: { family: 'Kantumruy Pro', size: 10 } },
+            grid: { display: false }
+          }
+        }
+      }
     });
   } catch(err){ console.error('Chart error:', err); }
 }
