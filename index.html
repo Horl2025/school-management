@@ -727,40 +727,63 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 <!-- CLASSES -->
 <div id="page-classes" class="page space-y-4">
   <!-- Top Stat Cards -->
-  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
-    <div class="bg-gradient-to-br from-blue-50/90 via-white to-sky-50/40 border-2 border-blue-200/80 rounded-2xl p-4 shadow-xs flex items-center justify-between transition hover:shadow-sm">
-      <div>
-        <p class="text-xs text-blue-900 font-bold">ចំនួនថ្នាក់សរុប</p>
-        <p class="text-2xl font-black mt-1 text-blue-900" id="classCountStat">0</p>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+    <!-- Card 1: Total Classes (Blue) -->
+    <div class="relative overflow-hidden rounded-2xl border-2 border-blue-400/90 bg-gradient-to-br from-blue-100 via-blue-50 to-indigo-100/80 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-between">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+      <div class="space-y-1">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+          <p class="text-xs text-blue-900 font-bold tracking-wide">ចំនួនថ្នាក់សរុប</p>
+        </div>
+        <p class="text-2xl lg:text-3xl font-black text-blue-950 tracking-tight" id="classCountStat">0</p>
       </div>
-      <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">
+      <div class="w-11 h-11 lg:w-12 lg:h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-xl shadow-md shadow-blue-500/30 ring-4 ring-white flex-shrink-0">
         🏫
       </div>
     </div>
-    <div class="bg-gradient-to-br from-emerald-50/90 via-white to-teal-50/40 border-2 border-emerald-200/80 rounded-2xl p-4 shadow-xs flex items-center justify-between transition hover:shadow-sm">
-      <div>
-        <p class="text-xs text-emerald-900 font-bold">សិស្សក្នុងថ្នាក់សរុប</p>
-        <p class="text-2xl font-black mt-1 text-emerald-800" id="classTotalStudentsStat">0</p>
+
+    <!-- Card 2: Total Students in Class (Emerald) -->
+    <div class="relative overflow-hidden rounded-2xl border-2 border-emerald-400/90 bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100/80 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-between">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-600 to-teal-600"></div>
+      <div class="space-y-1">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+          <p class="text-xs text-emerald-900 font-bold tracking-wide">សិស្សក្នុងថ្នាក់សរុប</p>
+        </div>
+        <p class="text-2xl lg:text-3xl font-black text-emerald-950 tracking-tight" id="classTotalStudentsStat">0</p>
       </div>
-      <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">
+      <div class="w-11 h-11 lg:w-12 lg:h-12 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center text-xl shadow-md shadow-emerald-500/30 ring-4 ring-white flex-shrink-0">
         👥
       </div>
     </div>
-    <div class="bg-gradient-to-br from-purple-50/90 via-white to-indigo-50/40 border-2 border-purple-200/80 rounded-2xl p-4 shadow-xs flex items-center justify-between transition hover:shadow-sm">
-      <div>
-        <p class="text-xs text-purple-900 font-bold">គ្រូបន្ទុកថ្នាក់</p>
-        <p class="text-2xl font-black mt-1 text-purple-900" id="classTeacherCountStat">0</p>
+
+    <!-- Card 3: In-charge Teachers (Purple) -->
+    <div class="relative overflow-hidden rounded-2xl border-2 border-purple-400/90 bg-gradient-to-br from-purple-100 via-purple-50 to-fuchsia-100/80 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-between">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-600 to-violet-600"></div>
+      <div class="space-y-1">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span>
+          <p class="text-xs text-purple-900 font-bold tracking-wide">គ្រូបន្ទុកថ្នាក់</p>
+        </div>
+        <p class="text-2xl lg:text-3xl font-black text-purple-950 tracking-tight" id="classTeacherCountStat">0</p>
       </div>
-      <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">
+      <div class="w-11 h-11 lg:w-12 lg:h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-violet-700 text-white flex items-center justify-center text-xl shadow-md shadow-purple-500/30 ring-4 ring-white flex-shrink-0">
         👨‍🏫
       </div>
     </div>
-    <div class="bg-gradient-to-br from-amber-50/90 via-white to-orange-50/40 border-2 border-amber-200/80 rounded-2xl p-4 shadow-xs flex items-center justify-between transition hover:shadow-sm">
-      <div>
-        <p class="text-xs text-amber-900 font-bold">បន្ទប់រៀនសរុប</p>
-        <p class="text-2xl font-black mt-1 text-orange-900" id="classRoomCountStat">0</p>
+
+    <!-- Card 4: Total Rooms (Amber) -->
+    <div class="relative overflow-hidden rounded-2xl border-2 border-amber-400/90 bg-gradient-to-br from-amber-100 via-amber-50 to-orange-100/80 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-between">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 to-orange-600"></div>
+      <div class="space-y-1">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+          <p class="text-xs text-amber-900 font-bold tracking-wide">បន្ទប់រៀនសរុប</p>
+        </div>
+        <p class="text-2xl lg:text-3xl font-black text-amber-950 tracking-tight" id="classRoomCountStat">0</p>
       </div>
-      <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-xs font-bold flex-shrink-0">
+      <div class="w-11 h-11 lg:w-12 lg:h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center text-xl shadow-md shadow-amber-500/30 ring-4 ring-white flex-shrink-0">
         🚪
       </div>
     </div>
