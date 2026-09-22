@@ -1441,21 +1441,141 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
   </div>
 </div>
 
-<!-- STAFF -->
-<div id="page-staff" class="page">
-  <div class="bg-white rounded-2xl shadow-sm p-4 mb-4 flex flex-col sm:flex-row gap-3 justify-between no-print items-center border">
-    <input type="text" id="stfSearch" placeholder="ស្វែងរក..." class="border rounded-xl px-4 py-2 w-full sm:w-64 outline-none focus:ring-2 focus:ring-blue-500 text-sm" oninput="renderStaff()">
-    <div class="flex gap-2 flex-wrap w-full sm:w-auto justify-end">
-      <button onclick="previewStaffListPDF()" class="btn-pdf">📄 មើលជា PDF</button>
-      <button onclick="exportStaff()" class="btn-export">📥 Export Excel</button>
-      <button onclick="openStaffModal()" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 font-medium text-sm transition shadow-sm">+ បន្ថែមមន្ត្រី</button>
+<!-- STAFF MANAGEMENT (រៀបចំតាមទម្រង់រូបទី២ Employee Card Grid + Table View) -->
+<div id="page-staff" class="page space-y-4">
+  <!-- 1. TOP STATS WIDGETS (ជួយគិតបន្ថែម - Staff Overview) -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 no-print">
+    <!-- Total Staff -->
+    <div class="bg-gradient-to-br from-blue-50/80 via-white to-blue-50/30 rounded-2xl border border-blue-200/80 p-3.5 shadow-2xs flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold text-blue-700">មន្ត្រី-បុគ្គលិកសរុប</p>
+        <p class="text-2xl font-black text-blue-900 mt-1" id="stfStatTotal">0</p>
+        <p class="text-[10px] text-blue-600/80 font-medium">All Staff</p>
+      </div>
+      <span class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-lg shadow-inner">👥</span>
+    </div>
+
+    <!-- Active Staff -->
+    <div class="bg-gradient-to-br from-emerald-50/80 via-white to-emerald-50/30 rounded-2xl border border-emerald-200/80 p-3.5 shadow-2xs flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold text-emerald-700">កំពុងបម្រើការងារ</p>
+        <p class="text-2xl font-black text-emerald-900 mt-1" id="stfStatActive">0</p>
+        <p class="text-[10px] text-emerald-600/80 font-medium">Active</p>
+      </div>
+      <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg shadow-inner">🟢</span>
+    </div>
+
+    <!-- On Leave / Suspended -->
+    <div class="bg-gradient-to-br from-amber-50/80 via-white to-amber-50/30 rounded-2xl border border-amber-200/80 p-3.5 shadow-2xs flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold text-amber-700">សុំច្បាប់ / សម្រាក</p>
+        <p class="text-2xl font-black text-amber-900 mt-1" id="stfStatLeave">0</p>
+        <p class="text-[10px] text-amber-600/80 font-medium">On Leave</p>
+      </div>
+      <span class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg shadow-inner">🟡</span>
+    </div>
+
+    <!-- Departments / Roles -->
+    <div class="bg-gradient-to-br from-purple-50/80 via-white to-purple-50/30 rounded-2xl border border-purple-200/80 p-3.5 shadow-2xs flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold text-purple-700">ផ្នែក / តួនាទី</p>
+        <p class="text-2xl font-black text-purple-900 mt-1" id="stfStatDepts">0</p>
+        <p class="text-[10px] text-purple-600/80 font-medium">Departments</p>
+      </div>
+      <span class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg shadow-inner">🏢</span>
     </div>
   </div>
-  <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
+
+  <!-- 2. TOOLBAR & CONTROLS (Matching Image 2) -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 border border-slate-200/90 no-print flex flex-col lg:flex-row gap-3 justify-between items-start lg:items-center">
+    <!-- Left: Title & Count Badge -->
+    <div class="flex items-center gap-3">
+      <div>
+        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <span>គ្រប់គ្រងមន្ត្រី-បុគ្គលិក</span>
+          <span class="text-xs font-normal text-slate-400 font-mono">(Employees)</span>
+        </h2>
+        <p class="text-xs text-slate-500">បញ្ជីឈ្មោះមន្ត្រីរដ្ឋបាល និងបុគ្គលិកសាលារៀន</p>
+      </div>
+      <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold" id="stfHeaderTotalBadge">
+        សរុប 0 នាក់
+      </span>
+    </div>
+
+    <!-- Right: Search, Filter, View Switcher & Action Buttons -->
+    <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-start lg:justify-end">
+      <!-- Search Input -->
+      <div class="relative w-full sm:w-52">
+        <input type="text" id="stfSearch" placeholder="🔍 ស្វែងរកមន្ត្រី..." oninput="renderStaff()" class="border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-sm w-full outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50/50">
+        <span class="absolute left-2.5 top-2.5 text-xs text-slate-400">🔍</span>
+      </div>
+
+      <!-- Role / Department Filter -->
+      <select id="stfRoleFilter" onchange="renderStaff()" class="border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white font-medium cursor-pointer">
+        <option value="">👔 គ្រប់តួនាទី</option>
+        <option value="នាយក">នាយក</option>
+        <option value="នាយករង">នាយករង</option>
+        <option value="លេខាធិការ">លេខាធិការ</option>
+        <option value="រដ្ឋបាល">រដ្ឋបាល</option>
+        <option value="គណនេយ្យ">គណនេយ្យ</option>
+        <option value="បណ្ណារក្ស">បណ្ណារក្ស</option>
+        <option value="សិក្សាធិការ">សិក្សាធិការ</option>
+        <option value="សន្តិសុខ">សន្តិសុខ</option>
+        <option value="អនាម័យ">អនាម័យ</option>
+      </select>
+
+      <!-- Status Filter -->
+      <select id="stfStatusFilter" onchange="renderStaff()" class="border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white font-medium cursor-pointer">
+        <option value="">🔘 គ្រប់ស្ថានភាព</option>
+        <option value="កំពុងធ្វើការ">🟢 កំពុងធ្វើការ</option>
+        <option value="សម្រាក">🟡 សម្រាក</option>
+        <option value="ឈប់">🔴 ឈប់</option>
+      </select>
+
+      <!-- View Switcher (Grid / Table) -->
+      <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/80">
+        <button id="stfViewBtnGrid" onclick="setStaffViewMode('grid')" class="p-1.5 rounded-lg text-xs font-bold transition bg-white text-blue-700 shadow-2xs" title="ទិដ្ឋភាពកាត (Card Grid)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+        </button>
+        <button id="stfViewBtnTable" onclick="setStaffViewMode('table')" class="p-1.5 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-700" title="ទិដ្ឋភាពតារាង (Table View)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <button onclick="previewStaffListPDF()" class="btn-pdf">📄 PDF</button>
+      <button onclick="exportStaff()" class="btn-export">📥 Export</button>
+      <button onclick="openStaffModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-3.5 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+        <span>+</span>
+        <span>បន្ថែមមន្ត្រី</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. EMPLOYEE CARDS GRID VIEW (Matching Image 2) -->
+  <div id="stfCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <!-- Populated dynamically by renderStaff() -->
+  </div>
+
+  <!-- 4. TABLE VIEW (Toggleable) -->
+  <div id="stfTableWrapper" class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200/90 hidden">
     <div class="overflow-x-auto">
-      <table class="w-full text-sm whitespace-nowrap"><thead class="bg-gray-50 text-gray-600"><tr>
-        <th class="text-left px-4 py-3 font-semibold">ល.រ</th><th class="text-left px-4 py-3 font-semibold">លេខ</th><th class="text-left px-4 py-3 font-semibold">ឈ្មោះ</th><th class="text-left px-4 py-3 font-semibold">តួនាទី</th><th class="text-left px-4 py-3 font-semibold">ទូរស័ព្ទ</th><th class="text-left px-4 py-3 font-semibold">ស្ថានភាព</th><th class="text-center px-4 py-3 no-print font-semibold">សកម្មភាព</th>
-      </tr></thead><tbody id="staffBody" class="divide-y"></tbody></table>
+      <table class="w-full text-sm whitespace-nowrap">
+        <thead class="bg-slate-50 text-slate-700 border-b">
+          <tr>
+            <th class="text-center px-4 py-3 font-semibold w-12">ល.រ</th>
+            <th class="text-left px-4 py-3 font-semibold">រូបថត</th>
+            <th class="text-left px-4 py-3 font-semibold">អត្តលេខ</th>
+            <th class="text-left px-4 py-3 font-semibold">គោត្តនាម-នាម</th>
+            <th class="text-left px-4 py-3 font-semibold">តួនាទី</th>
+            <th class="text-left px-4 py-3 font-semibold">នាយកដ្ឋាន</th>
+            <th class="text-left px-4 py-3 font-semibold">លេខទូរស័ព្ទ</th>
+            <th class="text-left px-4 py-3 font-semibold">ស្ថានភាព</th>
+            <th class="text-center px-4 py-3 no-print font-semibold">សកម្មភាព</th>
+          </tr>
+        </thead>
+        <tbody id="staffBody" class="divide-y divide-slate-100"></tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -3267,21 +3387,196 @@ STU-002	វណ្ណា ដារ៉ា	ប្រុស	អ្នកស្រី
   </div>
 </div>
 
-<!-- Staff Modal -->
-<div id="staffModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50"><div class="bg-white rounded-2xl w-full max-w-md mx-4 p-6 shadow-xl">
-  <h3 id="stfModalTitle" class="text-lg font-semibold mb-4">បន្ថែមមន្ត្រី</h3>
-  <form onsubmit="saveStaff(event)" class="space-y-3">
-    <input type="hidden" id="stfId">
-    <input type="text" id="stfCode" required placeholder="លេខ *" class="w-full border rounded-lg px-3 py-2 text-sm">
-    <input type="text" id="stfName" required placeholder="ឈ្មោះ *" class="w-full border rounded-lg px-3 py-2 text-sm">
-    <div class="grid grid-cols-2 gap-3">
-      <select id="stfPosition" class="border rounded-lg px-3 py-2 text-sm"><option>នាយក</option><option>នាយករង</option><option>លេខាធិការ</option><option>គណនេយ្យ</option><option>សន្តិសុខ</option></select>
-      <input type="text" id="stfPhone" placeholder="ទូរស័ព្ទ" class="border rounded-lg px-3 py-2 text-sm">
+<!-- Enhanced Staff Modal (Add & Edit) -->
+<div id="staffModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs hidden items-center justify-center z-50 p-4 overflow-y-auto">
+  <div class="bg-white rounded-3xl w-full max-w-lg mx-auto p-6 shadow-2xl border border-slate-100 my-8">
+    <div class="flex justify-between items-center pb-3 border-b mb-4">
+      <h3 id="stfModalTitle" class="text-lg font-bold text-slate-800 flex items-center gap-2">
+        <span>👤</span>
+        <span>បន្ថែមមន្ត្រី</span>
+      </h3>
+      <button type="button" onclick="closeModal('staffModal')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition cursor-pointer">✕</button>
     </div>
-    <select id="stfStatus" class="w-full border rounded-lg px-3 py-2 text-sm"><option>កំពុងធ្វើការ</option><option>សម្រាក</option><option>ឈប់</option></select>
-    <div class="flex gap-3 pt-2"><button type="button" onclick="closeModal('staffModal')" class="flex-1 border rounded-lg py-2">បោះបង់</button><button type="submit" class="flex-1 bg-blue-600 text-white rounded-lg py-2">រក្សាទុក</button></div>
-  </form>
-</div></div>
+
+    <form onsubmit="saveStaff(event)" class="space-y-3.5 text-sm">
+      <input type="hidden" id="stfId">
+      
+      <!-- Photo and Basic Info Row -->
+      <div class="flex items-center gap-4 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+        <div class="relative w-16 h-16 rounded-2xl bg-white border border-slate-200 overflow-hidden flex items-center justify-center flex-shrink-0 group cursor-pointer shadow-2xs" onclick="document.getElementById('stfModalPhotoInput').click()" title="ចុចជ្រើសរើសរូបថត">
+          <img id="stfModalPhotoPreview" src="" class="w-full h-full object-cover hidden">
+          <span id="stfModalPhotoPlaceholder" class="text-2xl text-slate-400">📷</span>
+          <div class="absolute inset-0 bg-black/40 text-white text-[10px] font-bold flex items-center justify-center opacity-0 group-hover:opacity-100 transition">ប្តូររូប</div>
+        </div>
+        <input type="file" id="stfModalPhotoInput" accept="image/*" class="hidden" onchange="handleStaffModalPhotoChange(event)">
+        <input type="hidden" id="stfModalPhotoData">
+        
+        <div class="flex-1 space-y-2">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">អត្តលេខមន្ត្រី (Staff ID) *</label>
+            <input type="text" id="stfCode" required placeholder="ឧ. STF-001" class="w-full border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-mono font-bold text-blue-700 outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+          </div>
+        </div>
+      </div>
+
+      <!-- Name & Gender -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">គោត្តនាម-នាម *</label>
+          <input type="text" id="stfName" required placeholder="ឈ្មោះជាភាសាខ្មែរ" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">ភេទ</label>
+          <select id="stfGender" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+            <option value="ប្រុស">ប្រុស (M)</option>
+            <option value="ស្រី">ស្រី (F)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Position & Department -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">តួនាទី / មុខតំណែង *</label>
+          <select id="stfPosition" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+            <option value="នាយក">នាយក (Director)</option>
+            <option value="នាយករង">នាយករង (Vice Director)</option>
+            <option value="លេខាធិការ">លេខាធិការ (Secretary)</option>
+            <option value="រដ្ឋបាល">រដ្ឋបាល (Administration)</option>
+            <option value="គណនេយ្យ">គណនេយ្យ (Accountant)</option>
+            <option value="បណ្ណារក្ស">បណ្ណារក្ស (Librarian)</option>
+            <option value="សិក្សាធិការ">សិក្សាធិការ (Academic Staff)</option>
+            <option value="សន្តិសុខ">សន្តិសុខ (Security)</option>
+            <option value="អនាម័យ">អនាម័យ (Cleaner)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">នាយកដ្ឋាន / ផ្នែក</label>
+          <select id="stfDepartment" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+            <option value="គណៈគ្រប់គ្រង">គណៈគ្រប់គ្រង</option>
+            <option value="រដ្ឋបាល-បុគ្គលិក">រដ្ឋបាល-បុគ្គលិក</option>
+            <option value="គណនេយ្យ-ហិរញ្ញវត្ថុ">គណនេយ្យ-ហិរញ្ញវត្ថុ</option>
+            <option value="សិក្សាធិការ-សិស្ស">សិក្សាធិការ-សិស្ស</option>
+            <option value="បណ្ណាល័យ">បណ្ណាល័យ</option>
+            <option value="សន្តិសុខ-បរិស្ថាន">សន្តិសុខ-បរិស្ថាន</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Phone & Email -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">លេខទូរស័ព្ទ</label>
+          <input type="text" id="stfPhone" placeholder="ឧ. 012 345 678" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">អ៊ីមែល (Email)</label>
+          <input type="email" id="stfEmail" placeholder="staff@school.gov.kh" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+        </div>
+      </div>
+
+      <!-- Join Date & Status -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">កាលបរិច្ឆេទចូលបម្រើការ</label>
+          <input type="date" id="stfJoinDate" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">ស្ថានភាពការងារ</label>
+          <select id="stfStatus" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+            <option value="កំពុងធ្វើការ">🟢 កំពុងធ្វើការ</option>
+            <option value="សម្រាក">🟡 សម្រាក (On Leave)</option>
+            <option value="ឈប់">🔴 ឈប់បម្រើការងារ</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Address / Note -->
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">អាសយដ្ឋាន ឬ កំណត់សម្គាល់</label>
+        <input type="text" id="stfAddress" placeholder="រាជធានីភ្នំពេញ..." class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+      </div>
+
+      <div class="flex gap-3 pt-3 border-t mt-4">
+        <button type="button" onclick="closeModal('staffModal')" class="flex-1 border border-slate-200 rounded-xl py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition cursor-pointer">បោះបង់</button>
+        <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-2.5 text-sm font-semibold transition shadow-sm cursor-pointer">រក្សាទុក</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Staff Dossier Profile Modal -->
+<div id="staffProfileModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs hidden items-center justify-center z-50 p-4 overflow-y-auto">
+  <div class="bg-white rounded-3xl w-full max-w-lg mx-auto shadow-2xl overflow-hidden border border-slate-200 my-8">
+    <div class="relative bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 p-6 text-white">
+      <button onclick="closeModal('staffProfileModal')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition cursor-pointer">✕</button>
+      <div class="flex items-center gap-4">
+        <div id="stfProfileAvatarBox" class="w-16 h-16 rounded-2xl bg-white/20 border-2 border-white/80 overflow-hidden shadow-md flex-shrink-0 flex items-center justify-center text-2xl"></div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h3 id="stfProfileName" class="text-xl font-bold leading-tight"></h3>
+            <span id="stfProfileStatusBadge" class="text-[11px] px-2.5 py-0.5 rounded-full font-semibold shadow-xs"></span>
+          </div>
+          <p id="stfProfilePosition" class="text-blue-100 text-sm font-medium mt-0.5"></p>
+          <p id="stfProfileCode" class="text-blue-200 font-mono text-xs mt-0.5 font-bold"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-6 space-y-4 text-sm">
+      <div class="grid grid-cols-2 gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs">
+        <div>
+          <span class="text-slate-400 block font-medium">ភេទ (Gender)</span>
+          <span id="stfProfileGender" class="font-bold text-slate-800 text-sm mt-0.5 block">—</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block font-medium">នាយកដ្ឋាន / ផ្នែក</span>
+          <span id="stfProfileDepartment" class="font-bold text-slate-800 text-sm mt-0.5 block">—</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block font-medium">កាលបរិច្ឆេទចូលធ្វើការ</span>
+          <span id="stfProfileJoinDate" class="font-bold text-slate-800 text-sm mt-0.5 block">—</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block font-medium">ស្ថានភាពការងារ</span>
+          <span id="stfProfileStatus" class="font-bold text-slate-800 text-sm mt-0.5 block">—</span>
+        </div>
+      </div>
+
+      <div class="space-y-2.5 p-4 bg-blue-50/50 rounded-2xl border border-blue-100 text-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-slate-500 flex items-center gap-1.5"><span>📞</span> លេខទូរស័ព្ទ៖</span>
+          <a id="stfProfilePhoneLink" href="" class="font-bold text-blue-700 hover:underline"></a>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-500 flex items-center gap-1.5"><span>✉️</span> អ៊ីមែល៖</span>
+          <span id="stfProfileEmail" class="font-medium text-slate-700 font-mono"></span>
+        </div>
+        <div class="flex items-start justify-between">
+          <span class="text-slate-500 flex items-center gap-1.5"><span>📍</span> អាសយដ្ឋាន៖</span>
+          <span id="stfProfileAddress" class="font-medium text-slate-700 text-right max-w-[220px]"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-4 bg-slate-50 border-t border-slate-100 flex gap-2 justify-end">
+      <button id="stfProfileCardBtn" class="px-3.5 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold text-xs transition border border-indigo-200 flex items-center gap-1.5 cursor-pointer">
+        <span>🪪</span>
+        <span>បោះពុម្ពកាត</span>
+      </button>
+      <button id="stfProfileEditBtn" class="px-3.5 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold text-xs transition flex items-center gap-1.5 cursor-pointer">
+        <span>✏️</span>
+        <span>កែប្រែ</span>
+      </button>
+      <button onclick="closeModal('staffProfileModal')" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition shadow-sm cursor-pointer">
+        បិទ
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden Quick Staff Photo Input -->
+<input type="file" id="stfQuickPhotoInput" accept="image/*" class="hidden" onchange="handleStaffQuickPhotoUpload(event)">
 
 <!-- Fee Modal -->
 <div id="feeModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50"><div class="bg-white rounded-2xl w-full max-w-md mx-4 p-6 shadow-xl">
@@ -7804,77 +8099,396 @@ function delTeacher(id){
   updateDashboard();
 }
 
-/* ===== STAFF CRUD ===== */
-function renderStaff(){
-  const q = document.getElementById('stfSearch')?.value.toLowerCase() || '';
-  const list = staffList.filter(s => s.name.toLowerCase().includes(q) || s.code.toLowerCase().includes(q) || s.position.toLowerCase().includes(q));
-  const tbody = document.getElementById('staffBody');
-  if(!tbody) return;
-  tbody.innerHTML = list.map((s, i) => `
-    <tr class="hover:bg-gray-50">
-      <td class="px-4 py-3">${i+1}</td>
-      <td class="px-4 py-3 font-semibold text-blue-700">${s.code}</td>
-      <td class="px-4 py-3 font-medium">${s.name}</td>
-      <td class="px-4 py-3">${s.position}</td>
-      <td class="px-4 py-3">${s.phone||'—'}</td>
-      <td class="px-4 py-3"><span class="text-xs px-2 py-0.5 rounded-full ${s.status==='កំពុងធ្វើការ'?'bg-green-100 text-green-700':'bg-gray-100 text-gray-600'}">${s.status}</span></td>
-      <td class="px-4 py-3 text-center space-x-2 no-print">
-        <button onclick="previewSingleIdCardModal('staff', ${s.id})" class="text-indigo-600 text-xs hover:underline font-medium">🪪 កាត</button>
-        <button onclick="editStaff(${s.id})" class="text-blue-600 text-xs hover:underline">កែ</button>
-        <button onclick="delStaff(${s.id})" class="text-red-600 text-xs hover:underline">លុប</button>
-      </td>
-    </tr>
-  `).join('') || '<tr><td colspan="7" class="text-center py-6 text-gray-400">មិនមានមន្ត្រី</td></tr>';
+/* ===== STAFF MANAGEMENT (IMAGE 2 DESIGN & ENHANCEMENTS) ===== */
+let staffViewMode = 'grid';
+let pendingStaffPhotoId = null;
+
+function setStaffViewMode(mode){
+  staffViewMode = mode;
+  const btnGrid = document.getElementById('stfViewBtnGrid');
+  const btnTable = document.getElementById('stfViewBtnTable');
+  const gridContainer = document.getElementById('stfCardsGrid');
+  const tableWrapper = document.getElementById('stfTableWrapper');
+
+  if(mode === 'grid'){
+    if(btnGrid) btnGrid.className = 'p-1.5 rounded-lg text-xs font-bold transition bg-white text-blue-700 shadow-2xs';
+    if(btnTable) btnTable.className = 'p-1.5 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-700';
+    if(gridContainer) gridContainer.classList.remove('hidden');
+    if(tableWrapper) tableWrapper.classList.add('hidden');
+  } else {
+    if(btnGrid) btnGrid.className = 'p-1.5 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-700';
+    if(btnTable) btnTable.className = 'p-1.5 rounded-lg text-xs font-bold transition bg-white text-blue-700 shadow-2xs';
+    if(gridContainer) gridContainer.classList.add('hidden');
+    if(tableWrapper) tableWrapper.classList.remove('hidden');
+  }
 }
+
+function getStaffAvatarHtml(s, sizeClasses = 'w-full h-full text-base'){
+  const photo = s.photo || customPhotos[s.code] || customPhotos[s.id] || '';
+  if(photo){
+    return `<img src="${photo}" alt="${escapeHtml(s.name)}" class="w-full h-full object-cover">`;
+  }
+  const isFemale = s.gender === 'ស្រី';
+  const bgGradient = isFemale ? 'from-rose-500 to-pink-600' : 'from-blue-600 to-indigo-700';
+  const initial = (s.name || '?').trim()[0] || '?';
+  return `
+    <div class="${sizeClasses} bg-gradient-to-tr ${bgGradient} text-white font-bold flex items-center justify-center shadow-inner">
+      <span>${escapeHtml(initial)}</span>
+    </div>
+  `;
+}
+
+function renderStaff(){
+  const q = (document.getElementById('stfSearch')?.value || '').toLowerCase().trim();
+  const roleFilter = document.getElementById('stfRoleFilter')?.value || '';
+  const statusFilter = document.getElementById('stfStatusFilter')?.value || '';
+
+  const list = staffList.filter(s => {
+    const matchQ = !q || 
+      (s.name || '').toLowerCase().includes(q) || 
+      (s.code || '').toLowerCase().includes(q) || 
+      (s.position || '').toLowerCase().includes(q) || 
+      (s.department || '').toLowerCase().includes(q) ||
+      (s.phone || '').includes(q) || 
+      (s.email || '').toLowerCase().includes(q);
+    const matchRole = !roleFilter || s.position === roleFilter;
+    const matchStatus = !statusFilter || s.status === statusFilter;
+    return matchQ && matchRole && matchStatus;
+  });
+
+  // 1. Update Top Stats
+  const activeCount = staffList.filter(s => s.status === 'កំពុងធ្វើការ').length;
+  const leaveCount = staffList.filter(s => s.status === 'សម្រាក').length;
+  const deptsSet = new Set(staffList.map(s => s.department || s.position).filter(Boolean));
+
+  if(document.getElementById('stfStatTotal')) document.getElementById('stfStatTotal').textContent = toKhmerNum(staffList.length);
+  if(document.getElementById('stfStatActive')) document.getElementById('stfStatActive').textContent = toKhmerNum(activeCount);
+  if(document.getElementById('stfStatLeave')) document.getElementById('stfStatLeave').textContent = toKhmerNum(leaveCount);
+  if(document.getElementById('stfStatDepts')) document.getElementById('stfStatDepts').textContent = toKhmerNum(deptsSet.size);
+  if(document.getElementById('stfHeaderTotalBadge')) document.getElementById('stfHeaderTotalBadge').textContent = `សរុប ${toKhmerNum(list.length)} នាក់`;
+
+  // 2. Render Cards Grid (Matching Image 2)
+  const gridContainer = document.getElementById('stfCardsGrid');
+  if(gridContainer){
+    if(!list.length){
+      gridContainer.innerHTML = `
+        <div class="col-span-full py-16 px-4 text-center bg-white rounded-3xl border-2 border-dashed border-slate-200">
+          <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-500 mx-auto flex items-center justify-center text-3xl mb-3 shadow-2xs">
+            👥
+          </div>
+          <p class="font-bold text-slate-700 text-base">មិនមានទិន្នន័យមន្ត្រីតាមលក្ខខណ្ឌដែលបានជ្រើសរើស</p>
+          <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto">អ្នកអាចចុចប៊ូតុង <strong>"+ បន្ថែមមន្ត្រី"</strong> ដើម្បីបង្កើតមន្ត្រីថ្មី</p>
+        </div>
+      `;
+    } else {
+      gridContainer.innerHTML = list.map(s => {
+        const photoHtml = getStaffAvatarHtml(s);
+        const statusClass = s.status === 'កំពុងធ្វើការ' 
+          ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
+          : s.status === 'សម្រាក' 
+          ? 'bg-amber-50 text-amber-700 border-amber-200' 
+          : 'bg-rose-50 text-rose-700 border-rose-200';
+        
+        const email = s.email || (s.code ? s.code.toLowerCase().replace(/[^a-z0-9]/g, '') + '@school.gov.kh' : 'staff@school.gov.kh');
+        const dept = s.department || (s.position === 'នាយក' || s.position === 'នាយករង' ? 'គណៈគ្រប់គ្រង' : s.position === 'គណនេយ្យ' ? 'ហិរញ្ញវត្ថុ' : s.position === 'បណ្ណារក្ស' ? 'បណ្ណាល័យ' : 'រដ្ឋបាល-ទូទៅ');
+        const joinDate = s.joinDate || '15 Aug 2022';
+
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition duration-200 p-4 flex flex-col justify-between group relative">
+            <!-- Top: Avatar, Name, Role, Status -->
+            <div>
+              <div class="flex items-start justify-between gap-2 mb-3">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="relative w-12 h-12 rounded-full overflow-hidden border border-slate-200 flex-shrink-0 cursor-pointer group/photo shadow-2xs" onclick="quickUploadStaffPhoto(${s.id})" title="ចុចប្តូររូបថត">
+                    ${photoHtml}
+                    <div class="absolute inset-0 bg-black/40 text-white text-[9px] font-bold flex items-center justify-center opacity-0 group-hover/photo:opacity-100 transition">📷</div>
+                  </div>
+                  <div class="min-w-0">
+                    <h4 class="font-bold text-slate-900 text-sm truncate leading-tight hover:text-blue-600 transition cursor-pointer" onclick="viewStaffProfile(${s.id})">${escapeHtml(s.name)}</h4>
+                    <p class="text-xs text-slate-500 font-medium truncate mt-0.5">${escapeHtml(s.position)}</p>
+                  </div>
+                </div>
+                <span class="text-[11px] px-2.5 py-0.5 rounded-full font-semibold border flex-shrink-0 whitespace-nowrap shadow-2xs ${statusClass}">
+                  ${escapeHtml(s.status || 'កំពុងធ្វើការ')}
+                </span>
+              </div>
+
+              <!-- Two-Column Meta Info (Matching Image 2) -->
+              <div class="grid grid-cols-2 gap-2 text-xs py-2 border-t border-slate-100 mb-1">
+                <div>
+                  <span class="text-slate-400 block text-[11px]">អត្តលេខ / Staff ID</span>
+                  <span class="font-bold font-mono text-slate-800 text-xs mt-0.5 block">${escapeHtml(s.code)}</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[11px]">ផ្នែក / Department</span>
+                  <span class="font-semibold text-slate-700 text-xs mt-0.5 block truncate" title="${escapeHtml(dept)}">${escapeHtml(dept)}</span>
+                </div>
+              </div>
+
+              <!-- Contact Info Box (Grey rounded box matching Image 2) -->
+              <div class="bg-slate-50/90 rounded-xl p-2.5 my-2 border border-slate-100 space-y-1 text-xs">
+                <div class="flex items-center gap-1.5 text-slate-600 truncate" title="${escapeHtml(email)}">
+                  <span class="text-[11px]">✉️</span>
+                  <span class="truncate font-mono text-[11px]">${escapeHtml(email)}</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-slate-700 font-medium">
+                  <span class="text-[11px]">📞</span>
+                  ${s.phone ? `<a href="tel:${s.phone}" class="hover:text-blue-600 hover:underline font-mono text-[11px] font-semibold">${escapeHtml(s.phone)}</a>` : '<span class="text-slate-400 text-[11px]">មិនទាន់មាន</span>'}
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Action Buttons Row (Edit, View, ID Card, Delete) -->
+            <div class="pt-3 border-t border-slate-100 flex items-center gap-2 mt-1">
+              <button onclick="editStaff(${s.id})" class="flex-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-semibold text-xs transition flex items-center justify-center gap-1 shadow-2xs cursor-pointer" title="កែប្រែព័ត៌មាន">
+                <span>✏️</span>
+                <span>Edit</span>
+              </button>
+              <button onclick="viewStaffProfile(${s.id})" class="flex-1 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition flex items-center justify-center gap-1 shadow-xs cursor-pointer" title="មើលលម្អិត">
+                <span>View</span>
+              </button>
+              <button onclick="previewSingleIdCardModal('staff', ${s.id})" class="p-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold transition cursor-pointer" title="មើលកាតបុគ្គលិក">
+                <span>🪪</span>
+              </button>
+              <button onclick="delStaff(${s.id})" class="p-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs transition cursor-pointer" title="លុប">
+                <span>🗑️</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  }
+
+  // 3. Render Table View (for table mode toggle)
+  const tbody = document.getElementById('staffBody');
+  if(tbody){
+    tbody.innerHTML = list.map((s, i) => {
+      const statusClass = s.status === 'កំពុងធ្វើការ' ? 'bg-emerald-100 text-emerald-800' : s.status === 'សម្រាក' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800';
+      const dept = s.department || (s.position === 'នាយក' || s.position === 'នាយករង' ? 'គណៈគ្រប់គ្រង' : 'រដ្ឋបាល-ទូទៅ');
+      const photoHtml = getStaffAvatarHtml(s, 'w-8 h-8 rounded-full');
+
+      return `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="px-4 py-3 text-center text-xs font-bold text-slate-500">${i+1}</td>
+          <td class="px-4 py-3">
+            <div class="w-8 h-8 rounded-full overflow-hidden border shadow-2xs cursor-pointer" onclick="quickUploadStaffPhoto(${s.id})">
+              ${photoHtml}
+            </div>
+          </td>
+          <td class="px-4 py-3 font-mono font-bold text-blue-700 text-xs">${escapeHtml(s.code)}</td>
+          <td class="px-4 py-3 font-bold text-slate-800 cursor-pointer hover:text-blue-600" onclick="viewStaffProfile(${s.id})">${escapeHtml(s.name)}</td>
+          <td class="px-4 py-3 text-xs text-slate-600">${escapeHtml(s.position)}</td>
+          <td class="px-4 py-3 text-xs text-slate-500">${escapeHtml(dept)}</td>
+          <td class="px-4 py-3 font-mono text-xs">${s.phone ? `<a href="tel:${s.phone}" class="hover:underline text-blue-600">${escapeHtml(s.phone)}</a>` : '—'}</td>
+          <td class="px-4 py-3"><span class="text-xs px-2.5 py-0.5 rounded-full font-semibold ${statusClass}">${escapeHtml(s.status || 'កំពុងធ្វើការ')}</span></td>
+          <td class="px-4 py-3 text-center space-x-1.5 no-print">
+            <button onclick="viewStaffProfile(${s.id})" class="px-2 py-1 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold hover:bg-blue-100">View</button>
+            <button onclick="editStaff(${s.id})" class="px-2 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold hover:bg-slate-200">កែ</button>
+            <button onclick="previewSingleIdCardModal('staff', ${s.id})" class="px-2 py-1 rounded-lg bg-indigo-50 text-indigo-700 text-xs font-semibold hover:bg-indigo-100">🪪 កាត</button>
+            <button onclick="delStaff(${s.id})" class="px-2 py-1 rounded-lg bg-red-50 text-red-600 text-xs font-semibold hover:bg-red-100">លុប</button>
+          </td>
+        </tr>
+      `;
+    }).join('') || '<tr><td colspan="9" class="text-center py-8 text-gray-400">មិនមានមន្ត្រី</td></tr>';
+  }
+}
+
+function viewStaffProfile(id){
+  const s = staffList.find(x => x.id === id);
+  if(!s) return;
+
+  const photoHtml = getStaffAvatarHtml(s, 'w-16 h-16 rounded-2xl');
+  const avatarBox = document.getElementById('stfProfileAvatarBox');
+  if(avatarBox) avatarBox.innerHTML = photoHtml;
+
+  document.getElementById('stfProfileName').textContent = s.name;
+  document.getElementById('stfProfilePosition').textContent = s.position || 'មន្ត្រី';
+  document.getElementById('stfProfileCode').textContent = s.code || ('STF-' + s.id);
+
+  const statusBadge = document.getElementById('stfProfileStatusBadge');
+  if(statusBadge){
+    statusBadge.textContent = s.status || 'កំពុងធ្វើការ';
+    statusBadge.className = `text-[11px] px-2.5 py-0.5 rounded-full font-semibold shadow-xs ${
+      s.status === 'កំពុងធ្វើការ' ? 'bg-emerald-500 text-white' : s.status === 'សម្រាក' ? 'bg-amber-500 text-white' : 'bg-rose-500 text-white'
+    }`;
+  }
+
+  document.getElementById('stfProfileGender').textContent = s.gender || 'ប្រុស';
+  document.getElementById('stfProfileDepartment').textContent = s.department || (s.position === 'នាយក' || s.position === 'នាយករង' ? 'គណៈគ្រប់គ្រង' : 'រដ្ឋបាល-ទូទៅ');
+  document.getElementById('stfProfileJoinDate').textContent = s.joinDate || '15 Aug 2022';
+  document.getElementById('stfProfileStatus').textContent = s.status || 'កំពុងធ្វើការ';
+
+  const phoneLink = document.getElementById('stfProfilePhoneLink');
+  if(phoneLink){
+    phoneLink.textContent = s.phone || 'មិនទាន់មាន';
+    phoneLink.href = s.phone ? `tel:${s.phone}` : 'javascript:void(0)';
+  }
+
+  document.getElementById('stfProfileEmail').textContent = s.email || (s.code ? s.code.toLowerCase().replace(/[^a-z0-9]/g, '') + '@school.gov.kh' : 'staff@school.gov.kh');
+  document.getElementById('stfProfileAddress').textContent = s.address || 'រាជធានីភ្នំពេញ';
+
+  const cardBtn = document.getElementById('stfProfileCardBtn');
+  if(cardBtn) cardBtn.onclick = () => { closeModal('staffProfileModal'); previewSingleIdCardModal('staff', s.id); };
+
+  const editBtn = document.getElementById('stfProfileEditBtn');
+  if(editBtn) editBtn.onclick = () => { closeModal('staffProfileModal'); editStaff(s.id); };
+
+  openModal('staffProfileModal');
+}
+
+function quickUploadStaffPhoto(id){
+  pendingStaffPhotoId = id;
+  const input = document.getElementById('stfQuickPhotoInput');
+  if(input) input.click();
+}
+
+function handleStaffQuickPhotoUpload(e){
+  const file = e.target.files[0];
+  if(!file || !pendingStaffPhotoId) return;
+
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    const dataUrl = evt.target.result;
+    const staff = staffList.find(s => s.id === pendingStaffPhotoId);
+    if(staff){
+      staff.photo = dataUrl;
+      customPhotos[staff.code] = dataUrl;
+      customPhotos[staff.id] = dataUrl;
+      localStorage.setItem('sms_custom_photos', JSON.stringify(customPhotos));
+      localStorage.setItem('sms_staff', JSON.stringify(staffList));
+      renderStaff();
+      showToast(`បានបញ្ចូលរូបថត ${staff.name} ដោយជោគជ័យ!`, 'success');
+    }
+    e.target.value = '';
+    pendingStaffPhotoId = null;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleStaffModalPhotoChange(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    const dataUrl = evt.target.result;
+    const img = document.getElementById('stfModalPhotoPreview');
+    const placeholder = document.getElementById('stfModalPhotoPlaceholder');
+    const dataInput = document.getElementById('stfModalPhotoData');
+    if(img){ img.src = dataUrl; img.classList.remove('hidden'); }
+    if(placeholder) placeholder.classList.add('hidden');
+    if(dataInput) dataInput.value = dataUrl;
+  };
+  reader.readAsDataURL(file);
+}
+
 function openStaffModal(){
   document.getElementById('stfId').value = '';
   document.getElementById('stfCode').value = 'STF-' + String(staffList.length + 1).padStart(3, '0');
   document.getElementById('stfName').value = '';
+  document.getElementById('stfGender').value = 'ប្រុស';
   document.getElementById('stfPosition').value = 'លេខាធិការ';
+  document.getElementById('stfDepartment').value = 'រដ្ឋបាល-បុគ្គលិក';
   document.getElementById('stfPhone').value = '';
+  document.getElementById('stfEmail').value = '';
+  document.getElementById('stfJoinDate').value = new Date().toISOString().split('T')[0];
   document.getElementById('stfStatus').value = 'កំពុងធ្វើការ';
-  document.getElementById('stfModalTitle').textContent = 'បន្ថែមមន្ត្រី';
+  document.getElementById('stfAddress').value = '';
+  document.getElementById('stfModalPhotoData').value = '';
+  
+  const img = document.getElementById('stfModalPhotoPreview');
+  const placeholder = document.getElementById('stfModalPhotoPlaceholder');
+  if(img){ img.src = ''; img.classList.add('hidden'); }
+  if(placeholder) placeholder.classList.remove('hidden');
+
+  document.getElementById('stfModalTitle').innerHTML = '<span>👤</span><span>បន្ថែមមន្ត្រី</span>';
   openModal('staffModal');
 }
+
 function editStaff(id){
   const s = staffList.find(x => x.id === id);
   if(!s) return;
   document.getElementById('stfId').value = s.id;
   document.getElementById('stfCode').value = s.code;
   document.getElementById('stfName').value = s.name;
+  document.getElementById('stfGender').value = s.gender || 'ប្រុស';
   document.getElementById('stfPosition').value = s.position;
+  document.getElementById('stfDepartment').value = s.department || (s.position === 'នាយក' || s.position === 'នាយករង' ? 'គណៈគ្រប់គ្រង' : 'រដ្ឋបាល-បុគ្គលិក');
   document.getElementById('stfPhone').value = s.phone || '';
-  document.getElementById('stfStatus').value = s.status;
-  document.getElementById('stfModalTitle').textContent = 'កែព័ត៌មានមន្ត្រី';
+  document.getElementById('stfEmail').value = s.email || '';
+  document.getElementById('stfJoinDate').value = s.joinDate || '';
+  document.getElementById('stfStatus').value = s.status || 'កំពុងធ្វើការ';
+  document.getElementById('stfAddress').value = s.address || '';
+
+  const photo = s.photo || customPhotos[s.code] || customPhotos[s.id] || '';
+  document.getElementById('stfModalPhotoData').value = photo;
+  const img = document.getElementById('stfModalPhotoPreview');
+  const placeholder = document.getElementById('stfModalPhotoPlaceholder');
+  if(photo && img){
+    img.src = photo;
+    img.classList.remove('hidden');
+    if(placeholder) placeholder.classList.add('hidden');
+  } else {
+    if(img){ img.src = ''; img.classList.add('hidden'); }
+    if(placeholder) placeholder.classList.remove('hidden');
+  }
+
+  document.getElementById('stfModalTitle').innerHTML = '<span>✏️</span><span>កែព័ត៌មានមន្ត្រី</span>';
   openModal('staffModal');
 }
+
 function saveStaff(e){
   e.preventDefault();
   const id = document.getElementById('stfId').value;
+  const photo = document.getElementById('stfModalPhotoData').value;
   const data = {
     code: document.getElementById('stfCode').value.trim(),
     name: document.getElementById('stfName').value.trim(),
+    gender: document.getElementById('stfGender').value,
     position: document.getElementById('stfPosition').value,
+    department: document.getElementById('stfDepartment').value,
     phone: document.getElementById('stfPhone').value.trim(),
-    status: document.getElementById('stfStatus').value
+    email: document.getElementById('stfEmail').value.trim(),
+    joinDate: document.getElementById('stfJoinDate').value,
+    status: document.getElementById('stfStatus').value,
+    address: document.getElementById('stfAddress').value.trim(),
+    photo: photo
   };
+
   if(id){
     const i = staffList.findIndex(x => x.id == id);
     staffList[i] = { ...staffList[i], ...data };
+    if(photo){
+      customPhotos[data.code] = photo;
+      customPhotos[staffList[i].id] = photo;
+      localStorage.setItem('sms_custom_photos', JSON.stringify(customPhotos));
+    }
   } else {
-    staffList.push({ id: Date.now(), ...data });
+    const newId = Date.now();
+    staffList.push({ id: newId, ...data });
+    if(photo){
+      customPhotos[data.code] = photo;
+      customPhotos[newId] = photo;
+      localStorage.setItem('sms_custom_photos', JSON.stringify(customPhotos));
+    }
   }
+
   localStorage.setItem('sms_staff', JSON.stringify(staffList));
   closeModal('staffModal');
   renderStaff();
   updateDashboard();
+  showToast('បានរក្សាទុកព័ត៌មានមន្ត្រីដោយជោគជ័យ!', 'success');
 }
+
 function delStaff(id){
-  if(!confirm('លុបមន្ត្រីនេះ?')) return;
-  staffList = staffList.filter(s => s.id !== id);
+  const s = staffList.find(x => x.id === id);
+  if(!confirm(`តើអ្នកពិតជាចង់លុបមន្ត្រី «${s?.name || ''}» ចេញពីប្រព័ន្ធមែនទេ?`)) return;
+  staffList = staffList.filter(x => x.id !== id);
   localStorage.setItem('sms_staff', JSON.stringify(staffList));
   renderStaff();
   updateDashboard();
+  showToast('បានលុបមន្ត្រីចេញដោយជោគជ័យ!', 'success');
 }
 
 /* =========================================================================
@@ -11089,10 +11703,31 @@ function exportTeachers(){
   downloadExcel(list, 'គ្រូ', 'គ្រូបង្រៀន');
 }
 function exportStaff(){
-  const list = staffList.map((s, i) => ({
-    'ល.រ': i + 1, 'លេខ': s.code, 'ឈ្មោះ': s.name, 'តួនាទី': s.position, 'ទូរស័ព្ទ': s.phone || '', 'ស្ថានភាព': s.status
+  const q = (document.getElementById('stfSearch')?.value || '').toLowerCase().trim();
+  const roleFilter = document.getElementById('stfRoleFilter')?.value || '';
+  const statusFilter = document.getElementById('stfStatusFilter')?.value || '';
+
+  const list = staffList.filter(s => {
+    const matchQ = !q || (s.name || '').toLowerCase().includes(q) || (s.code || '').toLowerCase().includes(q) || (s.position || '').toLowerCase().includes(q) || (s.department || '').toLowerCase().includes(q);
+    const matchRole = !roleFilter || s.position === roleFilter;
+    const matchStatus = !statusFilter || s.status === statusFilter;
+    return matchQ && matchRole && matchStatus;
+  });
+
+  const exportData = list.map((s, i) => ({
+    'ល.រ': i + 1,
+    'អត្តលេខ': s.code,
+    'គោត្តនាម-នាម': s.name,
+    'ភេទ': s.gender || 'ប្រុស',
+    'តួនាទី': s.position,
+    'នាយកដ្ឋាន': s.department || (s.position === 'នាយក' || s.position === 'នាយករង' ? 'គណៈគ្រប់គ្រង' : 'រដ្ឋបាល-ទូទៅ'),
+    'លេខទូរស័ព្ទ': s.phone || '—',
+    'អ៊ីមែល': s.email || '—',
+    'ថ្ងៃចូលបម្រើការ': s.joinDate || '—',
+    'ស្ថានភាព': s.status || 'កំពុងធ្វើការ'
   }));
-  downloadExcel(list, 'មន្ត្រី', 'មន្ត្រី');
+  downloadExcel(exportData, 'បញ្ជីមន្ត្រីបុគ្គលិក', 'បញ្ជីមន្ត្រីបុគ្គលិក_' + getCurrentYearName());
+  showToast('បានទាញយកបញ្ជីមន្ត្រីជា Excel ដោយជោគជ័យ!', 'success');
 }
 function exportScores(){
   const list = filterByYear(scores).map((s, i) => {
@@ -11465,28 +12100,46 @@ function exportTeachers(){
 }
 
 function previewStaffListPDF(){
-  const rows = staffList.map((s, i) => `
-    <tr class="border-b text-xs">
-      <td class="py-2 px-3 text-center">${i+1}</td>
-      <td class="py-2 px-3 font-semibold text-blue-700">${s.code}</td>
-      <td class="py-2 px-3 font-medium">${s.name}</td>
-      <td class="py-2 px-3">${s.position}</td>
-      <td class="py-2 px-3">${s.phone||'—'}</td>
-      <td class="py-2 px-3 text-center">${s.status}</td>
-    </tr>
-  `).join('') || `<tr><td colspan="6" class="py-6 text-center text-gray-400">មិនមានទិន្នន័យ</td></tr>`;
+  const q = (document.getElementById('stfSearch')?.value || '').toLowerCase().trim();
+  const roleFilter = document.getElementById('stfRoleFilter')?.value || '';
+  const statusFilter = document.getElementById('stfStatusFilter')?.value || '';
+
+  const list = staffList.filter(s => {
+    const matchQ = !q || (s.name || '').toLowerCase().includes(q) || (s.code || '').toLowerCase().includes(q) || (s.position || '').toLowerCase().includes(q) || (s.department || '').toLowerCase().includes(q);
+    const matchRole = !roleFilter || s.position === roleFilter;
+    const matchStatus = !statusFilter || s.status === statusFilter;
+    return matchQ && matchRole && matchStatus;
+  });
+
+  const rows = list.map((s, i) => {
+    const dept = s.department || (s.position === 'នាយក' || s.position === 'នាយករង' ? 'គណៈគ្រប់គ្រង' : 'រដ្ឋបាល-ទូទៅ');
+    return `
+      <tr class="border-b text-xs">
+        <td class="py-2 px-3 text-center">${i+1}</td>
+        <td class="py-2 px-3 font-mono font-bold text-blue-700">${escapeHtml(s.code)}</td>
+        <td class="py-2 px-3 font-medium">${escapeHtml(s.name)}</td>
+        <td class="py-2 px-3 text-center">${escapeHtml(s.gender || 'ប្រុស')}</td>
+        <td class="py-2 px-3">${escapeHtml(s.position)}</td>
+        <td class="py-2 px-3">${escapeHtml(dept)}</td>
+        <td class="py-2 px-3 font-mono text-center">${escapeHtml(s.phone || '—')}</td>
+        <td class="py-2 px-3 text-center font-semibold">${escapeHtml(s.status || 'កំពុងធ្វើការ')}</td>
+      </tr>
+    `;
+  }).join('') || `<tr><td colspan="8" class="py-6 text-center text-gray-400">មិនមានទិន្នន័យ</td></tr>`;
 
   const html = `
     <div>
-      ${getOfficialKhmerHeader('បញ្ជីរាយនាមមន្ត្រី និងបុគ្គលិក', `សរុបបុគ្គលិក៖ ${staffList.length} នាក់`)}
+      ${getOfficialKhmerHeader('បញ្ជីរាយនាមមន្ត្រី និងបុគ្គលិក', `សរុបមន្ត្រី៖ ${list.length} នាក់ • ឆ្នាំសិក្សា៖ ${getCurrentYearName()}`)}
       <table class="w-full text-left border-collapse border border-gray-200">
         <thead>
           <tr class="bg-gray-100 border-b text-xs font-semibold text-gray-700">
-            <th class="py-2 px-3 text-center w-12">ល.រ</th>
-            <th class="py-2 px-3">លេខកូដ</th>
+            <th class="py-2 px-3 text-center w-10">ល.រ</th>
+            <th class="py-2 px-3">អត្តលេខ</th>
             <th class="py-2 px-3">គោត្តនាម-នាម</th>
+            <th class="py-2 px-3 text-center">ភេទ</th>
             <th class="py-2 px-3">តួនាទី</th>
-            <th class="py-2 px-3">លេខទូរស័ព្ទ</th>
+            <th class="py-2 px-3">នាយកដ្ឋាន</th>
+            <th class="py-2 px-3 text-center">លេខទូរស័ព្ទ</th>
             <th class="py-2 px-3 text-center">ស្ថានភាព</th>
           </tr>
         </thead>
