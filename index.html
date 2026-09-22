@@ -641,13 +641,90 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
     <div class="chart-card anim-d3"><h4 class="font-semibold mb-2 text-sm text-gray-700">សិស្សតាមថ្នាក់</h4><div style="height:200px"><canvas id="classChart"></canvas></div></div>
     <div class="chart-card anim-d4"><h4 class="font-semibold mb-2 text-sm text-gray-700">ស្ថានភាពថ្លៃសិក្សា</h4><div style="height:200px"><canvas id="feeChart"></canvas></div></div>
-    <div class="chart-card anim-d5"><h4 class="font-semibold mb-2 text-sm text-gray-700">សកម្មភាព</h4><div id="activityFeed" class="max-h-[200px] overflow-y-auto text-sm space-y-1"></div></div>
+    
+    <!-- TODAY STUDENT ATTENDANCE COUNT CARD (Replaced Activity Feed) -->
+    <div class="chart-card anim-d5 flex flex-col justify-between p-4 bg-white rounded-2xl shadow-sm border">
+      <!-- Card Header -->
+      <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+        <div class="flex items-center gap-2">
+          <span class="p-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm">📋</span>
+          <div>
+            <h4 class="font-bold text-gray-800 text-sm">វត្តមានសិស្សថ្ងៃនេះ</h4>
+            <p class="text-[11px] text-gray-500" id="dashAttDateSubtitle">ថ្ងៃនេះ</p>
+          </div>
+        </div>
+        <span id="dashAttRateBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">100% វត្តមាន</span>
+      </div>
+
+      <!-- Attendance Rate Mini Progress Bar -->
+      <div class="w-full bg-gray-100 rounded-full h-1.5 my-2.5 overflow-hidden">
+        <div id="dashAttProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-500 h-1.5 rounded-full transition-all duration-500" style="width: 100%;"></div>
+      </div>
+
+      <!-- 4 Count Tiles Grid (2x2) -->
+      <div class="grid grid-cols-2 gap-2 my-1">
+        <!-- Present -->
+        <div class="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 flex flex-col justify-between">
+          <span class="text-[11px] text-emerald-800 font-semibold">✅ វត្តមាន</span>
+          <p class="text-xl font-bold text-emerald-700 mt-1"><span id="dashAttPresentVal">0</span> <span class="text-xs font-normal text-emerald-600">នាក់</span></p>
+        </div>
+
+        <!-- Late -->
+        <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200 flex flex-col justify-between">
+          <span class="text-[11px] text-amber-800 font-semibold">⏱️ មកយឺត</span>
+          <p class="text-xl font-bold text-amber-700 mt-1"><span id="dashAttLateVal">0</span> <span class="text-xs font-normal text-amber-600">នាក់</span></p>
+        </div>
+
+        <!-- Leave (With Permission) -->
+        <div onclick="openAbsentStudentsModal('excused')" class="p-2.5 rounded-xl bg-purple-50/80 border border-purple-200 flex flex-col justify-between cursor-pointer hover:bg-purple-100 transition-all group" title="ចុចមើលសិស្សមានច្បាប់">
+          <div class="flex justify-between items-center text-[11px] text-purple-800 font-semibold">
+            <span>📝 មានច្បាប់</span>
+            <span class="text-[10px] text-purple-500 group-hover:translate-x-0.5 transition-transform">↗</span>
+          </div>
+          <p class="text-lg font-bold text-purple-700 mt-1"><span id="dashAttLeaveVal">0</span> <span class="text-xs font-normal text-purple-600">នាក់</span></p>
+        </div>
+
+        <!-- Absent (Unexcused) - High-priority click target -->
+        <div onclick="openAbsentStudentsModal('unexcused')" class="p-2.5 rounded-xl bg-rose-50 border-2 border-rose-300 flex flex-col justify-between cursor-pointer hover:bg-rose-100 hover:shadow-md transition-all group relative" title="ចុចមើលសិស្សអវត្តមាន">
+          <span class="absolute top-1 right-1 flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+          </span>
+          <div class="flex justify-between items-center text-[11px] text-rose-800 font-bold">
+            <span>🚨 អវត្តមាន</span>
+            <span class="text-[10px] text-rose-600 font-bold group-hover:scale-110 transition-transform">↗</span>
+          </div>
+          <p class="text-lg font-bold text-rose-600 mt-1"><span id="dashAttAbsentVal">0</span> <span class="text-xs font-normal text-rose-500">នាក់</span></p>
+        </div>
+      </div>
+
+      <!-- Action Button & Summary Footer -->
+      <div class="mt-2 pt-2 border-t border-gray-100 flex flex-col gap-1.5">
+        <button onclick="openAbsentStudentsModal('all')" class="w-full bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white font-semibold py-1.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          <span>មើលសិស្សអវត្តមាន (<span id="dashAttBtnCount">0</span>) & ទាញយក</span>
+        </button>
+        <div class="flex justify-between items-center text-[11px] text-gray-500 px-1">
+          <span>ថ្នាក់មានអវត្តមានច្រើន៖ <b id="dashTopAbsentClass" class="text-rose-600 font-bold">—</b></span>
+          <a href="javascript:void(0)" onclick="showPage('attendance'); switchAttTab('student');" class="text-blue-600 hover:underline font-semibold flex items-center gap-0.5"><span>កត់ត្រាវត្តមាន</span> ➔</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- CHARTS ROW 2 -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div class="chart-card anim-d5"><h4 class="font-semibold mb-2 text-sm text-gray-700">ចំណូលគំរូ</h4><div style="height:200px"><canvas id="incomeChart"></canvas></div></div>
-    <div class="chart-card anim-d6"><h4 class="font-semibold mb-2 text-sm text-gray-700">វត្តមានគ្រូថ្ងៃនេះ</h4><div id="todayAttSummary" class="max-h-[200px] overflow-y-auto text-sm space-y-1"></div></div>
+    <div class="chart-card anim-d6">
+      <div class="flex justify-between items-center mb-2">
+        <h4 class="font-semibold text-sm text-gray-700">វត្តមានគ្រូថ្ងៃនេះ</h4>
+        <div class="flex gap-1.5 text-[11px]">
+          <span class="px-2 py-0.5 rounded-full bg-green-50 text-green-700 font-semibold border border-green-200">មកដល់៖ <b id="dashTchPresentCount">0</b></span>
+          <span class="px-2 py-0.5 rounded-full bg-red-50 text-red-700 font-semibold border border-red-200">មិនទាន់៖ <b id="dashTchAbsentCount">0</b></span>
+        </div>
+      </div>
+      <div id="todayAttSummary" class="max-h-[200px] overflow-y-auto text-sm space-y-1"></div>
+    </div>
   </div>
 </div>
 
@@ -3012,6 +3089,89 @@ STU-002	វណ្ណា ដារ៉ា	ប្រុស	អ្នកស្រី
   </form>
 </div></div>
 
+<!-- ABSENT STUDENTS DASHBOARD MODAL -->
+<div id="dashAbsentStudentsModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-[100] backdrop-blur-sm p-4" style="z-index: 99999;">
+  <div class="bg-white rounded-3xl w-full max-w-4xl max-h-[92vh] shadow-2xl flex flex-col overflow-hidden border border-slate-200">
+    
+    <!-- Modal Header -->
+    <div class="p-5 pb-3 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-rose-50/70 via-orange-50/50 to-white flex-shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-rose-100 border border-rose-200 flex items-center justify-center text-xl shadow-inner">🚨</div>
+        <div>
+          <h3 class="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2">
+            <span>បញ្ជីរាយនាមសិស្សអវត្តមានថ្ងៃនេះ</span>
+            <span class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-rose-100 text-rose-700" id="dashModalAbsentTotalBadge">0 នាក់</span>
+          </h3>
+          <p class="text-xs text-gray-500 mt-0.5" id="dashModalAbsentSubtitle">កាលបរិច្ឆេទ • ឆ្នាំសិក្សា</p>
+        </div>
+      </div>
+      <button onclick="closeModal('dashAbsentStudentsModal')" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center text-lg font-bold cursor-pointer transition-all">&times;</button>
+    </div>
+
+    <!-- Quick Stat Pills + Filters Toolbar -->
+    <div class="p-4 bg-gray-50/80 border-b border-gray-100 flex flex-wrap gap-2.5 items-center justify-between flex-shrink-0">
+      <!-- Search & Filters -->
+      <div class="flex flex-wrap items-center gap-2 flex-1 min-w-[260px]">
+        <div class="relative flex-1 min-w-[140px]">
+          <input type="text" id="dashAbsentSearch" placeholder="🔍 ស្វែងរកឈ្មោះ ឬលេខកូដ..." oninput="renderAbsentStudentsModalTable()" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-rose-500 font-sans">
+        </div>
+        <select id="dashAbsentClassFilter" onchange="renderAbsentStudentsModalTable()" class="bg-white border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs font-semibold outline-none focus:ring-2 focus:ring-rose-500">
+          <option value="">គ្រប់ថ្នាក់រៀន</option>
+        </select>
+        <select id="dashAbsentTypeFilter" onchange="renderAbsentStudentsModalTable()" class="bg-white border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs font-semibold outline-none focus:ring-2 focus:ring-rose-500">
+          <option value="all">ទាំងអស់ (អត់ច្បាប់ & មានច្បាប់)</option>
+          <option value="unexcused">អត់ច្បាប់តែប៉ុណ្ណោះ</option>
+          <option value="excused">មានច្បាប់តែប៉ុណ្ណោះ</option>
+        </select>
+      </div>
+
+      <!-- Export Action Buttons -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <button onclick="downloadAbsentStudentsExcel()" class="btn-export text-xs font-bold px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-1.5 shadow-sm cursor-pointer transition-all active:scale-95">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>ទាញយក Excel</span>
+        </button>
+        <button onclick="previewAbsentStudentsPDF()" class="btn-pdf text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-1.5 shadow-sm cursor-pointer transition-all active:scale-95">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>មើលជា PDF / បោះពុម្ព</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Table Content Area -->
+    <div class="flex-1 overflow-y-auto p-4">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700 text-xs font-bold border-b">
+            <th class="py-2.5 px-3 text-center w-10">ល.រ</th>
+            <th class="py-2.5 px-3 w-12 text-center">រូបថត</th>
+            <th class="py-2.5 px-3">លេខកូដ</th>
+            <th class="py-2.5 px-3">គោត្តនាម-នាម</th>
+            <th class="py-2.5 px-3 text-center">ភេទ</th>
+            <th class="py-2.5 px-3 text-center">ថ្នាក់រៀន</th>
+            <th class="py-2.5 px-3">អាណាព្យាបាល / ទូរស័ព្ទ</th>
+            <th class="py-2.5 px-3 text-center">ស្ថានភាព</th>
+            <th class="py-2.5 px-3 text-center no-print">សកម្មភាពរហ័ស</th>
+          </tr>
+        </thead>
+        <tbody id="dashAbsentModalTableBody" class="divide-y divide-gray-100 text-xs font-sans">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="p-3 bg-gray-50 border-t border-gray-100 flex flex-wrap justify-between items-center text-xs text-gray-500 flex-shrink-0">
+      <div class="flex items-center gap-4 font-semibold">
+        <span>🔴 អត់ច្បាប់៖ <b id="dashModalUnexcusedCount" class="text-rose-600">0</b> នាក់</span>
+        <span>🟣 មានច្បាប់៖ <b id="dashModalExcusedCount" class="text-purple-600">0</b> នាក់</span>
+      </div>
+      <button onclick="closeModal('dashAbsentStudentsModal')" class="px-4 py-1.5 rounded-xl border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold cursor-pointer">បិទ</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- MONTHLY MULTI-SUBJECT SCORE ENTRY MODAL -->
 <div id="monthlyScoreEntryModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-[100] backdrop-blur-md" style="z-index: 99999;">
   <div class="bg-white rounded-3xl w-full max-w-lg mx-4 p-6 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col border">
@@ -3757,13 +3917,348 @@ function animateValue(id, start, end, duration = 600){
   window.requestAnimationFrame(step);
 }
 
+/* ===== TODAY ATTENDANCE & ABSENT STUDENTS (DASHBOARD) ===== */
+function getTodayStudentAttendanceStats(){
+  const curStudents = filterByYear(students);
+  const targetDate = todayKey;
+  const stuAttKey = 'sms_stu_att_' + targetDate;
+  const dailyStuAtt = JSON.parse(localStorage.getItem(stuAttKey) || '{}');
+
+  let present = 0, late = 0, leave = 0, absent = 0;
+  const absentList = [];
+  const classAbsentCounts = {};
+
+  curStudents.forEach(s => {
+    const rec = dailyStuAtt[s.id];
+    if(!rec || !rec.status || rec.status === 'absent'){
+      absent++;
+      classAbsentCounts[s.className] = (classAbsentCounts[s.className] || 0) + 1;
+      absentList.push({
+        ...s,
+        attStatus: 'absent',
+        statusType: 'unexcused',
+        statusText: 'អវត្តមាន (អត់ច្បាប់)',
+        checkIn: rec?.checkIn || '—',
+        checkOut: rec?.checkOut || '—'
+      });
+    } else if(rec.status === 'leave'){
+      leave++;
+      classAbsentCounts[s.className] = (classAbsentCounts[s.className] || 0) + 1;
+      absentList.push({
+        ...s,
+        attStatus: 'leave',
+        statusType: 'excused',
+        statusText: 'មានច្បាប់',
+        checkIn: rec.checkIn || '—',
+        checkOut: rec.checkOut || '—'
+      });
+    } else if(rec.status === 'late'){
+      late++;
+    } else if(rec.status === 'present'){
+      present++;
+    }
+  });
+
+  const total = curStudents.length;
+  const presentTotal = present + late;
+  const rate = total > 0 ? Math.round((presentTotal / total) * 100) : 100;
+
+  // Find class with highest absences
+  let topClass = '';
+  let topCount = 0;
+  for(const [cName, cnt] of Object.entries(classAbsentCounts)){
+    if(cnt > topCount){
+      topCount = cnt;
+      topClass = `${cName} (${cnt}នាក់)`;
+    }
+  }
+
+  return {
+    total,
+    present,
+    late,
+    leave,
+    absent,
+    absentTotal: absent + leave,
+    unexcused: absent,
+    rate,
+    absentList,
+    topAbsentClass: topClass || 'គ្មាន',
+    date: targetDate
+  };
+}
+
+function renderDashboardAttendanceCard(){
+  const stats = getTodayStudentAttendanceStats();
+
+  const dateSub = document.getElementById('dashAttDateSubtitle');
+  if(dateSub){
+    const d = new Date();
+    dateSub.textContent = d.toLocaleDateString('km-KH', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  const rateBadge = document.getElementById('dashAttRateBadge');
+  if(rateBadge){
+    rateBadge.textContent = `${stats.rate}% វត្តមាន`;
+    if(stats.rate >= 90){
+      rateBadge.className = 'text-xs px-2.5 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-700 border border-emerald-200';
+    } else if(stats.rate >= 75){
+      rateBadge.className = 'text-xs px-2.5 py-0.5 rounded-full font-bold bg-amber-50 text-amber-700 border border-amber-200';
+    } else {
+      rateBadge.className = 'text-xs px-2.5 py-0.5 rounded-full font-bold bg-rose-50 text-rose-700 border border-rose-200';
+    }
+  }
+
+  const progBar = document.getElementById('dashAttProgressBar');
+  if(progBar){
+    progBar.style.width = `${stats.rate}%`;
+    progBar.className = stats.rate >= 90 
+      ? 'bg-gradient-to-r from-emerald-500 to-teal-500 h-1.5 rounded-full transition-all duration-500'
+      : stats.rate >= 75
+      ? 'bg-gradient-to-r from-amber-500 to-orange-500 h-1.5 rounded-full transition-all duration-500'
+      : 'bg-gradient-to-r from-rose-500 to-red-500 h-1.5 rounded-full transition-all duration-500';
+  }
+
+  const elPresent = document.getElementById('dashAttPresentVal');
+  if(elPresent) elPresent.textContent = stats.present;
+
+  const elLate = document.getElementById('dashAttLateVal');
+  if(elLate) elLate.textContent = stats.late;
+
+  const elLeave = document.getElementById('dashAttLeaveVal');
+  if(elLeave) elLeave.textContent = stats.leave;
+
+  const elAbsent = document.getElementById('dashAttAbsentVal');
+  if(elAbsent) elAbsent.textContent = stats.absent;
+
+  const elBtnCount = document.getElementById('dashAttBtnCount');
+  if(elBtnCount) elBtnCount.textContent = stats.absentTotal;
+
+  const elTopClass = document.getElementById('dashTopAbsentClass');
+  if(elTopClass) elTopClass.textContent = stats.topAbsentClass;
+
+  // Also update teacher attendance summary counts
+  const todayTchAtt = JSON.parse(localStorage.getItem('sms_att_' + todayKey) || '{}');
+  let tchPresent = 0, tchAbsent = 0;
+  teachers.forEach(t => {
+    if(todayTchAtt[t.id]?.checkIn) tchPresent++;
+    else tchAbsent++;
+  });
+  const elTchPres = document.getElementById('dashTchPresentCount');
+  if(elTchPres) elTchPres.textContent = tchPresent;
+  const elTchAbs = document.getElementById('dashTchAbsentCount');
+  if(elTchAbs) elTchAbs.textContent = tchAbsent;
+}
+
+let currentAbsentTypeFilter = 'all';
+
+function openAbsentStudentsModal(typeFilter = 'all'){
+  currentAbsentTypeFilter = typeFilter;
+  
+  // Populate class filter dropdown
+  const classFilterSelect = document.getElementById('dashAbsentClassFilter');
+  if(classFilterSelect){
+    const curClasses = filterByYear(classes);
+    classFilterSelect.innerHTML = '<option value="">គ្រប់ថ្នាក់រៀនទាំងអស់</option>' + 
+      curClasses.map(c => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+  }
+
+  const typeFilterSelect = document.getElementById('dashAbsentTypeFilter');
+  if(typeFilterSelect) typeFilterSelect.value = typeFilter;
+
+  const searchInput = document.getElementById('dashAbsentSearch');
+  if(searchInput) searchInput.value = '';
+
+  const subtitle = document.getElementById('dashModalAbsentSubtitle');
+  if(subtitle){
+    const d = new Date();
+    const dateFormatted = d.toLocaleDateString('km-KH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    subtitle.textContent = `${dateFormatted} • ឆ្នាំសិក្សា៖ ${getCurrentYearName()}`;
+  }
+
+  renderAbsentStudentsModalTable();
+  openModal('dashAbsentStudentsModal');
+}
+
+function getFilteredAbsentStudents(){
+  const stats = getTodayStudentAttendanceStats();
+  const q = document.getElementById('dashAbsentSearch')?.value.toLowerCase().trim() || '';
+  const cFilter = document.getElementById('dashAbsentClassFilter')?.value || '';
+  const typeFilter = document.getElementById('dashAbsentTypeFilter')?.value || currentAbsentTypeFilter || 'all';
+
+  return stats.absentList.filter(s => {
+    const matchSearch = !q || s.name.toLowerCase().includes(q) || s.code.toLowerCase().includes(q) || (s.parentPhone && s.parentPhone.includes(q));
+    const matchClass = !cFilter || s.className === cFilter;
+    const matchType = (typeFilter === 'all') || 
+                      (typeFilter === 'unexcused' && s.statusType === 'unexcused') ||
+                      (typeFilter === 'excused' && s.statusType === 'excused');
+    return matchSearch && matchClass && matchType;
+  });
+}
+
+function renderAbsentStudentsModalTable(){
+  const stats = getTodayStudentAttendanceStats();
+  const filtered = getFilteredAbsentStudents();
+  const tbody = document.getElementById('dashAbsentModalTableBody');
+  if(!tbody) return;
+
+  const unexcusedCount = filtered.filter(s => s.statusType === 'unexcused').length;
+  const excusedCount = filtered.filter(s => s.statusType === 'excused').length;
+
+  const totalBadge = document.getElementById('dashModalAbsentTotalBadge');
+  if(totalBadge) totalBadge.textContent = `${filtered.length} នាក់`;
+
+  const elUnexcused = document.getElementById('dashModalUnexcusedCount');
+  if(elUnexcused) elUnexcused.textContent = unexcusedCount;
+
+  const elExcused = document.getElementById('dashModalExcusedCount');
+  if(elExcused) elExcused.textContent = excusedCount;
+
+  if(!filtered.length){
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="9" class="py-12 text-center text-gray-400">
+          <div class="flex flex-col items-center justify-center gap-2">
+            <span class="text-3xl">🎉</span>
+            <p class="font-semibold text-gray-700">មិនមានសិស្សអវត្តមានតាមលក្ខខណ្ឌស្វែងរកនេះឡើយ!</p>
+            <p class="text-xs text-gray-400">សិស្សានុសិស្សមានវត្តមានពេញលេញ ឬពុំទាន់មានកំណត់ត្រាអវត្តមាន</p>
+          </div>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map((s, idx) => {
+    const isUnexcused = s.statusType === 'unexcused';
+    const statusBadge = isUnexcused
+      ? '<span class="px-2 py-0.5 rounded-full font-bold bg-rose-100 text-rose-700 border border-rose-200 text-[11px] inline-flex items-center gap-1"><span>🔴</span><span>អត់ច្បាប់</span></span>'
+      : '<span class="px-2 py-0.5 rounded-full font-bold bg-purple-100 text-purple-700 border border-purple-200 text-[11px] inline-flex items-center gap-1"><span>🟣</span><span>មានច្បាប់</span></span>';
+
+    const photoSrc = s.photo || customPhotos[s.code] || customPhotos[s.id];
+    const avatarHtml = photoSrc
+      ? `<img src="${photoSrc}" class="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-sm mx-auto">`
+      : `<div class="w-8 h-8 rounded-full flex items-center justify-center mx-auto overflow-hidden shadow-sm">${getStudentAvatarHtml(s)}</div>`;
+
+    const parentDisplay = (s.parentName || s.parentPhone)
+      ? `<div>
+           <span class="font-medium text-gray-800">${escapeHtml(s.parentName || '—')}</span>
+           ${s.parentPhone ? `<div class="text-[11px] text-gray-500 font-mono mt-0.5 flex items-center gap-1"><span>📞</span><a href="tel:${s.parentPhone}" class="text-blue-600 hover:underline">${escapeHtml(s.parentPhone)}</a></div>` : ''}
+         </div>`
+      : '<span class="text-gray-400">—</span>';
+
+    return `
+      <tr class="hover:bg-rose-50/40 transition-colors">
+        <td class="py-2.5 px-3 text-center font-bold text-gray-600">${idx + 1}</td>
+        <td class="py-2 px-3 text-center">${avatarHtml}</td>
+        <td class="py-2.5 px-3 font-mono font-bold text-blue-700 text-xs">${escapeHtml(s.code)}</td>
+        <td class="py-2.5 px-3 font-semibold text-gray-900">${escapeHtml(s.name)}</td>
+        <td class="py-2.5 px-3 text-center text-gray-600">${escapeHtml(s.gender || 'ប្រុស')}</td>
+        <td class="py-2.5 px-3 text-center font-medium"><span class="px-2 py-0.5 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 text-[11px]">${escapeHtml(s.className)}</span></td>
+        <td class="py-2.5 px-3">${parentDisplay}</td>
+        <td class="py-2.5 px-3 text-center">${statusBadge}</td>
+        <td class="py-2.5 px-3 text-center space-x-1 no-print">
+          ${isUnexcused ? `<button onclick="markModalStudentAtt(${s.id}, 'leave')" class="px-2 py-1 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium text-[11px] shadow-sm transition-all" title="ដាក់ច្បាប់">📝 ច្បាប់</button>` : ''}
+          <button onclick="markModalStudentAtt(${s.id}, 'present')" class="px-2 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-[11px] shadow-sm transition-all" title="មកដល់សាលា">✅ វត្តមាន</button>
+          ${s.parentPhone ? `<a href="tel:${s.parentPhone}" class="inline-block px-2 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-[11px] border shadow-sm transition-all" title="ហៅទូរស័ព្ទ">📞 ហៅ</a>` : ''}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function markModalStudentAtt(studentId, status){
+  setStudentAttStatus(studentId, status);
+  renderAbsentStudentsModalTable();
+  renderDashboardAttendanceCard();
+  const stName = students.find(s => s.id === studentId)?.name || 'សិស្ស';
+  const label = status === 'present' ? 'វត្តមាន (ទាន់ពេល)' : status === 'leave' ? 'មានច្បាប់' : status;
+  showToast(`បានកែប្រែស្ថានភាព ${stName} ទៅជា៖ ${label}!`, 'success');
+}
+
+function downloadAbsentStudentsExcel(){
+  const filtered = getFilteredAbsentStudents();
+  if(!filtered.length){
+    alert('មិនមានទិន្នន័យសិស្សអវត្តមានសម្រាប់ទាញយកឡើយ!');
+    return;
+  }
+
+  const data = filtered.map((s, idx) => ({
+    'ល.រ': idx + 1,
+    'លេខកូដសិស្ស': s.code,
+    'គោត្តនាម-នាម': s.name,
+    'ភេទ': s.gender || 'ប្រុស',
+    'ថ្នាក់រៀន': s.className,
+    'ស្ថានភាពអវត្តមាន': s.statusText,
+    'ឈ្មោះអាណាព្យាបាល': s.parentName || '—',
+    'លេខទូរស័ព្ទទំនាក់ទំនង': s.parentPhone || '—',
+    'កាលបរិច្ឆេទ': todayKey,
+    'ឆ្នាំសិក្សា': getCurrentYearName()
+  }));
+
+  downloadExcel(data, 'សិស្សអវត្តមាន', `បញ្ជីសិស្សអវត្តមាន_${todayKey}_${getCurrentYearName()}`);
+  showToast('បានទាញយកបញ្ជីសិស្សអវត្តមានជា Excel ដោយជោគជ័យ!', 'success');
+}
+
+function previewAbsentStudentsPDF(){
+  const filtered = getFilteredAbsentStudents();
+  if(!filtered.length){
+    alert('មិនមានទិន្នន័យសិស្សអវត្តមានសម្រាប់មើលជា PDF ឡើយ!');
+    return;
+  }
+
+  const d = new Date();
+  const dateFormatted = d.toLocaleDateString('km-KH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const cFilter = document.getElementById('dashAbsentClassFilter')?.value || 'គ្រប់ថ្នាក់';
+
+  const rows = filtered.map((s, idx) => {
+    return `
+      <tr class="border-b text-xs">
+        <td class="py-2 px-3 text-center font-bold">${idx + 1}</td>
+        <td class="py-2 px-3 text-center font-mono font-bold text-blue-700">${escapeHtml(s.code)}</td>
+        <td class="py-2 px-3 font-semibold">${escapeHtml(s.name)}</td>
+        <td class="py-2 px-3 text-center">${escapeHtml(s.gender || 'ប្រុស')}</td>
+        <td class="py-2 px-3 text-center">${escapeHtml(s.className)}</td>
+        <td class="py-2 px-3">${escapeHtml(s.parentName || '—')}</td>
+        <td class="py-2 px-3 text-center font-mono">${escapeHtml(s.parentPhone || '—')}</td>
+        <td class="py-2 px-3 text-center font-bold ${s.statusType === 'unexcused' ? 'text-red-600' : 'text-purple-600'}">${escapeHtml(s.statusText)}</td>
+        <td class="py-2 px-3 text-center text-gray-400">.................</td>
+      </tr>
+    `;
+  }).join('');
+
+  const html = `
+    <div>
+      ${getOfficialKhmerHeader('បញ្ជីរាយនាមសិស្សអវត្តមានប្រចាំថ្ងៃ', `កាលបរិច្ឆេទ៖ ${dateFormatted} • ថ្នាក់៖ ${cFilter}`)}
+      <div class="mb-3 text-xs flex justify-between font-semibold px-1">
+        <span>ចំនួនសិស្សអវត្តមានសរុប៖ <b>${toKhmerNum(filtered.length)} នាក់</b></span>
+        <span>ឆ្នាំសិក្សា៖ <b>${getCurrentYearName()}</b></span>
+      </div>
+      <table class="w-full text-left border-collapse border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100 border-b text-xs font-semibold text-gray-700">
+            <th class="py-2 px-3 text-center w-10">ល.រ</th>
+            <th class="py-2 px-3 text-center">លេខកូដ</th>
+            <th class="py-2 px-3">គោត្តនាម-នាម</th>
+            <th class="py-2 px-3 text-center">ភេទ</th>
+            <th class="py-2 px-3 text-center">ថ្នាក់រៀន</th>
+            <th class="py-2 px-3">អាណាព្យាបាល</th>
+            <th class="py-2 px-3 text-center">លេខទូរស័ព្ទ</th>
+            <th class="py-2 px-3 text-center">ស្ថានភាព</th>
+            <th class="py-2 px-3 text-center">កំណត់សម្គាល់</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+      ${getOfficialKhmerFooter()}
+    </div>
+  `;
+
+  openPdfModal('បញ្ជីសិស្សអវត្តមានប្រចាំថ្ងៃ (PDF)', 'Absent_Students_' + todayKey, html);
+}
+
 function buildDashboardExtras(){
-  const st = filterByYear(students), inv = filterByYear(invoices);
-  const activities = [];
-  st.slice(-3).reverse().forEach(s => activities.push({ text: `សិស្ស ${s.name}`, time: s.className }));
-  inv.filter(i => i.paid < i.total).slice(0, 2).forEach(i => activities.push({ text: `ជំពាក់ថ្លៃ៖ ${i.student}`, time: i.no }));
-  const feed = document.getElementById('activityFeed');
-  if(feed) feed.innerHTML = activities.length ? activities.map((a, idx) => `<div class="feed-item flex justify-between py-2 px-2 rounded-lg border-b border-gray-50 items-center" style="animation-delay:${idx*0.08}s"><span class="text-sm font-medium">${a.text}</span><span class="text-xs text-gray-400">${a.time}</span></div>`).join('') : '<p class="text-gray-400 text-center py-4">មិនមានសកម្មភាព</p>';
+  renderDashboardAttendanceCard();
 
   const todayAtt = JSON.parse(localStorage.getItem('sms_att_' + todayKey) || '{}');
   const attBox = document.getElementById('todayAttSummary');
@@ -7777,6 +8272,7 @@ function processStudentScan(student, timeStr, timeSecondsStr, isLate, lateMinute
 
   localStorage.setItem(stuAttKey, JSON.stringify(dailyStuAtt));
   playScanSound(soundType);
+  updateDashboard();
 
   // Add to Recent Scans Feed
   addRecentScanItem({
@@ -8227,6 +8723,7 @@ function setStudentAttStatus(studentId, status){
 
   localStorage.setItem(stuAttKey, JSON.stringify(dailyStuAtt));
   renderStudentAttendance();
+  updateDashboard();
 }
 
 function exportStudentAttendanceExcel(){
