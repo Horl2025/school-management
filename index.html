@@ -572,6 +572,26 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
             <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
             <span>កាតសិស្ស/គ្រូ</span>
           </a>
+          <a href="#" onclick="showPage('hygiene')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition duration-150">
+            <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            <span>អនាម័យប្រចាំសប្តាហ៍</span>
+          </a>
+          <a href="#" onclick="showPage('studyTrack')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition duration-150">
+            <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span>សៀវភៅតាមដានការសិក្សា</span>
+          </a>
+          <a href="#" onclick="showPage('trainees')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition duration-150">
+            <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+            <span>សៀវភៅសិក្ខាកាម</span>
+          </a>
+          <a href="#" onclick="showPage('inventory')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition duration-150">
+            <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            <span>បញ្ជីសារពើភណ្ឌ</span>
+          </a>
+          <a href="#" onclick="showPage('textbooks')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition duration-150">
+            <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span>បញ្ជីខ្ចី & ប្រមូលសៀវភៅសិក្សាគោល</span>
+          </a>
         </div>
       </div>
 
@@ -1775,6 +1795,452 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 
   <!-- PRINT HIDDEN CONTAINER -->
   <div id="idCardsPrintArea" class="hidden print:block"></div>
+</div>
+
+<!-- ==================== 1. HYGIENE (អនាម័យប្រចាំសប្តាហ៍) ==================== -->
+<div id="page-hygiene" class="page space-y-4">
+  <!-- Top Stats Cards -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+    <div class="relative overflow-hidden rounded-2xl border-2 border-emerald-400/90 bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-emerald-900 font-bold">ថ្នាក់បានពិនិត្យ</p>
+        <p class="text-2xl font-black text-emerald-950" id="hygieneInspectedStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">🧹</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-blue-400/90 bg-gradient-to-br from-blue-100 via-blue-50 to-indigo-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-blue-900 font-bold">ថ្នាក់ស្អាតឆ្នើម (≥90ពិន្ទុ)</p>
+        <p class="text-2xl font-black text-blue-950" id="hygieneTopCleanStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">🏆</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-amber-400/90 bg-gradient-to-br from-amber-100 via-amber-50 to-orange-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-amber-900 font-bold">ត្រូវកែលម្អ (&lt;75ពិន្ទុ)</p>
+        <p class="text-2xl font-black text-amber-950" id="hygieneNeedImproveStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-amber-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">⚠️</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-purple-400/90 bg-gradient-to-br from-purple-100 via-purple-50 to-fuchsia-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-purple-900 font-bold">ពិន្ទុមធ្យមសរុប</p>
+        <p class="text-2xl font-black text-purple-950" id="hygieneAvgScoreStat">0/100</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">✨</div>
+    </div>
+  </div>
+
+  <!-- Action & Filter Bar -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col sm:flex-row gap-3 justify-between no-print items-center border">
+    <div class="flex flex-wrap gap-2.5 items-center w-full sm:w-auto">
+      <input type="text" id="hygieneSearch" placeholder="ស្វែងរកថ្នាក់/គ្រូ/អ្នកពិនិត្យ..." class="border rounded-xl px-4 py-2 w-full sm:w-56 outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm bg-slate-50 focus:bg-white" oninput="renderHygiene()">
+      <select id="hygieneClassFilter" onchange="renderHygiene()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ថ្នាក់រៀន</option>
+      </select>
+      <select id="hygieneGradeFilter" onchange="renderHygiene()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់និទ្ទេស</option>
+        <option value="ល្អណាស់">🌟 ល្អណាស់ (≥90)</option>
+        <option value="ល្អ">✅ ល្អ (80-89)</option>
+        <option value="មធ្យម">🟡 មធ្យម (70-79)</option>
+        <option value="ត្រូវកែលម្អ">⚠️ ត្រូវកែលម្អ (&lt;70)</option>
+      </select>
+    </div>
+    <div class="flex gap-2 flex-wrap w-full sm:w-auto justify-end">
+      <button onclick="previewHygienePDF()" class="btn-pdf text-xs shadow-xs cursor-pointer">📄 មើលជា PDF</button>
+      <button onclick="exportHygieneExcel()" class="btn-export text-xs shadow-xs cursor-pointer">📥 Export Excel</button>
+      <button onclick="openHygieneModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition shadow-sm cursor-pointer flex items-center gap-1.5">+ បន្ថែមលទ្ធផល</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
+    <div class="px-5 py-3 border-b flex justify-between items-center bg-slate-50/70">
+      <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+        <span>🧹 តារាងលទ្ធផលអនាម័យតាមថ្នាក់រៀនប្រចាំសប្តាហ៍</span>
+        <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold" id="hygieneBadgeCount">0 កំណត់ត្រា</span>
+      </h3>
+      <span class="text-xs text-slate-500">ឆ្នាំសិក្សា៖ <strong id="hygieneYearLabel" class="text-blue-800"></strong></span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm whitespace-nowrap">
+        <thead class="bg-slate-50 text-slate-600 text-xs">
+          <tr>
+            <th class="py-3 px-3 text-center w-12 font-bold">ល.រ</th>
+            <th class="py-3 px-3 font-bold">កាលបរិច្ឆេទ</th>
+            <th class="py-3 px-3 text-center font-bold">សប្តាហ៍</th>
+            <th class="py-3 px-4 font-bold">ថ្នាក់រៀន/ទីតាំង</th>
+            <th class="py-3 px-4 font-bold">គ្រូបន្ទុកថ្នាក់</th>
+            <th class="py-3 px-3 text-center font-bold">ពិន្ទុ (/១០០)</th>
+            <th class="py-3 px-3 text-center font-bold">និទ្ទេស</th>
+            <th class="py-3 px-4 font-bold">អ្នកចុះពិនិត្យ</th>
+            <th class="py-3 px-4 font-bold">កំណត់សម្គាល់</th>
+            <th class="py-3 px-4 text-center font-bold no-print">សកម្មភាព</th>
+          </tr>
+        </thead>
+        <tbody id="hygieneTableBody" class="divide-y text-xs"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 2. STUDY TRACKING (សៀវភៅតាមដានការសិក្សា) ==================== -->
+<div id="page-studyTrack" class="page space-y-4">
+  <!-- Top Stats Cards -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+    <div class="relative overflow-hidden rounded-2xl border-2 border-indigo-400/90 bg-gradient-to-br from-indigo-100 via-indigo-50 to-blue-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-indigo-900 font-bold">កំណត់ត្រាតាមដានសរុប</p>
+        <p class="text-2xl font-black text-indigo-950" id="trackTotalStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">📖</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-emerald-400/90 bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-emerald-900 font-bold">សិស្សពូកែ/រីកចម្រើន</p>
+        <p class="text-2xl font-black text-emerald-950" id="trackGoodStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">🌟</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-rose-400/90 bg-gradient-to-br from-rose-100 via-rose-50 to-pink-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-rose-900 font-bold">ត្រូវការជំនួយពិសេស</p>
+        <p class="text-2xl font-black text-rose-950" id="trackNeedHelpStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">💡</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-purple-400/90 bg-gradient-to-br from-purple-100 via-purple-50 to-violet-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-purple-900 font-bold">បានទាក់ទងអាណាព្យាបាល</p>
+        <p class="text-2xl font-black text-purple-950" id="trackParentContactStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">👨‍👩‍👧</div>
+    </div>
+  </div>
+
+  <!-- Action & Filter Bar -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col sm:flex-row gap-3 justify-between no-print items-center border">
+    <div class="flex flex-wrap gap-2.5 items-center w-full sm:w-auto">
+      <input type="text" id="trackSearch" placeholder="ស្វែងរកឈ្មោះ/កូដ/មុខវិជ្ជា..." class="border rounded-xl px-4 py-2 w-full sm:w-56 outline-none focus:ring-2 focus:ring-indigo-500 text-xs sm:text-sm bg-slate-50 focus:bg-white" oninput="renderStudyTrack()">
+      <select id="trackClassFilter" onchange="renderStudyTrack()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ថ្នាក់រៀន</option>
+      </select>
+      <select id="trackCategoryFilter" onchange="renderStudyTrack()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ផ្នែកតាមដាន</option>
+        <option value="ការសិក្សា">📚 ការសិក្សា & ពិន្ទុ</option>
+        <option value="វិន័យ">⚖️ វិន័យ & សណ្តាប់ធ្នាប់</option>
+        <option value="វត្តមាន">⏰ វត្តមាន & ម៉ោងសិក្សា</option>
+        <option value="អាកប្បកិរិយា">🤝 អាកប្បកិរិយា & សីលធម៌</option>
+      </select>
+      <select id="trackEvaluationFilter" onchange="renderStudyTrack()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ការវាយតម្លៃ</option>
+        <option value="ពូកែ">🌟 ពូកែ</option>
+        <option value="រីកចម្រើន">📈 រីកចម្រើន</option>
+        <option value="មធ្យម">🟡 មធ្យម</option>
+        <option value="ត្រូវការជំនួយ">⚠️ ត្រូវការជំនួយ</option>
+      </select>
+    </div>
+    <div class="flex gap-2 flex-wrap w-full sm:w-auto justify-end">
+      <button onclick="previewStudyTrackPDF()" class="btn-pdf text-xs shadow-xs cursor-pointer">📄 មើលជា PDF</button>
+      <button onclick="exportStudyTrackExcel()" class="btn-export text-xs shadow-xs cursor-pointer">📥 Export Excel</button>
+      <button onclick="openStudyTrackModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition shadow-sm cursor-pointer flex items-center gap-1.5">+ បន្ថែមការតាមដាន</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
+    <div class="px-5 py-3 border-b flex justify-between items-center bg-slate-50/70">
+      <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+        <span>📖 តារាងកត់ត្រាការតាមដានការសិក្សា និងវិន័យសិស្ស</span>
+        <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full font-bold" id="trackBadgeCount">0 កំណត់ត្រា</span>
+      </h3>
+      <span class="text-xs text-slate-500">ឆ្នាំសិក្សា៖ <strong id="trackYearLabel" class="text-indigo-800"></strong></span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm whitespace-nowrap">
+        <thead class="bg-slate-50 text-slate-600 text-xs">
+          <tr>
+            <th class="py-3 px-3 text-center w-12 font-bold">ល.រ</th>
+            <th class="py-3 px-3 font-bold">កាលបរិច្ឆេទ</th>
+            <th class="py-3 px-3 font-mono font-bold">អត្តលេខ</th>
+            <th class="py-3 px-4 font-bold">គោត្តនាម-នាម</th>
+            <th class="py-3 px-3 text-center font-bold">ថ្នាក់</th>
+            <th class="py-3 px-3 font-bold">ផ្នែកតាមដាន</th>
+            <th class="py-3 px-3 text-center font-bold">ការវាយតម្លៃ</th>
+            <th class="py-3 px-4 font-bold">វិធានការ/ដំណោះស្រាយ</th>
+            <th class="py-3 px-3 text-center font-bold">អាណាព្យាបាល</th>
+            <th class="py-3 px-4 font-bold">គ្រូកត់ត្រា</th>
+            <th class="py-3 px-4 text-center font-bold no-print">សកម្មភាព</th>
+          </tr>
+        </thead>
+        <tbody id="trackTableBody" class="divide-y text-xs"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 3. TRAINEES (សៀវភៅសិក្ខាកាម) ==================== -->
+<div id="page-trainees" class="page space-y-4">
+  <!-- Top Stats Cards -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+    <div class="relative overflow-hidden rounded-2xl border-2 border-sky-400/90 bg-gradient-to-br from-sky-100 via-sky-50 to-blue-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-sky-900 font-bold">សិក្ខាកាមសរុប</p>
+        <p class="text-2xl font-black text-sky-950" id="traineeTotalStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-sky-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">🎓</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-emerald-400/90 bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-emerald-900 font-bold">កំពុងអនុវត្តជាក់ស្តែង</p>
+        <p class="text-2xl font-black text-emerald-950" id="traineeActiveStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">🏃</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-blue-400/90 bg-gradient-to-br from-blue-100 via-blue-50 to-indigo-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-blue-900 font-bold">បានបញ្ចប់កម្មសិក្សា</p>
+        <p class="text-2xl font-black text-blue-950" id="traineeCompletedStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">🎉</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-purple-400/90 bg-gradient-to-br from-purple-100 via-purple-50 to-violet-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-purple-900 font-bold">គ្រូឧទ្ទេស/ណែនាំ</p>
+        <p class="text-2xl font-black text-purple-950" id="traineeMentorStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">👨‍🏫</div>
+    </div>
+  </div>
+
+  <!-- Action & Filter Bar -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col sm:flex-row gap-3 justify-between no-print items-center border">
+    <div class="flex flex-wrap gap-2.5 items-center w-full sm:w-auto">
+      <input type="text" id="traineeSearch" placeholder="ស្វែងរកឈ្មោះ/កូដ/ជំនាញ..." class="border rounded-xl px-4 py-2 w-full sm:w-56 outline-none focus:ring-2 focus:ring-sky-500 text-xs sm:text-sm bg-slate-50 focus:bg-white" oninput="renderTrainees()">
+      <select id="traineeStatusFilter" onchange="renderTrainees()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ស្ថានភាព</option>
+        <option value="កំពុងអនុវត្ត">🟢 កំពុងអនុវត្ត</option>
+        <option value="បានបញ្ចប់">🔵 បានបញ្ចប់</option>
+        <option value="ផ្អាក">🟡 ផ្អាក</option>
+      </select>
+    </div>
+    <div class="flex gap-2 flex-wrap w-full sm:w-auto justify-end">
+      <button onclick="previewTraineesPDF()" class="btn-pdf text-xs shadow-xs cursor-pointer">📄 មើលជា PDF</button>
+      <button onclick="exportTraineesExcel()" class="btn-export text-xs shadow-xs cursor-pointer">📥 Export Excel</button>
+      <button onclick="openTraineeModal()" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition shadow-sm cursor-pointer flex items-center gap-1.5">+ ចុះឈ្មោះសិក្ខាកាម</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
+    <div class="px-5 py-3 border-b flex justify-between items-center bg-slate-50/70">
+      <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+        <span>📖 តារាងគ្រប់គ្រងសិក្ខាកាម / និស្សិតចុះកម្មសិក្សា</span>
+        <span class="text-xs bg-sky-100 text-sky-800 px-2 py-0.5 rounded-full font-bold" id="traineeBadgeCount">0 នាក់</span>
+      </h3>
+      <span class="text-xs text-slate-500">ឆ្នាំសិក្សា៖ <strong id="traineeYearLabel" class="text-sky-800"></strong></span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm whitespace-nowrap">
+        <thead class="bg-slate-50 text-slate-600 text-xs">
+          <tr>
+            <th class="py-3 px-3 text-center w-12 font-bold">ល.រ</th>
+            <th class="py-3 px-3 font-mono font-bold">អត្តលេខ</th>
+            <th class="py-3 px-4 font-bold">គោត្តនាម-នាម</th>
+            <th class="py-3 px-3 text-center font-bold">ភេទ</th>
+            <th class="py-3 px-4 font-bold">ស្ថាប័ន/សាកលវិទ្យាល័យ</th>
+            <th class="py-3 px-4 font-bold">ឯកទេស/ជំនាញ</th>
+            <th class="py-3 px-4 font-bold">គ្រូឧទ្ទេស/ណែនាំ</th>
+            <th class="py-3 px-3 text-center font-bold">ថ្នាក់អនុវត្ត</th>
+            <th class="py-3 px-4 font-bold">រយៈពេលកម្មសិក្សា</th>
+            <th class="py-3 px-3 text-center font-bold">ស្ថានភាព</th>
+            <th class="py-3 px-3 text-center font-bold">ពិន្ទុ</th>
+            <th class="py-3 px-4 text-center font-bold no-print">សកម្មភាព</th>
+          </tr>
+        </thead>
+        <tbody id="traineeTableBody" class="divide-y text-xs"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 4. INVENTORY (បញ្ជីសារពើភណ្ឌ) ==================== -->
+<div id="page-inventory" class="page space-y-4">
+  <!-- Top Stats Cards -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+    <div class="relative overflow-hidden rounded-2xl border-2 border-teal-400/90 bg-gradient-to-br from-teal-100 via-teal-50 to-emerald-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-teal-900 font-bold">សម្ភារ/ឧបករណ៍សរុប</p>
+        <p class="text-2xl font-black text-teal-950" id="invTotalStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-teal-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">📦</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-emerald-400/90 bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-emerald-900 font-bold">ប្រើប្រាស់បានល្អ</p>
+        <p class="text-2xl font-black text-emerald-950" id="invGoodStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">✅</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-amber-400/90 bg-gradient-to-br from-amber-100 via-amber-50 to-orange-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-amber-900 font-bold">ខូចខាតត្រូវជួសជុល</p>
+        <p class="text-2xl font-black text-amber-950" id="invRepairStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-amber-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">🔧</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-blue-400/90 bg-gradient-to-br from-blue-100 via-blue-50 to-indigo-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-blue-900 font-bold">បច្ចេកវិទ្យា & IT</p>
+        <p class="text-2xl font-black text-blue-950" id="invTechStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">💻</div>
+    </div>
+  </div>
+
+  <!-- Action & Filter Bar -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col sm:flex-row gap-3 justify-between no-print items-center border">
+    <div class="flex flex-wrap gap-2.5 items-center w-full sm:w-auto">
+      <input type="text" id="invSearch" placeholder="ស្វែងរកកូដ/ឈ្មោះ/ទីតាំង..." class="border rounded-xl px-4 py-2 w-full sm:w-56 outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm bg-slate-50 focus:bg-white" oninput="renderInventory()">
+      <select id="invCategoryFilter" onchange="renderInventory()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ប្រភេទសម្ភារ</option>
+        <option value="គ្រឿងសង្ហារឹម">🪑 គ្រឿងសង្ហារឹម (តុ/កៅអី)</option>
+        <option value="អេឡិចត្រូនិក/IT">💻 អេឡិចត្រូនិក / IT</option>
+        <option value="សម្ភាររៀន">📚 សម្ភាររៀន & ឧបទេស</option>
+        <option value="បរិក្ខារពិសោធន៍">🔬 បរិក្ខារពិសោធន៍</option>
+        <option value="កីឡា">⚽ សម្ភារកីឡា</option>
+      </select>
+      <select id="invConditionFilter" onchange="renderInventory()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ស្ថានភាព</option>
+        <option value="ល្អប្រើប្រាស់បាន">✅ ល្អប្រើប្រាស់បាន</option>
+        <option value="ខូចខាតស្រាល">⚠️ ខូចខាតស្រាល</option>
+        <option value="ខូចមិនអាចប្រើបាន">🔴 ខូចមិនអាចប្រើបាន</option>
+      </select>
+    </div>
+    <div class="flex gap-2 flex-wrap w-full sm:w-auto justify-end">
+      <button onclick="previewInventoryPDF()" class="btn-pdf text-xs shadow-xs cursor-pointer">📄 មើលជា PDF</button>
+      <button onclick="exportInventoryExcel()" class="btn-export text-xs shadow-xs cursor-pointer">📥 Export Excel</button>
+      <button onclick="openInventoryModal()" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition shadow-sm cursor-pointer flex items-center gap-1.5">+ បញ្ចូលសម្ភារថ្មី</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
+    <div class="px-5 py-3 border-b flex justify-between items-center bg-slate-50/70">
+      <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+        <span>🏺 បញ្ជីសារពើភណ្ឌ និងទ្រព្យសម្បត្តិសាលារៀន</span>
+        <span class="text-xs bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full font-bold" id="invBadgeCount">0 មុខ</span>
+      </h3>
+      <span class="text-xs text-slate-500">ឆ្នាំសិក្សា៖ <strong id="invYearLabel" class="text-teal-800"></strong></span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm whitespace-nowrap">
+        <thead class="bg-slate-50 text-slate-600 text-xs">
+          <tr>
+            <th class="py-3 px-3 text-center w-12 font-bold">ល.រ</th>
+            <th class="py-3 px-3 font-mono font-bold">កូដសម្ភារ</th>
+            <th class="py-3 px-4 font-bold">ឈ្មោះសម្ភារ/ឧបករណ៍</th>
+            <th class="py-3 px-3 font-bold">ប្រភេទ</th>
+            <th class="py-3 px-3 text-center font-bold">បរិមាណ</th>
+            <th class="py-3 px-4 font-bold">ទីតាំង/បន្ទប់</th>
+            <th class="py-3 px-3 text-center font-bold">ស្ថានភាព</th>
+            <th class="py-3 px-4 font-bold">ប្រភពថវិកា/ជំនួយ</th>
+            <th class="py-3 px-3 font-bold">ថ្ងៃកត់ត្រា</th>
+            <th class="py-3 px-4 text-center font-bold no-print">សកម្មភាព</th>
+          </tr>
+        </thead>
+        <tbody id="invTableBody" class="divide-y text-xs"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 5. TEXTBOOKS (បញ្ជីខ្ចី & ប្រមូលសៀវភៅសិក្សាគោល) ==================== -->
+<div id="page-textbooks" class="page space-y-4">
+  <!-- Top Stats Cards -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+    <div class="relative overflow-hidden rounded-2xl border-2 border-amber-400/90 bg-gradient-to-br from-amber-100 via-amber-50 to-orange-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-amber-900 font-bold">សៀវភៅកំពុងខ្ចី</p>
+        <p class="text-2xl font-black text-amber-950" id="tbBorrowStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-amber-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">📖</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-rose-400/90 bg-gradient-to-br from-rose-100 via-rose-50 to-red-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-rose-900 font-bold">យឺតកាលកំណត់</p>
+        <p class="text-2xl font-black text-rose-950" id="tbOverdueStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">⏰</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-emerald-400/90 bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-emerald-900 font-bold">បានប្រគល់គ្រប់</p>
+        <p class="text-2xl font-black text-emerald-950" id="tbReturnedStat">0</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">✅</div>
+    </div>
+    <div class="relative overflow-hidden rounded-2xl border-2 border-indigo-400/90 bg-gradient-to-br from-indigo-100 via-indigo-50 to-blue-100/80 p-4 shadow-sm flex items-center justify-between">
+      <div class="space-y-1">
+        <p class="text-xs text-indigo-900 font-bold">សៀវភៅក្នុងចរន្តសរុប</p>
+        <p class="text-2xl font-black text-indigo-950" id="tbTotalStat">0 ក្បាល</p>
+      </div>
+      <div class="w-11 h-11 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl shadow-md ring-4 ring-white flex-shrink-0">📚</div>
+    </div>
+  </div>
+
+  <!-- Action & Filter Bar -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 flex flex-col sm:flex-row gap-3 justify-between no-print items-center border">
+    <div class="flex flex-wrap gap-2.5 items-center w-full sm:w-auto">
+      <input type="text" id="tbSearch" placeholder="ស្វែងរកសិស្ស/កូដ/សៀវភៅ..." class="border rounded-xl px-4 py-2 w-full sm:w-56 outline-none focus:ring-2 focus:ring-amber-500 text-xs sm:text-sm bg-slate-50 focus:bg-white" oninput="renderTextbooks()">
+      <select id="tbClassFilter" onchange="renderTextbooks()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ថ្នាក់រៀន</option>
+      </select>
+      <select id="tbStatusFilter" onchange="renderTextbooks()" class="border rounded-xl px-3 py-2 text-xs sm:text-sm bg-white outline-none">
+        <option value="">គ្រប់ស្ថានភាព</option>
+        <option value="កំពុងខ្ចី">🟡 កំពុងខ្ចី</option>
+        <option value="បានប្រគល់គ្រប់">🟢 បានប្រគល់គ្រប់</option>
+        <option value="យឺតកាលកំណត់">🔴 យឺតកាលកំណត់</option>
+        <option value="បាត់បង់/ខូច">⚠️ បាត់បង់/ខូច</option>
+      </select>
+    </div>
+    <div class="flex gap-2 flex-wrap w-full sm:w-auto justify-end">
+      <button onclick="previewTextbooksPDF()" class="btn-pdf text-xs shadow-xs cursor-pointer">📄 មើលជា PDF</button>
+      <button onclick="exportTextbooksExcel()" class="btn-export text-xs shadow-xs cursor-pointer">📥 Export Excel</button>
+      <button onclick="openTextbookLoanModal()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition shadow-sm cursor-pointer flex items-center gap-1.5">+ កត់ត្រាការខ្ចី</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
+    <div class="px-5 py-3 border-b flex justify-between items-center bg-slate-50/70">
+      <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+        <span>📚 បញ្ជីខ្ចី & ប្រមូលសៀវភៅសិក្សាគោលជូនសិស្ស</span>
+        <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold" id="tbBadgeCount">0 ប្រតិបត្តិការ</span>
+      </h3>
+      <span class="text-xs text-slate-500">ឆ្នាំសិក្សា៖ <strong id="tbYearLabel" class="text-amber-800"></strong></span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm whitespace-nowrap">
+        <thead class="bg-slate-50 text-slate-600 text-xs">
+          <tr>
+            <th class="py-3 px-3 text-center w-12 font-bold">ល.រ</th>
+            <th class="py-3 px-3 font-mono font-bold">លេខកូដ</th>
+            <th class="py-3 px-4 font-bold">ឈ្មោះសិស្ស</th>
+            <th class="py-3 px-3 text-center font-bold">ថ្នាក់</th>
+            <th class="py-3 px-4 font-bold">សៀវភៅ/មុខវិជ្ជា</th>
+            <th class="py-3 px-3 text-center font-bold">ចំនួន</th>
+            <th class="py-3 px-3 font-bold">ថ្ងៃខ្ចី</th>
+            <th class="py-3 px-3 font-bold">ថ្ងៃត្រូវសង</th>
+            <th class="py-3 px-3 font-bold">ថ្ងៃប្រគល់ជាក់ស្តែង</th>
+            <th class="py-3 px-3 text-center font-bold">ស្ថានភាព</th>
+            <th class="py-3 px-4 text-center font-bold no-print">សកម្មភាព</th>
+          </tr>
+        </thead>
+        <tbody id="tbTableBody" class="divide-y text-xs"></tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <!-- ATTENDANCE & QR SCANNER -->
@@ -4666,6 +5132,358 @@ STU-002	វណ្ណា ដារ៉ា	ប្រុស	អ្នកស្រី
   </div>
 </div>
 
+<!-- ==================== HYGIENE MODAL ==================== -->
+<div id="hygieneModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 backdrop-blur-sm p-4 overflow-y-auto">
+  <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden border my-8">
+    <div class="px-6 py-4 border-b bg-gradient-to-r from-emerald-600 to-teal-700 text-white flex justify-between items-center">
+      <h3 class="font-bold text-base flex items-center gap-2">
+        <span>🧹 កត់ត្រាលទ្ធផលអនាម័យប្រចាំសប្តាហ៍</span>
+      </h3>
+      <button type="button" onclick="closeModal('hygieneModal')" class="text-white/80 hover:text-white text-2xl font-bold leading-none">&times;</button>
+    </div>
+    <form onsubmit="saveHygieneRecord(event)" class="p-6 space-y-4">
+      <input type="hidden" id="hygieneEditId">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">កាលបរិច្ឆេទ <span class="text-rose-500">*</span></label>
+          <input type="date" id="hygieneDate" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">សប្តាហ៍ទី <span class="text-rose-500">*</span></label>
+          <input type="number" id="hygieneWeek" min="1" max="52" required placeholder="ឧ. 1, 2, 3..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ថ្នាក់រៀន / ទីតាំង <span class="text-rose-500">*</span></label>
+          <select id="hygieneClassSelect" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500 bg-white font-bold text-slate-800">
+            <option value="">-- ជ្រើសរើសថ្នាក់រៀន --</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ពិន្ទុ (/១០០) <span class="text-rose-500">*</span></label>
+          <input type="number" id="hygieneScore" min="0" max="100" required placeholder="0 - 100" oninput="calculateHygieneGrade()" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500 font-bold">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">និទ្ទេស</label>
+          <input type="text" id="hygieneGrade" readonly placeholder="គណនាដោយស្វ័យប្រវត្តិ" class="w-full border rounded-xl px-3 py-2 text-sm bg-slate-50 font-bold text-slate-700">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">អ្នកចុះពិនិត្យ <span class="text-rose-500">*</span></label>
+          <input type="text" id="hygieneInspector" required placeholder="ឈ្មោះអ្នកត្រួតពិនិត្យ" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500">
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">កំណត់សម្គាល់ ឬការណែនាំ</label>
+        <textarea id="hygieneNotes" rows="2" placeholder="ចំណុចស្អាតល្អ ឬចំណុចត្រូវកែលម្អ..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+      </div>
+      <div class="flex gap-2 pt-3 border-t justify-end">
+        <button type="button" onclick="closeModal('hygieneModal')" class="border px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-50">បោះបង់</button>
+        <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-xl font-bold text-sm shadow-sm">រក្សាទុក</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== STUDY TRACKING MODAL ==================== -->
+<div id="studyTrackModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 backdrop-blur-sm p-4 overflow-y-auto">
+  <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden border my-8">
+    <div class="px-6 py-4 border-b bg-gradient-to-r from-indigo-600 to-purple-700 text-white flex justify-between items-center">
+      <h3 class="font-bold text-base flex items-center gap-2">
+        <span>📖 កត់ត្រាការតាមដានការសិក្សា និងវិន័យសិស្ស</span>
+      </h3>
+      <button type="button" onclick="closeModal('studyTrackModal')" class="text-white/80 hover:text-white text-2xl font-bold leading-none">&times;</button>
+    </div>
+    <form onsubmit="saveStudyTrackRecord(event)" class="p-6 space-y-4">
+      <input type="hidden" id="trackEditId">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">កាលបរិច្ឆេទ <span class="text-rose-500">*</span></label>
+          <input type="date" id="trackDate" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">សិស្សានុសិស្ស <span class="text-rose-500">*</span></label>
+          <select id="trackStudentSelect" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white font-bold text-slate-800">
+            <option value="">-- ជ្រើសរើសសិស្ស --</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ផ្នែកតាមដាន <span class="text-rose-500">*</span></label>
+          <select id="trackCategory" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+            <option value="ការសិក្សា">📚 ការសិក្សា & ពិន្ទុ</option>
+            <option value="វិន័យ">⚖️ វិន័យ & សណ្តាប់ធ្នាប់</option>
+            <option value="វត្តមាន">⏰ វត្តមាន & ម៉ោងសិក្សា</option>
+            <option value="អាកប្បកិរិយា">🤝 អាកប្បកិរិយា & សីលធម៌</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ការវាយតម្លៃ <span class="text-rose-500">*</span></label>
+          <select id="trackEvaluation" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white font-bold">
+            <option value="ពូកែ">🌟 ពូកែ</option>
+            <option value="រីកចម្រើន">📈 រីកចម្រើន</option>
+            <option value="មធ្យម">🟡 មធ្យម</option>
+            <option value="ត្រូវការជំនួយ">⚠️ ត្រូវការជំនួយ</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">វិធានការ ឬដំណោះស្រាយ</label>
+        <input type="text" id="trackAction" placeholder="ឧ. លើកទឹកចិត្ត, ពន្យល់បន្ថែម, ណែនាំវិន័យ..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ទំនាក់ទំនងអាណាព្យាបាល</label>
+          <select id="trackParentStatus" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+            <option value="បានទាក់ទង">📞 បានទាក់ទងរួចរាល់</option>
+            <option value="មិនទាន់ទាក់ទង">⏳ មិនទាន់ទាក់ទង</option>
+            <option value="មិនចាំបាច់">⚪ មិនចាំបាច់</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">គ្រូកត់ត្រា <span class="text-rose-500">*</span></label>
+          <input type="text" id="trackTeacher" required placeholder="ឈ្មោះគ្រូកត់ត្រា" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">កំណត់សម្គាល់បន្ថែម</label>
+        <textarea id="trackNotes" rows="2" placeholder="ព័ត៌មានលម្អិតបន្ថែម..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+      </div>
+      <div class="flex gap-2 pt-3 border-t justify-end">
+        <button type="button" onclick="closeModal('studyTrackModal')" class="border px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-50">បោះបង់</button>
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl font-bold text-sm shadow-sm">រក្សាទុក</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== TRAINEE MODAL ==================== -->
+<div id="traineeModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 backdrop-blur-sm p-4 overflow-y-auto">
+  <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden border my-8">
+    <div class="px-6 py-4 border-b bg-gradient-to-r from-sky-600 to-blue-700 text-white flex justify-between items-center">
+      <h3 class="font-bold text-base flex items-center gap-2">
+        <span>🎓 ចុះឈ្មោះ និងគ្រប់គ្រងសិក្ខាកាម</span>
+      </h3>
+      <button type="button" onclick="closeModal('traineeModal')" class="text-white/80 hover:text-white text-2xl font-bold leading-none">&times;</button>
+    </div>
+    <form onsubmit="saveTraineeRecord(event)" class="p-6 space-y-4">
+      <input type="hidden" id="traineeEditId">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">អត្តលេខ <span class="text-rose-500">*</span></label>
+          <input type="text" id="traineeCode" required placeholder="TRN-001" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500 font-mono font-bold">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-bold text-slate-700 mb-1">គោត្តនាម-នាម <span class="text-rose-500">*</span></label>
+          <input type="text" id="traineeName" required placeholder="ឈ្មោះពេញសិក្ខាកាម" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500 font-bold">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ភេទ <span class="text-rose-500">*</span></label>
+          <select id="traineeGender" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+            <option value="ប្រុស">ប្រុស</option>
+            <option value="ស្រី">ស្រី</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ស្ថាប័ន / សាកលវិទ្យាល័យ</label>
+          <input type="text" id="traineeInstitute" placeholder="ឧ. NIE, RUPP, វិទ្យាស្ថានគរុកោសល្យ..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ឯកទេស / ជំនាញ <span class="text-rose-500">*</span></label>
+          <input type="text" id="traineeMajor" required placeholder="ឧ. គណិតវិទ្យា, អក្សរសាស្ត្រខ្មែរ..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">គ្រូឧទ្ទេស / គ្រូណែនាំ <span class="text-rose-500">*</span></label>
+          <input type="text" id="traineeMentor" required placeholder="ឈ្មោះគ្រូឧទ្ទេសណែនាំ" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ថ្នាក់អនុវត្តជាក់ស្តែង</label>
+          <select id="traineeClassSelect" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500 bg-white font-bold">
+            <option value="">-- ជ្រើសរើសថ្នាក់ --</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ស្ថានភាព</label>
+          <select id="traineeStatus" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500 bg-white font-bold">
+            <option value="កំពុងអនុវត្ត">🟢 កំពុងអនុវត្ត</option>
+            <option value="បានបញ្ចប់">🔵 បានបញ្ចប់</option>
+            <option value="ផ្អាក">🟡 ផ្អាក</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ថ្ងៃចាប់ផ្តើម</label>
+          <input type="date" id="traineeStartDate" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ថ្ងៃបញ្ចប់</label>
+          <input type="date" id="traineeEndDate" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ពិន្ទុវាយតម្លៃ</label>
+          <input type="number" id="traineeScore" min="0" max="100" placeholder="0 - 100" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-500 font-bold">
+        </div>
+      </div>
+      <div class="flex gap-2 pt-3 border-t justify-end">
+        <button type="button" onclick="closeModal('traineeModal')" class="border px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-50">បោះបង់</button>
+        <button type="submit" class="bg-sky-600 hover:bg-sky-700 text-white px-5 py-2 rounded-xl font-bold text-sm shadow-sm">រក្សាទុក</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== INVENTORY MODAL ==================== -->
+<div id="inventoryModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 backdrop-blur-sm p-4 overflow-y-auto">
+  <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden border my-8">
+    <div class="px-6 py-4 border-b bg-gradient-to-r from-teal-600 to-emerald-700 text-white flex justify-between items-center">
+      <h3 class="font-bold text-base flex items-center gap-2">
+        <span>📦 បញ្ចូល និងកែប្រែបញ្ជីសារពើភណ្ឌ</span>
+      </h3>
+      <button type="button" onclick="closeModal('inventoryModal')" class="text-white/80 hover:text-white text-2xl font-bold leading-none">&times;</button>
+    </div>
+    <form onsubmit="saveInventoryRecord(event)" class="p-6 space-y-4">
+      <input type="hidden" id="invEditId">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">កូដសម្ភារ <span class="text-rose-500">*</span></label>
+          <input type="text" id="invCode" required placeholder="AST-001" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 font-mono font-bold">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះសម្ភារ/ឧបករណ៍ <span class="text-rose-500">*</span></label>
+          <input type="text" id="invName" required placeholder="ឧ. តុសិស្ស, កុំព្យូទ័រ, ក្តារខៀន..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 font-bold">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ប្រភេទសម្ភារ <span class="text-rose-500">*</span></label>
+          <select id="invCategory" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 bg-white">
+            <option value="គ្រឿងសង្ហារឹម">🪑 គ្រឿងសង្ហារឹម (តុ/កៅអី)</option>
+            <option value="អេឡិចត្រូនិក/IT">💻 អេឡិចត្រូនិក / IT</option>
+            <option value="សម្ភាររៀន">📚 សម្ភាររៀន & ឧបទេស</option>
+            <option value="បរិក្ខារពិសោធន៍">🔬 បរិក្ខារពិសោធន៍</option>
+            <option value="កីឡា">⚽ សម្ភារកីឡា</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">បរិមាណ & ឯកតា <span class="text-rose-500">*</span></label>
+          <div class="flex gap-2">
+            <input type="number" id="invQty" min="1" required placeholder="ចំនួន" class="w-2/3 border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 font-bold">
+            <input type="text" id="invUnit" placeholder="ឯកតា (គ្រឿង/តុ)" class="w-1/3 border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500">
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ទីតាំង / បន្ទប់ <span class="text-rose-500">*</span></label>
+          <input type="text" id="invRoom" required placeholder="ឧ. បន្ទប់កុំព្យូទ័រ, បណ្ណាល័យ, A-101..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ស្ថានភាពបច្ចុប្បន្ន <span class="text-rose-500">*</span></label>
+          <select id="invCondition" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 bg-white font-bold">
+            <option value="ល្អប្រើប្រាស់បាន">✅ ល្អប្រើប្រាស់បាន</option>
+            <option value="ខូចខាតស្រាល">⚠️ ខូចខាតស្រាល</option>
+            <option value="ខូចមិនអាចប្រើបាន">🔴 ខូចមិនអាចប្រើបាន</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ប្រភពថវិកា / ជំនួយ</label>
+          <input type="text" id="invSource" placeholder="ឧ. ក្រសួងអប់រំ, សហគមន៍, សាលា..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ថ្ងៃកត់ត្រាចូល</label>
+          <input type="date" id="invDate" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 bg-white">
+        </div>
+      </div>
+      <div class="flex gap-2 pt-3 border-t justify-end">
+        <button type="button" onclick="closeModal('inventoryModal')" class="border px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-50">បោះបង់</button>
+        <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-xl font-bold text-sm shadow-sm">រក្សាទុក</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== TEXTBOOK LOAN MODAL ==================== -->
+<div id="textbookLoanModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 backdrop-blur-sm p-4 overflow-y-auto">
+  <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden border my-8">
+    <div class="px-6 py-4 border-b bg-gradient-to-r from-amber-600 to-orange-700 text-white flex justify-between items-center">
+      <h3 class="font-bold text-base flex items-center gap-2">
+        <span>📚 កត់ត្រាការខ្ចី និងប្រគល់សៀវភៅសិក្សាគោល</span>
+      </h3>
+      <button type="button" onclick="closeModal('textbookLoanModal')" class="text-white/80 hover:text-white text-2xl font-bold leading-none">&times;</button>
+    </div>
+    <form onsubmit="saveTextbookLoanRecord(event)" class="p-6 space-y-4">
+      <input type="hidden" id="tbEditId">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">លេខប្រតិបត្តិការ <span class="text-rose-500">*</span></label>
+          <input type="text" id="tbCode" required placeholder="TXB-001" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500 font-mono font-bold">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-bold text-slate-700 mb-1">សិស្សខ្ចី <span class="text-rose-500">*</span></label>
+          <select id="tbStudentSelect" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500 bg-white font-bold text-slate-800">
+            <option value="">-- ជ្រើសរើសសិស្ស --</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-bold text-slate-700 mb-1">សៀវភៅ / មុខវិជ្ជា <span class="text-rose-500">*</span></label>
+          <input type="text" id="tbBookTitle" required placeholder="ឧ. ឈុតសៀវភៅពុម្ពទាំងស្រុង ឬ គណិតវិទ្យា..." class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500 font-bold">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ចំនួន (ក្បាល) <span class="text-rose-500">*</span></label>
+          <input type="number" id="tbQuantity" min="1" required value="1" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500 font-bold">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ថ្ងៃខ្ចី <span class="text-rose-500">*</span></label>
+          <input type="date" id="tbBorrowDate" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ថ្ងៃត្រូវសង / ប្រមូលវិញ <span class="text-rose-500">*</span></label>
+          <input type="date" id="tbDueDate" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500 bg-white">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ថ្ងៃប្រគល់ជាក់ស្តែង</label>
+          <input type="date" id="tbReturnDate" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500 bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ស្ថានភាព <span class="text-rose-500">*</span></label>
+          <select id="tbStatus" required class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500 bg-white font-bold">
+            <option value="កំពុងខ្ចី">🟡 កំពុងខ្ចី</option>
+            <option value="បានប្រគល់គ្រប់">🟢 បានប្រគល់គ្រប់</option>
+            <option value="យឺតកាលកំណត់">🔴 យឺតកាលកំណត់</option>
+            <option value="បាត់បង់/ខូច">⚠️ បាត់បង់/ខូច</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">បណ្ណារក្ស / អ្នកទទួលខុសត្រូវ</label>
+        <input type="text" id="tbLibrarian" placeholder="ឈ្មោះអ្នកកត់ត្រា/បណ្ណារក្ស" class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-500">
+      </div>
+      <div class="flex gap-2 pt-3 border-t justify-end">
+        <button type="button" onclick="closeModal('textbookLoanModal')" class="border px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-50">បោះបង់</button>
+        <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-xl font-bold text-sm shadow-sm">រក្សាទុក</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- PDF PREVIEW MODAL -->
 <div id="pdfPreviewModal" onclick="if(event.target===this)closePdfModal()" class="fixed inset-0 bg-black/75 hidden items-center justify-center backdrop-blur-md" style="z-index: 999999;">
   <div class="bg-white rounded-2xl w-full max-w-4xl mx-4 max-h-[92vh] flex flex-col shadow-2xl overflow-hidden border">
@@ -4729,6 +5547,37 @@ let scores = JSON.parse(localStorage.getItem('sms_scores')) || [
   { id: 1, studentId: 1, studentName: 'សុខ សុភា', className: 'ថ្នាក់ទី១០', subject: 'គណិតវិទ្យា', semester: 'ឆមាសទី១', score: 92, yearId: 1 },
   { id: 2, studentId: 1, studentName: 'សុខ សុភា', className: 'ថ្នាក់ទី១០', subject: 'ភាសាអង់គ្លេស', semester: 'ឆមាសទី១', score: 88, yearId: 1 },
   { id: 3, studentId: 2, studentName: 'វណ្ណា ដារ៉ា', className: 'ថ្នាក់ទី១១', subject: 'គណិតវិទ្យា', semester: 'ឆមាសទី១', score: 95, yearId: 1 }
+];
+let hygieneRecords = JSON.parse(localStorage.getItem('sms_hygiene_records')) || [
+  { id: 1, date: '2026-09-21', week: 4, className: 'ថ្នាក់ទី១០', teacher: 'សុខ វណ្ណា', score: 95, grade: 'ល្អណាស់', inspector: 'សុខ សុភាព (នាយក)', notes: 'បន្ទប់ស្អាតល្អ មានធុងសំរាមត្រឹមត្រូវ', yearId: 1 },
+  { id: 2, date: '2026-09-21', week: 4, className: 'ថ្នាក់ទី១១', teacher: 'លី សុភា', score: 92, grade: 'ល្អណាស់', inspector: 'សុខ សុភាព (នាយក)', notes: 'តុរៀបរៀបរយ ក្តារខៀនស្អាត', yearId: 1 },
+  { id: 3, date: '2026-09-21', week: 4, className: 'ថ្នាក់ទី៩', teacher: 'ចាន់ ដារ៉ា', score: 86, grade: 'ល្អ', inspector: 'ចាន់ ដារ៉ា', notes: 'បានសម្អាតស្អាតល្អ', yearId: 1 },
+  { id: 4, date: '2026-09-21', week: 4, className: 'ថ្នាក់ទី៨', teacher: 'លី សុភា', score: 78, grade: 'មធ្យម', inspector: 'លី សុភា', notes: 'ត្រូវបោសសំរាមក្រោមកៅអីបន្ថែម', yearId: 1 },
+  { id: 5, date: '2026-09-21', week: 4, className: 'ថ្នាក់ទី៧', teacher: 'សុខ វណ្ណា', score: 72, grade: 'ត្រូវកែលម្អ', inspector: 'សុខ សុភាព (នាយក)', notes: 'ត្រូវជូតកញ្ចក់ និងរៀបសៀវភៅឱ្យមានរបៀប', yearId: 1 }
+];
+let studyTrackRecords = JSON.parse(localStorage.getItem('sms_study_track_records')) || [
+  { id: 1, date: '2026-09-22', studentId: 1, code: 'STU-001', name: 'សុខ សុភា', className: 'ថ្នាក់ទី១០', category: 'ការសិក្សា', evaluation: 'ពូកែ', action: 'លើកទឹកចិត្តចូលរួមប្រឡងសិស្សពូកែ', parentStatus: 'បានទាក់ទង', teacher: 'សុខ វណ្ណា', notes: 'លទ្ធផលគណិតវិទ្យាទទួលបានពិន្ទុខ្ពស់', yearId: 1 },
+  { id: 2, date: '2026-09-22', studentId: 2, code: 'STU-002', name: 'វណ្ណា ដារ៉ា', className: 'ថ្នាក់ទី១១', category: 'វិន័យ', evaluation: 'រីកចម្រើន', action: 'បានណែនាំពីម៉ោងសិក្សា', parentStatus: 'បានទាក់ទង', teacher: 'លី សុភា', notes: 'មកទាន់ពេលល្អប្រសើរជាងមុន', yearId: 1 },
+  { id: 3, date: '2026-09-22', studentId: 3, code: 'STU-003', name: 'លី សុខា', className: 'ថ្នាក់ទី៩', category: 'ការសិក្សា', evaluation: 'ត្រូវការជំនួយ', action: 'រៀបចំឱ្យរៀនបំប៉នបន្ថែមម៉ោងរសៀល', parentStatus: 'បានទាក់ទង', teacher: 'ចាន់ ដារ៉ា', notes: 'ខ្សោយមុខវិជ្ជារូបវិទ្យា', yearId: 1 },
+  { id: 4, date: '2026-09-22', studentId: 4, code: 'STU-004', name: 'ហេង ចរិយា', className: 'ថ្នាក់ទី១០', category: 'អាកប្បកិរិយា', evaluation: 'ពូកែ', action: 'តែងតាំងជាប្រធានក្រុមពិភាក្សា', parentStatus: 'មិនចាំបាច់', teacher: 'សុខ វណ្ណា', notes: 'សកម្ម និងជួយមិត្តភក្តិក្នុងថ្នាក់', yearId: 1 }
+];
+let traineesList = JSON.parse(localStorage.getItem('sms_trainees')) || [
+  { id: 1, code: 'TRN-001', name: 'អ៊ុំ រតនៈ', gender: 'ប្រុស', institute: 'វិទ្យាស្ថានជាតិអប់រំ (NIE)', major: 'គរុកោសល្យគណិតវិទ្យា', mentor: 'សុខ វណ្ណា', className: 'ថ្នាក់ទី១០', startDate: '2026-08-01', endDate: '2026-11-30', status: 'កំពុងអនុវត្ត', score: 88, yearId: 1 },
+  { id: 2, code: 'TRN-002', name: 'ម៉ៅ ស្រីពៅ', gender: 'ស្រី', institute: 'សាកលវិទ្យាល័យភូមិន្ទភ្នំពេញ (RUPP)', major: 'អក្សរសាស្ត្រខ្មែរ', mentor: 'លី សុភា', className: 'ថ្នាក់ទី១១', startDate: '2026-08-01', endDate: '2026-11-30', status: 'កំពុងអនុវត្ត', score: 92, yearId: 1 },
+  { id: 3, code: 'TRN-003', name: 'សេង ចាន់ថុល', gender: 'ប្រុស', institute: 'សាលាគរុកោសល្យភូមិភាគ', major: 'រូបវិទ្យា & គីមីវិទ្យា', mentor: 'ចាន់ ដារ៉ា', className: 'ថ្នាក់ទី៩', startDate: '2026-02-01', endDate: '2026-06-30', status: 'បានបញ្ចប់', score: 90, yearId: 1 }
+];
+let inventoryList = JSON.parse(localStorage.getItem('sms_inventory')) || [
+  { id: 1, code: 'AST-001', name: 'តុ និងកៅអីសិស្សឈើ', category: 'គ្រឿងសង្ហារឹម', qty: 120, unit: 'ឈុត', room: 'បន្ទប់ A-101 ដល់ A-103', condition: 'ល្អប្រើប្រាស់បាន', source: 'ក្រសួងអប់រំ', date: '2025-10-15', yearId: 1 },
+  { id: 2, code: 'AST-002', name: 'កុំព្យូទ័រ Desktop Core i5', category: 'អេឡិចត្រូនិក/IT', qty: 25, unit: 'គ្រឿង', room: 'បន្ទប់កុំព្យូទ័រ Lab 1', condition: 'ល្អប្រើប្រាស់បាន', source: 'សប្បុរសជន/ដៃគូ', date: '2025-11-02', yearId: 1 },
+  { id: 3, code: 'AST-003', name: 'ម៉ាស៊ីនបញ្ចាំង Projector Epson', category: 'អេឡិចត្រូនិក/IT', qty: 6, unit: 'គ្រឿង', room: 'សាលប្រជុំ & បន្ទប់បង្រៀន', condition: 'ខូចខាតស្រាល', source: 'ថវិកាសាលា', date: '2025-12-10', yearId: 1 },
+  { id: 4, code: 'AST-004', name: 'មីក្រូទស្សន៍ជីវវិទ្យា', category: 'បរិក្ខារពិសោធន៍', qty: 12, unit: 'គ្រឿង', room: 'បន្ទប់ពិសោធន៍វិទ្យាសាស្ត្រ', condition: 'ល្អប្រើប្រាស់បាន', source: 'ក្រសួងអប់រំ', date: '2026-01-08', yearId: 1 },
+  { id: 5, code: 'AST-005', name: 'បាល់ទាត់ & បាល់ទះ', category: 'កីឡា', qty: 20, unit: 'គ្រាប់', room: 'ឃ្លាំងកីឡា', condition: 'ល្អប្រើប្រាស់បាន', source: 'សហគមន៍', date: '2026-02-14', yearId: 1 }
+];
+let textbookLoans = JSON.parse(localStorage.getItem('sms_textbook_loans')) || [
+  { id: 1, code: 'TXB-001', studentId: 1, studentName: 'សុខ សុភា', studentCode: 'STU-001', className: 'ថ្នាក់ទី១០', bookTitle: 'ឈុតសៀវភៅពុម្ពគោលថ្នាក់ទី១០ (៧មុខវិជ្ជា)', qty: 7, borrowDate: '2025-11-05', dueDate: '2026-08-15', returnDate: '', status: 'កំពុងខ្ចី', librarian: 'គង់ វ៉ានី', yearId: 1 },
+  { id: 2, code: 'TXB-002', studentId: 2, studentName: 'វណ្ណា ដារ៉ា', studentCode: 'STU-002', className: 'ថ្នាក់ទី១១', bookTitle: 'គណិតវិទ្យាថ្នាក់ទី១១ កម្រិតខ្ពស់', qty: 1, borrowDate: '2025-11-05', dueDate: '2026-08-15', returnDate: '', status: 'កំពុងខ្ចី', librarian: 'គង់ វ៉ានី', yearId: 1 },
+  { id: 3, code: 'TXB-003', studentId: 3, studentName: 'លី សុខា', studentCode: 'STU-003', className: 'ថ្នាក់ទី៩', bookTitle: 'ឈុតសៀវភៅពុម្ពគោលថ្នាក់ទី៩', qty: 6, borrowDate: '2025-11-05', dueDate: '2026-08-15', returnDate: '2026-08-10', status: 'បានប្រគល់គ្រប់', librarian: 'គង់ វ៉ានី', yearId: 1 },
+  { id: 4, code: 'TXB-004', studentId: 5, studentName: 'កែវ វិបុល', studentCode: 'STU-005', className: 'ថ្នាក់ទី៨', bookTitle: 'ភាសាអង់គ្លេស English for Cambodia Book 2', qty: 1, borrowDate: '2025-11-10', dueDate: '2026-03-01', returnDate: '', status: 'យឺតកាលកំណត់', librarian: 'គង់ វ៉ានី', yearId: 1 }
 ];
 let salaryMap = JSON.parse(localStorage.getItem('sms_salary_map') || '{}');
 let payrollSettings = JSON.parse(localStorage.getItem('sms_payroll_settings') || '{"latePerMin":500,"absentPerDay":50000}');
@@ -5188,6 +6037,11 @@ function showPage(page, subTab){
     teachers: 'គ្រប់គ្រងគ្រូ',
     staff: 'គ្រប់គ្រងមន្ត្រី',
     idcards: 'កាតសិស្ស និង គ្រូបង្រៀន (QR Code)',
+    hygiene: 'អនាម័យប្រចាំសប្តាហ៍',
+    studyTrack: 'សៀវភៅតាមដានការសិក្សា',
+    trainees: 'សៀវភៅសិក្ខាកាម',
+    inventory: 'បញ្ជីសារពើភណ្ឌ',
+    textbooks: 'បញ្ជីខ្ចី & ប្រមូលសៀវភៅសិក្សាគោល',
     attendance: 'ស្កេន & គ្រប់គ្រងវត្តមាន',
     fees: 'ថ្លៃសិក្សា',
     scores: 'ពិន្ទុសិស្ស',
@@ -5206,6 +6060,11 @@ function showPage(page, subTab){
   if(page === 'teachers') renderTeachers();
   if(page === 'staff') renderStaff();
   if(page === 'idcards') renderIdCards();
+  if(page === 'hygiene'){ initHygieneFilters(); renderHygiene(); }
+  if(page === 'studyTrack'){ initStudyTrackFilters(); renderStudyTrack(); }
+  if(page === 'trainees'){ initTraineesFilters(); renderTrainees(); }
+  if(page === 'inventory'){ initInventoryFilters(); renderInventory(); }
+  if(page === 'textbooks'){ initTextbooksFilters(); renderTextbooks(); }
   if(page === 'attendance') switchAttTab(subTab || currentAttendanceTab || 'scan');
   if(page === 'fees') renderFees();
   if(page === 'scores') renderScores();
@@ -10054,6 +10913,1283 @@ function downloadSelectedIdCardsPDF(){
   setTimeout(() => {
     downloadCurrentPDF();
   }, 350);
+}
+
+/* =========================================================================
+   ===== 1. HYGIENE MANAGEMENT (អនាម័យប្រចាំសប្តាហ៍) =====
+   ========================================================================= */
+function initHygieneFilters(){
+  const curClasses = filterByYear(classes || []);
+  const classFilter = document.getElementById('hygieneClassFilter');
+  if(classFilter){
+    const curVal = classFilter.value;
+    let opts = '<option value="">គ្រប់ថ្នាក់រៀន</option>';
+    curClasses.forEach(c => opts += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
+    classFilter.innerHTML = opts;
+    if(curVal) classFilter.value = curVal;
+  }
+  const yLabel = document.getElementById('hygieneYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
+}
+
+function calculateHygieneGrade(){
+  const scoreInput = document.getElementById('hygieneScore');
+  const gradeInput = document.getElementById('hygieneGrade');
+  if(!scoreInput || !gradeInput) return;
+  const score = Number(scoreInput.value) || 0;
+  if(score >= 90) gradeInput.value = 'ល្អណាស់';
+  else if(score >= 80) gradeInput.value = 'ល្អ';
+  else if(score >= 70) gradeInput.value = 'មធ្យម';
+  else gradeInput.value = 'ត្រូវកែលម្អ';
+}
+
+function renderHygiene(){
+  initHygieneFilters();
+  const q = (document.getElementById('hygieneSearch')?.value || '').toLowerCase().trim();
+  const cFilter = document.getElementById('hygieneClassFilter')?.value || '';
+  const gFilter = document.getElementById('hygieneGradeFilter')?.value || '';
+
+  const list = filterByYear(hygieneRecords || []);
+  const curClasses = filterByYear(classes || []);
+
+  let inspectedCount = list.length;
+  let topCleanCount = 0;
+  let needImproveCount = 0;
+  let sumScore = 0;
+
+  list.forEach(r => {
+    const sc = Number(r.score) || 0;
+    sumScore += sc;
+    if(sc >= 90) topCleanCount++;
+    if(sc < 75) needImproveCount++;
+  });
+
+  const avgScore = inspectedCount > 0 ? Math.round(sumScore / inspectedCount) : 0;
+
+  const elInspected = document.getElementById('hygieneInspectedStat');
+  if(elInspected) elInspected.textContent = `${inspectedCount} / ${curClasses.length}`;
+  const elTopClean = document.getElementById('hygieneTopCleanStat');
+  if(elTopClean) elTopClean.textContent = topCleanCount;
+  const elNeedImprove = document.getElementById('hygieneNeedImproveStat');
+  if(elNeedImprove) elNeedImprove.textContent = needImproveCount;
+  const elAvgScore = document.getElementById('hygieneAvgScoreStat');
+  if(elAvgScore) elAvgScore.textContent = `${avgScore} / 100`;
+  const elBadge = document.getElementById('hygieneBadgeCount');
+  if(elBadge) elBadge.textContent = `${inspectedCount} កំណត់ត្រា`;
+
+  const filtered = list.filter(r => {
+    const matchClass = !cFilter || r.className === cFilter;
+    const matchGrade = !gFilter || r.grade === gFilter;
+    const matchQ = !q || (r.className && r.className.toLowerCase().includes(q)) ||
+                         (r.teacher && r.teacher.toLowerCase().includes(q)) ||
+                         (r.inspector && r.inspector.toLowerCase().includes(q)) ||
+                         (r.notes && r.notes.toLowerCase().includes(q));
+    return matchClass && matchGrade && matchQ;
+  });
+
+  const tbody = document.getElementById('hygieneTableBody');
+  if(!tbody) return;
+
+  tbody.innerHTML = filtered.map((r, idx) => {
+    let gradeBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700">មធ្យម</span>';
+    if(r.grade === 'ល្អណាស់'){
+      gradeBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">🌟 ល្អណាស់</span>';
+    } else if(r.grade === 'ល្អ'){
+      gradeBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200">✅ ល្អ</span>';
+    } else if(r.grade === 'មធ្យម'){
+      gradeBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">🟡 មធ្យម</span>';
+    } else if(r.grade === 'ត្រូវកែលម្អ'){
+      gradeBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">⚠️ ត្រូវកែលម្អ</span>';
+    }
+
+    return `
+      <tr class="hover:bg-slate-50/80 transition">
+        <td class="text-center px-3 py-3 text-slate-500 font-medium">${idx+1}</td>
+        <td class="px-3 py-3 font-medium text-slate-700">${r.date || '—'}</td>
+        <td class="text-center px-3 py-3 font-bold text-slate-800">សប្តាហ៍ ${r.week || '—'}</td>
+        <td class="px-4 py-3 font-bold text-blue-700">${escapeHtml(r.className)}</td>
+        <td class="px-4 py-3 text-slate-700 font-medium">${escapeHtml(r.teacher || '—')}</td>
+        <td class="text-center px-3 py-3 font-mono font-black text-slate-900 text-sm">${r.score}/100</td>
+        <td class="text-center px-3 py-3">${gradeBadge}</td>
+        <td class="px-4 py-3 text-slate-700 font-medium">${escapeHtml(r.inspector || '—')}</td>
+        <td class="px-4 py-3 text-slate-500 max-w-[200px] truncate" title="${escapeHtml(r.notes||'')}">${escapeHtml(r.notes || '—')}</td>
+        <td class="text-center px-4 py-3 no-print space-x-1 whitespace-nowrap">
+          <button onclick="openHygieneModal(${r.id})" class="bg-blue-50 text-blue-700 hover:bg-blue-100 px-2.5 py-1 rounded-lg text-xs font-bold transition">កែប្រែ</button>
+          <button onclick="deleteHygieneRecord(${r.id})" class="text-rose-600 hover:text-rose-800 hover:bg-rose-50 px-2.5 py-1 rounded-lg text-xs font-bold transition">លុប</button>
+        </td>
+      </tr>
+    `;
+  }).join('') || '<tr><td colspan="10" class="text-center py-8 text-slate-400">មិនមានទិន្នន័យអនាម័យស្របតាមលក្ខខណ្ឌចម្រាញ់ឡើយ</td></tr>';
+}
+
+function openHygieneModal(id = null){
+  const curClasses = filterByYear(classes || []);
+  const select = document.getElementById('hygieneClassSelect');
+  if(select){
+    select.innerHTML = '<option value="">-- ជ្រើសរើសថ្នាក់រៀន --</option>' + curClasses.map(c => `
+      <option value="${escapeHtml(c.name)}">${escapeHtml(c.name)} (គ្រូ៖ ${escapeHtml(c.teacher||'—')})</option>
+    `).join('');
+  }
+
+  document.getElementById('hygieneEditId').value = id || '';
+  if(id){
+    const r = hygieneRecords.find(x => x.id === id);
+    if(r){
+      document.getElementById('hygieneDate').value = r.date || '';
+      document.getElementById('hygieneWeek').value = r.week || 1;
+      document.getElementById('hygieneClassSelect').value = r.className || '';
+      document.getElementById('hygieneScore').value = r.score || '';
+      document.getElementById('hygieneGrade').value = r.grade || '';
+      document.getElementById('hygieneInspector').value = r.inspector || '';
+      document.getElementById('hygieneNotes').value = r.notes || '';
+    }
+  } else {
+    document.getElementById('hygieneDate').value = todayKey;
+    document.getElementById('hygieneWeek').value = 1;
+    document.getElementById('hygieneScore').value = 90;
+    document.getElementById('hygieneInspector').value = currentUser?.name || 'គណៈគ្រប់គ្រងសាលា';
+    document.getElementById('hygieneNotes').value = '';
+    calculateHygieneGrade();
+  }
+  openModal('hygieneModal');
+}
+
+function saveHygieneRecord(e){
+  e.preventDefault();
+  const idVal = document.getElementById('hygieneEditId').value;
+  const className = document.getElementById('hygieneClassSelect').value;
+  const clsObj = classes.find(c => c.name === className);
+  const score = Number(document.getElementById('hygieneScore').value) || 0;
+  
+  let grade = 'មធ្យម';
+  if(score >= 90) grade = 'ល្អណាស់';
+  else if(score >= 80) grade = 'ល្អ';
+  else if(score >= 70) grade = 'មធ្យម';
+  else grade = 'ត្រូវកែលម្អ';
+
+  if(idVal){
+    const r = hygieneRecords.find(x => x.id === Number(idVal));
+    if(r){
+      r.date = document.getElementById('hygieneDate').value;
+      r.week = Number(document.getElementById('hygieneWeek').value) || 1;
+      r.className = className;
+      r.teacher = clsObj?.teacher || r.teacher || '—';
+      r.score = score;
+      r.grade = grade;
+      r.inspector = document.getElementById('hygieneInspector').value.trim();
+      r.notes = document.getElementById('hygieneNotes').value.trim();
+    }
+    showToast('បានកែប្រែលទ្ធផលអនាម័យជោគជ័យ!', 'success');
+  } else {
+    const newId = hygieneRecords.length ? Math.max(...hygieneRecords.map(x => x.id)) + 1 : 1;
+    hygieneRecords.unshift({
+      id: newId,
+      date: document.getElementById('hygieneDate').value,
+      week: Number(document.getElementById('hygieneWeek').value) || 1,
+      className: className,
+      teacher: clsObj?.teacher || '—',
+      score: score,
+      grade: grade,
+      inspector: document.getElementById('hygieneInspector').value.trim(),
+      notes: document.getElementById('hygieneNotes').value.trim(),
+      yearId: currentYearId
+    });
+    showToast('បានកត់ត្រាលទ្ធផលអនាម័យថ្មីជោគជ័យ!', 'success');
+  }
+
+  localStorage.setItem('sms_hygiene_records', JSON.stringify(hygieneRecords));
+  renderHygiene();
+  closeModal('hygieneModal');
+}
+
+function deleteHygieneRecord(id){
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការលុបលទ្ធផលអនាម័យ',
+    message: 'តើលោកអ្នកពិតជាចង់លុបកំណត់ត្រាអនាម័យនេះមែនទេ?',
+    confirmText: 'លុបចេញ',
+    cancelText: 'បោះបង់',
+    onConfirm: () => {
+      hygieneRecords = hygieneRecords.filter(x => x.id !== id);
+      localStorage.setItem('sms_hygiene_records', JSON.stringify(hygieneRecords));
+      renderHygiene();
+      showToast('បានលុបកំណត់ត្រាអនាម័យរួចរាល់', 'info');
+    }
+  });
+}
+
+function exportHygieneExcel(){
+  const list = filterByYear(hygieneRecords || []).map((r, i) => ({
+    'ល.រ': i + 1,
+    'កាលបរិច្ឆេទ': r.date,
+    'សប្តាហ៍ទី': r.week,
+    'ថ្នាក់រៀន': r.className,
+    'គ្រូបន្ទុកថ្នាក់': r.teacher,
+    'ពិន្ទុ (/១០០)': r.score,
+    'និទ្ទេស': r.grade,
+    'អ្នកចុះពិនិត្យ': r.inspector,
+    'កំណត់សម្គាល់': r.notes
+  }));
+  downloadExcel(list, 'លទ្ធផលអនាម័យប្រចាំសប្តាហ៍', `អនាម័យប្រចាំសប្តាហ៍_${todayKey}`);
+}
+
+function previewHygienePDF(){
+  const list = filterByYear(hygieneRecords || []);
+  const rows = list.map((r, i) => `
+    <tr class="border-b text-xs">
+      <td class="py-2 px-3 text-center">${i+1}</td>
+      <td class="py-2 px-3">${r.date}</td>
+      <td class="py-2 px-3 text-center">សប្តាហ៍ ${r.week}</td>
+      <td class="py-2 px-3 font-semibold text-blue-700">${r.className}</td>
+      <td class="py-2 px-3">${r.teacher}</td>
+      <td class="py-2 px-3 text-center font-bold">${r.score}/100</td>
+      <td class="py-2 px-3 text-center font-bold">${r.grade}</td>
+      <td class="py-2 px-3">${r.inspector}</td>
+      <td class="py-2 px-3 text-gray-600">${r.notes || '—'}</td>
+    </tr>
+  `).join('');
+
+  const html = `
+    <div>
+      ${getOfficialKhmerHeader('របាយការណ៍វាយតម្លៃអនាម័យតាមថ្នាក់រៀនប្រចាំសប្តាហ៍', `ឆ្នាំសិក្សា៖ ${getCurrentYearName()} • កាលបរិច្ឆេទ៖ ${todayKey}`)}
+      <table class="w-full text-left border-collapse border border-gray-200 mt-2">
+        <thead>
+          <tr class="bg-gray-100 border-b text-xs font-bold text-gray-700">
+            <th class="py-2 px-3 text-center w-12">ល.រ</th>
+            <th class="py-2 px-3">កាលបរិច្ឆេទ</th>
+            <th class="py-2 px-3 text-center">សប្តាហ៍</th>
+            <th class="py-2 px-3">ថ្នាក់រៀន</th>
+            <th class="py-2 px-3">គ្រូបន្ទុក</th>
+            <th class="py-2 px-3 text-center">ពិន្ទុ</th>
+            <th class="py-2 px-3 text-center">និទ្ទេស</th>
+            <th class="py-2 px-3">អ្នកពិនិត្យ</th>
+            <th class="py-2 px-3">កំណត់សម្គាល់</th>
+          </tr>
+        </thead>
+        <tbody>${rows || '<tr><td colspan="9" class="text-center py-4 text-gray-400">មិនមានទិន្នន័យ</td></tr>'}</tbody>
+      </table>
+      ${getOfficialKhmerFooter()}
+    </div>
+  `;
+  openPdfModal('របាយការណ៍អនាម័យប្រចាំសប្តាហ៍ (PDF)', `Hygiene_Report_${todayKey}`, html);
+}
+
+/* =========================================================================
+   ===== 2. STUDY TRACKING (សៀវភៅតាមដានការសិក្សា) =====
+   ========================================================================= */
+function initStudyTrackFilters(){
+  const curClasses = filterByYear(classes || []);
+  const classFilter = document.getElementById('trackClassFilter');
+  if(classFilter){
+    const curVal = classFilter.value;
+    let opts = '<option value="">គ្រប់ថ្នាក់រៀន</option>';
+    curClasses.forEach(c => opts += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
+    classFilter.innerHTML = opts;
+    if(curVal) classFilter.value = curVal;
+  }
+  const yLabel = document.getElementById('trackYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
+}
+
+function renderStudyTrack(){
+  initStudyTrackFilters();
+  const q = (document.getElementById('trackSearch')?.value || '').toLowerCase().trim();
+  const cFilter = document.getElementById('trackClassFilter')?.value || '';
+  const catFilter = document.getElementById('trackCategoryFilter')?.value || '';
+  const evalFilter = document.getElementById('trackEvaluationFilter')?.value || '';
+
+  const list = filterByYear(studyTrackRecords || []);
+
+  let totalCount = list.length;
+  let goodCount = 0;
+  let needHelpCount = 0;
+  let parentContactedCount = 0;
+
+  list.forEach(r => {
+    if(r.evaluation === 'ពូកែ' || r.evaluation === 'រីកចម្រើន') goodCount++;
+    if(r.evaluation === 'ត្រូវការជំនួយ') needHelpCount++;
+    if(r.parentStatus === 'បានទាក់ទង') parentContactedCount++;
+  });
+
+  const elTotal = document.getElementById('trackTotalStat');
+  if(elTotal) elTotal.textContent = totalCount;
+  const elGood = document.getElementById('trackGoodStat');
+  if(elGood) elGood.textContent = goodCount;
+  const elNeedHelp = document.getElementById('trackNeedHelpStat');
+  if(elNeedHelp) elNeedHelp.textContent = needHelpCount;
+  const elParentContact = document.getElementById('trackParentContactStat');
+  if(elParentContact) elParentContact.textContent = parentContactedCount;
+  const elBadge = document.getElementById('trackBadgeCount');
+  if(elBadge) elBadge.textContent = `${totalCount} កំណត់ត្រា`;
+
+  const filtered = list.filter(r => {
+    const matchClass = !cFilter || r.className === cFilter;
+    const matchCat = !catFilter || r.category === catFilter;
+    const matchEval = !evalFilter || r.evaluation === evalFilter;
+    const matchQ = !q || (r.name && r.name.toLowerCase().includes(q)) ||
+                         (r.code && r.code.toLowerCase().includes(q)) ||
+                         (r.action && r.action.toLowerCase().includes(q)) ||
+                         (r.teacher && r.teacher.toLowerCase().includes(q));
+    return matchClass && matchCat && matchEval && matchQ;
+  });
+
+  const tbody = document.getElementById('trackTableBody');
+  if(!tbody) return;
+
+  tbody.innerHTML = filtered.map((r, idx) => {
+    let evalBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700">មធ្យម</span>';
+    if(r.evaluation === 'ពូកែ'){
+      evalBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">🌟 ពូកែ</span>';
+    } else if(r.evaluation === 'រីកចម្រើន'){
+      evalBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200">📈 រីកចម្រើន</span>';
+    } else if(r.evaluation === 'មធ្យម'){
+      evalBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">🟡 មធ្យម</span>';
+    } else if(r.evaluation === 'ត្រូវការជំនួយ'){
+      evalBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">⚠️ ត្រូវការជំនួយ</span>';
+    }
+
+    const parentBtn = r.parentStatus === 'បានទាក់ទង'
+      ? `<button onclick="quickToggleParentContact(${r.id})" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 hover:bg-emerald-200 transition" title="ចុចដើម្បីប្តូរ">📞 បានទាក់ទង</button>`
+      : `<button onclick="quickToggleParentContact(${r.id})" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200 transition" title="ចុចដើម្បីប្តូរ">⏳ មិនទាន់ទាក់ទង</button>`;
+
+    return `
+      <tr class="hover:bg-slate-50/80 transition">
+        <td class="text-center px-3 py-3 text-slate-500 font-medium">${idx+1}</td>
+        <td class="px-3 py-3 text-slate-700 font-medium">${r.date || '—'}</td>
+        <td class="px-3 py-3 font-mono font-bold text-blue-700">${escapeHtml(r.code)}</td>
+        <td class="px-4 py-3 font-bold text-slate-800">${escapeHtml(r.name)}</td>
+        <td class="text-center px-3 py-3"><span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">${escapeHtml(r.className)}</span></td>
+        <td class="px-3 py-3 font-medium text-slate-700">${escapeHtml(r.category)}</td>
+        <td class="text-center px-3 py-3">${evalBadge}</td>
+        <td class="px-4 py-3 text-slate-700 max-w-[200px] truncate" title="${escapeHtml(r.action||'')}">${escapeHtml(r.action || '—')}</td>
+        <td class="text-center px-3 py-3">${parentBtn}</td>
+        <td class="px-4 py-3 text-slate-700 font-medium">${escapeHtml(r.teacher || '—')}</td>
+        <td class="text-center px-4 py-3 no-print space-x-1 whitespace-nowrap">
+          <button onclick="openStudyTrackModal(${r.id})" class="bg-indigo-50 text-indigo-700 hover:bg-indigo-100 px-2.5 py-1 rounded-lg text-xs font-bold transition">កែប្រែ</button>
+          <button onclick="deleteStudyTrackRecord(${r.id})" class="text-rose-600 hover:text-rose-800 hover:bg-rose-50 px-2.5 py-1 rounded-lg text-xs font-bold transition">លុប</button>
+        </td>
+      </tr>
+    `;
+  }).join('') || '<tr><td colspan="11" class="text-center py-8 text-slate-400">មិនមានទិន្នន័យតាមដានសិស្សឡើយ</td></tr>';
+}
+
+function openStudyTrackModal(id = null){
+  const curStudents = filterByYear(students || []);
+  const select = document.getElementById('trackStudentSelect');
+  if(select){
+    select.innerHTML = '<option value="">-- ជ្រើសរើសសិស្ស --</option>' + curStudents.map(s => `
+      <option value="${s.id}">${escapeHtml(s.name)} (${s.code} - ${escapeHtml(s.className)})</option>
+    `).join('');
+  }
+
+  document.getElementById('trackEditId').value = id || '';
+  if(id){
+    const r = studyTrackRecords.find(x => x.id === id);
+    if(r){
+      document.getElementById('trackDate').value = r.date || '';
+      document.getElementById('trackStudentSelect').value = r.studentId || '';
+      document.getElementById('trackCategory').value = r.category || 'ការសិក្សា';
+      document.getElementById('trackEvaluation').value = r.evaluation || 'ពូកែ';
+      document.getElementById('trackAction').value = r.action || '';
+      document.getElementById('trackParentStatus').value = r.parentStatus || 'បានទាក់ទង';
+      document.getElementById('trackTeacher').value = r.teacher || '';
+      document.getElementById('trackNotes').value = r.notes || '';
+    }
+  } else {
+    document.getElementById('trackDate').value = todayKey;
+    document.getElementById('trackCategory').value = 'ការសិក្សា';
+    document.getElementById('trackEvaluation').value = 'ពូកែ';
+    document.getElementById('trackAction').value = '';
+    document.getElementById('trackParentStatus').value = 'បានទាក់ទង';
+    document.getElementById('trackTeacher').value = currentUser?.name || 'គ្រូបន្ទុកថ្នាក់';
+    document.getElementById('trackNotes').value = '';
+  }
+  openModal('studyTrackModal');
+}
+
+function saveStudyTrackRecord(e){
+  e.preventDefault();
+  const idVal = document.getElementById('trackEditId').value;
+  const sId = Number(document.getElementById('trackStudentSelect').value);
+  const stuObj = students.find(s => s.id === sId);
+
+  if(!stuObj){
+    alert('សូមជ្រើសរើសសិស្ស');
+    return;
+  }
+
+  if(idVal){
+    const r = studyTrackRecords.find(x => x.id === Number(idVal));
+    if(r){
+      r.date = document.getElementById('trackDate').value;
+      r.studentId = sId;
+      r.code = stuObj.code;
+      r.name = stuObj.name;
+      r.className = stuObj.className;
+      r.category = document.getElementById('trackCategory').value;
+      r.evaluation = document.getElementById('trackEvaluation').value;
+      r.action = document.getElementById('trackAction').value.trim();
+      r.parentStatus = document.getElementById('trackParentStatus').value;
+      r.teacher = document.getElementById('trackTeacher').value.trim();
+      r.notes = document.getElementById('trackNotes').value.trim();
+    }
+    showToast('បានកែប្រែកំណត់ត្រាតាមដានជោគជ័យ!', 'success');
+  } else {
+    const newId = studyTrackRecords.length ? Math.max(...studyTrackRecords.map(x => x.id)) + 1 : 1;
+    studyTrackRecords.unshift({
+      id: newId,
+      date: document.getElementById('trackDate').value,
+      studentId: sId,
+      code: stuObj.code,
+      name: stuObj.name,
+      className: stuObj.className,
+      category: document.getElementById('trackCategory').value,
+      evaluation: document.getElementById('trackEvaluation').value,
+      action: document.getElementById('trackAction').value.trim(),
+      parentStatus: document.getElementById('trackParentStatus').value,
+      teacher: document.getElementById('trackTeacher').value.trim(),
+      notes: document.getElementById('trackNotes').value.trim(),
+      yearId: currentYearId
+    });
+    showToast('បានបន្ថែមការតាមដានសិស្សថ្មីជោគជ័យ!', 'success');
+  }
+
+  localStorage.setItem('sms_study_track_records', JSON.stringify(studyTrackRecords));
+  renderStudyTrack();
+  closeModal('studyTrackModal');
+}
+
+function deleteStudyTrackRecord(id){
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការលុបកំណត់ត្រាតាមដាន',
+    message: 'តើលោកអ្នកពិតជាចង់លុបការកត់ត្រានេះមែនទេ?',
+    confirmText: 'លុបចេញ',
+    cancelText: 'បោះបង់',
+    onConfirm: () => {
+      studyTrackRecords = studyTrackRecords.filter(x => x.id !== id);
+      localStorage.setItem('sms_study_track_records', JSON.stringify(studyTrackRecords));
+      renderStudyTrack();
+      showToast('បានលុបកំណត់ត្រារួចរាល់', 'info');
+    }
+  });
+}
+
+function quickToggleParentContact(id){
+  const r = studyTrackRecords.find(x => x.id === id);
+  if(!r) return;
+  r.parentStatus = r.parentStatus === 'បានទាក់ទង' ? 'មិនទាន់ទាក់ទង' : 'បានទាក់ទង';
+  localStorage.setItem('sms_study_track_records', JSON.stringify(studyTrackRecords));
+  renderStudyTrack();
+}
+
+function exportStudyTrackExcel(){
+  const list = filterByYear(studyTrackRecords || []).map((r, i) => ({
+    'ល.រ': i + 1,
+    'កាលបរិច្ឆេទ': r.date,
+    'អត្តលេខ': r.code,
+    'ឈ្មោះសិស្ស': r.name,
+    'ថ្នាក់រៀន': r.className,
+    'ផ្នែកតាមដាន': r.category,
+    'ការវាយតម្លៃ': r.evaluation,
+    'វិធានការ/ដំណោះស្រាយ': r.action,
+    'ទំនាក់ទំនងអាណាព្យាបាល': r.parentStatus,
+    'គ្រូកត់ត្រា': r.teacher,
+    'កំណត់សម្គាល់': r.notes
+  }));
+  downloadExcel(list, 'សៀវភៅតាមដានការសិក្សា', `តាមដានការសិក្សា_${todayKey}`);
+}
+
+function previewStudyTrackPDF(){
+  const list = filterByYear(studyTrackRecords || []);
+  const rows = list.map((r, i) => `
+    <tr class="border-b text-xs">
+      <td class="py-2 px-3 text-center">${i+1}</td>
+      <td class="py-2 px-3">${r.date}</td>
+      <td class="py-2 px-3 font-semibold text-blue-700">${r.code}</td>
+      <td class="py-2 px-3 font-bold">${r.name}</td>
+      <td class="py-2 px-3 text-center">${r.className}</td>
+      <td class="py-2 px-3">${r.category}</td>
+      <td class="py-2 px-3 text-center font-bold">${r.evaluation}</td>
+      <td class="py-2 px-3">${r.action || '—'}</td>
+      <td class="py-2 px-3 text-center">${r.parentStatus}</td>
+      <td class="py-2 px-3">${r.teacher}</td>
+    </tr>
+  `).join('');
+
+  const html = `
+    <div>
+      ${getOfficialKhmerHeader('សៀវភៅតាមដានការសិក្សា និងវិន័យសិស្សានុសិស្ស', `ឆ្នាំសិក្សា៖ ${getCurrentYearName()} • កាលបរិច្ឆេទ៖ ${todayKey}`)}
+      <table class="w-full text-left border-collapse border border-gray-200 mt-2">
+        <thead>
+          <tr class="bg-gray-100 border-b text-xs font-bold text-gray-700">
+            <th class="py-2 px-3 text-center w-12">ល.រ</th>
+            <th class="py-2 px-3">កាលបរិច្ឆេទ</th>
+            <th class="py-2 px-3">អត្តលេខ</th>
+            <th class="py-2 px-3">ឈ្មោះសិស្ស</th>
+            <th class="py-2 px-3 text-center">ថ្នាក់</th>
+            <th class="py-2 px-3">ផ្នែកតាមដាន</th>
+            <th class="py-2 px-3 text-center">ការវាយតម្លៃ</th>
+            <th class="py-2 px-3">វិធានការ/ដំណោះស្រាយ</th>
+            <th class="py-2 px-3 text-center">អាណាព្យាបាល</th>
+            <th class="py-2 px-3">គ្រូកត់ត្រា</th>
+          </tr>
+        </thead>
+        <tbody>${rows || '<tr><td colspan="10" class="text-center py-4 text-gray-400">មិនមានទិន្នន័យ</td></tr>'}</tbody>
+      </table>
+      ${getOfficialKhmerFooter()}
+    </div>
+  `;
+  openPdfModal('សៀវភៅតាមដានការសិក្សា (PDF)', `Study_Track_${todayKey}`, html);
+}
+
+/* =========================================================================
+   ===== 3. TRAINEES (សៀវភៅសិក្ខាកាម) =====
+   ========================================================================= */
+function initTraineesFilters(){
+  const curClasses = filterByYear(classes || []);
+  const classSelect = document.getElementById('traineeClassSelect');
+  if(classSelect){
+    let opts = '<option value="">-- ជ្រើសរើសថ្នាក់ --</option>';
+    curClasses.forEach(c => opts += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
+    classSelect.innerHTML = opts;
+  }
+  const yLabel = document.getElementById('traineeYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
+}
+
+function renderTrainees(){
+  initTraineesFilters();
+  const q = (document.getElementById('traineeSearch')?.value || '').toLowerCase().trim();
+  const sFilter = document.getElementById('traineeStatusFilter')?.value || '';
+
+  const list = filterByYear(traineesList || []);
+
+  let totalCount = list.length;
+  let activeCount = 0;
+  let completedCount = 0;
+  const mentorsSet = new Set();
+
+  list.forEach(r => {
+    if(r.status === 'កំពុងអនុវត្ត') activeCount++;
+    if(r.status === 'បានបញ្ចប់') completedCount++;
+    if(r.mentor) mentorsSet.add(r.mentor);
+  });
+
+  const elTotal = document.getElementById('traineeTotalStat');
+  if(elTotal) elTotal.textContent = totalCount;
+  const elActive = document.getElementById('traineeActiveStat');
+  if(elActive) elActive.textContent = activeCount;
+  const elCompleted = document.getElementById('traineeCompletedStat');
+  if(elCompleted) elCompleted.textContent = completedCount;
+  const elMentor = document.getElementById('traineeMentorStat');
+  if(elMentor) elMentor.textContent = mentorsSet.size;
+  const elBadge = document.getElementById('traineeBadgeCount');
+  if(elBadge) elBadge.textContent = `${totalCount} នាក់`;
+
+  const filtered = list.filter(r => {
+    const matchStatus = !sFilter || r.status === sFilter;
+    const matchQ = !q || (r.name && r.name.toLowerCase().includes(q)) ||
+                         (r.code && r.code.toLowerCase().includes(q)) ||
+                         (r.major && r.major.toLowerCase().includes(q)) ||
+                         (r.mentor && r.mentor.toLowerCase().includes(q)) ||
+                         (r.institute && r.institute.toLowerCase().includes(q));
+    return matchStatus && matchQ;
+  });
+
+  const tbody = document.getElementById('traineeTableBody');
+  if(!tbody) return;
+
+  tbody.innerHTML = filtered.map((r, idx) => {
+    let statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">🟢 កំពុងអនុវត្ត</span>';
+    if(r.status === 'បានបញ្ចប់'){
+      statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200">🔵 បានបញ្ចប់</span>';
+    } else if(r.status === 'ផ្អាក'){
+      statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">🟡 ផ្អាក</span>';
+    }
+
+    const periodStr = (r.startDate || r.endDate) ? `${r.startDate || '—'} ➔ ${r.endDate || '—'}` : '—';
+
+    return `
+      <tr class="hover:bg-slate-50/80 transition">
+        <td class="text-center px-3 py-3 text-slate-500 font-medium">${idx+1}</td>
+        <td class="px-3 py-3 font-mono font-bold text-sky-700">${escapeHtml(r.code)}</td>
+        <td class="px-4 py-3 font-bold text-slate-800">${escapeHtml(r.name)}</td>
+        <td class="text-center px-3 py-3 text-slate-600">${r.gender || '—'}</td>
+        <td class="px-4 py-3 text-slate-700">${escapeHtml(r.institute || '—')}</td>
+        <td class="px-4 py-3 font-medium text-slate-800">${escapeHtml(r.major)}</td>
+        <td class="px-4 py-3 text-slate-700 font-medium">${escapeHtml(r.mentor)}</td>
+        <td class="text-center px-3 py-3"><span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">${escapeHtml(r.className||'—')}</span></td>
+        <td class="px-4 py-3 text-xs text-slate-600 font-mono">${periodStr}</td>
+        <td class="text-center px-3 py-3">${statusBadge}</td>
+        <td class="text-center px-3 py-3 font-mono font-black text-slate-800">${r.score != null ? r.score : '—'}</td>
+        <td class="text-center px-4 py-3 no-print space-x-1 whitespace-nowrap">
+          <button onclick="openTraineeModal(${r.id})" class="bg-sky-50 text-sky-700 hover:bg-sky-100 px-2.5 py-1 rounded-lg text-xs font-bold transition">កែប្រែ</button>
+          <button onclick="deleteTraineeRecord(${r.id})" class="text-rose-600 hover:text-rose-800 hover:bg-rose-50 px-2.5 py-1 rounded-lg text-xs font-bold transition">លុប</button>
+        </td>
+      </tr>
+    `;
+  }).join('') || '<tr><td colspan="12" class="text-center py-8 text-slate-400">មិនមានទិន្នន័យសិក្ខាកាមឡើយ</td></tr>';
+}
+
+function openTraineeModal(id = null){
+  initTraineesFilters();
+  document.getElementById('traineeEditId').value = id || '';
+  if(id){
+    const r = traineesList.find(x => x.id === id);
+    if(r){
+      document.getElementById('traineeCode').value = r.code || '';
+      document.getElementById('traineeName').value = r.name || '';
+      document.getElementById('traineeGender').value = r.gender || 'ប្រុស';
+      document.getElementById('traineeInstitute').value = r.institute || '';
+      document.getElementById('traineeMajor').value = r.major || '';
+      document.getElementById('traineeMentor').value = r.mentor || '';
+      document.getElementById('traineeClassSelect').value = r.className || '';
+      document.getElementById('traineeStatus').value = r.status || 'កំពុងអនុវត្ត';
+      document.getElementById('traineeStartDate').value = r.startDate || '';
+      document.getElementById('traineeEndDate').value = r.endDate || '';
+      document.getElementById('traineeScore').value = r.score != null ? r.score : '';
+    }
+  } else {
+    const nextNum = traineesList.length ? Math.max(...traineesList.map(x => x.id)) + 1 : 1;
+    document.getElementById('traineeCode').value = 'TRN-' + String(nextNum).padStart(3, '0');
+    document.getElementById('traineeName').value = '';
+    document.getElementById('traineeGender').value = 'ប្រុស';
+    document.getElementById('traineeInstitute').value = '';
+    document.getElementById('traineeMajor').value = '';
+    document.getElementById('traineeMentor').value = currentUser?.name || 'គ្រូឧទ្ទេស';
+    document.getElementById('traineeStatus').value = 'កំពុងអនុវត្ត';
+    document.getElementById('traineeStartDate').value = todayKey;
+    document.getElementById('traineeEndDate').value = '';
+    document.getElementById('traineeScore').value = '';
+  }
+  openModal('traineeModal');
+}
+
+function saveTraineeRecord(e){
+  e.preventDefault();
+  const idVal = document.getElementById('traineeEditId').value;
+  const scoreVal = document.getElementById('traineeScore').value;
+
+  if(idVal){
+    const r = traineesList.find(x => x.id === Number(idVal));
+    if(r){
+      r.code = document.getElementById('traineeCode').value.trim();
+      r.name = document.getElementById('traineeName').value.trim();
+      r.gender = document.getElementById('traineeGender').value;
+      r.institute = document.getElementById('traineeInstitute').value.trim();
+      r.major = document.getElementById('traineeMajor').value.trim();
+      r.mentor = document.getElementById('traineeMentor').value.trim();
+      r.className = document.getElementById('traineeClassSelect').value;
+      r.status = document.getElementById('traineeStatus').value;
+      r.startDate = document.getElementById('traineeStartDate').value;
+      r.endDate = document.getElementById('traineeEndDate').value;
+      r.score = scoreVal !== '' ? Number(scoreVal) : null;
+    }
+    showToast('បានកែប្រែព័ត៌មានសិក្ខាកាមជោគជ័យ!', 'success');
+  } else {
+    const newId = traineesList.length ? Math.max(...traineesList.map(x => x.id)) + 1 : 1;
+    traineesList.unshift({
+      id: newId,
+      code: document.getElementById('traineeCode').value.trim(),
+      name: document.getElementById('traineeName').value.trim(),
+      gender: document.getElementById('traineeGender').value,
+      institute: document.getElementById('traineeInstitute').value.trim(),
+      major: document.getElementById('traineeMajor').value.trim(),
+      mentor: document.getElementById('traineeMentor').value.trim(),
+      className: document.getElementById('traineeClassSelect').value,
+      status: document.getElementById('traineeStatus').value,
+      startDate: document.getElementById('traineeStartDate').value,
+      endDate: document.getElementById('traineeEndDate').value,
+      score: scoreVal !== '' ? Number(scoreVal) : null,
+      yearId: currentYearId
+    });
+    showToast('បានចុះឈ្មោះសិក្ខាកាមថ្មីជោគជ័យ!', 'success');
+  }
+
+  localStorage.setItem('sms_trainees', JSON.stringify(traineesList));
+  renderTrainees();
+  closeModal('traineeModal');
+}
+
+function deleteTraineeRecord(id){
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការលុបសិក្ខាកាម',
+    message: 'តើលោកអ្នកពិតជាចង់លុបទិន្នន័យសិក្ខាកាមនេះមែនទេ?',
+    confirmText: 'លុបចេញ',
+    cancelText: 'បោះបង់',
+    onConfirm: () => {
+      traineesList = traineesList.filter(x => x.id !== id);
+      localStorage.setItem('sms_trainees', JSON.stringify(traineesList));
+      renderTrainees();
+      showToast('បានលុបសិក្ខាកាមរួចរាល់', 'info');
+    }
+  });
+}
+
+function exportTraineesExcel(){
+  const list = filterByYear(traineesList || []).map((r, i) => ({
+    'ល.រ': i + 1,
+    'អត្តលេខ': r.code,
+    'គោត្តនាម-នាម': r.name,
+    'ភេទ': r.gender,
+    'ស្ថាប័ន/សាកលវិទ្យាល័យ': r.institute,
+    'ឯកទេស/ជំនាញ': r.major,
+    'គ្រូឧទ្ទេស/ណែនាំ': r.mentor,
+    'ថ្នាក់អនុវត្ត': r.className,
+    'ថ្ងៃចាប់ផ្តើម': r.startDate,
+    'ថ្ងៃបញ្ចប់': r.endDate,
+    'ស្ថានភាព': r.status,
+    'ពិន្ទុ': r.score != null ? r.score : '—'
+  }));
+  downloadExcel(list, 'បញ្ជីសិក្ខាកាម', `សិក្ខាកាម_${todayKey}`);
+}
+
+function previewTraineesPDF(){
+  const list = filterByYear(traineesList || []);
+  const rows = list.map((r, i) => `
+    <tr class="border-b text-xs">
+      <td class="py-2 px-3 text-center">${i+1}</td>
+      <td class="py-2 px-3 font-semibold text-blue-700">${r.code}</td>
+      <td class="py-2 px-3 font-bold">${r.name}</td>
+      <td class="py-2 px-3 text-center">${r.gender}</td>
+      <td class="py-2 px-3">${r.institute || '—'}</td>
+      <td class="py-2 px-3 font-medium">${r.major}</td>
+      <td class="py-2 px-3">${r.mentor}</td>
+      <td class="py-2 px-3 text-center">${r.className || '—'}</td>
+      <td class="py-2 px-3 text-center font-mono text-[11px]">${r.startDate || '—'} - ${r.endDate || '—'}</td>
+      <td class="py-2 px-3 text-center font-bold">${r.status}</td>
+      <td class="py-2 px-3 text-center font-bold">${r.score != null ? r.score : '—'}</td>
+    </tr>
+  `).join('');
+
+  const html = `
+    <div>
+      ${getOfficialKhmerHeader('បញ្ជីគ្រប់គ្រងសិក្ខាកាម និងនិស្សិតចុះកម្មសិក្សា', `ឆ្នាំសិក្សា៖ ${getCurrentYearName()} • កាលបរិច្ឆេទ៖ ${todayKey}`)}
+      <table class="w-full text-left border-collapse border border-gray-200 mt-2">
+        <thead>
+          <tr class="bg-gray-100 border-b text-xs font-bold text-gray-700">
+            <th class="py-2 px-3 text-center w-12">ល.រ</th>
+            <th class="py-2 px-3">អត្តលេខ</th>
+            <th class="py-2 px-3">ឈ្មោះសិក្ខាកាម</th>
+            <th class="py-2 px-3 text-center">ភេទ</th>
+            <th class="py-2 px-3">ស្ថាប័ន</th>
+            <th class="py-2 px-3">ឯកទេស</th>
+            <th class="py-2 px-3">គ្រូឧទ្ទេស</th>
+            <th class="py-2 px-3 text-center">ថ្នាក់</th>
+            <th class="py-2 px-3 text-center">រយៈពេល</th>
+            <th class="py-2 px-3 text-center">ស្ថានភាព</th>
+            <th class="py-2 px-3 text-center">ពិន្ទុ</th>
+          </tr>
+        </thead>
+        <tbody>${rows || '<tr><td colspan="11" class="text-center py-4 text-gray-400">មិនមានទិន្នន័យ</td></tr>'}</tbody>
+      </table>
+      ${getOfficialKhmerFooter()}
+    </div>
+  `;
+  openPdfModal('បញ្ជីសិក្ខាកាម (PDF)', `Trainees_${todayKey}`, html);
+}
+
+/* =========================================================================
+   ===== 4. INVENTORY (បញ្ជីសារពើភណ្ឌ) =====
+   ========================================================================= */
+function initInventoryFilters(){
+  const yLabel = document.getElementById('invYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
+}
+
+function renderInventory(){
+  initInventoryFilters();
+  const q = (document.getElementById('invSearch')?.value || '').toLowerCase().trim();
+  const catFilter = document.getElementById('invCategoryFilter')?.value || '';
+  const condFilter = document.getElementById('invConditionFilter')?.value || '';
+
+  const list = filterByYear(inventoryList || []);
+
+  let totalItems = 0;
+  let goodCount = 0;
+  let repairCount = 0;
+  let techCount = 0;
+
+  list.forEach(r => {
+    const qty = Number(r.qty) || 1;
+    totalItems += qty;
+    if(r.condition === 'ល្អប្រើប្រាស់បាន') goodCount += qty;
+    if(r.condition === 'ខូចខាតស្រាល' || r.condition === 'ខូចមិនអាចប្រើបាន') repairCount += qty;
+    if(r.category === 'អេឡិចត្រូនិក/IT') techCount += qty;
+  });
+
+  const elTotal = document.getElementById('invTotalStat');
+  if(elTotal) elTotal.textContent = totalItems;
+  const elGood = document.getElementById('invGoodStat');
+  if(elGood) elGood.textContent = goodCount;
+  const elRepair = document.getElementById('invRepairStat');
+  if(elRepair) elRepair.textContent = repairCount;
+  const elTech = document.getElementById('invTechStat');
+  if(elTech) elTech.textContent = techCount;
+  const elBadge = document.getElementById('invBadgeCount');
+  if(elBadge) elBadge.textContent = `${list.length} មុខ (${totalItems} គ្រឿង/ឈុត)`;
+
+  const filtered = list.filter(r => {
+    const matchCat = !catFilter || r.category === catFilter;
+    const matchCond = !condFilter || r.condition === condFilter;
+    const matchQ = !q || (r.name && r.name.toLowerCase().includes(q)) ||
+                         (r.code && r.code.toLowerCase().includes(q)) ||
+                         (r.room && r.room.toLowerCase().includes(q)) ||
+                         (r.source && r.source.toLowerCase().includes(q));
+    return matchCat && matchCond && matchQ;
+  });
+
+  const tbody = document.getElementById('invTableBody');
+  if(!tbody) return;
+
+  tbody.innerHTML = filtered.map((r, idx) => {
+    let condBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">✅ ល្អប្រើប្រាស់បាន</span>';
+    if(r.condition === 'ខូចខាតស្រាល'){
+      condBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">⚠️ ខូចខាតស្រាល</span>';
+    } else if(r.condition === 'ខូចមិនអាចប្រើបាន'){
+      condBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">🔴 ខូចមិនអាចប្រើបាន</span>';
+    }
+
+    return `
+      <tr class="hover:bg-slate-50/80 transition">
+        <td class="text-center px-3 py-3 text-slate-500 font-medium">${idx+1}</td>
+        <td class="px-3 py-3 font-mono font-bold text-teal-700">${escapeHtml(r.code)}</td>
+        <td class="px-4 py-3 font-bold text-slate-800">${escapeHtml(r.name)}</td>
+        <td class="px-3 py-3"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700">${escapeHtml(r.category)}</span></td>
+        <td class="text-center px-3 py-3 font-mono font-bold text-slate-900">${r.qty} ${escapeHtml(r.unit||'')}</td>
+        <td class="px-4 py-3 text-slate-700 font-medium">${escapeHtml(r.room)}</td>
+        <td class="text-center px-3 py-3">${condBadge}</td>
+        <td class="px-4 py-3 text-slate-600">${escapeHtml(r.source || '—')}</td>
+        <td class="px-3 py-3 text-xs text-slate-500">${r.date || '—'}</td>
+        <td class="text-center px-4 py-3 no-print space-x-1 whitespace-nowrap">
+          <button onclick="openInventoryModal(${r.id})" class="bg-teal-50 text-teal-700 hover:bg-teal-100 px-2.5 py-1 rounded-lg text-xs font-bold transition">កែប្រែ</button>
+          <button onclick="deleteInventoryRecord(${r.id})" class="text-rose-600 hover:text-rose-800 hover:bg-rose-50 px-2.5 py-1 rounded-lg text-xs font-bold transition">លុប</button>
+        </td>
+      </tr>
+    `;
+  }).join('') || '<tr><td colspan="10" class="text-center py-8 text-slate-400">មិនមានទិន្នន័យសារពើភណ្ឌឡើយ</td></tr>';
+}
+
+function openInventoryModal(id = null){
+  document.getElementById('invEditId').value = id || '';
+  if(id){
+    const r = inventoryList.find(x => x.id === id);
+    if(r){
+      document.getElementById('invCode').value = r.code || '';
+      document.getElementById('invName').value = r.name || '';
+      document.getElementById('invCategory').value = r.category || 'គ្រឿងសង្ហារឹម';
+      document.getElementById('invQty').value = r.qty || 1;
+      document.getElementById('invUnit').value = r.unit || 'គ្រឿង';
+      document.getElementById('invRoom').value = r.room || '';
+      document.getElementById('invCondition').value = r.condition || 'ល្អប្រើប្រាស់បាន';
+      document.getElementById('invSource').value = r.source || '';
+      document.getElementById('invDate').value = r.date || '';
+    }
+  } else {
+    const nextNum = inventoryList.length ? Math.max(...inventoryList.map(x => x.id)) + 1 : 1;
+    document.getElementById('invCode').value = 'AST-' + String(nextNum).padStart(3, '0');
+    document.getElementById('invName').value = '';
+    document.getElementById('invCategory').value = 'គ្រឿងសង្ហារឹម';
+    document.getElementById('invQty').value = 1;
+    document.getElementById('invUnit').value = 'គ្រឿង';
+    document.getElementById('invRoom').value = '';
+    document.getElementById('invCondition').value = 'ល្អប្រើប្រាស់បាន';
+    document.getElementById('invSource').value = 'ក្រសួងអប់រំ';
+    document.getElementById('invDate').value = todayKey;
+  }
+  openModal('inventoryModal');
+}
+
+function saveInventoryRecord(e){
+  e.preventDefault();
+  const idVal = document.getElementById('invEditId').value;
+  const qty = Number(document.getElementById('invQty').value) || 1;
+
+  if(idVal){
+    const r = inventoryList.find(x => x.id === Number(idVal));
+    if(r){
+      r.code = document.getElementById('invCode').value.trim();
+      r.name = document.getElementById('invName').value.trim();
+      r.category = document.getElementById('invCategory').value;
+      r.qty = qty;
+      r.unit = document.getElementById('invUnit').value.trim() || 'គ្រឿង';
+      r.room = document.getElementById('invRoom').value.trim();
+      r.condition = document.getElementById('invCondition').value;
+      r.source = document.getElementById('invSource').value.trim();
+      r.date = document.getElementById('invDate').value;
+    }
+    showToast('បានកែប្រែទិន្នន័យសារពើភណ្ឌជោគជ័យ!', 'success');
+  } else {
+    const newId = inventoryList.length ? Math.max(...inventoryList.map(x => x.id)) + 1 : 1;
+    inventoryList.unshift({
+      id: newId,
+      code: document.getElementById('invCode').value.trim(),
+      name: document.getElementById('invName').value.trim(),
+      category: document.getElementById('invCategory').value,
+      qty: qty,
+      unit: document.getElementById('invUnit').value.trim() || 'គ្រឿង',
+      room: document.getElementById('invRoom').value.trim(),
+      condition: document.getElementById('invCondition').value,
+      source: document.getElementById('invSource').value.trim(),
+      date: document.getElementById('invDate').value,
+      yearId: currentYearId
+    });
+    showToast('បានបញ្ចូលសម្ភារថ្មីក្នុងសារពើភណ្ឌជោគជ័យ!', 'success');
+  }
+
+  localStorage.setItem('sms_inventory', JSON.stringify(inventoryList));
+  renderInventory();
+  closeModal('inventoryModal');
+}
+
+function deleteInventoryRecord(id){
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការលុបសម្ភារសារពើភណ្ឌ',
+    message: 'តើលោកអ្នកពិតជាចង់លុបសម្ភារនេះចេញពីបញ្ជីសារពើភណ្ឌមែនទេ?',
+    confirmText: 'លុបចេញ',
+    cancelText: 'បោះបង់',
+    onConfirm: () => {
+      inventoryList = inventoryList.filter(x => x.id !== id);
+      localStorage.setItem('sms_inventory', JSON.stringify(inventoryList));
+      renderInventory();
+      showToast('បានលុបសម្ភាររួចរាល់', 'info');
+    }
+  });
+}
+
+function exportInventoryExcel(){
+  const list = filterByYear(inventoryList || []).map((r, i) => ({
+    'ល.រ': i + 1,
+    'កូដសម្ភារ': r.code,
+    'ឈ្មោះសម្ភារ': r.name,
+    'ប្រភេទ': r.category,
+    'បរិមាណ': r.qty,
+    'ឯកតា': r.unit,
+    'ទីតាំង/បន្ទប់': r.room,
+    'ស្ថានភាព': r.condition,
+    'ប្រភពជំនួយ/ថវិកា': r.source,
+    'ថ្ងៃកត់ត្រា': r.date
+  }));
+  downloadExcel(list, 'បញ្ជីសារពើភណ្ឌសាលារៀន', `សារពើភណ្ឌ_${todayKey}`);
+}
+
+function previewInventoryPDF(){
+  const list = filterByYear(inventoryList || []);
+  const rows = list.map((r, i) => `
+    <tr class="border-b text-xs">
+      <td class="py-2 px-3 text-center">${i+1}</td>
+      <td class="py-2 px-3 font-semibold text-teal-700">${r.code}</td>
+      <td class="py-2 px-3 font-bold">${r.name}</td>
+      <td class="py-2 px-3">${r.category}</td>
+      <td class="py-2 px-3 text-center font-bold font-mono">${r.qty} ${r.unit||''}</td>
+      <td class="py-2 px-3">${r.room}</td>
+      <td class="py-2 px-3 text-center font-bold">${r.condition}</td>
+      <td class="py-2 px-3">${r.source || '—'}</td>
+      <td class="py-2 px-3 text-center">${r.date || '—'}</td>
+    </tr>
+  `).join('');
+
+  const html = `
+    <div>
+      ${getOfficialKhmerHeader('បញ្ជីសារពើភណ្ឌ និងទ្រព្យសម្បត្តិសាលារៀន', `ឆ្នាំសិក្សា៖ ${getCurrentYearName()} • កាលបរិច្ឆេទ៖ ${todayKey}`)}
+      <table class="w-full text-left border-collapse border border-gray-200 mt-2">
+        <thead>
+          <tr class="bg-gray-100 border-b text-xs font-bold text-gray-700">
+            <th class="py-2 px-3 text-center w-12">ល.រ</th>
+            <th class="py-2 px-3">កូដ</th>
+            <th class="py-2 px-3">ឈ្មោះសម្ភារ/ឧបករណ៍</th>
+            <th class="py-2 px-3">ប្រភេទ</th>
+            <th class="py-2 px-3 text-center">បរិមាណ</th>
+            <th class="py-2 px-3">ទីតាំង/បន្ទប់</th>
+            <th class="py-2 px-3 text-center">ស្ថានភាព</th>
+            <th class="py-2 px-3">ប្រភពថវិកា</th>
+            <th class="py-2 px-3 text-center">ថ្ងៃកត់ត្រា</th>
+          </tr>
+        </thead>
+        <tbody>${rows || '<tr><td colspan="9" class="text-center py-4 text-gray-400">មិនមានទិន្នន័យ</td></tr>'}</tbody>
+      </table>
+      ${getOfficialKhmerFooter()}
+    </div>
+  `;
+  openPdfModal('បញ្ជីសារពើភណ្ឌ (PDF)', `Inventory_${todayKey}`, html);
+}
+
+/* =========================================================================
+   ===== 5. TEXTBOOK LOANS & COLLECTION (បញ្ជីខ្ចី & ប្រមូលសៀវភៅសិក្សាគោល) =====
+   ========================================================================= */
+function initTextbooksFilters(){
+  const curClasses = filterByYear(classes || []);
+  const classFilter = document.getElementById('tbClassFilter');
+  if(classFilter){
+    const curVal = classFilter.value;
+    let opts = '<option value="">គ្រប់ថ្នាក់រៀន</option>';
+    curClasses.forEach(c => opts += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
+    classFilter.innerHTML = opts;
+    if(curVal) classFilter.value = curVal;
+  }
+  const yLabel = document.getElementById('tbYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
+}
+
+function renderTextbooks(){
+  initTextbooksFilters();
+  const q = (document.getElementById('tbSearch')?.value || '').toLowerCase().trim();
+  const cFilter = document.getElementById('tbClassFilter')?.value || '';
+  const sFilter = document.getElementById('tbStatusFilter')?.value || '';
+
+  const list = filterByYear(textbookLoans || []);
+
+  let totalBorrowedCount = 0;
+  let overdueCount = 0;
+  let returnedCount = 0;
+  let totalCopies = 0;
+
+  list.forEach(r => {
+    const qty = Number(r.qty) || 1;
+    totalCopies += qty;
+    if(r.status === 'កំពុងខ្ចី') totalBorrowedCount += qty;
+    if(r.status === 'យឺតកាលកំណត់') overdueCount += qty;
+    if(r.status === 'បានប្រគល់គ្រប់') returnedCount += qty;
+  });
+
+  const elBorrow = document.getElementById('tbBorrowStat');
+  if(elBorrow) elBorrow.textContent = totalBorrowedCount;
+  const elOverdue = document.getElementById('tbOverdueStat');
+  if(elOverdue) elOverdue.textContent = overdueCount;
+  const elReturned = document.getElementById('tbReturnedStat');
+  if(elReturned) elReturned.textContent = returnedCount;
+  const elTotal = document.getElementById('tbTotalStat');
+  if(elTotal) elTotal.textContent = `${totalCopies} ក្បាល`;
+  const elBadge = document.getElementById('tbBadgeCount');
+  if(elBadge) elBadge.textContent = `${list.length} ប្រតិបត្តិការ (${totalCopies} ក្បាល)`;
+
+  const filtered = list.filter(r => {
+    const matchClass = !cFilter || r.className === cFilter;
+    const matchStatus = !sFilter || r.status === sFilter;
+    const matchQ = !q || (r.studentName && r.studentName.toLowerCase().includes(q)) ||
+                         (r.code && r.code.toLowerCase().includes(q)) ||
+                         (r.studentCode && r.studentCode.toLowerCase().includes(q)) ||
+                         (r.bookTitle && r.bookTitle.toLowerCase().includes(q));
+    return matchClass && matchStatus && matchQ;
+  });
+
+  const tbody = document.getElementById('tbTableBody');
+  if(!tbody) return;
+
+  tbody.innerHTML = filtered.map((r, idx) => {
+    let statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">🟡 កំពុងខ្ចី</span>';
+    if(r.status === 'បានប្រគល់គ្រប់'){
+      statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">🟢 បានប្រគល់គ្រប់</span>';
+    } else if(r.status === 'យឺតកាលកំណត់'){
+      statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">🔴 យឺតកាលកំណត់</span>';
+    } else if(r.status === 'បាត់បង់/ខូច'){
+      statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800 border border-purple-200">⚠️ បាត់បង់/ខូច</span>';
+    }
+
+    const returnBtn = r.status !== 'បានប្រគល់គ្រប់'
+      ? `<button onclick="quickMarkTextbookReturned(${r.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer" title="កត់ត្រាថាបានប្រគល់សៀវភៅរួច">ប្រគល់រួច</button>`
+      : '';
+
+    return `
+      <tr class="hover:bg-slate-50/80 transition">
+        <td class="text-center px-3 py-3 text-slate-500 font-medium">${idx+1}</td>
+        <td class="px-3 py-3 font-mono font-bold text-amber-700">${escapeHtml(r.code)}</td>
+        <td class="px-4 py-3 font-bold text-slate-800">${escapeHtml(r.studentName)} <span class="font-mono text-[10px] text-slate-400">(${escapeHtml(r.studentCode)})</span></td>
+        <td class="text-center px-3 py-3"><span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">${escapeHtml(r.className)}</span></td>
+        <td class="px-4 py-3 font-medium text-slate-800 max-w-[220px] truncate" title="${escapeHtml(r.bookTitle)}">${escapeHtml(r.bookTitle)}</td>
+        <td class="text-center px-3 py-3 font-mono font-black text-slate-900">${r.qty}</td>
+        <td class="px-3 py-3 text-xs text-slate-600 font-mono">${r.borrowDate || '—'}</td>
+        <td class="px-3 py-3 text-xs text-slate-600 font-mono font-semibold">${r.dueDate || '—'}</td>
+        <td class="px-3 py-3 text-xs text-slate-600 font-mono">${r.returnDate || '—'}</td>
+        <td class="text-center px-3 py-3">${statusBadge}</td>
+        <td class="text-center px-4 py-3 no-print space-x-1 whitespace-nowrap">
+          ${returnBtn}
+          <button onclick="openTextbookLoanModal(${r.id})" class="bg-amber-50 text-amber-700 hover:bg-amber-100 px-2.5 py-1 rounded-lg text-xs font-bold transition">កែប្រែ</button>
+          <button onclick="deleteTextbookLoanRecord(${r.id})" class="text-rose-600 hover:text-rose-800 hover:bg-rose-50 px-2.5 py-1 rounded-lg text-xs font-bold transition">លុប</button>
+        </td>
+      </tr>
+    `;
+  }).join('') || '<tr><td colspan="11" class="text-center py-8 text-slate-400">មិនមានទិន្នន័យការខ្ចីសៀវភៅឡើយ</td></tr>';
+}
+
+function openTextbookLoanModal(id = null){
+  const curStudents = filterByYear(students || []);
+  const select = document.getElementById('tbStudentSelect');
+  if(select){
+    select.innerHTML = '<option value="">-- ជ្រើសរើសសិស្ស --</option>' + curStudents.map(s => `
+      <option value="${s.id}">${escapeHtml(s.name)} (${s.code} - ${escapeHtml(s.className)})</option>
+    `).join('');
+  }
+
+  document.getElementById('tbEditId').value = id || '';
+  if(id){
+    const r = textbookLoans.find(x => x.id === id);
+    if(r){
+      document.getElementById('tbCode').value = r.code || '';
+      document.getElementById('tbStudentSelect').value = r.studentId || '';
+      document.getElementById('tbBookTitle').value = r.bookTitle || '';
+      document.getElementById('tbQuantity').value = r.qty || 1;
+      document.getElementById('tbBorrowDate').value = r.borrowDate || '';
+      document.getElementById('tbDueDate').value = r.dueDate || '';
+      document.getElementById('tbReturnDate').value = r.returnDate || '';
+      document.getElementById('tbStatus').value = r.status || 'កំពុងខ្ចី';
+      document.getElementById('tbLibrarian').value = r.librarian || '';
+    }
+  } else {
+    const nextNum = textbookLoans.length ? Math.max(...textbookLoans.map(x => x.id)) + 1 : 1;
+    document.getElementById('tbCode').value = 'TXB-' + String(nextNum).padStart(3, '0');
+    document.getElementById('tbBookTitle').value = 'ឈុតសៀវភៅពុម្ពគោលទាំងស្រុង';
+    document.getElementById('tbQuantity').value = 1;
+    document.getElementById('tbBorrowDate').value = todayKey;
+    const due = new Date();
+    due.setMonth(due.getMonth() + 9);
+    document.getElementById('tbDueDate').value = due.toISOString().split('T')[0];
+    document.getElementById('tbReturnDate').value = '';
+    document.getElementById('tbStatus').value = 'កំពុងខ្ចី';
+    document.getElementById('tbLibrarian').value = currentUser?.name || 'បណ្ណារក្ស';
+  }
+  openModal('textbookLoanModal');
+}
+
+function saveTextbookLoanRecord(e){
+  e.preventDefault();
+  const idVal = document.getElementById('tbEditId').value;
+  const sId = Number(document.getElementById('tbStudentSelect').value);
+  const stuObj = students.find(s => s.id === sId);
+
+  if(!stuObj){
+    alert('សូមជ្រើសរើសសិស្ស');
+    return;
+  }
+
+  const qty = Number(document.getElementById('tbQuantity').value) || 1;
+
+  if(idVal){
+    const r = textbookLoans.find(x => x.id === Number(idVal));
+    if(r){
+      r.code = document.getElementById('tbCode').value.trim();
+      r.studentId = sId;
+      r.studentName = stuObj.name;
+      r.studentCode = stuObj.code;
+      r.className = stuObj.className;
+      r.bookTitle = document.getElementById('tbBookTitle').value.trim();
+      r.qty = qty;
+      r.borrowDate = document.getElementById('tbBorrowDate').value;
+      r.dueDate = document.getElementById('tbDueDate').value;
+      r.returnDate = document.getElementById('tbReturnDate').value;
+      r.status = document.getElementById('tbStatus').value;
+      r.librarian = document.getElementById('tbLibrarian').value.trim();
+    }
+    showToast('បានកែប្រែកំណត់ត្រាខ្ចីសៀវភៅជោគជ័យ!', 'success');
+  } else {
+    const newId = textbookLoans.length ? Math.max(...textbookLoans.map(x => x.id)) + 1 : 1;
+    textbookLoans.unshift({
+      id: newId,
+      code: document.getElementById('tbCode').value.trim(),
+      studentId: sId,
+      studentName: stuObj.name,
+      studentCode: stuObj.code,
+      className: stuObj.className,
+      bookTitle: document.getElementById('tbBookTitle').value.trim(),
+      qty: qty,
+      borrowDate: document.getElementById('tbBorrowDate').value,
+      dueDate: document.getElementById('tbDueDate').value,
+      returnDate: document.getElementById('tbReturnDate').value,
+      status: document.getElementById('tbStatus').value,
+      librarian: document.getElementById('tbLibrarian').value.trim(),
+      yearId: currentYearId
+    });
+    showToast('បានកត់ត្រាការខ្ចីសៀវភៅថ្មីជោគជ័យ!', 'success');
+  }
+
+  localStorage.setItem('sms_textbook_loans', JSON.stringify(textbookLoans));
+  renderTextbooks();
+  closeModal('textbookLoanModal');
+}
+
+function quickMarkTextbookReturned(id){
+  const r = textbookLoans.find(x => x.id === id);
+  if(!r) return;
+  r.status = 'បានប្រគល់គ្រប់';
+  r.returnDate = todayKey;
+  localStorage.setItem('sms_textbook_loans', JSON.stringify(textbookLoans));
+  renderTextbooks();
+  showToast('បានកត់ត្រាថាបានប្រគល់សៀវភៅរួចរាល់!', 'success');
+}
+
+function deleteTextbookLoanRecord(id){
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការលុបកំណត់ត្រាខ្ចីសៀវភៅ',
+    message: 'តើលោកអ្នកពិតជាចង់លុបប្រតិបត្តិការខ្ចីសៀវភៅនេះមែនទេ?',
+    confirmText: 'លុបចេញ',
+    cancelText: 'បោះបង់',
+    onConfirm: () => {
+      textbookLoans = textbookLoans.filter(x => x.id !== id);
+      localStorage.setItem('sms_textbook_loans', JSON.stringify(textbookLoans));
+      renderTextbooks();
+      showToast('បានលុបកំណត់ត្រារួចរាល់', 'info');
+    }
+  });
+}
+
+function exportTextbooksExcel(){
+  const list = filterByYear(textbookLoans || []).map((r, i) => ({
+    'ល.រ': i + 1,
+    'លេខកូដ': r.code,
+    'អត្តលេខសិស្ស': r.studentCode,
+    'ឈ្មោះសិស្ស': r.studentName,
+    'ថ្នាក់រៀន': r.className,
+    'ចំណងជើងសៀវភៅ/មុខវិជ្ជា': r.bookTitle,
+    'ចំនួន': r.qty,
+    'ថ្ងៃខ្ចី': r.borrowDate,
+    'ថ្ងៃត្រូវសង': r.dueDate,
+    'ថ្ងៃប្រគល់ជាក់ស្តែង': r.returnDate || '—',
+    'ស្ថានភាព': r.status,
+    'បណ្ណារក្ស/អ្នកទទួលបន្ទុក': r.librarian
+  }));
+  downloadExcel(list, 'បញ្ជីខ្ចីសៀវភៅសិក្សាគោល', `ខ្ចីសៀវភៅ_${todayKey}`);
+}
+
+function previewTextbooksPDF(){
+  const list = filterByYear(textbookLoans || []);
+  const rows = list.map((r, i) => `
+    <tr class="border-b text-xs">
+      <td class="py-2 px-3 text-center">${i+1}</td>
+      <td class="py-2 px-3 font-semibold text-amber-700">${r.code}</td>
+      <td class="py-2 px-3 font-bold">${r.studentName} (${r.studentCode})</td>
+      <td class="py-2 px-3 text-center">${r.className}</td>
+      <td class="py-2 px-3 font-medium">${r.bookTitle}</td>
+      <td class="py-2 px-3 text-center font-bold font-mono">${r.qty}</td>
+      <td class="py-2 px-3 text-center">${r.borrowDate}</td>
+      <td class="py-2 px-3 text-center">${r.dueDate}</td>
+      <td class="py-2 px-3 text-center">${r.returnDate || '—'}</td>
+      <td class="py-2 px-3 text-center font-bold">${r.status}</td>
+    </tr>
+  `).join('');
+
+  const html = `
+    <div>
+      ${getOfficialKhmerHeader('បញ្ជីខ្ចី និងប្រមូលសៀវភៅពុម្ពសិក្សាគោលជូនសិស្សានុសិស្ស', `ឆ្នាំសិក្សា៖ ${getCurrentYearName()} • កាលបរិច្ឆេទ៖ ${todayKey}`)}
+      <table class="w-full text-left border-collapse border border-gray-200 mt-2">
+        <thead>
+          <tr class="bg-gray-100 border-b text-xs font-bold text-gray-700">
+            <th class="py-2 px-3 text-center w-12">ល.រ</th>
+            <th class="py-2 px-3">លេខកូដ</th>
+            <th class="py-2 px-3">ឈ្មោះសិស្ស</th>
+            <th class="py-2 px-3 text-center">ថ្នាក់</th>
+            <th class="py-2 px-3">សៀវភៅ/មុខវិជ្ជា</th>
+            <th class="py-2 px-3 text-center">ចំនួន</th>
+            <th class="py-2 px-3 text-center">ថ្ងៃខ្ចី</th>
+            <th class="py-2 px-3 text-center">ថ្ងៃត្រូវសង</th>
+            <th class="py-2 px-3 text-center">ថ្ងៃប្រគល់</th>
+            <th class="py-2 px-3 text-center">ស្ថានភាព</th>
+          </tr>
+        </thead>
+        <tbody>${rows || '<tr><td colspan="10" class="text-center py-4 text-gray-400">មិនមានទិន្នន័យ</td></tr>'}</tbody>
+      </table>
+      ${getOfficialKhmerFooter()}
+    </div>
+  `;
+  openPdfModal('បញ្ជីខ្ចីសៀវភៅពុម្ព (PDF)', `Textbook_Loans_${todayKey}`, html);
 }
 
 /* ===== ATTENDANCE, QR SCANNER & STUDENT ATTENDANCE ENGINE ===== */
