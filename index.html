@@ -1482,7 +1482,7 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
           <span>📥 Export Excel</span>
         </button>
         <button onclick="deleteTeachersOfClass(currentClassTeacherModalClass)" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-3 py-1.5 rounded-xl font-bold text-xs transition shadow-xs flex items-center gap-1 active:scale-95" title="លុបទិន្នន័យគ្រូទាំងអស់ក្នុងថ្នាក់នេះ">
-          <span>🗑️ លុបទាំងអស់</span>
+          <span>លុបទាំងអស់</span>
         </button>
         <button onclick="openAddTeacherForCurrentClass()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-xl font-bold text-xs transition shadow-sm flex items-center gap-1 active:scale-95">
           <span>+ បន្ថែមគ្រូក្នុងថ្នាក់នេះ</span>
@@ -2647,7 +2647,6 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
           <input type="file" accept=".json" class="hidden" onchange="importAllData(event)">
         </label>
         <button onclick="clearAllData()" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold px-5 py-2.5 rounded-xl text-xs transition active:scale-95 flex items-center gap-2">
-          <span>🗑️</span>
           <span>លុបទិន្នន័យទាំងអស់</span>
         </button>
       </div>
@@ -2674,7 +2673,7 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
     <div class="relative w-16 h-16 mx-auto mb-4 flex items-center justify-center">
       <div id="confirmModalIconPulse" class="absolute inset-0 rounded-2xl bg-rose-200 animate-ping opacity-60"></div>
       <div id="confirmModalIconBg" class="relative w-16 h-16 rounded-2xl bg-gradient-to-tr from-rose-500 to-red-600 text-white flex items-center justify-center text-3xl shadow-lg shadow-rose-500/30">
-        <span id="confirmModalIcon">🗑️</span>
+        <span id="confirmModalIcon">⚠️</span>
       </div>
     </div>
 
@@ -2700,7 +2699,6 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
       </button>
 
       <button type="button" onclick="executeConfirmModal()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white font-bold text-sm shadow-md shadow-rose-500/30 transition active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer">
-        <span id="confirmModalOkIcon">🗑️</span>
         <span id="confirmModalOkText">យល់ព្រមលុប</span>
       </button>
     </div>
@@ -4597,7 +4595,7 @@ function showConfirmDeleteModal(opts = {}){
     subText = 'ទិន្នន័យដែលបានលុប នឹងមិនអាចទាញយកមកវិញបានឡើយ!',
     confirmText = 'យល់ព្រមលុប',
     cancelText = '✕ បោះបង់',
-    icon = '🗑️',
+    icon = '⚠️',
     type = 'danger',
     onConfirm
   } = opts;
@@ -5612,7 +5610,7 @@ function renderYears(){
 
             <div class="flex items-center gap-1.5">
               <button onclick="editYear(${y.id})" class="text-xs bg-gray-50 hover:bg-blue-50 text-blue-600 px-2.5 py-1.5 rounded-xl font-semibold border border-gray-200 transition">✏️ កែ</button>
-              <button onclick="delYear(${y.id})" class="text-xs bg-gray-50 hover:bg-red-50 text-red-600 px-2.5 py-1.5 rounded-xl font-semibold border border-gray-200 transition">🗑️ លុប</button>
+              <button onclick="delYear(${y.id})" class="text-xs bg-gray-50 hover:bg-red-50 text-red-600 px-2.5 py-1.5 rounded-xl font-semibold border border-gray-200 transition">លុប</button>
               ${!y.active ? `
                 <button onclick="setYearActiveDirect(${y.id})" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold border border-emerald-200 transition">
                   ★ សកម្ម
@@ -5963,7 +5961,7 @@ function delYear(id){
     subText: y ? `ឆ្នាំសិក្សា «${y.name}» នឹងត្រូវលុបចេញពីប្រព័ន្ធ។` : 'ទិន្នន័យដែលបានលុប នឹងមិនអាចទាញយកមកវិញបានឡើយ!',
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       academicYears = academicYears.filter(y => y.id !== id);
@@ -6329,8 +6327,8 @@ function renderClasses(){
             <button onclick="editClass(${c.id})" class="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition active:scale-95" title="កែប្រែថ្នាក់">
               ✏️
             </button>
-            <button onclick="delClass(${c.id})" class="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition active:scale-95" title="លុបថ្នាក់">
-              🗑️
+            <button onclick="delClass(${c.id})" class="px-2.5 py-1 text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 rounded-xl transition active:scale-95 border border-red-200" title="លុបថ្នាក់">
+              លុប
             </button>
           </div>
         </div>
@@ -6447,8 +6445,8 @@ function renderEducationLevelList(){
           ${isStandard ? '<span class="text-[9px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">ស្តង់ដារ</span>' : '<span class="text-[9px] bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-semibold">បង្កើតដោយផ្ទាល់</span>'}
         </div>
         ${!isStandard ? `
-          <button onclick="deleteEducationLevel(${idx})" class="text-red-500 hover:text-red-700 hover:bg-red-50 p-1.5 rounded-lg text-xs transition" title="លុបកម្រិតនេះ">
-            🗑️
+          <button onclick="deleteEducationLevel(${idx})" class="text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded-lg text-xs font-bold transition border border-red-200" title="លុបកម្រិតនេះ">
+            លុប
           </button>
         ` : '<span class="text-gray-300 text-xs px-2" title="កម្រិតស្នូលស្តង់ដារ">🔒</span>'}
       </div>
@@ -6479,7 +6477,7 @@ function deleteEducationLevel(idx){
     subText: `កម្រិត «${name}» នឹងត្រូវលុបចេញពីប្រព័ន្ធ។`,
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       educationLevels.splice(idx, 1);
@@ -6609,7 +6607,7 @@ function delClass(id){
     subText: enrolled > 0 ? `ថ្នាក់ «${c.name}» មានសិស្សចំនួន ${enrolled} នាក់កំពុងរៀន។ ការលុបនឹងធ្វើឱ្យបាត់ការចាត់តាំងថ្នាក់របស់សិស្ស!` : `ថ្នាក់ «${c.name}» នឹងត្រូវលុបចេញពីប្រព័ន្ធ។`,
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       classes = classes.filter(x => x.id !== id);
@@ -6713,7 +6711,7 @@ function previewClassRoster(classId){
                       <span>✏️ កែ</span>
                     </button>
                     <button onclick="removeStudentFromCurrentClass(${s.id})" class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-2 py-1 rounded-lg font-semibold transition active:scale-95 text-[11px]" title="ដកចេញពីថ្នាក់">
-                      <span>🗑️ លុប</span>
+                      <span>លុប</span>
                     </button>
                   </td>
                 </tr>
@@ -6763,7 +6761,7 @@ function removeStudentFromCurrentClass(studentId){
     subText: `សិស្ស «${s.name}» (${s.code || ''}) នឹងត្រូវដកចេញពីថ្នាក់នេះ។`,
     confirmText: 'យល់ព្រមដកសិស្ស',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       students = students.filter(x => x.id !== studentId);
@@ -7823,8 +7821,8 @@ function renderStudents(){
                 <button onclick="editStudent(${s.id})" class="p-1.5 rounded-lg text-blue-600 hover:bg-blue-50 transition" title="កែប្រែ">
                   ✏️
                 </button>
-                <button onclick="delStudent(${s.id})" class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 transition" title="លុប">
-                  🗑️
+                <button onclick="delStudent(${s.id})" class="px-2 py-1 rounded-lg text-red-600 bg-red-50 hover:bg-red-100 transition font-bold text-xs border border-red-200" title="លុប">
+                  លុប
                 </button>
               </div>
             </div>
@@ -7886,7 +7884,7 @@ function renderStudents(){
                 <span>✏️</span>
               </button>
               <button onclick="delStudent(${s.id})" class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="លុប">
-                <span>🗑️</span>
+                <span>លុប</span>
               </button>
             </td>
           </tr>
@@ -8180,7 +8178,7 @@ function delStudent(id){
     subText: s ? `សិស្ស «${s.name}» (${s.code || ''}) នឹងត្រូវលុបចេញពីបញ្ជីសិស្ស។` : 'ទិន្នន័យដែលបានលុប នឹងមិនអាចទាញយកមកវិញបានឡើយ!',
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       students = students.filter(s => s.id !== id);
@@ -8395,7 +8393,7 @@ function renderClassTeachersTable(){
             <span>✏️</span>
           </button>
           <button onclick="delTeacher(${t.id})" class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-2 py-1 rounded-lg font-bold transition active:scale-95 text-[11px]" title="លុប">
-            <span>🗑️</span>
+            <span>លុប</span>
           </button>
         </td>
       </tr>
@@ -8568,7 +8566,7 @@ function renderTeacherClassCards(){
             <button type="button" onclick="event.stopPropagation(); deleteTeachersOfClass('${escapeHtml(card.title)}')" 
                     class="bg-red-500/90 hover:bg-red-600 active:scale-95 text-white font-bold px-2 py-0.5 rounded-lg border border-red-300 shadow-xs transition flex items-center gap-0.5 text-[10px] sm:text-xs" 
                     title="លុបកម្រិត ${escapeHtml(card.title)}">
-              <span>🗑️</span>
+              <span>លុប</span>
             </button>
             <span class="text-amber-200 font-bold group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5 bg-white/10 hover:bg-white/20 px-2 py-0.5 rounded-lg border border-white/20 text-[10px] sm:text-xs whitespace-nowrap">
               គ្រប់គ្រង ➔
@@ -8597,7 +8595,7 @@ function deleteTeachersOfClass(className){
     subText: subText,
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       // Delete teachers assigned to this class
@@ -8699,7 +8697,7 @@ function delTeacher(id){
     subText: t ? `លោកគ្រូ/អ្នកគ្រូ «${t.name}» នឹងត្រូវលុបចេញពីប្រព័ន្ធ។` : 'ទិន្នន័យដែលបានលុប នឹងមិនអាចទាញយកមកវិញបានឡើយ!',
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       teachers = teachers.filter(t => t.id !== id);
@@ -8864,8 +8862,8 @@ function renderStaff(){
               <button onclick="previewSingleIdCardModal('staff', ${s.id})" class="p-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold transition cursor-pointer" title="មើលកាតបុគ្គលិក">
                 <span>🪪</span>
               </button>
-              <button onclick="delStaff(${s.id})" class="p-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs transition cursor-pointer" title="លុប">
-                <span>🗑️</span>
+              <button onclick="delStaff(${s.id})" class="px-2.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition cursor-pointer flex items-center justify-center gap-1" title="លុប">
+                <span>លុប</span>
               </button>
             </div>
           </div>
@@ -9103,7 +9101,7 @@ function delStaff(id){
     subText: s ? `មន្ត្រី «${s.name}» (${s.role || ''}) នឹងត្រូវលុបចេញពីប្រព័ន្ធ។` : 'ទិន្នន័យដែលបានលុប នឹងមិនអាចទាញយកមកវិញបានឡើយ!',
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       staffList = staffList.filter(x => x.id !== id);
@@ -10621,7 +10619,7 @@ function delFee(id){
     subText: inv ? `វិក្កយបត្ររបស់សិស្ស «${inv.student || ''}» ចំនួន ${(inv.total || 0).toLocaleString()} ៛ នឹងត្រូវលុបជាអចិន្ត្រៃយ៍។` : 'ទិន្នន័យដែលបានលុប នឹងមិនអាចទាញយកមកវិញបានឡើយ!',
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       invoices = invoices.filter(i => i.id !== id);
@@ -11280,7 +11278,7 @@ function renderMonthlyScoreTable(){
             <span>✏️ កែ</span>
           </button>
           <button onclick="deleteMonthlyScore(${s.id})" class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-2 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 shadow-2xs" title="លុប">
-            <span>🗑️</span>
+            <span>លុប</span>
           </button>
         </td>
       </tr>
@@ -11530,7 +11528,7 @@ function deleteMonthlyScore(id){
     subText: sc ? `ពិន្ទុរបស់សិស្ស «${sc.studentName || ''}» សម្រាប់ ${sc.month || ''} នឹងត្រូវលុប។` : 'ទិន្នន័យដែលបានលុប នឹងមិនអាចទាញយកមកវិញបានឡើយ!',
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       monthlyExamScores = monthlyExamScores.filter(s => s.id !== id);
@@ -12278,7 +12276,7 @@ function delUser(id){
     subText: u ? `គណនី «${u.name}» (${u.role || ''}) នឹងត្រូវលុបចេញពីប្រព័ន្ធ។` : 'ទិន្នន័យដែលបានលុប នឹងមិនអាចទាញយកមកវិញបានឡើយ!',
     confirmText: 'យល់ព្រមលុប',
     cancelText: '✕ បោះបង់',
-    icon: '🗑️',
+    icon: '⚠️',
     type: 'danger',
     onConfirm: () => {
       users = users.filter(x => x.id !== id);
@@ -12348,7 +12346,7 @@ function clearAllData(){
     title: 'ព្រមាន៖ លុបទិន្នន័យទាំងអស់',
     message: 'តើលោកអ្នកពិតជាចង់លុបមែនទេ?',
     subText: '⚠️ ការលុបនេះនឹងសម្អាតទិន្នន័យទាំងអស់ក្នុងប្រព័ន្ធ! សកម្មភាពនេះមិនអាចត្រឡប់វិញបានឡើយ។',
-    confirmText: '🗑️ លុបទិន្នន័យទាំងអស់',
+    confirmText: 'លុបទិន្នន័យទាំងអស់',
     cancelText: '✕ បោះបង់',
     icon: '🚨',
     type: 'danger',
