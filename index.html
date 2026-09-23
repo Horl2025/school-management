@@ -713,16 +713,16 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
       </div>
     </div>
 
-    <!-- ZONE 2: Middle (Date + Academic Year Switcher) -->
+    <!-- ZONE 2: Middle (Date) -->
     <div class="flex items-center gap-2 sm:gap-3 min-w-0 justify-center">
-      <!-- Live Date Badge (hidden on smaller screens to prevent cramping) -->
-      <div class="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-600 text-xs font-semibold shadow-2xs whitespace-nowrap">
+      <!-- Live Date Badge -->
+      <div class="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-600 text-xs font-semibold shadow-2xs whitespace-nowrap">
         <span class="text-blue-600">📅</span>
         <span id="currentDate"></span>
       </div>
 
-      <!-- Academic Year Buttons Container (with neat scroll if many years exist) -->
-      <div class="flex items-center gap-1.5 bg-slate-100/90 p-1 rounded-full border border-slate-200/70 overflow-x-auto max-w-[220px] sm:max-w-xs md:max-w-sm lg:max-w-md no-scrollbar flex-shrink-0" id="headerYearButtons"></div>
+      <!-- Hidden year container for backward compatibility -->
+      <div id="headerYearButtons" class="hidden"></div>
     </div>
 
     <!-- ZONE 3: Right (User Profile + Logout + Quick Actions - ALWAYS ANCHORED RIGHT) -->
