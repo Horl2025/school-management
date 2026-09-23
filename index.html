@@ -988,7 +988,7 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 
   <!-- CREATED ACADEMIC YEARS LIST & ACTIONS -->
   <div class="bg-white rounded-2xl shadow-sm p-4 border no-print">
-    <div class="flex flex-col sm:flex-row gap-3 justify-between items-center pb-3 border-b mb-4">
+    <div class="flex flex-col md:flex-row gap-3 justify-between items-start md:items-center pb-3 border-b mb-4">
       <div>
         <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
           <span>📅 បញ្ជីឆ្នាំសិក្សាដែលបានបង្កើត</span>
@@ -996,13 +996,29 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
         </h3>
         <p class="text-xs text-gray-500 mt-0.5">ចុចលើឆ្នាំសិក្សាណាមួយដើម្បីជ្រើសរើសធ្វើការ ឬបង្កើតឆ្នាំសិក្សាថ្មី</p>
       </div>
-      <button onclick="openYearModal()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition flex items-center gap-1.5 shadow-sm">
-        <span>+ បង្កើតឆ្នាំសិក្សាថ្មី</span>
-      </button>
+
+      <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+        <!-- Search -->
+        <div class="relative flex-1 sm:w-44">
+          <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-gray-400 text-xs">🔍</span>
+          <input type="text" id="yearSearchInput" oninput="renderYears()" placeholder="ស្វែងរកឆ្នាំសិក្សា..." class="w-full pl-7 pr-3 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition" />
+        </div>
+
+        <!-- Filter -->
+        <select id="yearStatusFilter" onchange="renderYears()" class="px-2.5 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-xl text-gray-700 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition font-medium">
+          <option value="all">ទាំងអស់ (All)</option>
+          <option value="active">★ ឆ្នាំសកម្ម</option>
+          <option value="inactive">ឆ្នាំមិនសកម្ម / អតីត</option>
+        </select>
+
+        <button onclick="openYearModal()" class="bg-blue-600 text-white px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium hover:bg-blue-700 transition flex items-center gap-1.5 shadow-sm">
+          <span>+ បង្កើតឆ្នាំសិក្សាថ្មី</span>
+        </button>
+      </div>
     </div>
 
-    <!-- Cards Grid (Landscape Rectangular Cards) -->
-    <div id="yearButtons" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+    <!-- Cards Grid (4 columns on desktop, 2 columns on mobile) -->
+    <div id="yearButtons" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5"></div>
   </div>
 </div>
 
@@ -5057,8 +5073,19 @@ function renderYears(){
   if(stuEl) stuEl.textContent = students.length;
   const invEl = document.getElementById('yearsTotalInvoicesStat');
   if(invEl) invEl.textContent = invoices.length;
+  // Search & Filter
+  const searchVal = (document.getElementById('yearSearchInput')?.value || '').toLowerCase().trim();
+  const statusFilter = document.getElementById('yearStatusFilter')?.value || 'all';
+
+  const filteredYears = academicYears.filter(y => {
+    if(searchVal && !y.name.toLowerCase().includes(searchVal) && !(y.start && y.start.includes(searchVal)) && !(y.end && y.end.includes(searchVal))) return false;
+    if(statusFilter === 'active' && !y.active) return false;
+    if(statusFilter === 'inactive' && y.active) return false;
+    return true;
+  });
+
   const badgeEl = document.getElementById('yearsBadgeCount');
-  if(badgeEl) badgeEl.textContent = `${academicYears.length} ឆ្នាំ`;
+  if(badgeEl) badgeEl.textContent = `${filteredYears.length} ឆ្នាំ`;
 
   // 2. Render Charts (Placed Above Created Years)
   renderYearsCharts();
@@ -5066,96 +5093,132 @@ function renderYears(){
   // 3. Render Cards
   const btnBox = document.getElementById('yearButtons');
   if(btnBox){
-    btnBox.innerHTML = academicYears.map(y => {
+    btnBox.innerHTML = filteredYears.map(y => {
       const isCurrent = y.id === currentYearId;
       const stuCount = students.filter(s => s.yearId === y.id).length;
       const invCount = invoices.filter(i => i.yearId === y.id).length;
       const scoreCount = scores.filter(sc => sc.yearId === y.id).length;
 
       const studyDays = y.studyDays || ['ច័ន្ទ', 'អង្គារ', 'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ', 'សៅរ៍'];
-      const daysText = studyDays.length === 7 ? 'រៀងរាល់ថ្ងៃ (ច័ន្ទ-អាទិត្យ)' : studyDays.length === 6 && !studyDays.includes('អាទិត្យ') ? 'ច័ន្ទ ដល់ សៅរ៍' : studyDays.length === 5 && !studyDays.includes('សៅរ៍') && !studyDays.includes('អាទិត្យ') ? 'ច័ន្ទ ដល់ សុក្រ' : studyDays.join(', ');
+      const daysText = studyDays.length === 7 ? 'រាល់ថ្ងៃ' : studyDays.length === 6 && !studyDays.includes('អាទិត្យ') ? 'ច័ន្ទ-សៅរ៍' : studyDays.length === 5 && !studyDays.includes('សៅរ៍') && !studyDays.includes('អាទិត្យ') ? 'ច័ន្ទ-សុក្រ' : studyDays.join(',');
 
       const shifts = y.shifts || { morning: { active: true, start: '07:00', end: '11:00' }, afternoon: { active: true, start: '13:00', end: '17:00' }, evening: { active: false, start: '17:30', end: '20:30' } };
-      const activeShiftsList = [];
-      if(shifts.morning?.active) activeShiftsList.push(`🌅 ព្រឹក (${shifts.morning.start || '07:00'}-${shifts.morning.end || '11:00'})`);
-      if(shifts.afternoon?.active) activeShiftsList.push(`☀️ រសៀល (${shifts.afternoon.start || '13:00'}-${shifts.afternoon.end || '17:00'})`);
-      if(shifts.evening?.active) activeShiftsList.push(`🌙 យប់ (${shifts.evening.start || '17:30'}-${shifts.evening.end || '20:30'})`);
-      const shiftsText = activeShiftsList.length ? activeShiftsList.join(' • ') : 'មិនទាន់កំណត់វេន';
+      const compactShifts = [];
+      if(shifts.morning?.active) compactShifts.push('🌅 ព្រឹក');
+      if(shifts.afternoon?.active) compactShifts.push('☀️ រសៀល');
+      if(shifts.evening?.active) compactShifts.push('🌙 យប់');
+      const shiftsCompactText = compactShifts.length ? compactShifts.join(' • ') : 'មិនទាន់កំណត់';
 
-      const singleColSpan = academicYears.length === 1 ? 'lg:col-span-2' : '';
+      // Year Progress Calculation
+      let progressPct = 0;
+      let progressText = 'មិនទាន់កំណត់';
+      let progressColor = 'text-gray-400';
+      let progressBarBg = 'bg-gray-300';
+
+      if(y.start && y.end){
+        const sDate = new Date(y.start).getTime();
+        const eDate = new Date(y.end).getTime();
+        const now = Date.now();
+        if(!isNaN(sDate) && !isNaN(eDate) && eDate > sDate){
+          if(now < sDate){
+            progressPct = 0;
+            progressText = 'មិនទាន់ដល់';
+            progressColor = 'text-amber-600 font-semibold';
+            progressBarBg = 'bg-amber-400';
+          } else if(now > eDate){
+            progressPct = 100;
+            progressText = 'បញ្ចប់';
+            progressColor = 'text-gray-500 font-semibold';
+            progressBarBg = 'bg-gray-400';
+          } else {
+            progressPct = Math.min(100, Math.max(1, Math.round(((now - sDate) / (eDate - sDate)) * 100)));
+            progressText = `${progressPct}%`;
+            progressColor = 'text-blue-600 font-bold';
+            progressBarBg = 'bg-gradient-to-r from-blue-500 to-indigo-600';
+          }
+        }
+      }
 
       return `
-        <div class="bg-white rounded-xl p-5 border-2 transition-all cursor-pointer relative overflow-hidden shadow-xs hover:shadow-md ${singleColSpan} ${isCurrent ? 'border-blue-600 bg-blue-50/15 ring-2 ring-blue-100' : 'border-gray-200 hover:border-blue-300'}" onclick="setCurrentYear(${y.id})">
-          <!-- Left accent indicator stripe -->
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 ${isCurrent ? 'bg-blue-600' : y.active ? 'bg-emerald-500' : 'bg-gray-300'}"></div>
+        <div class="bg-white rounded-xl p-3 sm:p-3.5 border-2 transition-all cursor-pointer relative overflow-hidden shadow-2xs hover:shadow-md flex flex-col justify-between ${isCurrent ? 'border-blue-600 bg-blue-50/20 ring-2 ring-blue-100' : 'border-gray-200 hover:border-blue-300'}" onclick="setCurrentYear(${y.id})">
+          <!-- Top Accent Stripe -->
+          <div class="absolute top-0 left-0 right-0 h-1 ${isCurrent ? 'bg-blue-600' : y.active ? 'bg-emerald-500' : 'bg-gray-300'}"></div>
 
-          <div class="pl-2 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <!-- Left Info Section: Name, Status, Dates, Schedule -->
-            <div class="space-y-2 flex-1 min-w-0">
-              <div class="flex items-center gap-2 flex-wrap">
-                <h4 class="font-bold text-xl text-gray-900 flex items-center gap-2">
-                  <span>${y.name}</span>
+          <div>
+            <!-- Header: Name & Badges -->
+            <div class="flex items-start justify-between gap-1 mb-1 pt-0.5">
+              <div class="min-w-0 flex-1">
+                <h4 class="font-bold text-sm sm:text-base text-gray-900 truncate" title="${y.name}">
+                  ${y.name}
                 </h4>
-                ${y.active ? '<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200">★ ឆ្នាំសកម្ម</span>' : ''}
-                ${isCurrent ? '<span class="text-xs bg-blue-600 text-white px-2.5 py-0.5 rounded-full font-bold shadow-xs">✓ កំពុងមើល</span>' : ''}
+                <p class="text-[10px] sm:text-xs text-gray-500 font-mono truncate">
+                  ${y.start||'—'} → ${y.end||'—'}
+                </p>
               </div>
-
-              <p class="text-xs text-gray-500 font-mono flex items-center gap-1.5">
-                <span>🗓️</span>
-                <span class="font-semibold text-gray-700">${y.start||'—'}</span>
-                <span>→</span>
-                <span class="font-semibold text-gray-700">${y.end||'—'}</span>
-              </p>
-
-              <!-- Schedule & Shift Tags -->
-              <div class="flex flex-wrap items-center gap-2 pt-0.5 text-xs">
-                <div class="inline-flex items-center gap-1.5 bg-gray-50 text-gray-700 px-2.5 py-1 rounded-lg border border-gray-200/80">
-                  <span class="text-blue-600 font-bold">📅 ថ្ងៃរៀន៖</span>
-                  <span class="font-medium text-gray-800">${daysText}</span>
-                </div>
-                <div class="inline-flex items-center gap-1.5 bg-gray-50 text-gray-700 px-2.5 py-1 rounded-lg border border-gray-200/80">
-                  <span class="text-amber-600 font-bold">⏰ វេនរៀន៖</span>
-                  <span class="font-medium text-gray-800 truncate max-w-[280px] sm:max-w-none">${shiftsText}</span>
-                </div>
+              <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                ${isCurrent ? '<span class="text-[9px] sm:text-[10px] bg-blue-600 text-white px-1.5 py-0.5 rounded-full font-bold shadow-2xs">✓ កំពុងមើល</span>' : ''}
+                ${y.active ? '<span class="text-[9px] sm:text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-full font-bold border border-emerald-200">★ សកម្ម</span>' : ''}
               </div>
             </div>
 
-            <!-- Right Info & Actions: Horizontal rectangular cluster -->
-            <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row items-start sm:items-center md:items-end lg:items-center gap-3 pt-3 md:pt-0 border-t md:border-t-0 md:border-l md:pl-5 border-gray-100 flex-shrink-0">
-              <!-- Mini Counts -->
-              <div class="grid grid-cols-3 gap-1.5 text-center min-w-[210px]">
-                <div class="bg-blue-50/70 border border-blue-100/80 px-2.5 py-1.5 rounded-xl">
-                  <span class="text-gray-400 block text-[10px] font-medium">សិស្ស</span>
-                  <strong class="text-blue-900 text-sm font-bold">${stuCount}</strong>
-                </div>
-                <div class="bg-emerald-50/70 border border-emerald-100/80 px-2.5 py-1.5 rounded-xl">
-                  <span class="text-gray-400 block text-[10px] font-medium">វិក្កយបត្រ</span>
-                  <strong class="text-emerald-900 text-sm font-bold">${invCount}</strong>
-                </div>
-                <div class="bg-purple-50/70 border border-purple-100/80 px-2.5 py-1.5 rounded-xl">
-                  <span class="text-gray-400 block text-[10px] font-medium">ពិន្ទុ</span>
-                  <strong class="text-purple-900 text-sm font-bold">${scoreCount}</strong>
-                </div>
+            <!-- Progress Timeline Bar -->
+            <div class="my-1.5 bg-gray-50/80 px-2 py-1 rounded-lg border border-gray-100">
+              <div class="flex justify-between items-center text-[10px] text-gray-500 mb-0.5">
+                <span class="text-[9px] sm:text-[10px]">ដំណើរការឆ្នាំ៖</span>
+                <span class="text-[9px] sm:text-[10px] ${progressColor}">${progressText}</span>
               </div>
+              <div class="w-full bg-gray-200 rounded-full h-1 overflow-hidden">
+                <div class="h-1 rounded-full ${progressBarBg}" style="width: ${progressPct}%"></div>
+              </div>
+            </div>
 
-              <!-- Actions -->
-              <div class="flex flex-wrap items-center gap-1.5 no-print" onclick="event.stopPropagation()">
-                <button type="button" onclick="openYearScheduleConfigModal(${y.id})" class="text-xs bg-white text-blue-700 hover:bg-blue-50 px-2.5 py-1.5 rounded-xl font-bold flex items-center gap-1 border border-blue-200 transition shadow-2xs hover:shadow-xs">
-                  <span>⚙️ កំណត់ថ្ងៃ & ម៉ោង</span>
-                </button>
-                <button onclick="editYear(${y.id})" class="text-xs bg-gray-50 text-blue-600 hover:bg-blue-100 px-2.5 py-1.5 rounded-xl font-medium border border-gray-200 transition">✏️ កែ</button>
-                <button onclick="delYear(${y.id})" class="text-xs bg-gray-50 text-red-600 hover:bg-red-100 px-2.5 py-1.5 rounded-xl font-medium border border-gray-200 transition">🗑️ លុប</button>
-                ${!y.active ? `
-                  <button onclick="setYearActiveDirect(${y.id})" class="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1.5 rounded-xl font-semibold shadow-2xs transition">
-                    ★ ដាក់ជាសកម្ម
-                  </button>
-                ` : ''}
+            <!-- Schedule & Shift Tags -->
+            <div class="space-y-0.5 my-1 text-[10px] sm:text-[11px] text-gray-600">
+              <div class="flex items-center gap-1 truncate" title="ថ្ងៃរៀន៖ ${daysText}">
+                <span class="text-blue-600 font-bold flex-shrink-0">📅</span>
+                <span class="truncate text-gray-700">${daysText}</span>
               </div>
+              <div class="flex items-center gap-1 truncate" title="វេនរៀន៖ ${shiftsCompactText}">
+                <span class="text-amber-600 font-bold flex-shrink-0">⏰</span>
+                <span class="truncate text-gray-700">${shiftsCompactText}</span>
+              </div>
+            </div>
+
+            <!-- Mini Counts -->
+            <div class="grid grid-cols-3 gap-1 py-1 my-1.5 border-t border-b border-gray-100 text-center">
+              <div class="bg-blue-50/60 py-1 rounded-lg border border-blue-100/50">
+                <span class="text-gray-400 block text-[9px]">សិស្ស</span>
+                <strong class="text-blue-900 text-xs sm:text-sm font-bold">${stuCount}</strong>
+              </div>
+              <div class="bg-emerald-50/60 py-1 rounded-lg border border-emerald-100/50">
+                <span class="text-gray-400 block text-[9px]">វិក្កយ</span>
+                <strong class="text-emerald-900 text-xs sm:text-sm font-bold">${invCount}</strong>
+              </div>
+              <div class="bg-purple-50/60 py-1 rounded-lg border border-purple-100/50">
+                <span class="text-gray-400 block text-[9px]">ពិន្ទុ</span>
+                <strong class="text-purple-900 text-xs sm:text-sm font-bold">${scoreCount}</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div class="mt-1 pt-1.5 border-t border-gray-100 flex items-center justify-between gap-1 no-print" onclick="event.stopPropagation()">
+            <button type="button" onclick="openYearScheduleConfigModal(${y.id})" title="កំណត់ថ្ងៃ & ម៉ោងសិក្សា" class="text-[10px] sm:text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-2 py-1 rounded-lg font-bold flex items-center gap-1 border border-blue-200 transition">
+              <span>⚙️ ម៉ោងរៀន</span>
+            </button>
+            <div class="flex items-center gap-1">
+              <button onclick="editYear(${y.id})" title="កែប្រែ" class="text-[10px] sm:text-xs bg-gray-50 hover:bg-blue-50 text-blue-600 px-1.5 py-1 rounded-lg border border-gray-200 transition">✏️</button>
+              <button onclick="delYear(${y.id})" title="លុប" class="text-[10px] sm:text-xs bg-gray-50 hover:bg-red-50 text-red-600 px-1.5 py-1 rounded-lg border border-gray-200 transition">🗑️</button>
+              ${!y.active ? `
+                <button onclick="setYearActiveDirect(${y.id})" title="ដាក់ជាឆ្នាំសកម្ម" class="text-[9px] sm:text-[10px] bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-1.5 py-1 rounded-lg font-bold border border-emerald-200 transition">
+                  ★
+                </button>
+              ` : ''}
             </div>
           </div>
         </div>
       `;
-    }).join('') || '<p class="text-gray-400 col-span-full text-center py-8">មិនមានឆ្នាំសិក្សា</p>';
+    }).join('') || '<p class="text-gray-400 col-span-full text-center py-8">មិនមានឆ្នាំសិក្សាត្រូវនឹងការស្វែងរក</p>';
   }
 }
 
