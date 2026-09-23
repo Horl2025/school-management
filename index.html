@@ -821,7 +821,7 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
   </div>
 
   <!-- STAT CARDS (បង្ហាញពណ៌តាមផ្នែក ងាយស្រួលមើល) -->
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-5">
     <!-- 1. សិស្ស (Blue - ផ្នែកសិស្ស) -->
     <div class="stat-card blue anim-d1 flex flex-col justify-between">
       <div class="flex justify-between items-start">
@@ -893,21 +893,6 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
         <div class="flex items-center gap-1 mt-1 text-[10px] text-amber-600 font-medium">
           <span>📝</span>
           <span>ផ្នែកពិន្ទុ</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. ថ្ងៃនេះ (Yellow / Indigo - ផ្នែកប្រតិទិន) -->
-    <div class="stat-card yellow anim-d6 flex flex-col justify-between">
-      <div class="flex justify-between items-start">
-        <span class="text-xs font-semibold text-amber-800">កាលបរិច្ឆេទ</span>
-        <span class="stat-icon-bg w-7 h-7 rounded-lg flex items-center justify-center text-xs">📅</span>
-      </div>
-      <div>
-        <p class="text-base font-bold stat-val mt-1" id="dashDate">—</p>
-        <div class="flex items-center gap-1 mt-1 text-[10px] text-amber-700 font-medium">
-          <span>🕒</span>
-          <span>ប្រចាំថ្ងៃ</span>
         </div>
       </div>
     </div>
@@ -7023,7 +7008,8 @@ function updateDashboard(){
   animateValue('dashStaff', 0, staffList.length);
   animateValue('dashPendingFees', 0, inv.filter(i => i.paid < i.total).length);
   animateValue('dashScores', 0, sc.length);
-  document.getElementById('dashDate').textContent = new Date().toLocaleDateString('km-KH', { month: 'short', day: 'numeric' });
+  const dDate = document.getElementById('dashDate');
+  if(dDate) dDate.textContent = new Date().toLocaleDateString('km-KH', { month: 'short', day: 'numeric' });
   document.getElementById('dashYearName').textContent = getCurrentYearName();
   buildDashboardExtras();
 }
