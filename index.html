@@ -2599,15 +2599,117 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 
 <!-- MODALS -->
 <!-- Year Modal -->
-<div id="yearModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50"><div class="bg-white rounded-2xl w-full max-w-md mx-4 p-6 shadow-xl">
-  <h3 id="yearModalTitle" class="text-lg font-semibold mb-4">បង្កើតឆ្នាំសិក្សា</h3>
-  <form onsubmit="saveYear(event)" class="space-y-3">
-    <input type="hidden" id="yearId"><input type="text" id="yearName" required placeholder="ឧ. ២០២៥-២០២៦ *" class="w-full border rounded-lg px-3 py-2 text-sm">
-    <div class="grid grid-cols-2 gap-3"><input type="date" id="yearStart" class="border rounded-lg px-3 py-2 text-sm"><input type="date" id="yearEnd" class="border rounded-lg px-3 py-2 text-sm"></div>
-    <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="yearActive" class="rounded"> កំណត់ជាឆ្នាំសកម្ម</label>
-    <div class="flex gap-3 pt-2"><button type="button" onclick="closeModal('yearModal')" class="flex-1 border rounded-lg py-2">បោះបង់</button><button type="submit" class="flex-1 bg-blue-600 text-white rounded-lg py-2">រក្សាទុក</button></div>
-  </form>
-</div></div>
+<div id="yearModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 backdrop-blur-xs p-4">
+  <div class="bg-white rounded-3xl w-full max-w-md mx-auto shadow-2xl overflow-hidden border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+    <!-- Modal Header with gradient -->
+    <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 px-6 py-4 text-white flex justify-between items-center relative overflow-hidden">
+      <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center text-xl shadow-inner flex-shrink-0">
+          📅
+        </div>
+        <div>
+          <h3 id="yearModalTitle" class="text-base font-bold text-white tracking-tight">បង្កើតឆ្នាំសិក្សា</h3>
+          <p class="text-xs text-blue-100/90 mt-0.5">សូមបំពេញព័ត៌មានឆ្នាំសិក្សា និងកាលវិភាគ</p>
+        </div>
+      </div>
+      <button type="button" onclick="closeModal('yearModal')" class="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/25 text-white/90 hover:text-white flex items-center justify-center text-lg font-bold transition">
+        ✕
+      </button>
+    </div>
+
+    <!-- Modal Form Body -->
+    <form onsubmit="saveYear(event)" class="p-6 space-y-4">
+      <input type="hidden" id="yearId">
+
+      <!-- Academic Year Name Field -->
+      <div>
+        <div class="flex justify-between items-center mb-1.5">
+          <label class="block text-xs font-bold text-gray-700 flex items-center gap-1.5">
+            <span class="text-blue-600">🏷️</span>
+            <span>ឈ្មោះឆ្នាំសិក្សា</span>
+            <span class="text-red-500">*</span>
+          </label>
+          <span class="text-[10px] text-gray-400 font-medium">ជ្រើសរើសរហ័ស៖</span>
+        </div>
+
+        <input type="text" id="yearName" required placeholder="ឧ. ២០២៥-២០២៦" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-medium text-gray-900 placeholder:text-gray-400">
+
+        <!-- Quick Presets -->
+        <div class="flex flex-wrap gap-1.5 mt-2">
+          <button type="button" onclick="presetYearName('២០២៤-២០២៥')" class="text-[11px] bg-slate-50 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 text-gray-600 px-2.5 py-1 rounded-lg border border-gray-200 transition font-medium">
+            + ២០២៤-២០២៥
+          </button>
+          <button type="button" onclick="presetYearName('២០២៥-២០២៦')" class="text-[11px] bg-slate-50 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 text-gray-600 px-2.5 py-1 rounded-lg border border-gray-200 transition font-medium">
+            + ២០២៥-២០២៦
+          </button>
+          <button type="button" onclick="presetYearName('២០២៦-២០២៧')" class="text-[11px] bg-slate-50 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 text-gray-600 px-2.5 py-1 rounded-lg border border-gray-200 transition font-medium">
+            + ២០២៦-២០២៧
+          </button>
+        </div>
+      </div>
+
+      <!-- Start & End Date Inputs -->
+      <div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
+              <span class="text-emerald-600">📅</span>
+              <span>ថ្ងៃចាប់ផ្ដើម</span>
+            </label>
+            <input type="date" id="yearStart" onchange="updateYearDurationBadge()" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs sm:text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-gray-800">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
+              <span class="text-amber-600">🏁</span>
+              <span>ថ្ងៃបញ្ចប់</span>
+            </label>
+            <input type="date" id="yearEnd" onchange="updateYearDurationBadge()" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs sm:text-sm focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition text-gray-800">
+          </div>
+        </div>
+
+        <!-- Duration badge preview -->
+        <div id="yearDurationBadge" class="hidden mt-2 p-2 rounded-xl bg-blue-50 border border-blue-100 text-xs text-blue-800 flex items-center justify-between">
+          <span class="flex items-center gap-1.5 font-medium">
+            <span>⏳ រយៈពេលសិក្សា៖</span>
+            <strong id="yearDurationText" class="font-bold text-blue-900">—</strong>
+          </span>
+          <button type="button" onclick="autoFillStandardYearDates()" class="text-[11px] text-blue-600 hover:underline font-semibold">
+            កំណត់ ១ ឆ្នាំពេញ
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Year Checkbox Card -->
+      <label class="flex items-center gap-3 p-3 rounded-xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-50 cursor-pointer transition select-none">
+        <input type="checkbox" id="yearActive" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 accent-emerald-600 flex-shrink-0">
+        <div class="text-xs">
+          <span class="font-bold text-emerald-950 flex items-center gap-1.5">
+            <span>★ កំណត់ជាឆ្នាំសិក្សាសកម្ម</span>
+            <span class="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.2 rounded-full font-bold">Active</span>
+          </span>
+          <p class="text-[11px] text-emerald-800/80 mt-0.5">កំណត់ឆ្នាំនេះជាជម្រើសចម្បងសម្រាប់ទិន្នន័យទូទៅ</p>
+        </div>
+      </label>
+
+      <!-- Bottom Action Buttons (With beautiful colors & icons) -->
+      <div class="flex items-center gap-3 pt-3 border-t border-gray-100">
+        <!-- Cancel Button: Soft neutral/rose styling -->
+        <button type="button" onclick="closeModal('yearModal')" class="flex-1 bg-gray-100 hover:bg-rose-50 hover:text-rose-700 hover:border-rose-200 text-gray-700 rounded-xl py-2.5 text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 border border-gray-200 shadow-2xs">
+          <span>✕</span>
+          <span>បោះបង់</span>
+        </button>
+
+        <!-- Save Button: Solid vibrant gradient with glow -->
+        <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl py-2.5 text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/30 hover:shadow-lg hover:shadow-blue-500/40 active:scale-[0.99]">
+          <span>💾</span>
+          <span>រក្សាទុក</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- YEAR SCHEDULE, SHIFTS & STUDY HOURS CONFIG MODAL -->
 <div id="yearScheduleConfigModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 backdrop-blur-sm">
@@ -5443,6 +5545,56 @@ function renderYearsCharts(){
   }
 }
 
+function presetYearName(name){
+  const nameInput = document.getElementById('yearName');
+  if(nameInput) nameInput.value = name;
+  const startInput = document.getElementById('yearStart');
+  const endInput = document.getElementById('yearEnd');
+  if(startInput && !startInput.value && name.includes('-')){
+    autoFillStandardYearDates();
+  }
+}
+
+function updateYearDurationBadge(){
+  const s = document.getElementById('yearStart')?.value;
+  const e = document.getElementById('yearEnd')?.value;
+  const badge = document.getElementById('yearDurationBadge');
+  const txt = document.getElementById('yearDurationText');
+  if(!badge || !txt) return;
+  if(s && e){
+    const d1 = new Date(s);
+    const d2 = new Date(e);
+    if(d2 > d1){
+      const diffMs = d2 - d1;
+      const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+      const diffMonths = Math.round(diffDays / 30.4);
+      txt.textContent = `${diffMonths} ខែ (${diffDays} ថ្ងៃ)`;
+      badge.classList.remove('hidden');
+      return;
+    }
+  }
+  badge.classList.add('hidden');
+}
+
+function autoFillStandardYearDates(){
+  const name = document.getElementById('yearName')?.value || '';
+  const toArabic = s => s.replace(/[០-៩]/g, d => '០១២៣៤៥៦៧៨៩'.indexOf(d));
+  let y1 = new Date().getFullYear();
+  let y2 = y1 + 1;
+  if(name.includes('-')){
+    const parts = name.split('-');
+    const p1 = parseInt(toArabic(parts[0].trim()));
+    const p2 = parseInt(toArabic(parts[1].trim()));
+    if(!isNaN(p1)) y1 = p1;
+    if(!isNaN(p2)) y2 = p2;
+  }
+  const startInput = document.getElementById('yearStart');
+  const endInput = document.getElementById('yearEnd');
+  if(startInput) startInput.value = `${y1}-11-01`;
+  if(endInput) endInput.value = `${y2}-08-31`;
+  updateYearDurationBadge();
+}
+
 function openYearModal(){
   document.getElementById('yearId').value = '';
   document.getElementById('yearName').value = '';
@@ -5450,6 +5602,7 @@ function openYearModal(){
   document.getElementById('yearEnd').value = '';
   document.getElementById('yearActive').checked = false;
   document.getElementById('yearModalTitle').textContent = 'បង្កើតឆ្នាំសិក្សា';
+  updateYearDurationBadge();
   openModal('yearModal');
 }
 function editYear(id){
@@ -5461,6 +5614,7 @@ function editYear(id){
   document.getElementById('yearEnd').value = y.end || '';
   document.getElementById('yearActive').checked = !!y.active;
   document.getElementById('yearModalTitle').textContent = 'កែឆ្នាំសិក្សា';
+  updateYearDurationBadge();
   openModal('yearModal');
 }
 function saveYear(e){
