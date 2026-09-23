@@ -713,16 +713,9 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
       </div>
     </div>
 
-    <!-- ZONE 2: Middle (Date) -->
-    <div class="flex items-center gap-2 sm:gap-3 min-w-0 justify-center">
-      <!-- Live Date Badge -->
-      <div class="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-600 text-xs font-semibold shadow-2xs whitespace-nowrap">
-        <span class="text-blue-600">📅</span>
-        <span id="currentDate"></span>
-      </div>
-
-      <!-- Hidden year container for backward compatibility -->
-      <div id="headerYearButtons" class="hidden"></div>
+    <!-- ZONE 2: Middle (hidden, kept for JS compatibility) -->
+    <div class="hidden">
+      <div id="headerYearButtons"></div>
     </div>
 
     <!-- ZONE 3: Right (User Profile + Logout + Quick Actions - ALWAYS ANCHORED RIGHT) -->
@@ -736,6 +729,12 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
       <div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-bold">
         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
         <span>Online</span>
+      </div>
+
+      <!-- Live Date Badge (moved to right, near user profile) -->
+      <div class="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-600 text-xs font-semibold shadow-2xs whitespace-nowrap">
+        <span class="text-blue-600">📅</span>
+        <span id="currentDate"></span>
       </div>
 
       <!-- User Profile Badge & Quick Dropdown Trigger -->
