@@ -69,13 +69,33 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 }
 .stat-card.blue{
   background: linear-gradient(145deg, #dbeafe 0%, #bfdbfe 35%, #eff6ff 100%);
-  border-color: #60a5fa;
-  box-shadow: 0 4px 18px rgba(37, 99, 235, 0.15);
+  border-color: #3b82f6;
+  box-shadow: 0 4px 18px rgba(37, 99, 235, 0.16);
 }
-.stat-card.blue:hover{ box-shadow: 0 12px 28px rgba(37, 99, 235, 0.25); }
+.stat-card.blue:hover{ box-shadow: 0 12px 28px rgba(37, 99, 235, 0.26); }
 .stat-card.blue::before{background:linear-gradient(90deg,#1d4ed8,#3b82f6,#60a5fa)}
 .stat-card.blue .stat-icon-bg{ background:#ffffff; color:#1d4ed8; border:1px solid #93c5fd; box-shadow:0 2px 6px rgba(37,99,235,0.18); }
-.stat-card.blue .stat-val{ color:#1e40af; }
+.stat-card.blue .stat-val{ color:#1d4ed8; }
+
+.stat-card.white{
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 18px rgba(100, 116, 139, 0.12);
+}
+.stat-card.white:hover{ box-shadow: 0 12px 28px rgba(100, 116, 139, 0.22); }
+.stat-card.white::before{background:linear-gradient(90deg,#475569,#64748b,#94a3b8)}
+.stat-card.white .stat-icon-bg{ background:#f8fafc; color:#334155; border:1px solid #cbd5e1; box-shadow:0 2px 6px rgba(100,116,139,0.12); }
+.stat-card.white .stat-val{ color:#0f172a; }
+
+.stat-card.brown{
+  background: linear-gradient(145deg, #f5ebe0 0%, #e6ccb2 45%, #fdf8f5 100%);
+  border-color: #b08968;
+  box-shadow: 0 4px 18px rgba(127, 79, 36, 0.18);
+}
+.stat-card.brown:hover{ box-shadow: 0 12px 28px rgba(127, 79, 36, 0.28); }
+.stat-card.brown::before{background:linear-gradient(90deg,#582f0e,#7f4f24,#936639)}
+.stat-card.brown .stat-icon-bg{ background:#ffffff; color:#7f4f24; border:1px solid #ddb892; box-shadow:0 2px 6px rgba(127,79,36,0.18); }
+.stat-card.brown .stat-val{ color:#582f0e; }
 
 .stat-card.green{
   background: linear-gradient(145deg, #d1fae5 0%, #a7f3d0 35%, #f0fdf4 100%);
@@ -98,14 +118,14 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 .stat-card.purple .stat-val{ color:#5b21b6; }
 
 .stat-card.red{
-  background: linear-gradient(145deg, #ffe4e6 0%, #fecdd3 35%, #fff1f2 100%);
-  border-color: #f87171;
-  box-shadow: 0 4px 18px rgba(225, 29, 72, 0.15);
+  background: linear-gradient(145deg, #fee2e2 0%, #fca5a5 35%, #fff5f5 100%);
+  border-color: #ef4444;
+  box-shadow: 0 4px 18px rgba(220, 38, 38, 0.18);
 }
-.stat-card.red:hover{ box-shadow: 0 12px 28px rgba(225, 29, 72, 0.25); }
-.stat-card.red::before{background:linear-gradient(90deg,#be123c,#f43f5e,#fb7185)}
-.stat-card.red .stat-icon-bg{ background:#ffffff; color:#be123c; border:1px solid #fda4af; box-shadow:0 2px 6px rgba(225,29,72,0.18); }
-.stat-card.red .stat-val{ color:#9f1239; }
+.stat-card.red:hover{ box-shadow: 0 12px 28px rgba(220, 38, 38, 0.28); }
+.stat-card.red::before{background:linear-gradient(90deg,#991b1b,#dc2626,#f87171)}
+.stat-card.red .stat-icon-bg{ background:#ffffff; color:#dc2626; border:1px solid #fca5a5; box-shadow:0 2px 6px rgba(220,38,38,0.18); }
+.stat-card.red .stat-val{ color:#991b1b; }
 
 .stat-card.orange{
   background: linear-gradient(145deg, #ffedd5 0%, #fed7aa 35%, #fff7ed 100%);
@@ -118,13 +138,13 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 .stat-card.orange .stat-val{ color:#9a3412; }
 
 .stat-card.yellow{
-  background: linear-gradient(145deg, #fef9c3 0%, #fefce8 60%, #ffffff 100%);
-  border-color: #facc15;
-  box-shadow: 0 4px 18px rgba(202, 138, 4, 0.12);
+  background: linear-gradient(145deg, #fef08a 0%, #fde047 35%, #fefce8 100%);
+  border-color: #eab308;
+  box-shadow: 0 4px 18px rgba(202, 138, 4, 0.18);
 }
-.stat-card.yellow:hover{ box-shadow: 0 12px 28px rgba(202, 138, 4, 0.22); }
-.stat-card.yellow::before{background:linear-gradient(90deg,#a16207,#eab308,#fde047)}
-.stat-card.yellow .stat-icon-bg{ background:#ffffff; color:#a16207; border:1px solid #fef08a; box-shadow:0 2px 6px rgba(202,138,4,0.15); }
+.stat-card.yellow:hover{ box-shadow: 0 12px 28px rgba(202, 138, 4, 0.28); }
+.stat-card.yellow::before{background:linear-gradient(90deg,#a16207,#ca8a04,#eab308)}
+.stat-card.yellow .stat-icon-bg{ background:#ffffff; color:#a16207; border:1px solid #fde047; box-shadow:0 2px 6px rgba(202,138,4,0.18); }
 .stat-card.yellow .stat-val{ color:#854d0e; }
 
 .chart-card{
@@ -830,9 +850,9 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
     <h3 class="font-semibold text-gray-800 text-base">សូមស្វាគមន៍ • <span id="dashYearName" class="text-blue-700 font-bold"></span></h3>
   </div>
 
-  <!-- STAT CARDS (បង្ហាញពណ៌តាមផ្នែក ងាយស្រួលមើល) -->
+  <!-- STAT CARDS (កាតទី១: ខៀវ, កាតទី២: ស, កាតទី៣: ត្នោត, កាតទី៤: ក្រហម, កាតទី៥: លឿង) -->
   <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-5">
-    <!-- 1. សិស្ស (Blue - ផ្នែកសិស្ស) -->
+    <!-- 1. សិស្ស (Blue - ពណ៌ខៀវ) -->
     <div class="stat-card blue anim-d1 flex flex-col justify-between">
       <div class="flex justify-between items-start">
         <span class="text-xs font-bold text-blue-900">សិស្សសរុប</span>
@@ -840,67 +860,67 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
       </div>
       <div>
         <p class="text-2xl sm:text-3xl font-black stat-val mt-1" id="dashStudents">0</p>
-        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/70 text-[10px] text-blue-800 font-bold border border-blue-200/80 shadow-2xs">
+        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/80 text-[10px] text-blue-800 font-bold border border-blue-200/80 shadow-2xs">
           <span>📘</span>
           <span>ផ្នែកសិស្ស</span>
         </div>
       </div>
     </div>
 
-    <!-- 2. គ្រូ (Green - ផ្នែកគ្រូបង្រៀន) -->
-    <div class="stat-card green anim-d2 flex flex-col justify-between">
+    <!-- 2. គ្រូ (White - ពណ៌ស) -->
+    <div class="stat-card white anim-d2 flex flex-col justify-between">
       <div class="flex justify-between items-start">
-        <span class="text-xs font-bold text-emerald-900">គ្រូបង្រៀន</span>
+        <span class="text-xs font-bold text-slate-800">គ្រូបង្រៀន</span>
         <span class="stat-icon-bg w-8 h-8 rounded-xl flex items-center justify-center text-sm">👨‍🏫</span>
       </div>
       <div>
         <p class="text-2xl sm:text-3xl font-black stat-val mt-1" id="dashTeachers">0</p>
-        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/70 text-[10px] text-emerald-800 font-bold border border-emerald-200/80 shadow-2xs">
+        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-slate-100 text-[10px] text-slate-700 font-bold border border-slate-300 shadow-2xs">
           <span>👨‍🏫</span>
           <span>ផ្នែកគ្រូ</span>
         </div>
       </div>
     </div>
 
-    <!-- 3. មន្ត្រី (Purple - ផ្នែករដ្ឋបាល) -->
-    <div class="stat-card purple anim-d3 flex flex-col justify-between">
+    <!-- 3. មន្ត្រី (Brown - ពណ៌ត្នោត) -->
+    <div class="stat-card brown anim-d3 flex flex-col justify-between">
       <div class="flex justify-between items-start">
-        <span class="text-xs font-bold text-purple-900">បុគ្គលិក-មន្ត្រី</span>
+        <span class="text-xs font-bold" style="color: #582f0e;">បុគ្គលិក-មន្ត្រី</span>
         <span class="stat-icon-bg w-8 h-8 rounded-xl flex items-center justify-center text-sm">💼</span>
       </div>
       <div>
         <p class="text-2xl sm:text-3xl font-black stat-val mt-1" id="dashStaff">0</p>
-        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/70 text-[10px] text-purple-800 font-bold border border-purple-200/80 shadow-2xs">
+        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/80 text-[10px] font-bold border border-[#b08968]/50 shadow-2xs" style="color: #7f4f24;">
           <span>🏢</span>
           <span>ផ្នែករដ្ឋបាល</span>
         </div>
       </div>
     </div>
 
-    <!-- 4. ជំពាក់ថ្លៃ (Red - ផ្នែកហិរញ្ញវត្ថុ) -->
+    <!-- 4. ជំពាក់ថ្លៃ (Red - ពណ៌ក្រហម) -->
     <div class="stat-card red anim-d4 flex flex-col justify-between">
       <div class="flex justify-between items-start">
-        <span class="text-xs font-bold text-rose-900">ជំពាក់ថ្លៃសិក្សា</span>
+        <span class="text-xs font-bold text-red-900">ជំពាក់ថ្លៃសិក្សា</span>
         <span class="stat-icon-bg w-8 h-8 rounded-xl flex items-center justify-center text-sm">💳</span>
       </div>
       <div>
         <p class="text-2xl sm:text-3xl font-black stat-val mt-1" id="dashPendingFees">0</p>
-        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/70 text-[10px] text-rose-800 font-bold border border-rose-200/80 shadow-2xs">
+        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/80 text-[10px] text-red-800 font-bold border border-red-200/80 shadow-2xs">
           <span>💰</span>
           <span>ផ្នែកហិរញ្ញវត្ថុ</span>
         </div>
       </div>
     </div>
 
-    <!-- 5. ពិន្ទុ (Orange - ផ្នែកសិក្សា & ពិន្ទុ) -->
-    <div class="stat-card orange anim-d5 flex flex-col justify-between">
+    <!-- 5. ពិន្ទុ (Yellow - ពណ៌លឿង) -->
+    <div class="stat-card yellow anim-d5 flex flex-col justify-between">
       <div class="flex justify-between items-start">
         <span class="text-xs font-bold text-amber-900">បញ្ជីពិន្ទុ</span>
         <span class="stat-icon-bg w-8 h-8 rounded-xl flex items-center justify-center text-sm">⭐</span>
       </div>
       <div>
         <p class="text-2xl sm:text-3xl font-black stat-val mt-1" id="dashScores">0</p>
-        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/70 text-[10px] text-amber-800 font-bold border border-amber-200/80 shadow-2xs">
+        <div class="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-full bg-white/80 text-[10px] text-amber-900 font-bold border border-yellow-400/80 shadow-2xs">
           <span>📝</span>
           <span>ផ្នែកពិន្ទុ</span>
         </div>
