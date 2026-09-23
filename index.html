@@ -6473,12 +6473,22 @@ function addNewEducationLevel(){
 function deleteEducationLevel(idx){
   if(idx < 0 || idx >= educationLevels.length) return;
   const name = educationLevels[idx];
-  if(!confirm(`តើអ្នកពិតជាចង់លុបកម្រិត "${name}" មែនទេ?`)) return;
-
-  educationLevels.splice(idx, 1);
-  localStorage.setItem('sms_education_levels', JSON.stringify(educationLevels));
-  renderEducationLevelList();
-  populateEducationLevelsDropdown();
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការលុបកម្រិតសិក្សា',
+    message: 'តើលោកអ្នកពិតជាចង់លុបមែនទេ?',
+    subText: `កម្រិត «${name}» នឹងត្រូវលុបចេញពីប្រព័ន្ធ។`,
+    confirmText: 'យល់ព្រមលុប',
+    cancelText: '✕ បោះបង់',
+    icon: '🗑️',
+    type: 'danger',
+    onConfirm: () => {
+      educationLevels.splice(idx, 1);
+      localStorage.setItem('sms_education_levels', JSON.stringify(educationLevels));
+      renderEducationLevelList();
+      populateEducationLevelsDropdown();
+      showToast(`បានលុបកម្រិត «${name}» ដោយជោគជ័យ!`, 'success');
+    }
+  });
 }
 
 function openClassModal(){
@@ -6747,14 +6757,24 @@ function editStudentFromRoster(id){
 function removeStudentFromCurrentClass(studentId){
   const s = students.find(x => x.id === studentId);
   if(!s) return;
-  if(!confirm(`តើអ្នកពិតជាចង់ដកសិស្ស "${s.name}" ចេញពីថ្នាក់នេះមែនទេ?`)) return;
-  
-  students = students.filter(x => x.id !== studentId);
-  localStorage.setItem('sms_students', JSON.stringify(students));
-  if(currentRosterClassId) previewClassRoster(currentRosterClassId);
-  renderClasses();
-  if(typeof renderStudents === 'function') renderStudents();
-  updateDashboard();
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការដកសិស្សចេញពីថ្នាក់',
+    message: 'តើលោកអ្នកពិតជាចង់លុបមែនទេ?',
+    subText: `សិស្ស «${s.name}» (${s.code || ''}) នឹងត្រូវដកចេញពីថ្នាក់នេះ។`,
+    confirmText: 'យល់ព្រមដកសិស្ស',
+    cancelText: '✕ បោះបង់',
+    icon: '🗑️',
+    type: 'danger',
+    onConfirm: () => {
+      students = students.filter(x => x.id !== studentId);
+      localStorage.setItem('sms_students', JSON.stringify(students));
+      if(currentRosterClassId) previewClassRoster(currentRosterClassId);
+      renderClasses();
+      if(typeof renderStudents === 'function') renderStudents();
+      updateDashboard();
+      showToast('បានដកសិស្សចេញដោយជោគជ័យ!', 'success');
+    }
+  });
 }
 
 function downloadStudentExcelTemplate(){
@@ -8229,12 +8249,22 @@ function addNewTeacherCategory(){
 }
 
 function restoreDefaultTeacherCategories(){
-  if(!confirm('តើអ្នកចង់កំណត់កម្រិតថ្នាក់ដើមឡើងវិញ (មត្តេយ្យ, បឋម, អនុវិទ្យាល័យ, វិទ្យាល័យ) មែនទេ?')) return;
-  teacherCategories = ['ថ្នាក់មត្តេយ្យ', 'ថ្នាក់បឋមសិក្សា', 'ថ្នាក់អនុវិទ្យាល័យ', 'ថ្នាក់វិទ្យាល័យ'];
-  localStorage.setItem('sms_teacher_categories', JSON.stringify(teacherCategories));
-  renderTeachers();
-  populateTeacherClassDropdowns();
-  showToast('បានកំណត់កម្រិតដើមឡើងវិញ!', 'success');
+  showConfirmDeleteModal({
+    title: 'កំណត់កម្រិតថ្នាក់ដើមឡើងវិញ',
+    message: 'តើលោកអ្នកពិតជាចង់កំណត់ឡើងវិញមែនទេ?',
+    subText: 'ប្រព័ន្ធនឹងកំណត់កម្រិតថ្នាក់ដើម៖ មត្តេយ្យ, បឋម, អនុវិទ្យាល័យ, វិទ្យាល័យ។',
+    confirmText: 'យល់ព្រមកំណត់',
+    cancelText: '✕ បោះបង់',
+    icon: '🔄',
+    type: 'warning',
+    onConfirm: () => {
+      teacherCategories = ['ថ្នាក់មត្តេយ្យ', 'ថ្នាក់បឋមសិក្សា', 'ថ្នាក់អនុវិទ្យាល័យ', 'ថ្នាក់វិទ្យាល័យ'];
+      localStorage.setItem('sms_teacher_categories', JSON.stringify(teacherCategories));
+      renderTeachers();
+      populateTeacherClassDropdowns();
+      showToast('បានកំណត់កម្រិតដើមឡើងវិញ!', 'success');
+    }
+  });
 }
 
 function populateTeacherClassDropdowns(){
@@ -8557,31 +8587,40 @@ function deleteTeachersOfClass(className){
     return false;
   });
 
-  const confirmMsg = classTeachers.length > 0
-    ? `តើអ្នកពិតជាចង់លុបកាត «${className}» និងទិន្នន័យគ្រូទាំងអស់ (${toKhmerNum(classTeachers.length)} នាក់) ចេញពីប្រព័ន្ធមែនទេ?`
-    : `តើអ្នកពិតជាចង់លុបកាត «${className}» នេះចេញពីប្រព័ន្ធមែនទេ?`;
+  const subText = classTeachers.length > 0
+    ? `កាត «${className}» និងទិន្នន័យគ្រូទាំងអស់ (${toKhmerNum(classTeachers.length)} នាក់) នឹងត្រូវលុបចេញពីប្រព័ន្ធ។`
+    : `កាត «${className}» នឹងត្រូវលុបចេញពីប្រព័ន្ធ។`;
 
-  if(!confirm(confirmMsg)) return;
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការលុបកម្រិតថ្នាក់',
+    message: 'តើលោកអ្នកពិតជាចង់លុបមែនទេ?',
+    subText: subText,
+    confirmText: 'យល់ព្រមលុប',
+    cancelText: '✕ បោះបង់',
+    icon: '🗑️',
+    type: 'danger',
+    onConfirm: () => {
+      // Delete teachers assigned to this class
+      teachers = teachers.filter(t => {
+        if(t.assignedClass === className) return false;
+        if(!t.assignedClass && className.includes('មត្តេយ្យ') && (t.subject || '').includes('មត្តេយ្យ')) return false;
+        return true;
+      });
+      localStorage.setItem('sms_teachers', JSON.stringify(teachers));
 
-  // Delete teachers assigned to this class
-  teachers = teachers.filter(t => {
-    if(t.assignedClass === className) return false;
-    if(!t.assignedClass && className.includes('មត្តេយ្យ') && (t.subject || '').includes('មត្តេយ្យ')) return false;
-    return true;
+      // Delete the category card itself
+      teacherCategories = teacherCategories.filter(c => c !== className);
+      localStorage.setItem('sms_teacher_categories', JSON.stringify(teacherCategories));
+
+      renderTeachers();
+      renderClassTeachersTable();
+      populateTeacherClassDropdowns();
+      populateClassTeacherDropdown();
+      updateDashboard();
+      closeModal('classTeacherDetailModal');
+      showToast(`បានលុប «${className}» ដោយជោគជ័យ!`, 'success');
+    }
   });
-  localStorage.setItem('sms_teachers', JSON.stringify(teachers));
-
-  // Delete the category card itself
-  teacherCategories = teacherCategories.filter(c => c !== className);
-  localStorage.setItem('sms_teacher_categories', JSON.stringify(teacherCategories));
-
-  renderTeachers();
-  renderClassTeachersTable();
-  populateTeacherClassDropdowns();
-  populateClassTeacherDropdown();
-  updateDashboard();
-  closeModal('classTeacherDetailModal');
-  showToast(`បានលុប «${className}» ដោយជោគជ័យ!`, 'success');
 }
 
 function renderTeachers(){
@@ -12273,33 +12312,52 @@ function importAllData(e){
   reader.onload = () => {
     try {
       const data = JSON.parse(reader.result);
-      if(!confirm('Import នឹងជំនួសទិន្នន័យបច្ចុប្បន្ន។ បន្ត?')) return;
-      if(data.academicYears){ academicYears = data.academicYears; localStorage.setItem('sms_years', JSON.stringify(academicYears)); }
-      if(data.currentYearId){ currentYearId = data.currentYearId; localStorage.setItem('sms_current_year', currentYearId); }
-      if(data.students){ students = data.students; localStorage.setItem('sms_students', JSON.stringify(students)); }
-      if(data.teachers){ teachers = data.teachers; localStorage.setItem('sms_teachers', JSON.stringify(teachers)); }
-      if(data.staffList){ staffList = data.staffList; localStorage.setItem('sms_staff', JSON.stringify(staffList)); }
-      if(data.invoices){ invoices = data.invoices; localStorage.setItem('sms_invoices', JSON.stringify(invoices)); }
-      if(data.scores){ scores = data.scores; localStorage.setItem('sms_scores', JSON.stringify(scores)); }
-      if(data.salaryMap){ salaryMap = data.salaryMap; localStorage.setItem('sms_salary_map', JSON.stringify(salaryMap)); }
-      if(data.payrollSettings){ payrollSettings = data.payrollSettings; localStorage.setItem('sms_payroll_settings', JSON.stringify(payrollSettings)); }
-      if(data.appSettings){ appSettings = data.appSettings; localStorage.setItem('sms_settings', JSON.stringify(appSettings)); }
-      if(data.users){ users = data.users; localStorage.setItem('sms_users', JSON.stringify(users)); }
-      if(data.customPhotos){ customPhotos = data.customPhotos; localStorage.setItem('sms_custom_photos', JSON.stringify(customPhotos)); }
-      if(data.attendance){ Object.keys(data.attendance).forEach(k => localStorage.setItem(k, JSON.stringify(data.attendance[k]))); }
-      alert('✅ Import រួចរាល់');
-      location.reload();
+      showConfirmDeleteModal({
+        title: 'បញ្ជាក់ការ Import ទិន្នន័យ',
+        message: 'តើលោកអ្នកពិតជាចង់ Import មែនទេ?',
+        subText: 'ការ Import នឹងជំនួសទិន្នន័យបច្ចុប្បន្នទាំងអស់ក្នុងប្រព័ន្ធ។',
+        confirmText: '📥 យល់ព្រម Import',
+        cancelText: '✕ បោះបង់',
+        icon: '📥',
+        type: 'warning',
+        onConfirm: () => {
+          if(data.academicYears){ academicYears = data.academicYears; localStorage.setItem('sms_years', JSON.stringify(academicYears)); }
+          if(data.currentYearId){ currentYearId = data.currentYearId; localStorage.setItem('sms_current_year', currentYearId); }
+          if(data.students){ students = data.students; localStorage.setItem('sms_students', JSON.stringify(students)); }
+          if(data.teachers){ teachers = data.teachers; localStorage.setItem('sms_teachers', JSON.stringify(teachers)); }
+          if(data.staffList){ staffList = data.staffList; localStorage.setItem('sms_staff', JSON.stringify(staffList)); }
+          if(data.invoices){ invoices = data.invoices; localStorage.setItem('sms_invoices', JSON.stringify(invoices)); }
+          if(data.scores){ scores = data.scores; localStorage.setItem('sms_scores', JSON.stringify(scores)); }
+          if(data.salaryMap){ salaryMap = data.salaryMap; localStorage.setItem('sms_salary_map', JSON.stringify(salaryMap)); }
+          if(data.payrollSettings){ payrollSettings = data.payrollSettings; localStorage.setItem('sms_payroll_settings', JSON.stringify(payrollSettings)); }
+          if(data.appSettings){ appSettings = data.appSettings; localStorage.setItem('sms_settings', JSON.stringify(appSettings)); }
+          if(data.users){ users = data.users; localStorage.setItem('sms_users', JSON.stringify(users)); }
+          if(data.customPhotos){ customPhotos = data.customPhotos; localStorage.setItem('sms_custom_photos', JSON.stringify(customPhotos)); }
+          if(data.attendance){ Object.keys(data.attendance).forEach(k => localStorage.setItem(k, JSON.stringify(data.attendance[k]))); }
+          showToast('បាន Import ទិន្នន័យដោយជោគជ័យ!', 'success');
+          setTimeout(() => location.reload(), 1000);
+        }
+      });
     } catch(err){ alert('❌ ឯកសារមិនត្រឹមត្រូវ'); }
   };
   reader.readAsText(file);
   e.target.value = '';
 }
 function clearAllData(){
-  if(!confirm('លុបទិន្នន័យទាំងអស់?')) return;
-  if(!confirm('ប្រាកដ?')) return;
-  Object.keys(localStorage).filter(k => k.startsWith('sms_')).forEach(k => localStorage.removeItem(k));
-  alert('បានលុប');
-  location.reload();
+  showConfirmDeleteModal({
+    title: 'ព្រមាន៖ លុបទិន្នន័យទាំងអស់',
+    message: 'តើលោកអ្នកពិតជាចង់លុបមែនទេ?',
+    subText: '⚠️ ការលុបនេះនឹងសម្អាតទិន្នន័យទាំងអស់ក្នុងប្រព័ន្ធ! សកម្មភាពនេះមិនអាចត្រឡប់វិញបានឡើយ។',
+    confirmText: '🗑️ លុបទិន្នន័យទាំងអស់',
+    cancelText: '✕ បោះបង់',
+    icon: '🚨',
+    type: 'danger',
+    onConfirm: () => {
+      Object.keys(localStorage).filter(k => k.startsWith('sms_')).forEach(k => localStorage.removeItem(k));
+      showToast('បានសម្អាតទិន្នន័យទាំងអស់ដោយជោគជ័យ!', 'info');
+      setTimeout(() => location.reload(), 1000);
+    }
+  });
 }
 
 /* ===== EXCEL EXPORTS ===== */
