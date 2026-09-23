@@ -1017,8 +1017,8 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
       </div>
     </div>
 
-    <!-- Cards Grid (Square Format: ជ្រុងបួនស្មើគ្នា) -->
-    <div id="yearButtons" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 max-w-5xl"></div>
+    <!-- Cards Grid (Full view, no cut off) -->
+    <div id="yearButtons" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
   </div>
 </div>
 
@@ -5242,67 +5242,67 @@ function renderYears(){
       }
 
       return `
-        <div class="bg-white rounded-2xl p-4 sm:p-5 border-2 transition-all cursor-pointer relative overflow-hidden shadow-sm hover:shadow-md flex flex-col justify-between aspect-square w-full ${isCurrent ? 'border-blue-600 bg-blue-50/15 ring-4 ring-blue-50' : 'border-gray-200 hover:border-blue-300'}" style="aspect-ratio: 1 / 1;" onclick="setCurrentYear(${y.id})">
-          <!-- Top Accent & Timeline Indicator Line -->
-          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gray-100">
-            <div class="h-full ${isCurrent ? 'bg-blue-600' : y.active ? 'bg-emerald-500' : 'bg-gray-400'}" style="width: ${progressPct}%" title="ដំណើរការឆ្នាំសិក្សា៖ ${progressText}"></div>
-          </div>
+        <div class="bg-white rounded-2xl p-5 border-2 transition-all cursor-pointer relative shadow-sm hover:shadow-md flex flex-col justify-between ${isCurrent ? 'border-blue-600 bg-blue-50/15 ring-4 ring-blue-50' : 'border-gray-200 hover:border-blue-300'}" onclick="setCurrentYear(${y.id})">
+          <!-- Top Accent Line -->
+          <div class="absolute top-0 left-0 right-0 h-1.5 rounded-t-2xl ${isCurrent ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : y.active ? 'bg-gradient-to-r from-emerald-500 to-teal-500' : 'bg-gray-300'}"></div>
 
           <!-- Top: Info Block -->
           <div>
             <!-- Header: Year Name, Badges, Dates -->
-            <div class="flex justify-between items-start mb-2 pt-1">
-              <div>
-                <h4 class="font-black text-xl text-gray-900 tracking-tight flex items-center gap-1.5 flex-wrap">
-                  <span>${y.name}</span>
-                  ${y.active ? '<span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">★ ឆ្នាំសកម្ម</span>' : ''}
+            <div class="flex items-start justify-between gap-3 mb-2 pt-1">
+              <div class="min-w-0 flex-1">
+                <h4 class="font-black text-xl text-gray-900 tracking-tight leading-snug">
+                  ${y.name}
                 </h4>
-                <p class="text-xs text-gray-500 font-mono mt-0.5">${y.start||'—'} → ${y.end||'—'}</p>
+                <div class="flex items-center gap-2 mt-1 flex-wrap">
+                  ${y.active ? '<span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200">★ ឆ្នាំសកម្ម</span>' : ''}
+                  <span class="text-xs text-gray-500 font-mono">🗓️ ${y.start||'—'} → ${y.end||'—'}</span>
+                </div>
               </div>
-              ${isCurrent ? '<span class="text-xs bg-blue-600 text-white px-2.5 py-0.5 rounded-full font-bold shadow-xs whitespace-nowrap">✓ កំពុងមើល</span>' : ''}
+              ${isCurrent ? '<span class="text-xs bg-blue-600 text-white px-3 py-1 rounded-full font-bold shadow-xs whitespace-nowrap flex-shrink-0">✓ កំពុងមើល</span>' : ''}
             </div>
 
-            <!-- Schedule & Shift Tags -->
-            <div class="space-y-1.5 my-2.5 bg-gray-50 p-2.5 rounded-xl border border-gray-100 text-xs">
-              <div class="flex items-center gap-1.5 text-gray-700">
+            <!-- Schedule & Shift Tags (Full view, no truncation) -->
+            <div class="space-y-1.5 my-3 bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs">
+              <div class="flex items-start gap-2 text-gray-700">
                 <span class="text-blue-600 font-bold flex-shrink-0">📅 ថ្ងៃរៀន៖</span>
-                <span class="font-medium text-gray-800 truncate">${daysText}</span>
+                <span class="font-medium text-gray-800">${daysText}</span>
               </div>
-              <div class="flex items-center gap-1.5 text-gray-700">
+              <div class="flex items-start gap-2 text-gray-700">
                 <span class="text-amber-600 font-bold flex-shrink-0">⏰ វេនរៀន៖</span>
-                <span class="font-medium text-gray-800 truncate" title="${shiftsText}">${shiftsText}</span>
+                <span class="font-medium text-gray-800 leading-relaxed">${shiftsText}</span>
               </div>
             </div>
           </div>
 
           <!-- Middle: Mini Counts -->
-          <div class="grid grid-cols-3 gap-2 py-2 border-y border-gray-100 text-center text-xs">
-            <div class="bg-gray-50 p-2 rounded-xl">
+          <div class="grid grid-cols-3 gap-2.5 py-2.5 my-2 border-y border-gray-100 text-center text-xs">
+            <div class="bg-blue-50/50 p-2 rounded-xl border border-blue-100/60">
               <span class="text-gray-400 block text-[10px] font-medium">សិស្ស</span>
               <strong class="text-blue-900 text-base font-bold">${stuCount}</strong>
             </div>
-            <div class="bg-gray-50 p-2 rounded-xl">
+            <div class="bg-emerald-50/50 p-2 rounded-xl border border-emerald-100/60">
               <span class="text-gray-400 block text-[10px] font-medium">វិក្កយបត្រ</span>
               <strong class="text-emerald-900 text-base font-bold">${invCount}</strong>
             </div>
-            <div class="bg-gray-50 p-2 rounded-xl">
+            <div class="bg-purple-50/50 p-2 rounded-xl border border-purple-100/60">
               <span class="text-gray-400 block text-[10px] font-medium">ពិន្ទុ</span>
               <strong class="text-purple-900 text-base font-bold">${scoreCount}</strong>
             </div>
           </div>
 
           <!-- Bottom: Actions -->
-          <div class="pt-1 flex flex-wrap items-center justify-between gap-2 no-print" onclick="event.stopPropagation()">
-            <button type="button" onclick="openYearScheduleConfigModal(${y.id})" class="text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 border border-blue-200 transition shadow-2xs">
+          <div class="pt-2 flex flex-wrap items-center justify-between gap-2 no-print" onclick="event.stopPropagation()">
+            <button type="button" onclick="openYearScheduleConfigModal(${y.id})" class="text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 px-3.5 py-2 rounded-xl font-bold flex items-center gap-1.5 border border-blue-200 transition shadow-2xs">
               <span>⚙️ កំណត់ថ្ងៃ & ម៉ោងសិក្សា</span>
             </button>
 
-            <div class="flex items-center gap-2">
-              <button onclick="editYear(${y.id})" class="text-xs text-blue-600 hover:underline font-semibold">✏️ កែ</button>
-              <button onclick="delYear(${y.id})" class="text-xs text-red-600 hover:underline font-semibold">🗑️ លុប</button>
+            <div class="flex items-center gap-1.5">
+              <button onclick="editYear(${y.id})" class="text-xs bg-gray-50 hover:bg-blue-50 text-blue-600 px-2.5 py-1.5 rounded-xl font-semibold border border-gray-200 transition">✏️ កែ</button>
+              <button onclick="delYear(${y.id})" class="text-xs bg-gray-50 hover:bg-red-50 text-red-600 px-2.5 py-1.5 rounded-xl font-semibold border border-gray-200 transition">🗑️ លុប</button>
               ${!y.active ? `
-                <button onclick="setYearActiveDirect(${y.id})" class="text-[10px] bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-2 py-1 rounded-lg font-bold border border-emerald-200">
-                  សកម្ម
+                <button onclick="setYearActiveDirect(${y.id})" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-2.5 py-1.5 rounded-xl font-bold border border-emerald-200 transition">
+                  ★ សកម្ម
                 </button>
               ` : ''}
             </div>
