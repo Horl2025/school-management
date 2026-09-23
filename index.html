@@ -573,14 +573,35 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
         </div>
       </div>
 
-      <!-- ក្រុម៖ ការសិក្សា & វត្តមាន -->
+      <!-- ក្រុម៖ វត្តមាន (Attendance Group matching media_1790154356765.png) -->
       <div>
-        <p class="px-3 text-[11px] font-semibold text-blue-300/70 uppercase tracking-wider mb-1">ការសិក្សា & វត្តមាន</p>
-        <div class="space-y-1">
-          <a href="#" onclick="showPage('attendance')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
-            <span>វត្តមាន & ច្បាប់</span>
+        <p class="px-3 text-[11px] font-semibold text-blue-300/70 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+          <span>វត្តមាន</span>
+        </p>
+        <div class="ml-2 pl-2.5 border-l-2 border-white/20 space-y-1">
+          <a href="#" onclick="openAttendanceTab('scan')" id="sideNavAttScan" class="sidebar-link flex items-center gap-2.5 px-3 py-1.5 rounded-lg hover:bg-white/10 transition text-slate-200 text-xs font-medium">
+            <span class="text-sm">📷</span>
+            <span>ចុះវត្តមាន</span>
           </a>
+          <a href="#" onclick="openAttendanceTab('staff')" id="sideNavAttStaff" class="sidebar-link flex items-center gap-2.5 px-3 py-1.5 rounded-lg hover:bg-white/10 transition text-slate-200 text-xs font-medium">
+            <span class="text-sm">📋</span>
+            <span>វត្តមានមន្ត្រី</span>
+          </a>
+          <a href="#" onclick="openAttendanceTab('student')" id="sideNavAttStudent" class="sidebar-link flex items-center gap-2.5 px-3 py-1.5 rounded-lg hover:bg-white/10 transition text-slate-200 text-xs font-medium">
+            <span class="text-sm">📝</span>
+            <span>កែវត្តមាន</span>
+          </a>
+          <a href="#" onclick="openAttendanceTab('edit-staff')" id="sideNavAttEditStaff" class="sidebar-link flex items-center gap-2.5 px-3 py-1.5 rounded-lg hover:bg-white/10 transition text-slate-200 text-xs font-medium">
+            <span class="text-sm">📝</span>
+            <span>កែវត្តមានមន្ត្រី</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ក្រុម៖ ការសិក្សា (Academic Records) -->
+      <div>
+        <p class="px-3 text-[11px] font-semibold text-blue-300/70 uppercase tracking-wider mb-1">ការសិក្សា</p>
+        <div class="space-y-1">
           <a href="#" onclick="showPage('scores')" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition text-slate-200">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
             <span>ពិន្ទុសិស្ស</span>
@@ -1749,39 +1770,42 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 <!-- ATTENDANCE & QR SCANNER -->
 <div id="page-attendance" class="page">
   <!-- Top Attendance Tabs -->
-  <div class="bg-white rounded-2xl shadow-sm p-2 mb-4 flex flex-wrap gap-2 justify-between items-center no-print border">
-    <div class="flex items-center bg-gray-100 p-1 rounded-xl">
-      <button id="attTabBtnScan" onclick="switchAttTab('scan')" class="px-4 py-2 rounded-lg text-sm font-medium transition bg-white text-blue-700 shadow-sm flex items-center gap-1.5">
-        <span>📸 ស្កេនវត្តមានផ្ទាល់ (QR Scanner)</span>
+  <div class="bg-white rounded-2xl shadow-sm p-2 mb-4 flex flex-wrap gap-2 justify-between items-center no-print border border-slate-100">
+    <div class="flex items-center bg-slate-100/80 p-1 rounded-xl flex-wrap gap-1">
+      <button id="attTabBtnScan" onclick="switchAttTab('scan')" class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-white text-blue-700 shadow-xs flex items-center gap-1.5 cursor-pointer">
+        <span>📷 ចុះវត្តមាន (ស្កេនផ្ទាល់)</span>
       </button>
-      <button id="attTabBtnTeacher" onclick="switchAttTab('teacher')" class="px-4 py-2 rounded-lg text-sm font-medium transition text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
-        <span>👨‍🏫 វត្តមានគ្រូ & បុគ្គលិក</span>
+      <button id="attTabBtnStaff" onclick="switchAttTab('staff')" class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer">
+        <span>📋 វត្តមានមន្ត្រី & គ្រូ</span>
       </button>
-      <button id="attTabBtnStudent" onclick="switchAttTab('student')" class="px-4 py-2 rounded-lg text-sm font-medium transition text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
-        <span>🎓 វត្តមានសិស្សានុសិស្ស</span>
+      <button id="attTabBtnStudent" onclick="switchAttTab('student')" class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer">
+        <span>📝 កែវត្តមានសិស្ស</span>
+      </button>
+      <button id="attTabBtnEditStaff" onclick="switchAttTab('edit-staff')" class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer">
+        <span>📝 កែវត្តមានមន្ត្រី & ច្បាប់</span>
       </button>
     </div>
     <div class="flex items-center gap-3 pr-2">
-      <span class="text-sm font-mono font-bold text-blue-900 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100" id="clock">--:--:--</span>
+      <span class="text-xs sm:text-sm font-mono font-bold text-blue-900 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 shadow-2xs" id="clock">--:--:--</span>
     </div>
   </div>
 
-  <!-- ==================== TAB 1: LIVE QR SCANNER & GATE KIOSK ==================== -->
+  <!-- ==================== TAB 1: LIVE QR SCANNER & GATE KIOSK (ចុះវត្តមាន) ==================== -->
   <div id="attTabScan" class="space-y-4">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
       <!-- Left: Camera & Scanner Viewport (7 Cols) -->
-      <div class="lg:col-span-7 bg-white rounded-2xl p-5 shadow-sm border flex flex-col justify-between">
+      <div class="lg:col-span-7 bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col justify-between">
         <div>
           <div class="flex justify-between items-center mb-3">
             <div>
-              <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+              <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
                 <span>📹 ម៉ាស៊ីនស្កេនវត្តមានឆ្លាតវៃ</span>
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800 animate-pulse">Live</span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 animate-pulse">Live Kiosk</span>
               </h3>
-              <p class="text-xs text-gray-500 mt-0.5">ដាក់កាតសិស្ស ឬ គ្រូនៅមុខកាមេរ៉ាដើម្បីកត់ត្រាវត្តមានស្វ័យប្រវត្តិ</p>
+              <p class="text-xs text-slate-500 mt-0.5">ដាក់កាតសិស្ស ឬ កាតមន្ត្រី-គ្រូ នៅមុខកាមេរ៉ាដើម្បីកត់ត្រាវត្តមានស្វ័យប្រវត្តិ</p>
             </div>
             <div class="flex items-center gap-2 flex-wrap justify-end">
-              <label class="flex items-center gap-1.5 text-xs text-gray-700 font-medium cursor-pointer bg-gray-50 px-2.5 py-1.5 rounded-xl border hover:bg-gray-100 transition">
+              <label class="flex items-center gap-1.5 text-xs text-slate-700 font-medium cursor-pointer bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 transition">
                 <input type="checkbox" id="scanSoundToggle" checked class="rounded text-blue-600">
                 <span>🔊 សំឡេង</span>
               </label>
@@ -1790,9 +1814,9 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
               <div class="flex items-center gap-1 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-xl">
                 <label class="flex items-center gap-1.5 text-xs font-semibold text-blue-900 cursor-pointer">
                   <input type="checkbox" id="scanNotifyToggle" checked onchange="toggleParentNotifySwitch(this.checked)" class="rounded text-blue-600 focus:ring-blue-500">
-                  <span id="scanNotifyStatusText">🔔 ជូនដំណឹងអាណាព្យាបាល (បើក)</span>
+                  <span id="scanNotifyStatusText">🔔 ជូនដំណឹង (បើក)</span>
                 </label>
-                <button type="button" onclick="openParentNotifySettingModal()" class="text-blue-600 hover:text-blue-800 p-0.5 ml-1 rounded hover:bg-blue-100" title="កំណត់សារ & Telegram Bot">
+                <button type="button" onclick="openParentNotifySettingModal()" class="text-blue-600 hover:text-blue-800 p-0.5 ml-1 rounded hover:bg-blue-100 cursor-pointer" title="កំណត់សារ & Telegram Bot">
                   ⚙️
                 </button>
               </div>
@@ -1805,27 +1829,27 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
             <div id="scannerOverlayPlaceholder" class="text-center p-6 text-slate-400">
               <div class="w-20 h-20 mx-auto mb-3 border-2 border-dashed border-slate-600 rounded-2xl flex items-center justify-center text-3xl">📷</div>
               <p class="text-sm font-medium text-slate-300">កាមេរ៉ាមិនទាន់បានបើក</p>
-              <p class="text-xs text-slate-500 mt-1">ចុចប៊ូតុងខាងក្រោមដើម្បីចាប់ផ្តើមស្កេនកាតសិស្ស/គ្រូ</p>
+              <p class="text-xs text-slate-500 mt-1">ចុចប៊ូតុងខាងក្រោមដើម្បីចាប់ផ្តើមស្កេនកាតសិស្ស/មន្ត្រី</p>
             </div>
           </div>
         </div>
 
         <!-- Scanner Controls -->
-        <div class="mt-4 pt-3 border-t space-y-3">
+        <div class="mt-4 pt-3 border-t border-slate-100 space-y-3">
           <div class="flex flex-wrap gap-2 items-center justify-between">
             <div class="flex gap-2">
-              <button id="startScanBtn" onclick="startQRScanner()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition flex items-center gap-1.5 shadow">
+              <button id="startScanBtn" onclick="startQRScanner()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-blue-700 transition flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer">
                 <span>▶️ បើកកាមេរ៉ាស្កេន</span>
               </button>
-              <button id="stopScanBtn" onclick="stopQRScanner()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-300 transition hidden">
+              <button id="stopScanBtn" onclick="stopQRScanner()" class="bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-slate-300 transition hidden cursor-pointer">
                 <span>⏹️ បិទកាមេរ៉ា</span>
               </button>
             </div>
 
             <!-- Manual Barcode Gun Input -->
             <div class="flex items-center gap-1.5 flex-1 max-w-xs ml-auto">
-              <input type="text" id="barcodeGunInput" placeholder="ឬស្កេន Barcode / វាយ ID..." onkeydown="handleBarcodeGunKey(event)" class="w-full border rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-blue-500">
-              <button onclick="handleManualIdScan()" class="bg-gray-800 text-white px-3 py-2 rounded-xl text-xs hover:bg-black">ស្កេន</button>
+              <input type="text" id="barcodeGunInput" placeholder="ឬស្កេន Barcode / វាយ ID..." onkeydown="handleBarcodeGunKey(event)" class="w-full border rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 focus:bg-white transition">
+              <button onclick="handleManualIdScan()" class="bg-slate-800 text-white px-3 py-2 rounded-xl text-xs font-bold hover:bg-black transition active:scale-95 cursor-pointer">ស្កេន</button>
             </div>
           </div>
         </div>
@@ -1833,105 +1857,301 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
 
       <!-- Right: Real-time Stats & Recent Scan Feed (5 Cols) -->
       <div class="lg:col-span-5 flex flex-col gap-4">
-        <!-- Live Scan Counter Cards -->
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bg-white rounded-2xl p-4 shadow-sm border border-blue-100 flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xl">🎓</div>
-            <div>
-              <p class="text-xs text-gray-500 font-medium">សិស្សស្កេនថ្ងៃនេះ</p>
-              <p class="text-2xl font-bold text-blue-900 mt-0.5" id="liveScanStudentCount">0</p>
+        <!-- Live Scan Counter Cards (Students, Staff, Total) -->
+        <div class="grid grid-cols-3 gap-2.5">
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-blue-100 flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg flex-shrink-0">🎓</div>
+            <div class="min-w-0">
+              <p class="text-[10px] sm:text-[11px] text-slate-500 font-medium truncate">សិស្សស្កេន</p>
+              <p class="text-lg sm:text-xl font-black text-blue-900 mt-0.5" id="liveScanStudentCount">0</p>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-4 shadow-sm border border-emerald-100 flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl">👨‍🏫</div>
-            <div>
-              <p class="text-xs text-gray-500 font-medium">គ្រូស្កេនថ្ងៃនេះ</p>
-              <p class="text-2xl font-bold text-emerald-900 mt-0.5" id="liveScanTeacherCount">0</p>
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-emerald-100 flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg flex-shrink-0">💼</div>
+            <div class="min-w-0">
+              <p class="text-[10px] sm:text-[11px] text-slate-500 font-medium truncate">មន្ត្រី-គ្រូ</p>
+              <p class="text-lg sm:text-xl font-black text-emerald-900 mt-0.5" id="liveScanStaffCount">0</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-purple-100 flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-lg flex-shrink-0">⚡</div>
+            <div class="min-w-0">
+              <p class="text-[10px] sm:text-[11px] text-slate-500 font-medium truncate">សរុបថ្ងៃនេះ</p>
+              <p class="text-lg sm:text-xl font-black text-purple-900 mt-0.5" id="liveScanTotalCount">0</p>
             </div>
           </div>
         </div>
 
         <!-- Live Activity Scan Feed -->
-        <div class="bg-white rounded-2xl p-4 shadow-sm border flex-1 flex flex-col justify-between">
-          <div class="flex justify-between items-center pb-2 border-b mb-3">
-            <h4 class="font-bold text-sm text-gray-800">សកម្មភាពស្កេនទើបកត់ត្រា (Live Feed)</h4>
-            <button onclick="clearRecentScanFeed()" class="text-[11px] text-gray-400 hover:text-red-500">សម្អាត</button>
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex-1 flex flex-col justify-between">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-100 mb-3">
+            <h4 class="font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-1.5">
+              <span>សកម្មភាពស្កេនទើបកត់ត្រា (Live Feed)</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            </h4>
+            <button onclick="clearRecentScanFeed()" class="text-[11px] text-slate-400 hover:text-red-600 transition cursor-pointer">សម្អាត</button>
           </div>
           <div id="recentScansFeed" class="space-y-2 overflow-y-auto max-h-[340px] pr-1 flex-1">
-            <div class="text-center py-10 text-gray-400 text-xs">មិនទាន់មានទិន្នន័យស្កេននៅឡើយ</div>
+            <div class="text-center py-10 text-slate-400 text-xs">មិនទាន់មានទិន្នន័យស្កេននៅឡើយ</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== TAB 2: TEACHER / STAFF ATTENDANCE ==================== -->
-  <div id="attTabTeacher" class="space-y-4 hidden">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="bg-white rounded-xl p-3 shadow-sm border-l-4 border-blue-500"><p class="text-xs text-gray-500">គ្រូសរុប</p><p class="text-xl font-bold" id="attTotal">0</p></div>
-      <div class="bg-white rounded-xl p-3 shadow-sm border-l-4 border-green-500"><p class="text-xs text-gray-500">Check-in ទាន់ពេល</p><p class="text-xl font-bold text-green-600" id="attIn">0</p></div>
-      <div class="bg-white rounded-xl p-3 shadow-sm border-l-4 border-yellow-500"><p class="text-xs text-gray-500">មកយឺត</p><p class="text-xl font-bold text-yellow-600" id="attLate">0</p></div>
-      <div class="bg-white rounded-xl p-3 shadow-sm border-l-4 border-red-500"><p class="text-xs text-gray-500">មិនទាន់ Check-in</p><p class="text-xl font-bold text-red-600" id="attAbsent">0</p></div>
+  <!-- ==================== TAB 2: STAFF & TEACHER ATTENDANCE (វត្តមានមន្ត្រី) ==================== -->
+  <div id="attTabStaff" class="space-y-4 hidden">
+    <!-- Staff Att Summary Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-blue-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មន្ត្រី & គ្រូសរុប</p>
+        <p class="text-xl font-black text-slate-800" id="attStaffTotal">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-emerald-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">Check-in ទាន់ពេល</p>
+        <p class="text-xl font-black text-emerald-600" id="attStaffOnTime">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-amber-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មកយឺត</p>
+        <p class="text-xl font-black text-amber-600" id="attStaffLate">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-purple-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មានច្បាប់សម្រាក</p>
+        <p class="text-xl font-black text-purple-600" id="attStaffLeave">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-rose-500 border border-slate-100 col-span-2 sm:col-span-1">
+        <p class="text-[11px] text-slate-500 font-medium">មិនទាន់ Check-in</p>
+        <p class="text-xl font-black text-rose-600" id="attStaffAbsent">0</p>
+      </div>
     </div>
-    <div class="bg-white rounded-xl shadow-sm p-3 flex flex-wrap gap-3 items-center no-print border">
-      <label class="text-xs text-gray-600 font-medium">ម៉ោងកំណត់ចូល <input type="time" id="stdIn" value="07:00" class="border rounded-lg px-2.5 py-1 ml-1 text-sm" onchange="renderAttendance()"></label>
-      <label class="text-xs text-gray-600 font-medium">អត់ធ្មត់ (នាទី) <input type="number" id="grace" value="10" min="0" class="border rounded-lg px-2.5 py-1 w-16 ml-1 text-sm" onchange="renderAttendance()"></label>
+
+    <!-- Staff Att Toolbar -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-wrap gap-3 justify-between items-center no-print">
+      <div class="flex flex-wrap gap-2.5 items-center flex-1">
+        <div>
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">កាលបរិច្ឆេទ</label>
+          <input type="date" id="attStaffDate" onchange="renderStaffAttendance()" class="border rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-white font-medium">
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">ប្រភេទបុគ្គលិក</label>
+          <select id="attStaffTypeFilter" onchange="renderStaffAttendance()" class="border rounded-xl px-3 py-1.5 text-xs bg-white outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+            <option value="all">ទាំងអស់ (មន្ត្រី & គ្រូ)</option>
+            <option value="staff">តែមន្ត្រី-បុគ្គលិក</option>
+            <option value="teacher">តែគ្រូបង្រៀន</option>
+          </select>
+        </div>
+        <div class="flex-1 min-w-[180px]">
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">ស្វែងរក</label>
+          <input type="text" id="attStaffSearch" placeholder="ស្វែងរកតាមឈ្មោះ ឬ អត្តលេខ..." oninput="renderStaffAttendance()" class="w-full border rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 focus:bg-white transition">
+        </div>
+      </div>
+      <div class="flex items-center gap-2 pt-2 sm:pt-0">
+        <button onclick="previewStaffAttendancePDF()" class="btn-pdf text-xs shadow-xs cursor-pointer">📄 បោះពុម្ព PDF</button>
+        <button onclick="exportStaffAttendanceExcel()" class="btn-export text-xs shadow-xs cursor-pointer">📥 Export Excel</button>
+      </div>
     </div>
-    <div class="bg-white rounded-xl shadow-sm overflow-hidden border">
-      <table class="w-full text-sm"><thead class="bg-gray-50 text-gray-600"><tr>
-        <th class="text-left px-4 py-3">ឈ្មោះ</th><th class="text-left px-4 py-3">Check-in</th><th class="text-left px-4 py-3">Check-out</th><th class="text-left px-4 py-3">ស្ថានភាព</th><th class="text-center px-4 py-3 no-print">សកម្មភាព</th>
-      </tr></thead><tbody id="attBody" class="divide-y"></tbody></table>
+
+    <!-- Staff Att Table -->
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100">
+      <div class="px-4 py-2.5 border-b border-slate-100 text-xs text-slate-600 flex justify-between items-center bg-slate-50/70">
+        <span>កាលបរិច្ឆេទវត្តមានមន្ត្រី៖ <strong id="attStaffDateLabel" class="text-blue-900 font-bold">—</strong></span>
+        <div class="flex items-center gap-2 text-[11px]">
+          <span>ម៉ោងចូលស្តង់ដារ៖ <strong class="text-slate-800">07:00</strong></span>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm whitespace-nowrap">
+          <thead class="bg-slate-50 text-slate-600 text-xs">
+            <tr>
+              <th class="text-center px-3 py-3 font-bold">ល.រ</th>
+              <th class="text-left px-3 py-3 font-bold">រូបថត</th>
+              <th class="text-left px-4 py-3 font-bold">អត្តលេខ</th>
+              <th class="text-left px-4 py-3 font-bold">គោត្តនាម-នាម</th>
+              <th class="text-left px-4 py-3 font-bold">តួនាទី / ឯកទេស</th>
+              <th class="text-left px-3 py-3 font-bold">ប្រភេទ</th>
+              <th class="text-center px-4 py-3 font-bold">Check-in (ចូល)</th>
+              <th class="text-center px-4 py-3 font-bold">Check-out (ចេញ)</th>
+              <th class="text-center px-4 py-3 font-bold">ស្ថានភាពវត្តមាន</th>
+              <th class="text-center px-4 py-3 no-print font-bold">សកម្មភាព</th>
+            </tr>
+          </thead>
+          <tbody id="attStaffBody" class="divide-y text-xs"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-  <!-- ==================== TAB 3: STUDENT DAILY ATTENDANCE ==================== -->
+  <!-- ==================== TAB 3: STUDENT DAILY ATTENDANCE (កែវត្តមានសិស្ស) ==================== -->
   <div id="attTabStudent" class="space-y-4 hidden">
-    <!-- Student Att Toolbar -->
-    <div class="bg-white rounded-2xl p-4 shadow-sm border flex flex-wrap gap-3 justify-between items-center no-print">
-      <div class="flex flex-wrap gap-2.5 items-center">
-        <select id="stuAttClassFilter" onchange="renderStudentAttendance()" class="border rounded-xl px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="">គ្រប់ថ្នាក់ទាំងអស់</option>
-          <option value="ថ្នាក់ទី៧">ថ្នាក់ទី៧</option>
-          <option value="ថ្នាក់ទី៨">ថ្នាក់ទី៨</option>
-          <option value="ថ្នាក់ទី៩">ថ្នាក់ទី៩</option>
-          <option value="ថ្នាក់ទី១០">ថ្នាក់ទី១០</option>
-          <option value="ថ្នាក់ទី១១">ថ្នាក់ទី១១</option>
-          <option value="ថ្នាក់ទី១២">ថ្នាក់ទី១២</option>
-        </select>
-        <input type="date" id="stuAttDate" onchange="renderStudentAttendance()" class="border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
-        <input type="text" id="stuAttSearch" placeholder="ស្វែងរកសិស្ស..." oninput="renderStudentAttendance()" class="border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 w-44">
+    <!-- Student Att Summary Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-blue-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">សិស្សក្នុងថ្នាក់</p>
+        <p class="text-xl font-black text-slate-800" id="stuAttTotal">0</p>
       </div>
-      <div class="flex gap-2">
-        <button onclick="previewStudentAttPDF()" class="btn-pdf">📄 មើលជា PDF</button>
-        <button onclick="exportStudentAttendanceExcel()" class="btn-export">📥 Export Excel</button>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-emerald-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មានវត្តមាន (ទាន់ពេល)</p>
+        <p class="text-xl font-black text-emerald-600" id="stuAttPresent">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-amber-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មកយឺត</p>
+        <p class="text-xl font-black text-amber-600" id="stuAttLate">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-purple-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មានច្បាប់</p>
+        <p class="text-xl font-black text-purple-600" id="stuAttLeave">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-rose-500 border border-slate-100 col-span-2 md:col-span-1">
+        <p class="text-[11px] text-slate-500 font-medium">អវត្តមានអត់ច្បាប់</p>
+        <p class="text-xl font-black text-rose-600" id="stuAttAbsent">0</p>
       </div>
     </div>
 
-    <!-- Student Att Summary Cards -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="bg-white rounded-xl p-3 shadow-sm border-l-4 border-blue-500"><p class="text-xs text-gray-500">សិស្សសរុប</p><p class="text-xl font-bold" id="stuAttTotal">0</p></div>
-      <div class="bg-white rounded-xl p-3 shadow-sm border-l-4 border-green-500"><p class="text-xs text-gray-500">មានវត្តមាន (ទាន់ពេល)</p><p class="text-xl font-bold text-green-600" id="stuAttPresent">0</p></div>
-      <div class="bg-white rounded-xl p-3 shadow-sm border-l-4 border-yellow-500"><p class="text-xs text-gray-500">មកយឺត</p><p class="text-xl font-bold text-yellow-600" id="stuAttLate">0</p></div>
-      <div class="bg-white rounded-xl p-3 shadow-sm border-l-4 border-red-500"><p class="text-xs text-gray-500">អវត្តមាន</p><p class="text-xl font-bold text-red-600" id="stuAttAbsent">0</p></div>
+    <!-- Student Att Toolbar -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-wrap gap-3 justify-between items-center no-print">
+      <div class="flex flex-wrap gap-2.5 items-center flex-1">
+        <div>
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">ថ្នាក់រៀន</label>
+          <select id="stuAttClassFilter" onchange="renderStudentAttendance()" class="border rounded-xl px-3 py-1.5 text-xs bg-white outline-none focus:ring-2 focus:ring-blue-500 font-bold text-slate-800">
+            <option value="">គ្រប់ថ្នាក់ទាំងអស់</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">កាលបរិច្ឆេទ</label>
+          <input type="date" id="stuAttDate" onchange="renderStudentAttendance()" class="border rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-white font-medium">
+        </div>
+        <div class="flex-1 min-w-[160px]">
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">ស្វែងរកសិស្ស</label>
+          <input type="text" id="stuAttSearch" placeholder="ស្វែងរកតាមឈ្មោះ ឬ អត្តលេខ..." oninput="renderStudentAttendance()" class="w-full border rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 focus:bg-white transition">
+        </div>
+      </div>
+      <div class="flex items-center gap-2 pt-2 sm:pt-0">
+        <button onclick="markAllCurrentStudentsPresent()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition shadow-xs flex items-center gap-1 active:scale-95 cursor-pointer" title="កំណត់សិស្សទាំងអស់ក្នុងថ្នាក់នេះថាមានវត្តមាន">
+          <span>⚡ វត្តមានទាំងអស់</span>
+        </button>
+        <button onclick="previewStudentAttPDF()" class="btn-pdf text-xs shadow-xs cursor-pointer">📄 មើលជា PDF</button>
+        <button onclick="exportStudentAttendanceExcel()" class="btn-export text-xs shadow-xs cursor-pointer">📥 Export Excel</button>
+      </div>
     </div>
 
     <!-- Student Att Table -->
-    <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
-      <div class="px-4 py-2.5 border-b text-xs text-gray-500 flex justify-between items-center bg-gray-50/50">
-        <span>កាលបរិច្ឆេទវត្តមាន៖ <strong id="stuAttDateLabel" class="text-blue-900 font-semibold">—</strong></span>
-        <span>ឆ្នាំសិក្សា៖ <strong>${getCurrentYearName()}</strong></span>
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100">
+      <div class="px-4 py-2.5 border-b border-slate-100 text-xs text-slate-600 flex justify-between items-center bg-slate-50/70">
+        <span>កាលបរិច្ឆេទស្រង់វត្តមានសិស្ស៖ <strong id="stuAttDateLabel" class="text-blue-900 font-bold">—</strong></span>
+        <span>ឆ្នាំសិក្សា៖ <strong id="stuAttYearLabel" class="text-slate-800"></strong></span>
       </div>
       <div class="overflow-x-auto">
-        <table class="w-full text-sm whitespace-nowrap"><thead class="bg-gray-50 text-gray-600"><tr>
-          <th class="text-left px-4 py-3 font-semibold">ល.រ</th>
-          <th class="text-left px-4 py-3 font-semibold">លេខសិស្ស</th>
-          <th class="text-left px-4 py-3 font-semibold">គោត្តនាម-នាម</th>
-          <th class="text-left px-4 py-3 font-semibold">ថ្នាក់</th>
-          <th class="text-left px-4 py-3 font-semibold">Check-in</th>
-          <th class="text-left px-4 py-3 font-semibold">Check-out</th>
-          <th class="text-left px-4 py-3 font-semibold">ស្ថានភាព</th>
-          <th class="text-center px-4 py-3 no-print font-semibold">សកម្មភាព</th>
-        </tr></thead><tbody id="stuAttBody" class="divide-y"></tbody></table>
+        <table class="w-full text-sm whitespace-nowrap">
+          <thead class="bg-slate-50 text-slate-600 text-xs">
+            <tr>
+              <th class="text-center px-3 py-3 font-bold">ល.រ</th>
+              <th class="text-left px-3 py-3 font-bold">រូបថត</th>
+              <th class="text-left px-4 py-3 font-bold">អត្តលេខ</th>
+              <th class="text-left px-4 py-3 font-bold">គោត្តនាម-នាម</th>
+              <th class="text-center px-3 py-3 font-bold">ភេទ</th>
+              <th class="text-center px-4 py-3 font-bold">ថ្នាក់</th>
+              <th class="text-center px-4 py-3 font-bold">Check-in</th>
+              <th class="text-center px-4 py-3 font-bold">Check-out</th>
+              <th class="text-center px-4 py-3 font-bold">ស្ថានភាព</th>
+              <th class="text-center px-4 py-3 no-print font-bold">កែវត្តមានរហ័ស (1-Click)</th>
+            </tr>
+          </thead>
+          <tbody id="stuAttBody" class="divide-y text-xs"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: EDIT STAFF ATTENDANCE & LEAVES (កែវត្តមានមន្ត្រី & ច្បាប់) ==================== -->
+  <div id="attTabEditStaff" class="space-y-5 hidden">
+    <!-- Top Adjustment & Leave Record Form -->
+    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div>
+          <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-2">
+            <span>📝 កែសម្រួលវត្តមាន & កត់ត្រាច្បាប់សម្រាកមន្ត្រី-បុគ្គលិក</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">ជ្រើសរើសមន្ត្រី ឬ គ្រូ ដើម្បីកែម៉ោង Check-in/Out ឬកត់ត្រាលិខិតសុំច្បាប់</p>
+        </div>
+      </div>
+
+      <form onsubmit="saveStaffAttendanceAdjustment(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">ជ្រើសរើសមន្ត្រី / គ្រូ <span class="text-rose-500">*</span></label>
+          <select id="editStaffSelect" required class="w-full border rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 bg-white font-medium">
+            <option value="">-- ជ្រើសរើសមន្ត្រី/គ្រូ --</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">កាលបរិច្ឆេទ <span class="text-rose-500">*</span></label>
+          <input type="date" id="editStaffDate" required class="w-full border rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 bg-white font-medium">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">ស្ថានភាពវត្តមាន <span class="text-rose-500">*</span></label>
+          <select id="editStaffStatus" onchange="toggleStaffLeaveTimeInputs(this.value)" class="w-full border rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 bg-white font-bold text-slate-800">
+            <option value="present">✅ មានវត្តមាន (ទាន់ពេល)</option>
+            <option value="late">⚠️ មកយឺត</option>
+            <option value="sick_leave">📝 ច្បាប់ឈឺ (Sick Leave)</option>
+            <option value="annual_leave">📝 សម្រាកប្រចាំឆ្នាំ (Annual Leave)</option>
+            <option value="mission">📝 បេសកកម្មក្រៅសាលា (Mission)</option>
+            <option value="personal_leave">📝 ធុរៈផ្ទាល់ខ្លួន (Personal Leave)</option>
+            <option value="absent">🔴 អវត្តមានអត់ច្បាប់ (Unexcused)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">ម៉ោង Check-in (ចូល)</label>
+          <input type="time" id="editStaffCheckIn" value="07:00" class="w-full border rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 bg-white font-mono">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">ម៉ោង Check-out (ចេញ)</label>
+          <input type="time" id="editStaffCheckOut" value="17:00" class="w-full border rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 bg-white font-mono">
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="block font-bold text-slate-700 mb-1">មូលហេតុ / លិខិតអនុញ្ញាត / ចំណាំ</label>
+          <input type="text" id="editStaffNote" placeholder="ឧ. មានធុរៈគ្រួសារ ឬ មានលិខិតច្បាប់..." class="w-full border rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 focus:bg-white transition">
+        </div>
+
+        <div class="flex items-end">
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-xl transition shadow-sm active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer">
+            <span>💾 រក្សាទុកវត្តមាន/ច្បាប់</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Staff Leave & Adjustment History Table -->
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100">
+      <div class="p-4 border-b border-slate-100 flex flex-wrap gap-3 justify-between items-center bg-slate-50/70">
+        <div>
+          <h4 class="font-bold text-xs sm:text-sm text-slate-800">បញ្ជីប្រវត្តិការកត់ត្រាច្បាប់ & កែសម្រួលវត្តមានមន្ត្រី</h4>
+          <p class="text-[11px] text-slate-500 mt-0.5">ទិន្នន័យច្បាប់សម្រាកដែលបានអនុម័ត និងកត់ត្រាក្នុងប្រព័ន្ធ</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="text" id="staffLeaveSearch" placeholder="ស្វែងរក..." oninput="renderStaffLeaveAdjustmentsTable()" class="border rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm whitespace-nowrap">
+          <thead class="bg-slate-50 text-slate-600 text-xs">
+            <tr>
+              <th class="text-center px-3 py-3 font-bold">ល.រ</th>
+              <th class="text-left px-4 py-3 font-bold">អត្តលេខ</th>
+              <th class="text-left px-4 py-3 font-bold">គោត្តនាម-នាម</th>
+              <th class="text-left px-4 py-3 font-bold">តួនាទី</th>
+              <th class="text-center px-4 py-3 font-bold">កាលបរិច្ឆេទ</th>
+              <th class="text-center px-4 py-3 font-bold">ប្រភេទច្បាប់ / ស្ថានភាព</th>
+              <th class="text-center px-4 py-3 font-bold">ម៉ោងចូល-ចេញ</th>
+              <th class="text-left px-4 py-3 font-bold">មូលហេតុ/ចំណាំ</th>
+              <th class="text-center px-4 py-3 no-print font-bold">សកម្មភាព</th>
+            </tr>
+          </thead>
+          <tbody id="staffLeaveBody" class="divide-y text-xs"></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -4813,7 +5033,7 @@ function closeMobileSidebar(){
 }
 
 /* ===== PAGE SWITCHER ===== */
-function showPage(page){
+function showPage(page, subTab){
   closeMobileSidebar();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const el = document.getElementById('page-' + page);
@@ -4853,7 +5073,7 @@ function showPage(page){
   if(page === 'teachers') renderTeachers();
   if(page === 'staff') renderStaff();
   if(page === 'idcards') renderIdCards();
-  if(page === 'attendance') switchAttTab('scan');
+  if(page === 'attendance') switchAttTab(subTab || currentAttendanceTab || 'scan');
   if(page === 'fees') renderFees();
   if(page === 'scores') renderScores();
   if(page === 'reports') renderReport();
@@ -9709,17 +9929,44 @@ let lastScannedCode = null;
 let lastScanTimestamp = 0;
 let recentScansList = JSON.parse(sessionStorage.getItem('sms_recent_scans') || '[]');
 
+let currentAttendanceTab = 'scan';
+
+function openAttendanceTab(tab){
+  currentAttendanceTab = tab;
+  showPage('attendance', tab);
+  switchAttTab(tab);
+}
+
 function switchAttTab(tab){
-  ['scan', 'teacher', 'student'].forEach(t => {
-    const btn = document.getElementById('attTabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
-    const section = document.getElementById('attTab' + t.charAt(0).toUpperCase() + t.slice(1));
-    if(btn && section){
-      if(t === tab){
-        btn.className = 'px-4 py-2 rounded-lg text-sm font-medium transition bg-white text-blue-700 shadow-sm flex items-center gap-1.5';
-        section.classList.remove('hidden');
+  if(tab === 'teacher') tab = 'staff';
+  currentAttendanceTab = tab;
+
+  const validTabs = [
+    { id: 'scan', btn: 'attTabBtnScan', sec: 'attTabScan', nav: 'sideNavAttScan' },
+    { id: 'staff', btn: 'attTabBtnStaff', sec: 'attTabStaff', nav: 'sideNavAttStaff' },
+    { id: 'student', btn: 'attTabBtnStudent', sec: 'attTabStudent', nav: 'sideNavAttStudent' },
+    { id: 'edit-staff', btn: 'attTabBtnEditStaff', sec: 'attTabEditStaff', nav: 'sideNavAttEditStaff' }
+  ];
+
+  validTabs.forEach(t => {
+    const btn = document.getElementById(t.btn);
+    const sec = document.getElementById(t.sec);
+    const nav = document.getElementById(t.nav);
+
+    if(btn && sec){
+      if(t.id === tab){
+        btn.className = 'px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-white text-blue-700 shadow-xs flex items-center gap-1.5 cursor-pointer';
+        sec.classList.remove('hidden');
       } else {
-        btn.className = 'px-4 py-2 rounded-lg text-sm font-medium transition text-gray-600 hover:text-gray-900 flex items-center gap-1.5';
-        section.classList.add('hidden');
+        btn.className = 'px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer';
+        sec.classList.add('hidden');
+      }
+    }
+    if(nav){
+      if(t.id === tab){
+        nav.classList.add('bg-white/20', 'text-white', 'font-bold');
+      } else {
+        nav.classList.remove('bg-white/20', 'text-white', 'font-bold');
       }
     }
   });
@@ -9727,11 +9974,15 @@ function switchAttTab(tab){
   if(tab === 'scan'){
     updateLiveScanCounters();
     renderRecentScanFeed();
-  } else if(tab === 'teacher'){
-    renderAttendance();
+  } else if(tab === 'staff'){
+    initStaffAttFilters();
+    renderStaffAttendance();
   } else if(tab === 'student'){
     initStudentAttFilters();
     renderStudentAttendance();
+  } else if(tab === 'edit-staff'){
+    initEditStaffAttForm();
+    renderStaffLeaveAdjustmentsTable();
   }
 }
 
@@ -10206,6 +10457,8 @@ function processStaffScan(staff, timeStr, timeSecondsStr, isLate, lateMinutes){
   });
 
   updateLiveScanCounters();
+  renderStaffAttendance();
+  buildDashboardExtras();
 }
 
 function showScanResultModal(data){
@@ -10283,28 +10536,339 @@ function updateLiveScanCounters(){
   const stuAtt = JSON.parse(localStorage.getItem('sms_stu_att_' + todayKey) || '{}');
   const tchAtt = JSON.parse(localStorage.getItem('sms_att_' + todayKey) || '{}');
   const stuCount = Object.keys(stuAtt).length;
-  const tchCount = Object.keys(tchAtt).filter(k => !k.startsWith('stf_')).length;
+  const staffCount = Object.keys(tchAtt).length;
+  const totalCount = stuCount + staffCount;
 
   const stuEl = document.getElementById('liveScanStudentCount');
   if(stuEl) stuEl.textContent = stuCount;
-  const tchEl = document.getElementById('liveScanTeacherCount');
-  if(tchEl) tchEl.textContent = tchCount;
+  const stfEl = document.getElementById('liveScanStaffCount');
+  if(stfEl) stfEl.textContent = staffCount;
+  const totEl = document.getElementById('liveScanTotalCount');
+  if(totEl) totEl.textContent = totalCount;
 }
 
-/* ===== STUDENT DAILY ATTENDANCE (TAB 3) ===== */
-function initStudentAttFilters(){
-  const dateInput = document.getElementById('stuAttDate');
+/* ===== UNIFIED STAFF & TEACHERS DATA HELPER ===== */
+function getUnifiedStaffAndTeachers(){
+  const list = [];
+  (teachers || []).forEach(t => {
+    list.push({
+      id: t.id,
+      realId: t.id,
+      storageKey: String(t.id),
+      code: t.code || ('TCH-' + t.id),
+      name: t.name || '',
+      gender: t.gender || '',
+      role: t.subject ? `គ្រូបង្រៀន (${t.subject})` : (t.role || 'គ្រូបង្រៀន'),
+      type: 'teacher',
+      typeLabel: 'គ្រូបង្រៀន',
+      photo: t.photo || ''
+    });
+  });
+  (staffList || []).forEach(s => {
+    list.push({
+      id: s.id,
+      realId: s.id,
+      storageKey: 'stf_' + s.id,
+      code: s.code || ('STF-' + s.id),
+      name: s.name || '',
+      gender: s.gender || '',
+      role: s.position || 'មន្ត្រី/បុគ្គលិក',
+      type: 'staff',
+      typeLabel: 'មន្ត្រី/បុគ្គលិក',
+      photo: s.photo || ''
+    });
+  });
+  return list;
+}
+
+/* ===== TAB 2: STAFF & TEACHER ATTENDANCE (វត្តមានមន្ត្រី & គ្រូ) ===== */
+function initStaffAttFilters(){
+  const dateInput = document.getElementById('attStaffDate');
   if(dateInput && !dateInput.value) dateInput.value = todayKey;
 }
 
+function renderStaffAttendance(){
+  const dateInput = document.getElementById('attStaffDate');
+  const targetDate = dateInput?.value || todayKey;
+  const typeFilter = document.getElementById('attStaffTypeFilter')?.value || 'all';
+  const q = document.getElementById('attStaffSearch')?.value.toLowerCase().trim() || '';
+
+  const dateLabel = document.getElementById('attStaffDateLabel');
+  if(dateLabel) {
+    try {
+      dateLabel.textContent = new Date(targetDate).toLocaleDateString('km-KH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    } catch(e) {
+      dateLabel.textContent = targetDate;
+    }
+  }
+
+  const stdIn = appSettings.stdIn || '07:00';
+  const grace = Number(appSettings.grace) || 0;
+  const [sh, sm] = stdIn.split(':').map(Number);
+  const stdMin = (sh || 7) * 60 + (sm || 0);
+
+  const attKey = 'sms_att_' + targetDate;
+  const dailyAtt = JSON.parse(localStorage.getItem(attKey) || '{}');
+  const leaveRecords = JSON.parse(localStorage.getItem('sms_staff_leaves') || '[]');
+
+  const allStaff = getUnifiedStaffAndTeachers().filter(item => {
+    const matchType = typeFilter === 'all' || item.type === typeFilter;
+    const matchSearch = item.name.toLowerCase().includes(q) || item.code.toLowerCase().includes(q) || item.role.toLowerCase().includes(q);
+    return matchType && matchSearch;
+  });
+
+  let totalCount = allStaff.length;
+  let onTimeCount = 0;
+  let lateCount = 0;
+  let leaveCount = 0;
+  let absentCount = 0;
+
+  const tbody = document.getElementById('attStaffBody');
+  if(!tbody) return;
+
+  tbody.innerHTML = allStaff.map((staff, idx) => {
+    const rec = dailyAtt[staff.storageKey] || {};
+    const leaveRec = leaveRecords.find(l => l.storageKey === staff.storageKey && l.date === targetDate);
+
+    let statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 font-semibold border border-rose-200">មិនទាន់ Check-in</span>';
+    let checkInDisplay = rec.checkIn || '--:--';
+    let checkOutDisplay = rec.checkOut || '--:--';
+
+    if(leaveRec || (rec.status && rec.status.includes('leave'))){
+      leaveCount++;
+      const lType = leaveRec?.leaveType || rec.status;
+      const leaveLabels = {
+        'sick_leave': 'ច្បាប់ឈឺ',
+        'annual_leave': 'សម្រាកប្រចាំឆ្នាំ',
+        'mission': 'បេសកកម្មក្រៅ',
+        'personal_leave': 'ធុរៈផ្ទាល់ខ្លួន',
+        'leave': 'មានច្បាប់'
+      };
+      const label = leaveLabels[lType] || 'មានច្បាប់';
+      statusBadge = `<span class="text-xs px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 font-semibold border border-purple-200">📝 ${label}</span>`;
+    } else if(rec.checkIn){
+      const [ch, cm] = rec.checkIn.split(':').map(Number);
+      const curMin = (ch || 0) * 60 + (cm || 0);
+      if(curMin - stdMin > grace){
+        lateCount++;
+        const lateMin = curMin - stdMin;
+        statusBadge = `<span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 font-semibold border border-amber-200">⚠️ មកយឺត (${lateMin} ន.)</span>`;
+      } else {
+        onTimeCount++;
+        statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">✅ ទាន់ពេល</span>';
+      }
+    } else if(rec.status === 'absent'){
+      absentCount++;
+      statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 font-semibold border border-rose-200">🔴 អវត្តមាន</span>';
+    } else {
+      absentCount++;
+    }
+
+    const photoHtml = staff.photo
+      ? `<img src="${staff.photo}" class="w-8 h-8 rounded-full object-cover border border-slate-200">`
+      : `<div class="w-8 h-8 rounded-full ${staff.type==='teacher'?'bg-blue-100 text-blue-700':'bg-emerald-100 text-emerald-700'} flex items-center justify-center font-bold text-xs">${(staff.name||'?')[0]}</div>`;
+
+    return `
+      <tr class="hover:bg-slate-50/80 transition">
+        <td class="text-center px-3 py-3 text-slate-500 font-medium">${idx+1}</td>
+        <td class="px-3 py-3">${photoHtml}</td>
+        <td class="px-4 py-3 font-mono font-bold text-blue-700">${staff.code}</td>
+        <td class="px-4 py-3 font-bold text-slate-800">${staff.name}</td>
+        <td class="px-4 py-3 text-slate-600 font-medium">${staff.role}</td>
+        <td class="px-3 py-3"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold ${staff.type==='teacher'?'bg-blue-50 text-blue-700 border border-blue-200':'bg-emerald-50 text-emerald-700 border border-emerald-200'}">${staff.typeLabel}</span></td>
+        <td class="text-center px-4 py-3 font-mono text-xs font-bold text-slate-700">${checkInDisplay}</td>
+        <td class="text-center px-4 py-3 font-mono text-xs font-bold text-slate-700">${checkOutDisplay}</td>
+        <td class="text-center px-4 py-3">${statusBadge}</td>
+        <td class="text-center px-4 py-3 no-print space-x-1 whitespace-nowrap">
+          ${!rec.checkIn ? `<button onclick="quickMarkStaffAttendance('${staff.storageKey}', 'in')" class="bg-blue-600 hover:bg-blue-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer">ចូល</button>` : ''}
+          ${rec.checkIn && !rec.checkOut ? `<button onclick="quickMarkStaffAttendance('${staff.storageKey}', 'out')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer">ចេញ</button>` : ''}
+          <button onclick="openStaffEditLeaveModal('${staff.storageKey}', '${targetDate}')" class="bg-purple-100 hover:bg-purple-200 text-purple-700 px-2 py-1 rounded-lg text-xs font-bold transition cursor-pointer" title="កែសម្រួលវត្តមាន ឬ កត់ត្រាច្បាប់">កែ/ច្បាប់</button>
+          ${rec.checkIn || rec.checkOut ? `<button onclick="quickMarkStaffAttendance('${staff.storageKey}', 'clear')" class="text-rose-500 hover:text-rose-700 px-1.5 py-1 text-xs hover:underline cursor-pointer" title="សម្អាតវត្តមានថ្ងៃនេះ">លុប</button>` : ''}
+        </td>
+      </tr>
+    `;
+  }).join('') || '<tr><td colspan="10" class="text-center py-8 text-slate-400">មិនមានទិន្នន័យមន្ត្រី-គ្រូបង្រៀន</td></tr>';
+
+  const elTotal = document.getElementById('attStaffTotal');
+  if(elTotal) elTotal.textContent = totalCount;
+  const elOnTime = document.getElementById('attStaffOnTime');
+  if(elOnTime) elOnTime.textContent = onTimeCount;
+  const elLate = document.getElementById('attStaffLate');
+  if(elLate) elLate.textContent = lateCount;
+  const elLeave = document.getElementById('attStaffLeave');
+  if(elLeave) elLeave.textContent = leaveCount;
+  const elAbsent = document.getElementById('attStaffAbsent');
+  if(elAbsent) elAbsent.textContent = absentCount;
+}
+
+function quickMarkStaffAttendance(storageKey, type){
+  const dateInput = document.getElementById('attStaffDate');
+  const targetDate = dateInput?.value || todayKey;
+  const attKey = 'sms_att_' + targetDate;
+  const dailyAtt = JSON.parse(localStorage.getItem(attKey) || '{}');
+  if(!dailyAtt[storageKey]) dailyAtt[storageKey] = {};
+
+  const now = new Date();
+  const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+
+  if(type === 'in'){
+    dailyAtt[storageKey].checkIn = timeStr;
+    dailyAtt[storageKey].status = 'present';
+  } else if(type === 'out'){
+    dailyAtt[storageKey].checkOut = timeStr;
+  } else if(type === 'clear'){
+    delete dailyAtt[storageKey];
+  }
+
+  localStorage.setItem(attKey, JSON.stringify(dailyAtt));
+  renderStaffAttendance();
+  updateLiveScanCounters();
+  buildDashboardExtras();
+}
+
+function exportStaffAttendanceExcel(){
+  const dateInput = document.getElementById('attStaffDate');
+  const targetDate = dateInput?.value || todayKey;
+  const typeFilter = document.getElementById('attStaffTypeFilter')?.value || 'all';
+  const attKey = 'sms_att_' + targetDate;
+  const dailyAtt = JSON.parse(localStorage.getItem(attKey) || '{}');
+  const leaveRecords = JSON.parse(localStorage.getItem('sms_staff_leaves') || '[]');
+
+  const allStaff = getUnifiedStaffAndTeachers().filter(item => {
+    return typeFilter === 'all' || item.type === typeFilter;
+  });
+
+  const list = allStaff.map((staff, idx) => {
+    const rec = dailyAtt[staff.storageKey] || {};
+    const leaveRec = leaveRecords.find(l => l.storageKey === staff.storageKey && l.date === targetDate);
+    let statusText = 'មិនទាន់ Check-in';
+    if(leaveRec || (rec.status && rec.status.includes('leave'))){
+      statusText = 'មានច្បាប់សម្រាក';
+    } else if(rec.checkIn){
+      statusText = 'មានវត្តមាន';
+    } else if(rec.status === 'absent'){
+      statusText = 'អវត្តមាន';
+    }
+
+    return {
+      'ល.រ': idx + 1,
+      'អត្តលេខ': staff.code,
+      'គោត្តនាម-នាម': staff.name,
+      'តួនាទី': staff.role,
+      'ប្រភេទ': staff.typeLabel,
+      'Check-in': rec.checkIn || '—',
+      'Check-out': rec.checkOut || '—',
+      'ស្ថានភាព': statusText,
+      'កាលបរិច្ឆេទ': targetDate
+    };
+  });
+
+  downloadExcel(list, 'វត្តមានមន្ត្រី-គ្រូ', `វត្តមានមន្ត្រី_គ្រូ_${targetDate}`);
+}
+
+function previewStaffAttendancePDF(){
+  const dateInput = document.getElementById('attStaffDate');
+  const targetDate = dateInput?.value || todayKey;
+  const typeFilter = document.getElementById('attStaffTypeFilter')?.value || 'all';
+  const attKey = 'sms_att_' + targetDate;
+  const dailyAtt = JSON.parse(localStorage.getItem(attKey) || '{}');
+  const leaveRecords = JSON.parse(localStorage.getItem('sms_staff_leaves') || '[]');
+
+  const allStaff = getUnifiedStaffAndTeachers().filter(item => {
+    return typeFilter === 'all' || item.type === typeFilter;
+  });
+
+  const rows = allStaff.map((staff, idx) => {
+    const rec = dailyAtt[staff.storageKey] || {};
+    const leaveRec = leaveRecords.find(l => l.storageKey === staff.storageKey && l.date === targetDate);
+    let statusText = 'មិនទាន់ Check-in';
+    if(leaveRec || (rec.status && rec.status.includes('leave'))){
+      statusText = 'មានច្បាប់';
+    } else if(rec.checkIn){
+      statusText = 'មានវត្តមាន';
+    } else if(rec.status === 'absent'){
+      statusText = 'អវត្តមាន';
+    }
+
+    return `
+      <tr class="border-b text-xs">
+        <td class="py-2 px-3 text-center">${idx+1}</td>
+        <td class="py-2 px-3 font-semibold text-blue-700">${staff.code}</td>
+        <td class="py-2 px-3 font-medium">${staff.name}</td>
+        <td class="py-2 px-3">${staff.role}</td>
+        <td class="py-2 px-3 text-center">${staff.typeLabel}</td>
+        <td class="py-2 px-3 text-center font-mono">${rec.checkIn || '—'}</td>
+        <td class="py-2 px-3 text-center font-mono">${rec.checkOut || '—'}</td>
+        <td class="py-2 px-3 text-center">${statusText}</td>
+      </tr>
+    `;
+  }).join('');
+
+  const typeNameKh = typeFilter === 'staff' ? 'មន្ត្រី-បុគ្គលិក' : typeFilter === 'teacher' ? 'គ្រូបង្រៀន' : 'មន្ត្រី និងគ្រូបង្រៀន';
+  const html = `
+    <div>
+      ${getOfficialKhmerHeader(`បញ្ជីវត្តមាន${typeNameKh}ប្រចាំថ្ងៃ`, `កាលបរិច្ឆេទ៖ ${targetDate}`)}
+      <table class="w-full text-left border-collapse border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100 border-b text-xs font-semibold text-gray-700">
+            <th class="py-2 px-3 text-center w-12">ល.រ</th>
+            <th class="py-2 px-3">អត្តលេខ</th>
+            <th class="py-2 px-3">គោត្តនាម-នាម</th>
+            <th class="py-2 px-3">តួនាទី</th>
+            <th class="py-2 px-3 text-center">ប្រភេទ</th>
+            <th class="py-2 px-3 text-center">Check-in</th>
+            <th class="py-2 px-3 text-center">Check-out</th>
+            <th class="py-2 px-3 text-center">ស្ថានភាព</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+      ${getOfficialKhmerFooter()}
+    </div>
+  `;
+  openPdfModal('បញ្ជីវត្តមានមន្ត្រី-គ្រូ (PDF)', `Staff_Attendance_${targetDate}`, html);
+}
+
+/* ===== TAB 3: STUDENT DAILY ATTENDANCE (កែវត្តមានសិស្ស) ===== */
+function populateStudentAttClassFilter(){
+  const filterEl = document.getElementById('stuAttClassFilter');
+  if(!filterEl) return;
+  const currentVal = filterEl.value;
+  const curClasses = filterByYear(classes || []);
+  let opts = '<option value="">គ្រប់ថ្នាក់ទាំងអស់</option>';
+  curClasses.forEach(c => {
+    opts += `<option value="${c.name}">${c.name}</option>`;
+  });
+  filterEl.innerHTML = opts;
+  if(currentVal) filterEl.value = currentVal;
+}
+
+function initStudentAttFilters(){
+  const dateInput = document.getElementById('stuAttDate');
+  if(dateInput && !dateInput.value) dateInput.value = todayKey;
+  populateStudentAttClassFilter();
+  const yLabel = document.getElementById('stuAttYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
+}
+
 function renderStudentAttendance(){
+  populateStudentAttClassFilter();
   const dateInput = document.getElementById('stuAttDate');
   const targetDate = dateInput?.value || todayKey;
   const cFilter = document.getElementById('stuAttClassFilter')?.value || '';
-  const q = document.getElementById('stuAttSearch')?.value.toLowerCase() || '';
+  const q = document.getElementById('stuAttSearch')?.value.toLowerCase().trim() || '';
 
   const dateLabel = document.getElementById('stuAttDateLabel');
-  if(dateLabel) dateLabel.textContent = new Date(targetDate).toLocaleDateString('km-KH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  if(dateLabel) {
+    try {
+      dateLabel.textContent = new Date(targetDate).toLocaleDateString('km-KH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    } catch(e) {
+      dateLabel.textContent = targetDate;
+    }
+  }
+
+  const yLabel = document.getElementById('stuAttYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
 
   const stuAttKey = 'sms_stu_att_' + targetDate;
   const dailyStuAtt = JSON.parse(localStorage.getItem(stuAttKey) || '{}');
@@ -10315,48 +10879,57 @@ function renderStudentAttendance(){
     return matchClass && matchSearch;
   });
 
-  let presentCount = 0, lateCount = 0, absentCount = 0;
+  let presentCount = 0, lateCount = 0, leaveCount = 0, absentCount = 0;
 
   const tbody = document.getElementById('stuAttBody');
   if(!tbody) return;
 
   tbody.innerHTML = allStudents.map((s, i) => {
     const rec = dailyStuAtt[s.id] || {};
-    let statusBadge = '<span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700">អវត្តមាន</span>';
+    let statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 font-semibold border border-rose-200">🔴 អវត្តមាន</span>';
     if(rec.status === 'present'){
       presentCount++;
-      statusBadge = '<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700">មានវត្តមាន (ទាន់ពេល)</span>';
+      statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">✅ មានវត្តមាន</span>';
     } else if(rec.status === 'late'){
       lateCount++;
-      statusBadge = `<span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">យឺត (${rec.lateMin||10} នាទី)</span>`;
+      statusBadge = `<span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 font-semibold border border-amber-200">⚠️ យឺត (${rec.lateMin||10} ន.)</span>`;
     } else if(rec.status === 'leave'){
-      statusBadge = '<span class="text-xs px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">មានច្បាប់</span>';
+      leaveCount++;
+      statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 font-semibold border border-purple-200">📝 មានច្បាប់</span>';
     } else {
       absentCount++;
     }
 
+    const photoHtml = s.photo
+      ? `<img src="${s.photo}" class="w-8 h-8 rounded-full object-cover border border-slate-200">`
+      : `<div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">${(s.name||'?')[0]}</div>`;
+
     return `
-      <tr class="hover:bg-gray-50">
-        <td class="px-4 py-3">${i+1}</td>
-        <td class="px-4 py-3 font-semibold text-blue-700 font-mono">${s.code}</td>
-        <td class="px-4 py-3 font-medium">${s.name}</td>
-        <td class="px-4 py-3">${s.className}</td>
-        <td class="px-4 py-3 font-mono text-xs">${rec.checkIn || '--:--'}</td>
-        <td class="px-4 py-3 font-mono text-xs">${rec.checkOut || '--:--'}</td>
-        <td class="px-4 py-3">${statusBadge}</td>
-        <td class="px-4 py-3 text-center space-x-1 no-print">
-          <button onclick="setStudentAttStatus(${s.id}, 'present')" class="bg-green-600 text-white px-2 py-0.5 rounded text-xs hover:bg-green-700" title="វត្តមាន">P</button>
-          <button onclick="setStudentAttStatus(${s.id}, 'late')" class="bg-yellow-500 text-white px-2 py-0.5 rounded text-xs hover:bg-yellow-600" title="យឺត">L</button>
-          <button onclick="setStudentAttStatus(${s.id}, 'leave')" class="bg-purple-600 text-white px-2 py-0.5 rounded text-xs hover:bg-purple-700" title="ច្បាប់">E</button>
-          <button onclick="setStudentAttStatus(${s.id}, 'absent')" class="bg-red-600 text-white px-2 py-0.5 rounded text-xs hover:bg-red-700" title="អវត្តមាន">A</button>
+      <tr class="hover:bg-slate-50/80 transition">
+        <td class="text-center px-3 py-3 text-slate-500 font-medium">${i+1}</td>
+        <td class="px-3 py-3">${photoHtml}</td>
+        <td class="px-4 py-3 font-mono font-bold text-blue-700">${s.code}</td>
+        <td class="px-4 py-3 font-bold text-slate-800">${s.name}</td>
+        <td class="text-center px-3 py-3 text-slate-600">${s.gender || '—'}</td>
+        <td class="text-center px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">${s.className}</span></td>
+        <td class="text-center px-4 py-3 font-mono text-xs font-bold text-slate-700">${rec.checkIn || '--:--'}</td>
+        <td class="text-center px-4 py-3 font-mono text-xs font-bold text-slate-700">${rec.checkOut || '--:--'}</td>
+        <td class="text-center px-4 py-3">${statusBadge}</td>
+        <td class="text-center px-4 py-3 no-print space-x-1 whitespace-nowrap">
+          <button onclick="setStudentAttStatus(${s.id}, 'present')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer ${rec.status==='present'?'bg-emerald-600 text-white':'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'}" title="វត្តមាន">វត្តមាន</button>
+          <button onclick="setStudentAttStatus(${s.id}, 'late')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer ${rec.status==='late'?'bg-amber-500 text-white':'bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200'}" title="យឺត">យឺត</button>
+          <button onclick="setStudentAttStatus(${s.id}, 'leave')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer ${rec.status==='leave'?'bg-purple-600 text-white':'bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200'}" title="ច្បាប់">ច្បាប់</button>
+          <button onclick="setStudentAttStatus(${s.id}, 'absent')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer ${!rec.status || rec.status==='absent'?'bg-rose-600 text-white':'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'}" title="អវត្តមាន">អវត្តមាន</button>
         </td>
       </tr>
     `;
-  }).join('') || '<tr><td colspan="8" class="text-center py-6 text-gray-400">មិនមានទិន្នន័យសិស្ស</td></tr>';
+  }).join('') || '<tr><td colspan="10" class="text-center py-8 text-slate-400">មិនមានទិន្នន័យសិស្ស</td></tr>';
 
   document.getElementById('stuAttTotal').textContent = allStudents.length;
   document.getElementById('stuAttPresent').textContent = presentCount;
   document.getElementById('stuAttLate').textContent = lateCount;
+  const elLeave = document.getElementById('stuAttLeave');
+  if(elLeave) elLeave.textContent = leaveCount;
   document.getElementById('stuAttAbsent').textContent = absentCount;
 }
 
@@ -10389,7 +10962,51 @@ function setStudentAttStatus(studentId, status){
 
   localStorage.setItem(stuAttKey, JSON.stringify(dailyStuAtt));
   renderStudentAttendance();
+  updateLiveScanCounters();
   updateDashboard();
+}
+
+function markAllCurrentStudentsPresent(){
+  const dateInput = document.getElementById('stuAttDate');
+  const targetDate = dateInput?.value || todayKey;
+  const cFilter = document.getElementById('stuAttClassFilter')?.value || '';
+  const q = document.getElementById('stuAttSearch')?.value.toLowerCase().trim() || '';
+
+  const stuAttKey = 'sms_stu_att_' + targetDate;
+  const dailyStuAtt = JSON.parse(localStorage.getItem(stuAttKey) || '{}');
+
+  const allStudents = filterByYear(students).filter(s => {
+    const matchClass = !cFilter || s.className === cFilter;
+    const matchSearch = s.name.toLowerCase().includes(q) || s.code.toLowerCase().includes(q);
+    return matchClass && matchSearch;
+  });
+
+  if(!allStudents.length){
+    alert('មិនមានសិស្សសម្រាប់កំណត់វត្តមានឡើយ');
+    return;
+  }
+
+  const defaultCheckIn = appSettings.stdIn || '07:00';
+  allStudents.forEach(s => {
+    dailyStuAtt[s.id] = {
+      id: s.id,
+      code: s.code,
+      name: s.name,
+      className: s.className,
+      checkIn: dailyStuAtt[s.id]?.checkIn || defaultCheckIn,
+      checkOut: dailyStuAtt[s.id]?.checkOut || '',
+      status: 'present',
+      lateMin: 0,
+      date: targetDate,
+      yearId: currentYearId
+    };
+  });
+
+  localStorage.setItem(stuAttKey, JSON.stringify(dailyStuAtt));
+  renderStudentAttendance();
+  updateLiveScanCounters();
+  updateDashboard();
+  showToast(`បានកំណត់វត្តមានសិស្សចំនួន ${allStudents.length} នាក់រួចរាល់!`, 'success');
 }
 
 function exportStudentAttendanceExcel(){
@@ -10463,70 +11080,189 @@ function previewStudentAttPDF(){
   openPdfModal('បញ្ជីវត្តមានសិស្ស (PDF)', `Student_Att_${targetDate}`, html);
 }
 
-/* ===== TEACHER ATTENDANCE (TAB 2) ===== */
-function renderAttendance(){
-  const stdIn = document.getElementById('stdIn')?.value || '07:00';
-  const grace = Number(document.getElementById('grace')?.value) || 0;
-  const [sh, sm] = stdIn.split(':').map(Number);
-  const stdMin = sh * 60 + sm;
+/* ===== TAB 4: EDIT STAFF ATTENDANCE & LEAVES (កែវត្តមានមន្ត្រី & ច្បាប់) ===== */
+function initEditStaffAttForm(){
+  const dateInput = document.getElementById('editStaffDate');
+  if(dateInput && !dateInput.value) dateInput.value = todayKey;
 
-  const todayAtt = JSON.parse(localStorage.getItem('sms_att_' + todayKey) || '{}');
-  let inCount = 0, lateCount = 0, absentCount = 0;
+  const select = document.getElementById('editStaffSelect');
+  if(!select) return;
 
-  const tbody = document.getElementById('attBody');
+  const currentVal = select.value;
+  const list = getUnifiedStaffAndTeachers();
+  select.innerHTML = '<option value="">-- ជ្រើសរើសមន្ត្រី/គ្រូ --</option>' + list.map(item => `
+    <option value="${item.storageKey}">${item.name} (${item.code} - ${item.role})</option>
+  `).join('');
+
+  if(currentVal) select.value = currentVal;
+}
+
+function openStaffEditLeaveModal(storageKey, targetDate){
+  openAttendanceTab('edit-staff');
+  initEditStaffAttForm();
+
+  if(storageKey){
+    const sel = document.getElementById('editStaffSelect');
+    if(sel) sel.value = storageKey;
+  }
+  if(targetDate){
+    const d = document.getElementById('editStaffDate');
+    if(d) d.value = targetDate;
+  }
+}
+
+function toggleStaffLeaveTimeInputs(status){
+  const inInput = document.getElementById('editStaffCheckIn');
+  const outInput = document.getElementById('editStaffCheckOut');
+  if(!inInput || !outInput) return;
+
+  if(status === 'present' || status === 'late'){
+    inInput.removeAttribute('disabled');
+    outInput.removeAttribute('disabled');
+    inInput.classList.remove('opacity-50', 'bg-slate-100');
+    outInput.classList.remove('opacity-50', 'bg-slate-100');
+  } else {
+    inInput.value = '';
+    outInput.value = '';
+    inInput.setAttribute('disabled', 'true');
+    outInput.setAttribute('disabled', 'true');
+    inInput.classList.add('opacity-50', 'bg-slate-100');
+    outInput.classList.add('opacity-50', 'bg-slate-100');
+  }
+}
+
+function saveStaffAttendanceAdjustment(e){
+  e.preventDefault();
+  const storageKey = document.getElementById('editStaffSelect')?.value;
+  const date = document.getElementById('editStaffDate')?.value || todayKey;
+  const status = document.getElementById('editStaffStatus')?.value || 'present';
+  const checkIn = document.getElementById('editStaffCheckIn')?.value || '';
+  const checkOut = document.getElementById('editStaffCheckOut')?.value || '';
+  const note = document.getElementById('editStaffNote')?.value.trim() || '';
+
+  if(!storageKey){
+    alert('សូមជ្រើសរើសមន្ត្រី ឬ គ្រូជាមុនសិន!');
+    return;
+  }
+
+  const staffListUnified = getUnifiedStaffAndTeachers();
+  const staff = staffListUnified.find(s => s.storageKey === storageKey);
+  if(!staff){
+    alert('រកមិនឃើញព័ត៌មានបុគ្គលិក!');
+    return;
+  }
+
+  // 1. Update daily attendance in sms_att_YYYY-MM-DD
+  const attKey = 'sms_att_' + date;
+  const dailyAtt = JSON.parse(localStorage.getItem(attKey) || '{}');
+  dailyAtt[storageKey] = {
+    checkIn: checkIn,
+    checkOut: checkOut,
+    status: status,
+    note: note,
+    date: date
+  };
+  localStorage.setItem(attKey, JSON.stringify(dailyAtt));
+
+  // 2. If leave or adjustment, record into sms_staff_leaves
+  const leaves = JSON.parse(localStorage.getItem('sms_staff_leaves') || '[]');
+  const leaveId = Date.now();
+  leaves.unshift({
+    id: leaveId,
+    storageKey: storageKey,
+    name: staff.name,
+    code: staff.code,
+    role: staff.role,
+    type: staff.type,
+    typeLabel: staff.typeLabel,
+    date: date,
+    leaveType: status,
+    checkIn: checkIn,
+    checkOut: checkOut,
+    note: note,
+    createdAt: new Date().toISOString()
+  });
+  localStorage.setItem('sms_staff_leaves', JSON.stringify(leaves));
+
+  // Reset note
+  const noteEl = document.getElementById('editStaffNote');
+  if(noteEl) noteEl.value = '';
+
+  renderStaffLeaveAdjustmentsTable();
+  renderStaffAttendance();
+  updateLiveScanCounters();
+  buildDashboardExtras();
+  showToast('បានកត់ត្រាវត្តមាន/ច្បាប់មន្ត្រីដោយជោគជ័យ!', 'success');
+}
+
+function renderStaffLeaveAdjustmentsTable(){
+  const search = document.getElementById('staffLeaveSearch')?.value.toLowerCase().trim() || '';
+  const leaves = JSON.parse(localStorage.getItem('sms_staff_leaves') || '[]');
+  const tbody = document.getElementById('staffLeaveBody');
   if(!tbody) return;
 
-  tbody.innerHTML = teachers.map(t => {
-    const rec = todayAtt[t.id] || {};
-    let statusBadge = '<span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700">មិនទាន់ Check-in</span>';
-    if(rec.checkIn){
-      const [ch, cm] = rec.checkIn.split(':').map(Number);
-      const curMin = ch * 60 + cm;
-      if(curMin - stdMin > grace){
-        lateCount++;
-        statusBadge = `<span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">យឺត (${curMin - stdMin} នាទី)</span>`;
-      } else {
-        inCount++;
-        statusBadge = '<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700">ទាន់ពេល</span>';
-      }
-    } else {
-      absentCount++;
+  const filtered = leaves.filter(l => {
+    return (l.name || '').toLowerCase().includes(search) ||
+           (l.code || '').toLowerCase().includes(search) ||
+           (l.role || '').toLowerCase().includes(search) ||
+           (l.note || '').toLowerCase().includes(search) ||
+           (l.date || '').includes(search);
+  });
+
+  const leaveLabels = {
+    'sick_leave': '📝 ច្បាប់ឈឺ (Sick Leave)',
+    'annual_leave': '📝 សម្រាកប្រចាំឆ្នាំ (Annual Leave)',
+    'mission': '📝 បេសកកម្មក្រៅសាលា (Mission)',
+    'personal_leave': '📝 ធុរៈផ្ទាល់ខ្លួន (Personal)',
+    'absent': '🔴 អវត្តមានអត់ច្បាប់ (Absent)',
+    'present': '✅ មានវត្តមាន (Present)',
+    'late': '⚠️ មកយឺត (Late)'
+  };
+
+  tbody.innerHTML = filtered.map((item, idx) => `
+    <tr class="hover:bg-slate-50/80 transition">
+      <td class="text-center px-3 py-3 text-slate-500 font-medium">${idx+1}</td>
+      <td class="px-4 py-3 font-mono font-bold text-blue-700">${item.code}</td>
+      <td class="px-4 py-3 font-bold text-slate-800">${item.name}</td>
+      <td class="px-4 py-3 text-slate-600 font-medium">${item.role}</td>
+      <td class="text-center px-4 py-3 font-medium text-slate-700">${item.date}</td>
+      <td class="text-center px-4 py-3"><span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">${leaveLabels[item.leaveType] || item.leaveType}</span></td>
+      <td class="text-center px-4 py-3 font-mono text-xs text-slate-600">${item.checkIn || '—'} ${item.checkOut ? '→ ' + item.checkOut : ''}</td>
+      <td class="px-4 py-3 text-slate-600 max-w-xs truncate">${item.note || '—'}</td>
+      <td class="text-center px-4 py-3 no-print">
+        <button onclick="deleteStaffLeaveRecord(${item.id})" class="text-rose-600 hover:text-rose-800 text-xs font-semibold hover:underline cursor-pointer">លុប</button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="9" class="text-center py-8 text-slate-400">មិនទាន់មានប្រវត្តិកត់ត្រាច្បាប់នៅឡើយ</td></tr>';
+}
+
+function deleteStaffLeaveRecord(id){
+  showConfirmDeleteModal({
+    title: 'បញ្ជាក់ការលុបកំណត់ត្រាច្បាប់',
+    message: 'តើលោកអ្នកពិតជាចង់លុបកំណត់ត្រានេះមែនទេ?',
+    subText: 'កំណត់ត្រាច្បាប់នេះនឹងត្រូវដកចេញពីប្រព័ន្ធ។',
+    confirmText: 'យល់ព្រមលុប',
+    cancelText: '✕ បោះបង់',
+    icon: '⚠️',
+    type: 'danger',
+    onConfirm: () => {
+      let leaves = JSON.parse(localStorage.getItem('sms_staff_leaves') || '[]');
+      leaves = leaves.filter(l => l.id !== id);
+      localStorage.setItem('sms_staff_leaves', JSON.stringify(leaves));
+      renderStaffLeaveAdjustmentsTable();
+      renderStaffAttendance();
+      showToast('បានលុបកំណត់ត្រាដោយជោគជ័យ!', 'success');
     }
+  });
+}
 
-    return `
-      <tr class="hover:bg-gray-50">
-        <td class="px-4 py-3 font-medium">${t.name}</td>
-        <td class="px-4 py-3 font-mono text-sm">${rec.checkIn || '--:--'}</td>
-        <td class="px-4 py-3 font-mono text-sm">${rec.checkOut || '--:--'}</td>
-        <td class="px-4 py-3">${statusBadge}</td>
-        <td class="px-4 py-3 text-center space-x-2 no-print">
-          <button onclick="markAttendance(${t.id}, 'in')" class="bg-blue-600 text-white px-2.5 py-1 rounded text-xs hover:bg-blue-700">In</button>
-          <button onclick="markAttendance(${t.id}, 'out')" class="bg-indigo-600 text-white px-2.5 py-1 rounded text-xs hover:bg-indigo-700">Out</button>
-          <button onclick="markAttendance(${t.id}, 'clear')" class="text-red-500 text-xs hover:underline">Clear</button>
-        </td>
-      </tr>
-    `;
-  }).join('') || '<tr><td colspan="5" class="text-center py-6 text-gray-400">មិនមានគ្រូ</td></tr>';
-
-  document.getElementById('attTotal').textContent = teachers.length;
-  document.getElementById('attIn').textContent = inCount;
-  document.getElementById('attLate').textContent = lateCount;
-  document.getElementById('attAbsent').textContent = absentCount;
+/* Backward compatibility aliases */
+function renderAttendance(){
+  renderStaffAttendance();
 }
 
 function markAttendance(teacherId, type){
-  const todayAtt = JSON.parse(localStorage.getItem('sms_att_' + todayKey) || '{}');
-  if(!todayAtt[teacherId]) todayAtt[teacherId] = {};
-  const now = new Date();
-  const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-
-  if(type === 'in') todayAtt[teacherId].checkIn = timeStr;
-  else if(type === 'out') todayAtt[teacherId].checkOut = timeStr;
-  else if(type === 'clear') delete todayAtt[teacherId];
-
-  localStorage.setItem('sms_att_' + todayKey, JSON.stringify(todayAtt));
-  renderAttendance();
-  buildDashboardExtras();
+  quickMarkStaffAttendance(String(teacherId), type);
 }
 
 /* ===== FEES & INVOICES ===== */
