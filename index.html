@@ -5784,7 +5784,7 @@ function saveYear(e){
 }
 function delYear(id){
   if(academicYears.length <= 1){ alert('ត្រូវមានឆ្នាំសិក្សាយ៉ាងហោចណាស់ ១'); return; }
-  if(!confirm('លុបឆ្នាំសិក្សានេះ?')) return;
+  if(!confirm('តើលោកអ្នកពិតជាចង់លុបមែនទេ?')) return;
   academicYears = academicYears.filter(y => y.id !== id);
   if(currentYearId === id){
     currentYearId = academicYears.find(y => y.active)?.id || academicYears[0].id;
@@ -6410,9 +6410,9 @@ function delClass(id){
   if(!c) return;
   const enrolled = filterByYear(students).filter(s => s.className === c.name).length;
   if(enrolled > 0){
-    if(!confirm(`ថ្នាក់ "${c.name}" មានសិស្សចំនួន ${enrolled} នាក់កំពុងរៀន។ តើអ្នកពិតជាចង់លុបថ្នាក់នេះមែនទេ?`)) return;
+    if(!confirm(`ថ្នាក់ "${c.name}" មានសិស្សចំនួន ${enrolled} នាក់កំពុងរៀន។ តើលោកអ្នកពិតជាចង់លុបថ្នាក់នេះមែនទេ?`)) return;
   } else {
-    if(!confirm(`តើអ្នកពិតជាចង់លុបថ្នាក់ "${c.name}" នេះមែនទេ?`)) return;
+    if(!confirm(`តើលោកអ្នកពិតជាចង់លុបថ្នាក់ "${c.name}" នេះមែនទេ?`)) return;
   }
 
   classes = classes.filter(x => x.id !== id);
@@ -7963,7 +7963,7 @@ function saveStudent(e){
   updateDashboard();
 }
 function delStudent(id){
-  if(!confirm('លុបសិស្សនេះ?')) return;
+  if(!confirm('តើលោកអ្នកពិតជាចង់លុបមែនទេ?')) return;
   students = students.filter(s => s.id !== id);
   localStorage.setItem('sms_students', JSON.stringify(students));
   renderStudents();
@@ -8451,7 +8451,7 @@ function saveTeacher(e){
 }
 
 function delTeacher(id){
-  if(!confirm('លុបគ្រូនេះ?')) return;
+  if(!confirm('តើលោកអ្នកពិតជាចង់លុបមែនទេ?')) return;
   teachers = teachers.filter(t => t.id !== id);
   localStorage.setItem('sms_teachers', JSON.stringify(teachers));
   renderTeachers();
@@ -8844,7 +8844,7 @@ function saveStaff(e){
 
 function delStaff(id){
   const s = staffList.find(x => x.id === id);
-  if(!confirm(`តើអ្នកពិតជាចង់លុបមន្ត្រី «${s?.name || ''}» ចេញពីប្រព័ន្ធមែនទេ?`)) return;
+  if(!confirm(`តើលោកអ្នកពិតជាចង់លុបមន្ត្រី «${s?.name || ''}» ចេញពីប្រព័ន្ធមែនទេ?`)) return;
   staffList = staffList.filter(x => x.id !== id);
   localStorage.setItem('sms_staff', JSON.stringify(staffList));
   renderStaff();
@@ -10351,7 +10351,7 @@ function savePayment(e){
   updateDashboard();
 }
 function delFee(id){
-  if(!confirm('លុបវិក្កយបត្រនេះ?')) return;
+  if(!confirm('តើលោកអ្នកពិតជាចង់លុបមែនទេ?')) return;
   invoices = invoices.filter(i => i.id !== id);
   localStorage.setItem('sms_invoices', JSON.stringify(invoices));
   renderFees();
@@ -11248,7 +11248,7 @@ function saveMonthlyScoreEntry(e){
 }
 
 function deleteMonthlyScore(id){
-  if(!confirm('លុបកំណត់ត្រាពិន្ទុនេះ?')) return;
+  if(!confirm('តើលោកអ្នកពិតជាចង់លុបមែនទេ?')) return;
   monthlyExamScores = monthlyExamScores.filter(s => s.id !== id);
   localStorage.setItem('sms_monthly_exam_scores', JSON.stringify(monthlyExamScores));
   renderMonthlyScoreTable();
@@ -11984,7 +11984,7 @@ function saveUser(e){
   renderUsers();
 }
 function delUser(id){
-  if(!confirm('លុបអ្នកប្រើនេះ?')) return;
+  if(!confirm('តើលោកអ្នកពិតជាចង់លុបមែនទេ?')) return;
   users = users.filter(u => u.id !== id);
   localStorage.setItem('sms_users', JSON.stringify(users));
   renderUsers();
