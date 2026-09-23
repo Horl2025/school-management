@@ -585,6 +585,10 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
             <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span>ចុះវត្តមាន</span>
           </a>
+          <a href="#" onclick="openAttendanceTab('student-board')" id="sideNavAttStudentBoard" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition duration-150">
+            <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            <span>វត្តមានសិស្ស</span>
+          </a>
           <a href="#" onclick="openAttendanceTab('staff')" id="sideNavAttStaff" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition duration-150">
             <svg class="w-4 h-4 flex-shrink-0 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
             <span>វត្តមានមន្ត្រី</span>
@@ -1781,6 +1785,9 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
       <button id="attTabBtnScan" onclick="switchAttTab('scan')" class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-white text-blue-700 shadow-xs flex items-center gap-1.5 cursor-pointer">
         <span>📷 ចុះវត្តមាន (ស្កេនផ្ទាល់)</span>
       </button>
+      <button id="attTabBtnStudentBoard" onclick="switchAttTab('student-board')" class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer">
+        <span>🎓 វត្តមានសិស្ស</span>
+      </button>
       <button id="attTabBtnStaff" onclick="switchAttTab('staff')" class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer">
         <span>📋 វត្តមានមន្ត្រី & គ្រូ</span>
       </button>
@@ -1901,6 +1908,113 @@ html,body{height:100%;margin:0;padding:0;background-color:#f3f4f6}
             <div class="text-center py-10 text-slate-400 text-xs">មិនទាន់មានទិន្នន័យស្កេននៅឡើយ</div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: STUDENT ATTENDANCE BOARD (វត្តមានសិស្ស) ==================== -->
+  <div id="attTabStudentBoard" class="space-y-4 hidden">
+    <!-- Student Board Summary Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-6 gap-3">
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-blue-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">សិស្សសរុប</p>
+        <p class="text-xl font-black text-slate-800" id="stuBoardTotal">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-emerald-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មានវត្តមាន (ទាន់ពេល)</p>
+        <p class="text-xl font-black text-emerald-600" id="stuBoardPresent">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-amber-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មកយឺត</p>
+        <p class="text-xl font-black text-amber-600" id="stuBoardLate">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-purple-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">មានច្បាប់សម្រាក</p>
+        <p class="text-xl font-black text-purple-600" id="stuBoardLeave">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-rose-500 border border-slate-100">
+        <p class="text-[11px] text-slate-500 font-medium">អវត្តមានអត់ច្បាប់</p>
+        <p class="text-xl font-black text-rose-600" id="stuBoardAbsent">0</p>
+      </div>
+      <div class="bg-white rounded-2xl p-3.5 shadow-sm border-l-4 border-indigo-500 border border-slate-100 col-span-2 sm:col-span-1">
+        <p class="text-[11px] text-slate-500 font-medium">អត្រាវត្តមានសរុប</p>
+        <p class="text-xl font-black text-indigo-600" id="stuBoardRate">0%</p>
+      </div>
+    </div>
+
+    <!-- Class Attendance Overview Badges -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+      <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+        <h4 class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+          <span>🏫 ស្ថានភាពវត្តមានសិស្សតាមថ្នាក់រៀន</span>
+          <span class="text-[11px] text-slate-400 font-normal">(ចុចលើថ្នាក់ដើម្បីចម្រាញ់ទិន្នន័យ)</span>
+        </h4>
+        <span class="text-[11px] text-blue-600 font-semibold" id="stuBoardClassOverviewDate">—</span>
+      </div>
+      <div id="stuBoardClassBadges" class="flex flex-wrap gap-2 pt-1"></div>
+    </div>
+
+    <!-- Student Board Toolbar -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-wrap gap-3 justify-between items-center no-print">
+      <div class="flex flex-wrap gap-2.5 items-center flex-1">
+        <div>
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">កាលបរិច្ឆេទ</label>
+          <input type="date" id="stuBoardDate" onchange="renderStudentBoardAttendance()" class="border rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-white font-medium">
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">ថ្នាក់រៀន</label>
+          <select id="stuBoardClassFilter" onchange="renderStudentBoardAttendance()" class="border rounded-xl px-3 py-1.5 text-xs bg-white outline-none focus:ring-2 focus:ring-blue-500 font-bold text-slate-800">
+            <option value="">គ្រប់ថ្នាក់ទាំងអស់</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">ស្ថានភាពវត្តមាន</label>
+          <select id="stuBoardStatusFilter" onchange="renderStudentBoardAttendance()" class="border rounded-xl px-3 py-1.5 text-xs bg-white outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+            <option value="all">ទាំងអស់</option>
+            <option value="present">មានវត្តមាន (ទាន់ពេល)</option>
+            <option value="late">មកយឺត</option>
+            <option value="leave">មានច្បាប់</option>
+            <option value="absent">អវត្តមាន</option>
+          </select>
+        </div>
+        <div class="flex-1 min-w-[160px]">
+          <label class="block text-[10px] text-slate-400 font-bold mb-0.5">ស្វែងរកសិស្ស</label>
+          <input type="text" id="stuBoardSearch" placeholder="ស្វែងរកតាមឈ្មោះ ឬ អត្តលេខ..." oninput="renderStudentBoardAttendance()" class="w-full border rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 focus:bg-white transition">
+        </div>
+      </div>
+      <div class="flex items-center gap-2 pt-2 sm:pt-0">
+        <button onclick="switchAttTab('student')" class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs px-3.5 py-2 rounded-xl transition border border-blue-200 shadow-2xs flex items-center gap-1 cursor-pointer" title="ទៅកាន់ផ្ទាំងស្រង់វត្តមានសិស្ស">
+          <span>✏️ ស្រង់/កែវត្តមាន</span>
+        </button>
+        <button onclick="previewStudentBoardPDF()" class="btn-pdf text-xs shadow-xs cursor-pointer">📄 បោះពុម្ព PDF</button>
+        <button onclick="exportStudentBoardExcel()" class="btn-export text-xs shadow-xs cursor-pointer">📥 Export Excel</button>
+      </div>
+    </div>
+
+    <!-- Student Board Table -->
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100">
+      <div class="px-4 py-2.5 border-b border-slate-100 text-xs text-slate-600 flex justify-between items-center bg-slate-50/70">
+        <span>កាលបរិច្ឆេទវត្តមានសិស្ស៖ <strong id="stuBoardDateLabel" class="text-blue-900 font-bold">—</strong></span>
+        <span>ឆ្នាំសិក្សា៖ <strong id="stuBoardYearLabel" class="text-slate-800"></strong></span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm whitespace-nowrap">
+          <thead class="bg-slate-50 text-slate-600 text-xs">
+            <tr>
+              <th class="text-center px-3 py-3 font-bold">ល.រ</th>
+              <th class="text-left px-3 py-3 font-bold">រូបថត</th>
+              <th class="text-left px-4 py-3 font-bold">អត្តលេខ</th>
+              <th class="text-left px-4 py-3 font-bold">គោត្តនាម-នាម</th>
+              <th class="text-center px-3 py-3 font-bold">ភេទ</th>
+              <th class="text-center px-4 py-3 font-bold">ថ្នាក់</th>
+              <th class="text-center px-4 py-3 font-bold">Check-in</th>
+              <th class="text-center px-4 py-3 font-bold">Check-out</th>
+              <th class="text-center px-4 py-3 font-bold">ស្ថានភាព</th>
+              <th class="text-center px-4 py-3 no-print font-bold">សកម្មភាព</th>
+            </tr>
+          </thead>
+          <tbody id="stuBoardBody" class="divide-y text-xs"></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -5050,6 +5164,7 @@ function showPage(page, subTab){
     const targetTab = subTab || currentAttendanceTab || 'scan';
     const navMap = {
       'scan': 'sideNavAttScan',
+      'student-board': 'sideNavAttStudentBoard',
       'staff': 'sideNavAttStaff',
       'student': 'sideNavAttStudent',
       'edit-staff': 'sideNavAttEditStaff'
@@ -9961,6 +10076,7 @@ function switchAttTab(tab){
 
   const validTabs = [
     { id: 'scan', btn: 'attTabBtnScan', sec: 'attTabScan', nav: 'sideNavAttScan' },
+    { id: 'student-board', btn: 'attTabBtnStudentBoard', sec: 'attTabStudentBoard', nav: 'sideNavAttStudentBoard' },
     { id: 'staff', btn: 'attTabBtnStaff', sec: 'attTabStaff', nav: 'sideNavAttStaff' },
     { id: 'student', btn: 'attTabBtnStudent', sec: 'attTabStudent', nav: 'sideNavAttStudent' },
     { id: 'edit-staff', btn: 'attTabBtnEditStaff', sec: 'attTabEditStaff', nav: 'sideNavAttEditStaff' }
@@ -9992,6 +10108,9 @@ function switchAttTab(tab){
   if(tab === 'scan'){
     updateLiveScanCounters();
     renderRecentScanFeed();
+  } else if(tab === 'student-board'){
+    initStudentBoardAttFilters();
+    renderStudentBoardAttendance();
   } else if(tab === 'staff'){
     initStaffAttFilters();
     renderStaffAttendance();
@@ -10238,6 +10357,9 @@ function processStudentScan(student, timeStr, timeSecondsStr, isLate, lateMinute
   updateLiveScanCounters();
   if(document.getElementById('attTabStudent') && !document.getElementById('attTabStudent').classList.contains('hidden')){
     renderStudentAttendance();
+  }
+  if(document.getElementById('attTabStudentBoard') && !document.getElementById('attTabStudentBoard').classList.contains('hidden')){
+    renderStudentBoardAttendance();
   }
 }
 
@@ -10597,6 +10719,326 @@ function getUnifiedStaffAndTeachers(){
     });
   });
   return list;
+}
+
+/* ===== TAB: STUDENT ATTENDANCE BOARD (វត្តមានសិស្ស) ===== */
+function populateStudentBoardClassFilter(){
+  const filterEl = document.getElementById('stuBoardClassFilter');
+  if(!filterEl) return;
+  const currentVal = filterEl.value;
+  const curClasses = filterByYear(classes || []);
+  let opts = '<option value="">គ្រប់ថ្នាក់ទាំងអស់</option>';
+  curClasses.forEach(c => {
+    opts += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`;
+  });
+  filterEl.innerHTML = opts;
+  if(currentVal) filterEl.value = currentVal;
+}
+
+function initStudentBoardAttFilters(){
+  const dateInput = document.getElementById('stuBoardDate');
+  if(dateInput && !dateInput.value) dateInput.value = todayKey;
+  populateStudentBoardClassFilter();
+  const yLabel = document.getElementById('stuBoardYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
+}
+
+function filterStudentBoardByClass(className){
+  const filterEl = document.getElementById('stuBoardClassFilter');
+  if(!filterEl) return;
+  if(filterEl.value === className){
+    filterEl.value = '';
+  } else {
+    filterEl.value = className;
+  }
+  renderStudentBoardAttendance();
+}
+
+function renderStudentBoardAttendance(){
+  populateStudentBoardClassFilter();
+  const dateInput = document.getElementById('stuBoardDate');
+  const targetDate = dateInput?.value || todayKey;
+  const cFilter = document.getElementById('stuBoardClassFilter')?.value || '';
+  const statusFilter = document.getElementById('stuBoardStatusFilter')?.value || 'all';
+  const q = document.getElementById('stuBoardSearch')?.value.toLowerCase().trim() || '';
+
+  const dateLabel = document.getElementById('stuBoardDateLabel');
+  if(dateLabel) {
+    try {
+      dateLabel.textContent = new Date(targetDate).toLocaleDateString('km-KH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    } catch(e) {
+      dateLabel.textContent = targetDate;
+    }
+  }
+
+  const yLabel = document.getElementById('stuBoardYearLabel');
+  if(yLabel) yLabel.textContent = getCurrentYearName();
+
+  const overviewDate = document.getElementById('stuBoardClassOverviewDate');
+  if(overviewDate) overviewDate.textContent = targetDate;
+
+  const stuAttKey = 'sms_stu_att_' + targetDate;
+  const dailyStuAtt = JSON.parse(localStorage.getItem(stuAttKey) || '{}');
+
+  const curStudents = filterByYear(students || []);
+  const curClasses = filterByYear(classes || []);
+
+  // 1. Overall stats across all students of current year
+  let totalCount = curStudents.length;
+  let presentCount = 0;
+  let lateCount = 0;
+  let leaveCount = 0;
+  let absentCount = 0;
+
+  curStudents.forEach(s => {
+    const rec = dailyStuAtt[s.id] || {};
+    if(rec.status === 'present') presentCount++;
+    else if(rec.status === 'late') lateCount++;
+    else if(rec.status === 'leave') leaveCount++;
+    else absentCount++;
+  });
+
+  const attRate = totalCount > 0 ? Math.round(((presentCount + lateCount) / totalCount) * 100) : 0;
+
+  const elTotal = document.getElementById('stuBoardTotal');
+  if(elTotal) elTotal.textContent = totalCount;
+  const elPresent = document.getElementById('stuBoardPresent');
+  if(elPresent) elPresent.textContent = presentCount;
+  const elLate = document.getElementById('stuBoardLate');
+  if(elLate) elLate.textContent = lateCount;
+  const elLeave = document.getElementById('stuBoardLeave');
+  if(elLeave) elLeave.textContent = leaveCount;
+  const elAbsent = document.getElementById('stuBoardAbsent');
+  if(elAbsent) elAbsent.textContent = absentCount;
+  const elRate = document.getElementById('stuBoardRate');
+  if(elRate) elRate.textContent = attRate + '%';
+
+  // 2. Class Overview Badges
+  const badgesBox = document.getElementById('stuBoardClassBadges');
+  if(badgesBox){
+    if(!curClasses.length){
+      badgesBox.innerHTML = '<span class="text-xs text-slate-400">មិនទាន់មានថ្នាក់រៀននៅឡើយ</span>';
+    } else {
+      badgesBox.innerHTML = curClasses.map(c => {
+        const clsStudents = curStudents.filter(s => s.className === c.name);
+        const cTotal = clsStudents.length;
+        let cAttended = 0;
+        clsStudents.forEach(s => {
+          const rec = dailyStuAtt[s.id] || {};
+          if(rec.status === 'present' || rec.status === 'late') cAttended++;
+        });
+        const cPercent = cTotal > 0 ? Math.round((cAttended / cTotal) * 100) : 0;
+        const isSelected = cFilter === c.name;
+        
+        let colorClasses = 'bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-400';
+        if(isSelected){
+          colorClasses = 'bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-300';
+        } else if(cPercent >= 90 && cTotal > 0){
+          colorClasses = 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100';
+        } else if(cPercent >= 70 && cTotal > 0){
+          colorClasses = 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100';
+        } else if(cTotal > 0){
+          colorClasses = 'bg-rose-50 text-rose-800 border-rose-200 hover:bg-rose-100';
+        }
+
+        return `
+          <button type="button" onclick="filterStudentBoardByClass('${escapeHtml(c.name)}')" 
+            class="px-3 py-1.5 rounded-xl border text-xs font-semibold flex items-center gap-2 transition cursor-pointer ${colorClasses}"
+            title="ចុចដើម្បីមើលតែថ្នាក់ ${escapeHtml(c.name)}">
+            <span>🏫 ${escapeHtml(c.name)}</span>
+            <span class="${isSelected ? 'bg-white/20 text-white' : 'bg-white/80 text-slate-700'} px-1.5 py-0.5 rounded-md font-mono text-[10px] font-bold border border-black/5">
+              ${cAttended}/${cTotal} (${cPercent}%)
+            </span>
+          </button>
+        `;
+      }).join('');
+    }
+  }
+
+  // 3. Filtered Student Table
+  const filteredStudents = curStudents.filter(s => {
+    const matchClass = !cFilter || s.className === cFilter;
+    const rec = dailyStuAtt[s.id] || {};
+    const effStatus = rec.status || 'absent';
+    const matchStatus = (statusFilter === 'all') || (statusFilter === effStatus);
+    const matchSearch = s.name.toLowerCase().includes(q) || s.code.toLowerCase().includes(q) || (s.className && s.className.toLowerCase().includes(q));
+    return matchClass && matchStatus && matchSearch;
+  });
+
+  const tbody = document.getElementById('stuBoardBody');
+  if(!tbody) return;
+
+  tbody.innerHTML = filteredStudents.map((s, idx) => {
+    const rec = dailyStuAtt[s.id] || {};
+    let statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 font-semibold border border-rose-200">🔴 អវត្តមាន</span>';
+    if(rec.status === 'present'){
+      statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">✅ មានវត្តមាន</span>';
+    } else if(rec.status === 'late'){
+      statusBadge = `<span class="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 font-semibold border border-amber-200">⚠️ មកយឺត (${rec.lateMin || 10} ន.)</span>`;
+    } else if(rec.status === 'leave'){
+      statusBadge = '<span class="text-xs px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 font-semibold border border-purple-200">📝 មានច្បាប់</span>';
+    }
+
+    const photoHtml = s.photo
+      ? `<img src="${s.photo}" class="w-8 h-8 rounded-full object-cover border border-slate-200">`
+      : `<div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">${(s.name||'?')[0]}</div>`;
+
+    return `
+      <tr class="hover:bg-slate-50/80 transition">
+        <td class="text-center px-3 py-3 text-slate-500 font-medium">${idx+1}</td>
+        <td class="px-3 py-3">${photoHtml}</td>
+        <td class="px-4 py-3 font-mono font-bold text-blue-700">${s.code}</td>
+        <td class="px-4 py-3 font-bold text-slate-800">${s.name}</td>
+        <td class="text-center px-3 py-3 text-slate-600">${s.gender || '—'}</td>
+        <td class="text-center px-4 py-3"><span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">${s.className}</span></td>
+        <td class="text-center px-4 py-3 font-mono text-xs font-bold text-slate-700">${rec.checkIn || '--:--'}</td>
+        <td class="text-center px-4 py-3 font-mono text-xs font-bold text-slate-700">${rec.checkOut || '--:--'}</td>
+        <td class="text-center px-4 py-3">${statusBadge}</td>
+        <td class="text-center px-4 py-3 no-print space-x-1 whitespace-nowrap">
+          <button onclick="quickSetStudentBoardStatus(${s.id}, 'present')" class="px-2 py-1 rounded-lg text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer ${rec.status==='present'?'bg-emerald-600 text-white':'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'}" title="កំណត់វត្តមាន">វត្តមាន</button>
+          <button onclick="quickSetStudentBoardStatus(${s.id}, 'late')" class="px-2 py-1 rounded-lg text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer ${rec.status==='late'?'bg-amber-500 text-white':'bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200'}" title="កំណត់យឺត">យឺត</button>
+          <button onclick="quickSetStudentBoardStatus(${s.id}, 'leave')" class="px-2 py-1 rounded-lg text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer ${rec.status==='leave'?'bg-purple-600 text-white':'bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200'}" title="កំណត់ច្បាប់">ច្បាប់</button>
+          <button onclick="quickSetStudentBoardStatus(${s.id}, 'absent')" class="px-2 py-1 rounded-lg text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer ${!rec.status || rec.status==='absent'?'bg-rose-600 text-white':'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'}" title="កំណត់អវត្តមាន">អវត្តមាន</button>
+        </td>
+      </tr>
+    `;
+  }).join('') || '<tr><td colspan="10" class="text-center py-8 text-slate-400">មិនមានទិន្នន័យវត្តមានសិស្សត្រូវនឹងលក្ខខណ្ឌចម្រាញ់ឡើយ</td></tr>';
+}
+
+function quickSetStudentBoardStatus(studentId, status){
+  const dateInput = document.getElementById('stuBoardDate');
+  const targetDate = dateInput?.value || todayKey;
+  const stuAttKey = 'sms_stu_att_' + targetDate;
+  const dailyStuAtt = JSON.parse(localStorage.getItem(stuAttKey) || '{}');
+  const student = students.find(s => s.id === studentId);
+  if(!student) return;
+
+  const now = new Date();
+  const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+
+  if(status === 'absent'){
+    delete dailyStuAtt[studentId];
+  } else {
+    dailyStuAtt[studentId] = {
+      id: student.id,
+      code: student.code,
+      name: student.name,
+      className: student.className,
+      checkIn: dailyStuAtt[studentId]?.checkIn || (status === 'leave' ? '' : timeStr),
+      checkOut: dailyStuAtt[studentId]?.checkOut || '',
+      status: status,
+      date: targetDate,
+      yearId: currentYearId
+    };
+  }
+
+  localStorage.setItem(stuAttKey, JSON.stringify(dailyStuAtt));
+  renderStudentBoardAttendance();
+  if(document.getElementById('attTabStudent') && !document.getElementById('attTabStudent').classList.contains('hidden')){
+    renderStudentAttendance();
+  }
+  updateLiveScanCounters();
+  updateDashboard();
+}
+
+function exportStudentBoardExcel(){
+  const dateInput = document.getElementById('stuBoardDate');
+  const targetDate = dateInput?.value || todayKey;
+  const cFilter = document.getElementById('stuBoardClassFilter')?.value || 'គ្រប់ថ្នាក់';
+  const statusFilter = document.getElementById('stuBoardStatusFilter')?.value || 'all';
+  const q = document.getElementById('stuBoardSearch')?.value.toLowerCase().trim() || '';
+
+  const stuAttKey = 'sms_stu_att_' + targetDate;
+  const dailyStuAtt = JSON.parse(localStorage.getItem(stuAttKey) || '{}');
+  const curStudents = filterByYear(students || []);
+
+  const filtered = curStudents.filter(s => {
+    const matchClass = !cFilter || cFilter === 'គ្រប់ថ្នាក់' || s.className === cFilter;
+    const rec = dailyStuAtt[s.id] || {};
+    const effStatus = rec.status || 'absent';
+    const matchStatus = (statusFilter === 'all') || (statusFilter === effStatus);
+    const matchSearch = s.name.toLowerCase().includes(q) || s.code.toLowerCase().includes(q);
+    return matchClass && matchStatus && matchSearch;
+  });
+
+  const list = filtered.map((s, i) => {
+    const rec = dailyStuAtt[s.id] || {};
+    const statusText = rec.status === 'present' ? 'មានវត្តមាន' : rec.status === 'late' ? `មកយឺត (${rec.lateMin||10}ន.)` : rec.status === 'leave' ? 'មានច្បាប់' : 'អវត្តមាន';
+    return {
+      'ល.រ': i + 1,
+      'អត្តលេខ': s.code,
+      'គោត្តនាម-នាម': s.name,
+      'ភេទ': s.gender || '—',
+      'ថ្នាក់រៀន': s.className,
+      'Check-in': rec.checkIn || '—',
+      'Check-out': rec.checkOut || '—',
+      'ស្ថានភាព': statusText,
+      'កាលបរិច្ឆេទ': targetDate
+    };
+  });
+
+  downloadExcel(list, 'វត្តមានសិស្ស', `វត្តមានសិស្ស_${cFilter}_${targetDate}`);
+}
+
+function previewStudentBoardPDF(){
+  const dateInput = document.getElementById('stuBoardDate');
+  const targetDate = dateInput?.value || todayKey;
+  const cFilter = document.getElementById('stuBoardClassFilter')?.value || 'គ្រប់ថ្នាក់ទាំងអស់';
+  const statusFilter = document.getElementById('stuBoardStatusFilter')?.value || 'all';
+  const q = document.getElementById('stuBoardSearch')?.value.toLowerCase().trim() || '';
+
+  const stuAttKey = 'sms_stu_att_' + targetDate;
+  const dailyStuAtt = JSON.parse(localStorage.getItem(stuAttKey) || '{}');
+  const curStudents = filterByYear(students || []);
+
+  const filtered = curStudents.filter(s => {
+    const matchClass = !cFilter || cFilter === 'គ្រប់ថ្នាក់ទាំងអស់' || s.className === cFilter;
+    const rec = dailyStuAtt[s.id] || {};
+    const effStatus = rec.status || 'absent';
+    const matchStatus = (statusFilter === 'all') || (statusFilter === effStatus);
+    const matchSearch = s.name.toLowerCase().includes(q) || s.code.toLowerCase().includes(q);
+    return matchClass && matchStatus && matchSearch;
+  });
+
+  const rows = filtered.map((s, i) => {
+    const rec = dailyStuAtt[s.id] || {};
+    const statusText = rec.status === 'present' ? 'មានវត្តមាន' : rec.status === 'late' ? `មកយឺត (${rec.lateMin||10}ន.)` : rec.status === 'leave' ? 'មានច្បាប់' : 'អវត្តមាន';
+    return `
+      <tr class="border-b text-xs">
+        <td class="py-2 px-3 text-center">${i+1}</td>
+        <td class="py-2 px-3 font-semibold text-blue-700">${s.code}</td>
+        <td class="py-2 px-3 font-medium">${s.name}</td>
+        <td class="py-2 px-3 text-center">${s.gender || '—'}</td>
+        <td class="py-2 px-3 text-center">${s.className}</td>
+        <td class="py-2 px-3 text-center font-mono">${rec.checkIn || '—'}</td>
+        <td class="py-2 px-3 text-center font-mono">${rec.checkOut || '—'}</td>
+        <td class="py-2 px-3 text-center">${statusText}</td>
+      </tr>
+    `;
+  }).join('');
+
+  const html = `
+    <div>
+      ${getOfficialKhmerHeader('បញ្ជីវត្តមានសិស្សានុសិស្សប្រចាំថ្ងៃ', `កាលបរិច្ឆេទ៖ ${targetDate} • ថ្នាក់៖ ${cFilter}`)}
+      <table class="w-full text-left border-collapse border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100 border-b text-xs font-semibold text-gray-700">
+            <th class="py-2 px-3 text-center w-12">ល.រ</th>
+            <th class="py-2 px-3">អត្តលេខ</th>
+            <th class="py-2 px-3">គោត្តនាម-នាម</th>
+            <th class="py-2 px-3 text-center">ភេទ</th>
+            <th class="py-2 px-3 text-center">ថ្នាក់</th>
+            <th class="py-2 px-3 text-center">Check-in</th>
+            <th class="py-2 px-3 text-center">Check-out</th>
+            <th class="py-2 px-3 text-center">ស្ថានភាព</th>
+          </tr>
+        </thead>
+        <tbody>${rows || '<tr><td colspan="8" class="text-center py-4 text-gray-400">មិនមានទិន្នន័យ</td></tr>'}</tbody>
+      </table>
+      ${getOfficialKhmerFooter()}
+    </div>
+  `;
+  openPdfModal('បញ្ជីវត្តមានសិស្ស (PDF)', `Student_Board_${cFilter}_${targetDate}`, html);
 }
 
 /* ===== TAB 2: STAFF & TEACHER ATTENDANCE (វត្តមានមន្ត្រី & គ្រូ) ===== */
@@ -10980,6 +11422,9 @@ function setStudentAttStatus(studentId, status){
 
   localStorage.setItem(stuAttKey, JSON.stringify(dailyStuAtt));
   renderStudentAttendance();
+  if(document.getElementById('attTabStudentBoard') && !document.getElementById('attTabStudentBoard').classList.contains('hidden')){
+    renderStudentBoardAttendance();
+  }
   updateLiveScanCounters();
   updateDashboard();
 }
@@ -11022,6 +11467,9 @@ function markAllCurrentStudentsPresent(){
 
   localStorage.setItem(stuAttKey, JSON.stringify(dailyStuAtt));
   renderStudentAttendance();
+  if(document.getElementById('attTabStudentBoard') && !document.getElementById('attTabStudentBoard').classList.contains('hidden')){
+    renderStudentBoardAttendance();
+  }
   updateLiveScanCounters();
   updateDashboard();
   showToast(`បានកំណត់វត្តមានសិស្សចំនួន ${allStudents.length} នាក់រួចរាល់!`, 'success');
